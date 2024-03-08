@@ -1,0 +1,14 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: System Monitor for python/Tk
+Upstream-Contact: Stacey Adams <stacey.belle.rose@gmail.com>
+Source: https://github.com/staceybellerose/sysmon-pytk
+
+# Sample paragraph, commented out:
+#
+# Files: src/*
+# Copyright: $YEAR $NAME <$CONTACT>
+# License: ...
+
+Files: mypy/stubs/*
+Copyright: 2024 Stacey Adams <stacey.belle.rose@gmail.com>
+License: Unlicense

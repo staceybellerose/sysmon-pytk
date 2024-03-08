@@ -1,0 +1,40 @@
+{
+  // SPDX-FileCopyrightText: © 2024 Stacey Adams <stacey.belle.rose@gmail.com>
+  // SPDX-License-Identifier: Unlicense
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Generate POT translation file",
+      "type": "shell",
+      "command": "xgettext",
+      "args": [
+        "--default-domain=app",
+        "--output=app.pot",
+        "--output-dir=${workspaceFolder}/locale",
+        "--verbose",
+        "--add-location=full",
+        "--width=79",
+        "--copyright-holder=\"Stacey Adams <stacey.belle.rose@gmail.com>\"",
+        "--package-name=sysmon-pytk",
+        "--package-version=0.2.0",
+        "--msgid-bugs-address=stacey.belle.rose@gmail.com",
+        "*.py"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Generate PO translation files from POT",
+      "type": "shell",
+      "command": "bash -c 'cd \"${workspaceFolder}/locale\" ; for d in * ; do if [ -d \"$d\" ] ; then if [ -f \"$d/LC_MESSAGES/app.po\" ] ; then msgmerge --add-location=full --width=79 --update \"$d/LC_MESSAGES/app.po\" app.pot ; else cp -v app.pot \"$d/LC_MESSAGES/app.po\" ; fi ; fi ; done'",
+      "problemMatcher": []
+    },
+    {
+      "label": "Compile MO translation files from PO files",
+      "type": "shell",
+      "command": "bash -c 'cd \"${workspaceFolder}/locale\" ; for d in * ; do if [ -d \"$d\" ] ; then pushd \"$d/LC_MESSAGES\" ; msgfmt -o app.mo app.po -v ; popd ; fi ; done'",
+      "problemMatcher": []
+    }
+  ]
+}

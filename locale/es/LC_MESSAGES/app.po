@@ -1,0 +1,289 @@
+# System monitor written in Python using Tk.
+# SPDX-FileCopyrightText: © 2024 Stacey Adams <stacey.belle.rose@gmail.com>
+# SPDX-License-Identifier: MIT
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: sysmon-pytk 0.2.0\n"
+"Report-Msgid-Bugs-To: stacey.belle.rose@gmail.com\n"
+"POT-Creation-Date: 2024-03-08 02:27-0600\n"
+"PO-Revision-Date: 2024-03-08 02:27-0600\n"
+"Last-Translator: Stacey Adams <stacey.belle.rose@gmail.com>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: about.py:14
+msgid "MIT License"
+msgstr "Licencia MIT"
+
+#: about.py:18
+msgid ""
+"sysmon-pytk is a system monitor. It monitors CPU usage and temperature, RAM "
+"usage, and disk usage of the primary disk (containing the root partition). "
+"It also displays the system's hostname, IP address, uptime, and current "
+"process count."
+msgstr ""
+"sysmon-pytk es un monitor del sistema. Monitorea el uso y la temperatura de "
+"la CPU, el uso de RAM y el uso del disco primario (que contiene la partición "
+"raíz). También muestra el nombre de host del sistema, la dirección IP, el "
+"tiempo de actividad y el recuento de procesos actuales."
+
+#: main.py:28
+msgid "System Monitor"
+msgstr "Monitoreo del sistema"
+
+#: main.py:160
+msgid "CPU Usage"
+msgstr "Uso de CPU"
+
+#: main.py:165
+msgid "Click for per-CPU usage"
+msgstr "Clic para ver el uso por CPU"
+
+#: main.py:169
+msgid "Temperature"
+msgstr "Temperatura"
+
+#: main.py:173
+msgid "Click for detailed temperature readings"
+msgstr "Clic para ver todos los sensores de temperatura"
+
+#: main.py:176
+msgid "RAM Usage"
+msgstr "Uso de RAM"
+
+#: main.py:180
+msgid "Click for detailed memory statistics"
+msgstr "Clic para obtener estadísticas detalladas de la memoria"
+
+#: main.py:183
+msgid "Disk Usage: /"
+msgstr "Uso del disco: /"
+
+#: main.py:187
+msgid "Click for usage details of each mount point"
+msgstr "Clic para obtener detalles de uso de cada punto de montaje"
+
+#: main.py:199
+msgid "File"
+msgstr "Archivo"
+
+#: main.py:203
+msgid "About"
+msgstr "Acerca de"
+
+#: main.py:203
+msgid "Ctrl+A"
+msgstr "Ctrl+A"
+
+#: main.py:207
+msgid "Preferences"
+msgstr "Preferencias"
+
+#: main.py:207
+msgid "Ctrl+Shift+P"
+msgstr "Ctrl+Mayús+P"
+
+#: main.py:211
+msgid "Restart"
+msgstr "Reiniciar"
+
+#: main.py:211
+msgid "Ctrl+R"
+msgstr "Ctrl+R"
+
+#: main.py:216
+msgid "Quit"
+msgstr "Salir"
+
+#: main.py:216
+msgid "Ctrl+Q"
+msgstr "Ctrl+Q"
+
+#: main.py:257
+msgid "{} :: CPU Details"
+msgstr "{} :: Detalles de la CPU"
+
+#: main.py:263
+msgid "{} :: Temperature Details"
+msgstr "{} :: Detalles de temperatura"
+
+#: main.py:269
+msgid "{} :: Memory Usage"
+msgstr "{} :: Uso de memoria"
+
+#: main.py:275
+msgid "{} :: Disk Usage"
+msgstr "{} :: Uso del disco"
+
+#: main.py:281
+msgid "{} Preferences"
+msgstr "{} Preferencias"
+
+#: main.py:308
+msgid "Hostname: {}"
+msgstr "Nombre del host: {}"
+
+#: main.py:309
+msgid "IP Address: {}"
+msgstr "Dirección IP: {}"
+
+#: main.py:310
+msgid "Processes: {}"
+msgstr "Recuento de procesos: {}"
+
+#: main.py:311
+msgid "Uptime: {}"
+msgstr "Tiempo de actividad: {}"
+
+#: settings.py:51 tkmodal.py:649
+msgid "Bold"
+msgstr "Negrita"
+
+#: settings.py:53 tkmodal.py:653
+msgid "Italic"
+msgstr "Cursiva"
+
+#: settings.py:55 tkmodal.py:657
+msgid "Bold Italic"
+msgstr "Cursiva negrita"
+
+#: tkabout.py:49
+msgid "About {}"
+msgstr "Acerca del {}"
+
+#: tkabout.py:86
+msgid "Version {}"
+msgstr "Versión {}"
+
+#: tkabout.py:103
+msgid "Source Code"
+msgstr "Código fuente"
+
+#: tkabout.py:140
+msgid "Full license text available here"
+msgstr "Texto completo de la licencia disponible aquí"
+
+#: tkabout.py:144
+msgid "License"
+msgstr "Licencia"
+
+#: tkabout.py:147 tkmodal.py:156 tkmodal.py:221 tkmodal.py:306 tkmodal.py:373
+msgid "Close"
+msgstr "Cerrar"
+
+#: tkmodal.py:119
+msgid "per-core CPU Usage"
+msgstr "uso del CPU por núcleo"
+
+#: tkmodal.py:127 tkmodal.py:145
+msgid "CPU #{}"
+msgstr "CPU #{}"
+
+#: tkmodal.py:137
+msgid "per-core CPU Frequency (in MHz)"
+msgstr "Frecuencia de CPU pro núcleo (en MHz)"
+
+#: tkmodal.py:195
+msgid "Temperature Sensors"
+msgstr "Sensores de temperatura"
+
+#: tkmodal.py:238
+#, python-brace-format
+msgid "{current}°C (high = {high}°C, critical = {critical}°C)"
+msgstr "{current}°C (alta = {high}°C, critica = {critical}°C)"
+
+#: tkmodal.py:277
+msgid "Memory Statistics"
+msgstr "Estadísticas de memoria"
+
+#: tkmodal.py:280
+msgid "Virtual Memory"
+msgstr "memoria virtual"
+
+#: tkmodal.py:284
+msgid "Swap Memory"
+msgstr "memoria de intercambio"
+
+#: tkmodal.py:353
+msgid "Disk Usage"
+msgstr "Uso del disco"
+
+#: tkmodal.py:446
+msgid "Language"
+msgstr "Idioma"
+
+#: tkmodal.py:456
+msgid "Theme"
+msgstr "Tema"
+
+#: tkmodal.py:462
+msgid "Light"
+msgstr "Claro"
+
+#: tkmodal.py:463
+msgid "Dark"
+msgstr "Oscuro"
+
+#: tkmodal.py:464
+msgid "Same as System"
+msgstr "Igual que en el sistema"
+
+#: tkmodal.py:474
+msgid "Always on top"
+msgstr "Siempre encima"
+
+#: tkmodal.py:478
+msgid "Regular Font"
+msgstr "Fuente normal"
+
+#: tkmodal.py:488
+msgid "Monospace Font"
+msgstr "Fuente monoespaciada"
+
+#: tkmodal.py:499 tkmodal.py:698
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: tkmodal.py:502 tkmodal.py:701
+msgid "OK"
+msgstr "OK"
+
+#: tkmodal.py:566
+msgid "Choose Font"
+msgstr "Elege fuente"
+
+#: tkmodal.py:609
+msgid "Font"
+msgstr "Fuente"
+
+#: tkmodal.py:638
+msgid "Style"
+msgstr "Estilo"
+
+#: tkmodal.py:645
+msgid "Regular"
+msgstr "Regular"
+
+#: tkmodal.py:662
+msgid "Effects"
+msgstr "Efectos"
+
+#: tkmodal.py:669
+msgid "Underline"
+msgstr "Subrayada"
+
+#: tkmodal.py:673
+msgid "Overstrike"
+msgstr "Tachado"
+
+#: tkmodal.py:678
+msgid "Size"
+msgstr "Tamaño"
+
+#: tkmodal.py:684
+msgid "Preview"
+msgstr "Previsualización"

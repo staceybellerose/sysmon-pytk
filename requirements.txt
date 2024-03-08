@@ -1,0 +1,5 @@
+# SPDX-FileCopyrightText: © 2024 2024 Stacey Adams <stacey.belle.rose@gmail.com>
+# SPDX-License-Identifier: Unlicense
+
+darkdetect==0.8.0
+psutil >= 5.8.0, < 6.0

@@ -1,3 +1,20 @@
+# SPDX-FileCopyrightText: © 2016 GitHub
+# SPDX-License-Identifier: CC0-1.0
+
+# Project - Generated files
+
+sysmon.ini
+
+# IDE - VSCode
+
+.vscode/*
+!.vscode/tasks.json
+!.vscode/*.code-snippets
+.history/
+*.vsix
+
+# Language - Python
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -53,6 +70,7 @@ cover/
 
 # Translations
 *.mo
+*.po~
 *.pot
 
 # Django stuff:
