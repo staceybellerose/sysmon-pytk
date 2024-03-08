@@ -49,6 +49,24 @@ $ source venv/bin/activate
 (venv) $ pip install -r requirements.txt
 ```
 
+### Generate translation files
+
+Translations are available in English and Spanish. To build the translation
+files, run the following bash commands:
+
+```bash
+cd locale
+for d in *
+do
+    if [ -d "$d" ]
+    then
+        pushd "$d/LC_MESSAGES"
+        msgfmt -o app.mo app.po -v
+        popd
+    fi
+done
+```
+
 ## Running
 
 ```bash
