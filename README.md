@@ -13,6 +13,14 @@ and current process count.
 
 ## Installation
 
+Note when cloning this repo that it has a submodule
+[Azure ttk theme](https://github.com/rdbende/Azure-ttk-theme)
+which must be copied over:
+
+```bash
+git clone --recurse-submodules https://github.com/staceybellerose/sysmon-pytk.git
+```
+
 ### Install the Python interface to Tcl/Tk (tkinter)
 
 * Debian, Ubuntu, and derivatives
@@ -44,5 +52,5 @@ $ source venv/bin/activate
 ## Running
 
 ```bash
-(venv) $ python tk_monitor.py
+(venv) $ python main.py &
 ```
