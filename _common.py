@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: © 2024 Stacey Adams <stacey.belle.rose [AT] gmail [DOT] com>
+# SPDX-FileCopyrightText: © 2024 Stacey Adams <stacey.belle.rose@gmail.com>
 # SPDX-License-Identifier: MIT
 
 """
@@ -38,6 +38,20 @@ def bytes2human(num: int, precision: int = 1) -> str:
     """
     Convert a byte count to a human-readable format, with a given precision.
 
+    Parameters
+    ----------
+    num : int
+        The number to format.
+    precision : int, optional
+        The number of decimals to use for display.
+
+    Returns
+    -------
+    str
+        The number in human-readable format.
+
+    Examples
+    --------
     >>> bytes2human(10000)
     '9.8KiB'
     >>> bytes2human(100001221)
@@ -59,6 +73,23 @@ def bytes2human(num: int, precision: int = 1) -> str:
 def bytes2whole(num: int):
     """
     Convert a byte count to a human-readable format, with no decimal.
+
+    Parameters
+    ----------
+    num : int
+        The number to format.
+
+    Returns
+    -------
+    str
+        The number in human-readable format.
+
+    Examples
+    --------
+    >>> bytes2whole(10000)
+    '10KiB'
+    >>> bytes2whole(100001221)
+    '95MiB'
     """
     return bytes2human(num, precision=0)
 
@@ -66,6 +97,25 @@ def bytes2whole(num: int):
 def digits(numstr: str) -> List[int]:
     """
     Return a list of numbers in a string.
+
+    Parameters
+    ----------
+    numstr : str
+        A string containing various numbers.
+
+    Returns
+    -------
+    List[int]
+        A list of integers extracted from the string.
+
+    Examples
+    --------
+    >>> digits("")
+    []
+    >>> digits("8.5MiB")
+    [8, 5]
+    >> digits("13. Notes vol. 22, pp. 585-588, 1996.")
+    [13, 22, 585, 588, 1996]
     """
     return [int(s) for s in re.findall(r'\d+', numstr)]
 
@@ -78,6 +128,18 @@ def cpu_temp(as_string: bool = False) -> Union[float, str]:
     ----------
     as_string: bool
         a flag indicating whether to return a string or a float.
+
+    Returns
+    -------
+    float | str
+        The current CPU temperature, possibly formatted as a string.
+
+    Examples
+    --------
+    >>> cpu_temp(as_string: True)
+    "41.0°C"
+    >>> cpu_temp(False)
+    41.0
     """
     temps = psutil.sensors_temperatures()
     key = 'coretemp' if 'coretemp' in temps else list(temps)[0]
@@ -87,6 +149,11 @@ def cpu_temp(as_string: bool = False) -> Union[float, str]:
 def net_addr() -> str:
     """
     Get the first non-loopback network address.
+
+    Returns
+    -------
+    str
+        The discovered network address.
     """
     addresses = psutil.net_if_addrs()
     for nic, address_list in addresses.items():
@@ -100,6 +167,22 @@ def net_addr() -> str:
 def system_uptime() -> str:
     """
     Return the system uptime in a human-readable format.
+
+    Returns
+    -------
+    str
+        The current system uptime in a human-readable format.
+
+    Examples
+    --------
+    >>> system_uptime()  # for a system just rebooted
+    "47 sec"
+    >>> system_uptime()  # five minutes later
+    "5m 47s"
+    >>> system_uptime()  # 2 hours later
+    "2h 5m 47s"
+    >>> system_uptime()  # 8 days later
+    "8d 2h 5m"
     """
     uptime = time.time() - psutil.boot_time()
     uptime_minutes, uptime_seconds = divmod(uptime, 60)
@@ -122,6 +205,16 @@ def disk_usage(mountpoint: str) -> str:
     ----------
     mountpoint: str
         a filesystem path belonging to the desired mount point.
+
+    Returns
+    -------
+    str
+        A human-readable string of the disk usage.
+
+    Example
+    -------
+    >>> disk_usage("/")
+    "32GiB/199GiB 17%"
     """
     diskinfo = psutil.disk_usage(mountpoint)
     used_fmt = bytes2whole(diskinfo.used)
@@ -142,6 +235,22 @@ def is_dark(hexcolor: str) -> bool:
     ----------
     hexcolor: str
         a string with the format "#xxxxxx" where x is a hex digit (0-9, A-F)
+
+    Returns
+    -------
+    bool
+        True when the color is determined to be dark; False otherwise.
+
+    Examples
+    --------
+    >>> is_dark("#000000")
+    True
+    >>> is_dark("#ffffff")
+    False
+    >>> is_dark("#123456")
+    True
+    >>> is_dark("#449F55")
+    False
     """
     assert len(hexcolor) == 7
     assert hexcolor[:1] == "#"
@@ -190,6 +299,36 @@ def modify_named_font(  # pylint: disable=too-many-arguments
 ) -> Font:
     """
     Modify a named font by optionally changing weight, size, slant, etc.
+
+    Parameters
+    ----------
+    font_name : str
+        The name of the font to use
+    size : int, optional
+        The font size to use
+    weight : Literal['normal', 'bold'], optional
+        The font weight to use
+    slant : Literal['roman', 'italic'], optional
+        The font slant to use
+    underline : bool, optional
+        Whether the font should be underlined
+    overstrike : bool, optional
+        Whether the font should have strikethrough
+
+    Returns
+    -------
+    Font
+        A new font, with the parameters given.
+
+    Example
+    -------
+    >>> modify_named_font("TkDefaultFont", size=13, weight="bold").actual()
+    {   'family': 'Bitstream Vera Sans',
+        'size': 13,
+        'weight': 'bold',
+        'slant': 'roman',
+        'underline': 0,
+        'overstrike': 0 }
     """
     if font_name in font.names():
         fnt = font.nametofont(font_name).actual()

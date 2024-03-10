@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 """
-Locale management
+Locale management.
 """
 
 import os

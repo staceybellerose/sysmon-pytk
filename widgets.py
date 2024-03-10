@@ -20,12 +20,27 @@ class ToolTip:
     """
     Display a hovering tooltip while the mouse is over a given widget.
 
-    Parameters
-    ==========
-        parent: the parent widget
-        text: the text to display in the tooltip
+    Attributes
+    ----------
+    tooltip : tk.Toplevel
+        The actual tooltip popup.
+    parent : BaseWidget
+        The parent widget, which will host the tooltip.
+    text : str
+        The text to display in the tooltip.
     """
+
     def __init__(self, parent: BaseWidget, text: str = ''):
+        """
+        Construct a tooltip.
+
+        Parameters
+        ----------
+        parent : BaseWidget
+            The parent widget, which will host the tooltip.
+        text : str
+            The text to display in the tooltip.
+        """
         self.tooltip: Optional[tk.Toplevel] = None
         self.parent = parent
         self.text = text
@@ -63,15 +78,32 @@ class ToolTip:
 
 class DropDown(ttk.Combobox):
     """
-    A Combobox that takes a dict for values. Dict keys are used for display,
-    and dict values are used for the value set or returned.
+    A Combobox that takes a dict for values.
 
-    Parameters
-    ==========
-        parent: the parent widget
-        dictionary: the dictionary to use
+    Dict keys are used for display, and dict values are used for the
+    value set or returned.
+
+    Attributes
+    ----------
+    dictionary : dict
+        The dictionary to use in the dropdown.
     """
-    def __init__(self, parent, dictionary: Dict, *args, **kwargs):
+
+    def __init__(self, parent: BaseWidget, dictionary: Dict, *args, **kwargs):
+        """
+        Construct a dropdown widget.
+
+        Parameters
+        ----------
+        parent : BaseWidget
+            The parent widget.
+        dictionary : dict
+            The dictionary to use in the dropdown.
+        *args : tuple, optional
+            Additional arguments for initializing a `Combobox`.
+        **kwargs : dict, optional
+            Additional keyword arguments for a `Combobox`.
+        """
         super().__init__(
             parent, values=sorted(list(dictionary.keys())),
             *args, **kwargs
@@ -98,17 +130,34 @@ class UrlLabel(ttk.Label):
     """
     A label containing a clickable URL.
 
-    Parameters
-    ==========
-        text: a str containing the displayed text
-        url: a str containing the URL
-        style: a str containing the Tcl/Tk style to use
-        show_tooltip: a bool used to determine whether to show a tooltip containing the URL
+    Attributes
+    ----------
+    url : str
+        The URL to use when opening a web browser.
     """
+
     def __init__(
-        self, parent, text: str, url: str,
+        self, parent: BaseWidget, text: str, url: str,
         style: str = 'URL.TLabel', show_tooltip: bool = False, **kw
     ) -> None:
+        """
+        Construct a Label with a clickable URL.
+
+        Parameters
+        ----------
+        parent : BaseWidget
+            The parent widget.
+        text : str
+            The text to display in the label.
+        url : str
+            The URL to use when opening a web browser.
+        style : str
+            A Tcl/Tk style to use for display.
+        show_tooltip : bool
+            A flag to indicate whether to show a tooltip containing the URL.
+        **kw : dict, optional
+            Additional keyword arguments for a `Label`.
+        """
         self.url = url
         cursor = 'hand2' if self._has_web_protocol() else 'arrow'
         super().__init__(parent, cursor=cursor, style=style, text=text, **kw)
@@ -146,13 +195,45 @@ class UrlLabel(ttk.Label):
 
 class ScaleSpinner(ttk.Frame):
     """
-    Combination of a Scale and Spinner, with an optional Label.
+    Combination of a Scale and Spinbox, with an optional Label.
+
+    Attributes
+    ----------
+    variable : Variable
+        The control variable which maintains the selected value.
+    as_int : bool
+        A flag indicating whether to round the values from the `Scale`.
+    scale : Scale
+        The `Scale` widget managed by this widget.
+    spinbox : Spinbox
+        The `Spinbox` widget managed by this widget.
     """
+
     def __init__(
             self, parent: BaseWidget, variable: Variable, *,
             text: Optional[str] = None, length: int = 100, from_: float = 0,
             to: float = 100, as_int: bool = False
     ):
+        """
+        Construct a frame containing a Scale, a Spinbox, and an optional Label.
+
+        Parameters
+        ----------
+        parent : BaseWidget
+            The parent widget.
+        variable : Variable
+            The control variable which maintains the selected value.
+        text : str, optional
+            The text to display as a `Label`.
+        length : int, default: 100
+            The length of the `Scale` widget.
+        from_ : float, default: 0.0
+            The smallest value allowed for the `Scale` and `Spinbox`.
+        to : float, default: 100.0
+            The largest value allowed for the `Scale` and `Spinbox`.
+        as_int : bool, default: False
+            A flag indicating whether to round the values from the `Scale`.
+        """
         super().__init__(parent)
         self.variable = variable
         self.as_int = as_int

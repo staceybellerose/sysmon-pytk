@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 """
-Meter widget
+Meter widget.
 """
 
 # These lint errors don't make sense for GUI widgets, so are disabled here.
@@ -19,6 +19,7 @@ class Meter(tk.Frame):
     """
     Shows a meter widget, like a speedometer.
     """
+
     GREEN = "#0a0"
     YELLOW = "#dd0"
     RED = "#d00"
@@ -32,6 +33,7 @@ class Meter(tk.Frame):
         """
         Various canvas objects that need to be tracked.
         """
+
         label1: int = 0
         min_value: int = 0
         max_value: int = 0
@@ -262,6 +264,7 @@ class Meter(tk.Frame):
         self.var.set(value)
 
     def bind(self, sequence=None, func=None, add=None):
-        # Pass events through to the canvas,
-        # since frames don't normally respond to them
+        """
+        Pass events through to the canvas, since frames don't normally respond to them.
+        """
         return self.canvas.bind(sequence, func, add)

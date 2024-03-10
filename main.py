@@ -32,6 +32,7 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
     """
     System monitor application.
     """
+
     def __init__(self, parent=None):
         super().__init__(parent)
         self.title(APP_TITLE)
@@ -239,6 +240,9 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         self._disk_meter.bind("<Button-1>", self._on_disk_usage)
 
     def _on_about(self, *_args):
+        """
+        Open the About modal dialog.
+        """
         metadata = tkabout.AboutMetadata(
             about.__app_name__, about.__version__, about.__author__,
             about.__copyright_year__, about.__summary__, about.__url__,
@@ -255,30 +259,45 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         os.execl(sys.executable, 'python3', __file__, *sys.argv[1:])
 
     def _on_cpu_details(self, *_args):
+        """
+        Open the CPU Details modal dialog.
+        """
         CpuDialog(
             self, title=_("{} :: CPU Details").format(APP_TITLE),
             iconpath=_common.get_full_path("icon.png")
         )
 
     def _on_temp_details(self, *_args):
+        """
+        Open the Temperature Details modal dialog.
+        """
         TempDetailsDialog(
             self, title=_("{} :: Temperature Details").format(APP_TITLE),
             iconpath=_common.get_full_path("icon.png")
         )
 
     def _on_mem_details(self, *_args):
+        """
+        Open the Memory Usage modal dialog.
+        """
         MemUsageDialog(
             self, title=_("{} :: Memory Usage").format(APP_TITLE),
             iconpath=_common.get_full_path("icon.png")
         )
 
     def _on_disk_usage(self, *_args):
+        """
+        Open the Disk Usage modal dialog.
+        """
         DiskUsageDialog(
             self, title=_("{} :: Disk Usage").format(APP_TITLE),
             iconpath=_common.get_full_path("icon.png")
         )
 
     def _on_settings(self, *_args):
+        """
+        Open the Settings modal dialog and process any changes afterward.
+        """
         SettingsDialog(
             self.settings, self, _("{} Preferences").format(APP_TITLE),
             iconpath=_common.get_full_path("icon.png")

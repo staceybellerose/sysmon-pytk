@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 """
-Modal dialogs
+Modal dialogs.
 """
 
 from abc import abstractmethod
@@ -23,11 +23,36 @@ from app_locale import _, LANGUAGES
 class ModalDialog(tk.Toplevel):
     """
     Base class for modal dialogs.
+
+    Attributes
+    ----------
+    parent : Misc, optional
+        The parent widget.
+    iconpath : str, optional
+        The path to the icon to display in the window title bar.
+    internal_frame : Frame
+        A `Frame` to manage the widgets added to the dialog.
     """
+
     def __init__(
         self, parent=None, title: Optional[str] = None,
         iconpath: Optional[str] = None, class_: str = "ModalDialog"
     ):
+        """
+        Construct a modal dialog.
+
+        Parameters
+        ----------
+        parent : Misc, optional
+            The parent widget.
+        title : str, optional
+            The title to display in the window title bar.
+        iconpath : str, optional
+            The path to the icon to display in the window title bar.
+        class_ : str, default: "ModalDialog"
+            The class name of this modal dialog, used with the option database
+            for styling.
+        """
         super().__init__(parent, class_=class_)
         self.parent = parent
         self.title(title)
@@ -52,8 +77,9 @@ class ModalDialog(tk.Toplevel):
     @final
     def dismiss(self, *_args):
         """
-        Dismiss the modal dialog. This should be bound to Cancel and Close
-        buttons in subclasses.
+        Dismiss the modal dialog.
+
+        This should be bound to Cancel and Close buttons in subclasses.
         """
         self.grab_release()
         self.destroy()
@@ -61,8 +87,9 @@ class ModalDialog(tk.Toplevel):
     @final
     def save_and_dismiss(self, *_args):
         """
-        Save what was entered in the modal dialog and dismiss it. This should
-        be bound to OK and Save buttons in subclasses.
+        Save what was entered in the modal dialog and dismiss it.
+
+        This should be bound to OK and Save buttons in subclasses.
         """
         self.on_save()
         self.dismiss()
@@ -95,14 +122,31 @@ class ModalDialog(tk.Toplevel):
 class CpuDialog(ModalDialog):
     """
     Display individual CPU core usage details in a modal dialog.
+
+    Attributes
+    ----------
+    cpu_count : int
+        The number of logical CPUs in the system.
     """
+
     def on_save(self):
-        pass
+        """
+        Save what was entered in the modal dialog.
+
+        This dialog does not need a save feature.
+        """
 
     def init_styles(self):
-        pass
+        """
+        Initialize the styles used in the modal dialog.
 
-    def create_widgets(self):
+        This dialog does not require additional styles.
+        """
+
+    def create_widgets(self) -> None:
+        """
+        Create the widgets to be displayed in the modal dialog.
+        """
         self.cpu_count = psutil.cpu_count()
         cpu_model = _common.get_processor_name()
         max_columns = 4
@@ -161,6 +205,9 @@ class CpuDialog(ModalDialog):
         )
 
     def update_screen(self):
+        """
+        Update the modal dialog window.
+        """
         usage = psutil.cpu_percent(interval=None, percpu=True)
         for core in range(self.cpu_count):
             self._meters[core].set_value(usage[core])
@@ -174,13 +221,25 @@ class TempDetailsDialog(ModalDialog):
     """
     Display detailed temperature readings in a modal dialog.
     """
+
     def on_save(self):
-        pass
+        """
+        Save what was entered in the modal dialog.
+
+        This dialog does not need a save feature.
+        """
 
     def init_styles(self):
-        pass
+        """
+        Initialize the styles used in the modal dialog.
+
+        This dialog does not require additional styles.
+        """
 
     def create_widgets(self):
+        """
+        Create the widgets to be displayed in the modal dialog.
+        """
         self._readings = []
         frame = ttk.Frame(self)
         frame.grid()
@@ -226,6 +285,9 @@ class TempDetailsDialog(ModalDialog):
         )
 
     def update_screen(self):
+        """
+        Update the modal dialog window.
+        """
         temps = psutil.sensors_temperatures()
         row = 0
         for _name, entries in temps.items():
@@ -244,13 +306,25 @@ class MemUsageDialog(ModalDialog):
     """
     Display memory usage in a modal dialog.
     """
+
     def on_save(self):
-        pass
+        """
+        Save what was entered in the modal dialog.
+
+        This dialog does not need a save feature.
+        """
 
     def init_styles(self):
-        pass
+        """
+        Initialize the styles used in the modal dialog.
 
-    def create_widgets(self):
+        This dialog does not require additional styles.
+        """
+
+    def create_widgets(self) -> None:
+        """
+        Create the widgets to be displayed in the modal dialog.
+        """
         mem = psutil.virtual_memory()
         swap = psutil.swap_memory()
         self._names = []
@@ -311,6 +385,9 @@ class MemUsageDialog(ModalDialog):
         )
 
     def update_screen(self):
+        """
+        Update the modal dialog window.
+        """
         mem = psutil.virtual_memory()
         swap = psutil.swap_memory()
         for count, item in enumerate(mem._asdict().items()):
@@ -328,13 +405,25 @@ class DiskUsageDialog(ModalDialog):
     """
     Display disk usage in a modal dialog.
     """
+
     def on_save(self):
-        pass
+        """
+        Save what was entered in the modal dialog.
+
+        This dialog does not need a save feature.
+        """
 
     def init_styles(self):
-        pass
+        """
+        Initialize the styles used in the modal dialog.
+
+        This dialog does not require additional styles.
+        """
 
     def create_widgets(self):
+        """
+        Create the widgets to be displayed in the modal dialog.
+        """
         self._diskmounts = []
         self._diskusages = []
         self._diskusagefmts = []
@@ -386,6 +475,9 @@ class DiskUsageDialog(ModalDialog):
         self.update_screen()
 
     def update_screen(self):
+        """
+        Update the modal dialog window.
+        """
         # update the mount points
         for part in psutil.disk_partitions():
             if part.mountpoint not in self._diskmounts:
@@ -415,23 +507,66 @@ class DiskUsageDialog(ModalDialog):
 class SettingsDialog(ModalDialog):
     """
     Manage application settings in a modal dialog.
+
+    Attributes
+    ----------
+    settings : Settings
+        The application settings to manage.
+    always_on_top : IntVar
+        A flag to indicate whether the application should always float on top
+        of other windows.
+    fonts : dict[str, str]
+        A dictionary containing the currently-selected fonts, regular and monospace.
+    langbox : DropDown
+        A dropdown widget to manage the user's choice of language.
+    themebox : DropDown
+        A dropdown widget to manage the user's choice of theme.
+    font_button : Button
+        A button to open a `FontChooser` to manage the regular application font.
+    fixed_font_button : Button
+        A button to open a `FontChooser` to manage the monospace application font.
     """
+
     def __init__(
         self, settings: Settings, parent=None, title: Optional[str] = None,
         iconpath: Optional[str] = None
     ):
+        """
+        Construct a Settings dialog.
+
+        Parameters
+        ----------
+        settings : Settings
+            The application settings to manage.
+        parent : Misc, optional
+            The parent widget.
+        title : str, optional
+            The title to display in the window title bar.
+        iconpath : str, optional
+            The path to the icon to display in the window title bar.
+        """
         self.settings = settings
         super().__init__(parent, title=title, iconpath=iconpath)
 
     def update_screen(self):
-        pass
+        """
+        Update the modal dialog window.
+
+        This dialog does not require screen updates.
+        """
 
     def init_styles(self):
+        """
+        Initialize the styles used in the modal dialog.
+        """
         self.style.configure(
             "Switch.TCheckbutton", font=font.nametofont("TkDefaultFont")
         )
 
-    def create_widgets(self):
+    def create_widgets(self) -> None:
+        """
+        Create the widgets to be displayed in the modal dialog.
+        """
         self.always_on_top = tk.IntVar()
         self.always_on_top.set(self.settings.get_always_on_top())
         self.fonts = {
@@ -541,7 +676,7 @@ class SettingsDialog(ModalDialog):
 
     def on_save(self, *_args):
         """
-        Save the entered settings and dismiss the dialog.
+        Save the entered settings.
         """
         old_language = self.settings.get_language()
         self.settings.set_language(self.langbox.get())
@@ -564,8 +699,40 @@ class SettingsDialog(ModalDialog):
 class FontChooser(ModalDialog):  # pylint: disable=too-many-instance-attributes
     """
     Font chooser dialog.
+
+    Attributes
+    ----------
+    current_font : FontDescription, optional
+        The currently selected font.
+    fontchoices : List[str]
+        A list of font families available on the system.
+    fontname : str
+        The font name.
+    fontsize : IntVar
+        The font size.
+    fontstyle : StringVar
+        The font style.
+    underline : BooleanVar
+        A flag indicating whether the font uses underline.
+    overstrike : BooleanVar
+        A flag indicating whether the font uses strikethrough.
+    preview_font : Font
+        A font using the currently selected details. Used to show the user
+        what a sample text looks like.
     """
     def __init__(self, parent, current_font: Optional[FontDescription] = None, iconpath=None):
+        """
+        Construct a FontChooser dialog.
+
+        Parameters
+        ----------
+        parent : Misc, optional
+            The parent widget.
+        current_font : FontDescription, optional
+            The currently selected font.
+        iconpath : str
+            The path to the icon to display in the window title bar.
+        """
         title = _("Choose Font")
         self.current_font = current_font
         self.fontchoices = list(set(font.families()))
@@ -589,13 +756,20 @@ class FontChooser(ModalDialog):  # pylint: disable=too-many-instance-attributes
         super().__init__(parent, title, iconpath, class_="FontChooser")
 
     def init_styles(self):
+        """
+        Initialize the styles used in the modal dialog.
+        """
         self.preview_font = Font(self, self.current_font.get_font())
         self.preview_text = "AaáBbḅCcçÑñXxẍYyýZzẑ 0123456789"
 
     def update_screen(self):
-        pass
+        """
+        Update the modal dialog window.
 
-    def create_widgets(self):
+        This dialog does not require screen updates.
+        """
+
+    def create_widgets(self) -> None:
         """
         Create the widgets that are displayed in the dialog.
         """
@@ -726,7 +900,7 @@ class FontChooser(ModalDialog):  # pylint: disable=too-many-instance-attributes
 
     def on_save(self) -> None:
         """
-        Update ``current_font`` based on currently selected options.
+        Update `current_font` based on currently selected options.
         """
         weight: Literal['bold', 'normal'] = "normal"
         slant: Literal['italic', 'roman'] = "roman"

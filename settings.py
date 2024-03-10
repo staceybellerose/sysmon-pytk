@@ -18,8 +18,24 @@ import _common
 @dataclasses.dataclass
 class FontDescription():
     """
-    Font data, like what is returned by the ``actual`` methor of a ``Font`` object.
+    Font data, like what is returned by the `actual` method of a `Font` object.
+
+    Attributes
+    ----------
+    family : str
+        The font family name.
+    size : int
+        The font size.
+    weight : {'bold', 'normal'}
+        The font weight.
+    slant : {'italic', 'roman'}
+        The font slant.
+    underline : bool
+        Whether the font uses underline.
+    overstrike : bool
+        Whether the font uses strikethrough.
     """
+
     family: str
     size: int
     weight: Literal['bold', 'normal']
@@ -71,8 +87,16 @@ class FontDescription():
 class FontSettings():
     """
     Manage the fonts used in the application.
+
+    Attributes
+    ----------
+    config : ConfigParser
+        A configuration file parser.
+    section : str
+        Which section of the configuration file to use.
     """
-    def __init__(self, config: ConfigParser, section: Literal['font', 'fixedfont']):
+
+    def __init__(self, config: ConfigParser, section: str):
         self.config = config
         self.section = section
 
@@ -182,7 +206,19 @@ class FontSettings():
 class Settings():
     """
     Manage the application settings.
+
+    Attributes
+    ----------
+    filename : str
+        The full path to the configuration file.
+    config : ConfigParser
+        A configuration file parser.
+    regular_font : FontSettings
+        Font settings for the regular font.
+    fixed_font : FontSettings
+        Font settings for the monospace font.
     """
+
     def __init__(self, settings_file: str):
         self.filename = f"{os.path.realpath(os.path.dirname(__file__))}/{settings_file}"
         self.config = ConfigParser()

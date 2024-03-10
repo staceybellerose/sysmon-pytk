@@ -19,8 +19,9 @@ from app_locale import _
 @dataclasses.dataclass
 class LicenseMetadata:
     """
-    Metadata about the license used by the application
+    Metadata about the license used by the application.
     """
+
     full_license: str
     license_name: str
     license_url: str
@@ -31,6 +32,7 @@ class AboutMetadata:
     """
     Metadata about the application.
     """
+
     app_name: str
     version: str
     author: str
@@ -43,13 +45,24 @@ class AboutMetadata:
 class AboutDialog(ModalDialog):
     """
     Display metadata about the application in a modal dialog.
+
+    Attributes
+    ----------
+    about : AboutMetadata
+        Metadata about the application to be displayed.
+    logo : PhotoImage
+        A logo to be displayed.
     """
+
     def __init__(self, parent, about: AboutMetadata, iconpath=None):
         self.about = about
         title = _("About {}").format(about.app_name).strip()
         super().__init__(parent, title=title, iconpath=iconpath, class_="AboutBox")
 
     def init_styles(self):
+        """
+        Initialize the styles used in the modal dialog.
+        """
         background = self.style.lookup("TLabel", "background")
         dark_mode = is_dark(f"{background}")
         self.style.configure("System.TLabel", font="TkDefaultFont")
@@ -59,12 +72,23 @@ class AboutDialog(ModalDialog):
         )
 
     def update_screen(self):
-        pass
+        """
+        Update the modal dialog window.
+
+        This dialog does not require screen updates.
+        """
 
     def on_save(self):
-        pass
+        """
+        Save what was entered in the modal dialog.
+
+        This dialog does not need a save feature.
+        """
 
     def create_widgets(self):
+        """
+        Create the widgets to be displayed in the modal dialog.
+        """
         frame = ttk.Frame(self, padding=INTERNAL_PAD)
         frame.grid()
         notebook = ttk.Notebook(frame)
