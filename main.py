@@ -250,7 +250,7 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
                 about.__full_license__, about.__license__, about.__license_url__
             )
         )
-        tkabout.AboutDialog(self, metadata, iconpath=_common.get_full_path("icon-lg.png"))
+        tkabout.AboutDialog(self, metadata, iconpath=_common.get_full_path("icon.png"))
 
     def _on_quit(self, *_args):
         sys.exit(0)

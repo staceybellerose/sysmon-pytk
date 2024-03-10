@@ -12,7 +12,7 @@ from tkinter import ttk, font
 
 from tkmodal import ModalDialog
 from widgets import UrlLabel
-from _common import is_dark, modify_named_font, INTERNAL_PAD
+from _common import is_dark, modify_named_font, get_full_path, INTERNAL_PAD
 from app_locale import _
 
 
@@ -57,16 +57,18 @@ class AboutDialog(ModalDialog):
     def __init__(self, parent, about: AboutMetadata, iconpath=None):
         self.about = about
         title = _("About {}").format(about.app_name).strip()
+        self.logo = tk.PhotoImage(file=get_full_path("icon-lg.png"))
         super().__init__(parent, title=title, iconpath=iconpath, class_="AboutBox")
 
     def init_styles(self):
         """
         Initialize the styles used in the modal dialog.
         """
-        background = self.style.lookup("TLabel", "background")
+        style = ttk.Style()
+        background = style.lookup("TLabel", "background")
         dark_mode = is_dark(f"{background}")
-        self.style.configure("System.TLabel", font="TkDefaultFont")
-        self.style.configure(
+        style.configure("System.TLabel", font="TkDefaultFont")
+        style.configure(
             "About_URL.System.TLabel",
             foreground="#66CCFF" if dark_mode else "#0000EE"
         )
@@ -89,19 +91,15 @@ class AboutDialog(ModalDialog):
         """
         Create the widgets to be displayed in the modal dialog.
         """
-        frame = ttk.Frame(self, padding=INTERNAL_PAD)
-        frame.grid()
-        notebook = ttk.Notebook(frame)
+        self.internal_frame.configure(padding=INTERNAL_PAD)
+        notebook = ttk.Notebook(self.internal_frame)
         notebook.grid(sticky=tk.W+tk.E+tk.N, pady=INTERNAL_PAD)
         tab1 = ttk.Frame(notebook)
         base_font = font.nametofont("TkDefaultFont")
         large_font = modify_named_font(
             "TkDefaultFont", size=base_font.actual()["size"]+4
         )
-        if self.icon is not None:
-            ttk.Label(
-                tab1, image=self.icon
-            ).grid()
+        ttk.Label(tab1, image=self.logo).grid()
         if self.about.app_name != "":
             ttk.Label(
                 tab1, text=self.about.app_name, font=large_font
@@ -168,5 +166,5 @@ class AboutDialog(ModalDialog):
             notebook.add(tab2, text=_("License"), sticky=tk.N)
         notebook.enable_traversal()
         ttk.Button(
-            frame, text=_("Close"), command=self.dismiss, style='Accent.TButton'
+            self.internal_frame, text=_("Close"), command=self.dismiss, style='Accent.TButton'
         ).grid(sticky=tk.E)

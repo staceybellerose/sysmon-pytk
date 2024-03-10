@@ -6,12 +6,13 @@ Modal dialogs.
 """
 
 from abc import abstractmethod
-from typing import Optional, Literal, final
+from typing import Optional, Literal, List, final
 import tkinter as tk
-from tkinter import ttk, font, Event
+from tkinter import ttk, font, Event, Misc
 from tkinter.font import Font
 
 import psutil
+from psutil._common import shwtemp
 
 import _common
 from settings import Settings, FontDescription
@@ -35,7 +36,7 @@ class ModalDialog(tk.Toplevel):
     """
 
     def __init__(
-        self, parent=None, title: Optional[str] = None,
+        self, parent: Optional[Misc] = None, title: Optional[str] = None,
         iconpath: Optional[str] = None, class_: str = "ModalDialog"
     ):
         """
@@ -56,20 +57,19 @@ class ModalDialog(tk.Toplevel):
         super().__init__(parent, class_=class_)
         self.parent = parent
         self.title(title)
-        self.icon = None
         self.iconpath = iconpath
         if iconpath is not None:
-            self.icon = tk.PhotoImage(file=iconpath)
-            self.iconphoto(False, self.icon)
-        self.style = ttk.Style()
+            self.iconphoto(False, tk.PhotoImage(file=iconpath))
         self.init_styles()
+        self.internal_frame = ttk.Frame(self)
+        self.internal_frame.grid()
         self.create_widgets()
         self.update_screen()
         self.protocol("WM_DELETE_WINDOW", self.dismiss)
         self.bind("<KeyPress-Escape>", self.dismiss)
         self.bind("<KeyPress-Return>", self.save_and_dismiss)
         self.bind("<KeyPress-KP_Enter>", self.save_and_dismiss)
-        self.transient(parent)
+        self.transient(parent)  # type: ignore
         self.wait_visibility()
         self.grab_set()
         self.wait_window()
@@ -150,24 +150,22 @@ class CpuDialog(ModalDialog):
         self.cpu_count = psutil.cpu_count()
         cpu_model = _common.get_processor_name()
         max_columns = 4
-        frame = ttk.Frame(self)
-        frame.grid()
         base_font = font.nametofont("TkDefaultFont")
         large_font = _common.modify_named_font(
             "TkDefaultFont", size=base_font.actual()["size"]+4
         )
         ttk.Label(
-            frame, text=cpu_model, font=large_font
+            self.internal_frame, text=cpu_model, font=large_font
         ).grid(columnspan=max_columns)
         ttk.Label(
-            frame, text=_("per-core CPU Usage"), font=large_font
+            self.internal_frame, text=_("per-core CPU Usage"), font=large_font
         ).grid(columnspan=max_columns, row=1)
         row = 2
         col = 0
-        self._meters = []
+        self._meters: List[Meter] = []
         for core in range(self.cpu_count):
             meter = Meter(
-                frame, width=220, height=165, unit="%",
+                self.internal_frame, width=220, height=165, unit="%",
                 label=_("CPU #{}").format(core)
             )
             meter.grid(row=row, column=col, sticky=tk.N, ipady=_common.INTERNAL_PAD)
@@ -178,16 +176,17 @@ class CpuDialog(ModalDialog):
                 row += 1
         row += 1
         ttk.Label(
-            frame, text=_("per-core CPU Frequency (in MHz)"),
+            self.internal_frame, text=_("per-core CPU Frequency (in MHz)"),
             font=large_font
         ).grid(columnspan=max_columns, row=row)
         row += 1
-        self._freqmeters = []
+        self._freqmeters: List[Meter] = []
         freqs = psutil.cpu_freq(percpu=True)
         for core in range(self.cpu_count):
             meter = Meter(
-                frame, width=220, height=165, unit="", label=_("CPU #{}").format(core),
-                min_value=freqs[core].min, max_value=freqs[core].max
+                self.internal_frame, width=220, height=165, unit="",
+                label=_("CPU #{}").format(core),
+                min_value=freqs[core].min, max_value=freqs[core].max  # type: ignore
             )
             meter.grid(row=row, column=col, sticky=tk.N, ipady=_common.INTERNAL_PAD)
             self._freqmeters.append(meter)
@@ -197,7 +196,7 @@ class CpuDialog(ModalDialog):
                 row += 1
         row += 1
         ttk.Button(
-            frame, text=_("Close"), command=self.dismiss,
+            self.internal_frame, text=_("Close"), command=self.dismiss,
             style='Accent.TButton'
         ).grid(
             row=row, column=1, sticky=tk.E, columnspan=max_columns,
@@ -236,13 +235,11 @@ class TempDetailsDialog(ModalDialog):
         This dialog does not require additional styles.
         """
 
-    def create_widgets(self):
+    def create_widgets(self) -> None:
         """
         Create the widgets to be displayed in the modal dialog.
         """
-        self._readings = []
-        frame = ttk.Frame(self)
-        frame.grid()
+        self._readings: List[List[tk.StringVar]] = []
         base_font = font.nametofont("TkDefaultFont")
         large_font = _common.modify_named_font(
             "TkDefaultFont", size=base_font.actual()["size"]+4
@@ -251,33 +248,33 @@ class TempDetailsDialog(ModalDialog):
             "TkDefaultFont", weight="bold"
         )
         ttk.Label(
-            frame, text=_("Temperature Sensors"), font=large_font
+            self.internal_frame, text=_("Temperature Sensors"), font=large_font
         ).grid(columnspan=2)
         temps = psutil.sensors_temperatures()
         row = 0
         for name, entries in temps.items():
             ttk.Label(
-                frame, text=name.upper(), anchor=tk.SW, font=bold_font
+                self.internal_frame, text=name.upper(), anchor=tk.SW, font=bold_font
             ).grid(
                 column=0, row=row, sticky=tk.W, ipady=_common.INTERNAL_PAD,
                 padx=_common.INTERNAL_PAD
             )
             row += 1
-            entryreadings = []
+            entryreadings: List[tk.StringVar] = []
             for count, entry in enumerate(entries):
                 entryreadings.append(tk.StringVar())
                 entryreadings[count].set(self._format_entry(entry))
                 ttk.Label(
-                    frame, text=entry.label or name, anchor=tk.W, font=base_font
+                    self.internal_frame, text=entry.label or name, anchor=tk.W, font=base_font
                 ).grid(column=0, row=row, padx=_common.INTERNAL_PAD*2, sticky=tk.W)
                 ttk.Label(
-                    frame, textvariable=entryreadings[count], anchor=tk.W,
+                    self.internal_frame, textvariable=entryreadings[count], anchor=tk.W,
                     font=base_font
                 ).grid(column=1, row=row, padx=_common.INTERNAL_PAD, sticky=tk.W)
                 row += 1
             self._readings.append(entryreadings)
         ttk.Button(
-            frame, text=_("Close"), command=self.dismiss,
+            self.internal_frame, text=_("Close"), command=self.dismiss,
             style='Accent.TButton'
         ).grid(
             row=row, column=1, sticky=tk.E,
@@ -296,7 +293,7 @@ class TempDetailsDialog(ModalDialog):
             row += 1
         self.after(_common.REFRESH_INTERVAL, self.update_screen)
 
-    def _format_entry(self, entry):
+    def _format_entry(self, entry: shwtemp):
         return _("{current}°C (high = {high}°C, critical = {critical}°C)").format(
             current=entry.current, high=entry.high, critical=entry.critical
         )
@@ -327,18 +324,16 @@ class MemUsageDialog(ModalDialog):
         """
         mem = psutil.virtual_memory()
         swap = psutil.swap_memory()
-        self._names = []
-        self._metrics = []
-        self._swaps = []
-        self._swap_metrics = []
+        self._names: List[str] = []
+        self._metrics: List[tk.StringVar] = []
+        self._swaps: List[str] = []
+        self._swap_metrics: List[tk.StringVar] = []
         for count, item in enumerate(mem._asdict().items()):
             self._names.append(item[0])
             self._metrics.append(tk.StringVar())
         for count, item in enumerate(swap._asdict().items()):
             self._swaps.append(item[0])
             self._swap_metrics.append(tk.StringVar())
-        frame = ttk.Frame(self)
-        frame.grid()
         base_font = font.nametofont("TkDefaultFont")
         large_font = _common.modify_named_font(
             "TkDefaultFont", size=base_font.actual()["size"]+4
@@ -348,36 +343,36 @@ class MemUsageDialog(ModalDialog):
         )
         fixed_font = font.nametofont("TkFixedFont")
         ttk.Label(
-            frame, text=_("Memory Statistics"), font=large_font
+            self.internal_frame, text=_("Memory Statistics"), font=large_font
         ).grid(row=0, column=0, columnspan=5)
         ttk.Label(
-            frame, text=_("Virtual Memory"), font=bold_font
+            self.internal_frame, text=_("Virtual Memory"), font=bold_font
         ).grid(row=1, column=0, columnspan=2)
-        ttk.Label(frame, text="").grid(row=1, column=2)
+        ttk.Label(self.internal_frame, text="").grid(row=1, column=2)
         ttk.Label(
-            frame, text=_("Swap Memory"), font=bold_font
+            self.internal_frame, text=_("Swap Memory"), font=bold_font
         ).grid(row=1, column=3, columnspan=2)
-        frame.columnconfigure(2, minsize=4*_common.INTERNAL_PAD)
+        self.internal_frame.columnconfigure(2, minsize=4*_common.INTERNAL_PAD)
         for count, name in enumerate(self._names):
             ttk.Label(
-                frame, text=name.capitalize(), anchor=tk.W,
+                self.internal_frame, text=name.capitalize(), anchor=tk.W,
                 font=base_font
             ).grid(row=count+2, column=0, sticky=tk.W, padx=_common.INTERNAL_PAD)
             ttk.Label(
-                frame, textvariable=self._metrics[count], anchor=tk.E,
+                self.internal_frame, textvariable=self._metrics[count], anchor=tk.E,
                 font=fixed_font
             ).grid(row=count+2, column=1, sticky=tk.E, padx=_common.INTERNAL_PAD)
         for count, name in enumerate(self._swaps):
             ttk.Label(
-                frame, text=name.capitalize(), anchor=tk.W,
+                self.internal_frame, text=name.capitalize(), anchor=tk.W,
                 font=base_font
             ).grid(row=count+2, column=3, sticky=tk.W, padx=_common.INTERNAL_PAD)
             ttk.Label(
-                frame, textvariable=self._swap_metrics[count],
+                self.internal_frame, textvariable=self._swap_metrics[count],
                 font=fixed_font, anchor=tk.E
             ).grid(row=count+2, column=4, sticky=tk.E, padx=_common.INTERNAL_PAD)
         ttk.Button(
-            frame, text=_("Close"), command=self.dismiss,
+            self.internal_frame, text=_("Close"), command=self.dismiss,
             style='Accent.TButton'
         ).grid(
             row=max(len(self._names), len(self._swaps))+3, column=3, columnspan=2,
@@ -420,46 +415,45 @@ class DiskUsageDialog(ModalDialog):
         This dialog does not require additional styles.
         """
 
-    def create_widgets(self):
+    def create_widgets(self) -> None:
         """
         Create the widgets to be displayed in the modal dialog.
         """
-        self._diskmounts = []
-        self._diskusages = []
-        self._diskusagefmts = []
+        self._diskmounts: List[str] = []
+        self._diskusages: List[tk.IntVar] = []
+        self._diskusagefmts: List[tk.StringVar] = []
         for part in psutil.disk_partitions():
             self._diskmounts.append(part.mountpoint)
             self._diskusages.append(tk.IntVar())
             self._diskusagefmts.append(tk.StringVar())
-        self.frame = ttk.Frame(self)
-        self.frame.grid()
         base_font = font.nametofont("TkDefaultFont")
         large_font = _common.modify_named_font(
             "TkDefaultFont", size=base_font.actual()["size"]+4
         )
         fixed_font = font.nametofont("TkFixedFont")
         ttk.Label(
-            self.frame, text=_("Disk Usage"), font=large_font
+            self.internal_frame, text=_("Disk Usage"), font=large_font
         ).grid(columnspan=2)
-        self._disklabels = []
+        self._disklabels: List[ttk.Label] = []
         for col, mountpoint in enumerate(self._diskmounts):
             ttk.Label(
-                self.frame, text=mountpoint, anchor=tk.SW,
+                self.internal_frame, text=mountpoint, anchor=tk.SW,
                 font=base_font
             ).grid(row=2*col + 1, column=0, sticky=tk.W)
             ttk.Progressbar(
-                self.frame, length=300, orient=tk.HORIZONTAL, variable=self._diskusages[col]
+                self.internal_frame, length=300, orient=tk.HORIZONTAL,
+                variable=self._diskusages[col]
             ).grid(row=2*col + 2, column=0)
             usagelabel = ttk.Label(
-                self.frame, textvariable=self._diskusagefmts[col], anchor=tk.E,
-                font=fixed_font
+                self.internal_frame, textvariable=self._diskusagefmts[col],
+                anchor=tk.E, font=fixed_font
             )
             self._disklabels.append(usagelabel)
             usagelabel.grid(
                 row=2*col + 2, column=1, padx=_common.INTERNAL_PAD, sticky=tk.E
             )
         ttk.Button(
-            self.frame, text=_("Close"), command=self.dismiss,
+            self.internal_frame, text=_("Close"), command=self.dismiss,
             style='Accent.TButton'
         ).grid(
             row=2*len(self._diskmounts) + 2, column=1, sticky=tk.E,
@@ -470,7 +464,7 @@ class DiskUsageDialog(ModalDialog):
         """
         Reset the dialog.
         """
-        self.frame.destroy()
+        self.internal_frame.destroy()
         self.create_widgets()
         self.update_screen()
 
@@ -528,8 +522,8 @@ class SettingsDialog(ModalDialog):
     """
 
     def __init__(
-        self, settings: Settings, parent=None, title: Optional[str] = None,
-        iconpath: Optional[str] = None
+        self, settings: Settings, parent: Optional[Misc] = None,
+        title: Optional[str] = None, iconpath: Optional[str] = None
     ):
         """
         Construct a Settings dialog.
@@ -559,7 +553,8 @@ class SettingsDialog(ModalDialog):
         """
         Initialize the styles used in the modal dialog.
         """
-        self.style.configure(
+        style = ttk.Style()
+        style.configure(
             "Switch.TCheckbutton", font=font.nametofont("TkDefaultFont")
         )
 
@@ -573,22 +568,21 @@ class SettingsDialog(ModalDialog):
             "regular": self.settings.regular_font.get_full_font().get_string(),
             "fixed": self.settings.fixed_font.get_full_font().get_string()
         }
-        frame = ttk.Frame(self, padding=_common.INTERNAL_PAD)
-        frame.grid()
+        self.internal_frame.configure(padding=_common.INTERNAL_PAD)
         base_font = font.nametofont("TkDefaultFont")
-        self.parent.option_add('*TCombobox*Listbox.font', base_font)
+        self.option_add('*TCombobox*Listbox.font', base_font)
         ttk.Label(
-            frame, text=_("Language"), font=base_font
+            self.internal_frame, text=_("Language"), font=base_font
         ).grid(row=1, column=1, sticky=tk.E, padx=_common.INTERNAL_PAD)
         self.langbox = DropDown(
-            frame, dictionary=LANGUAGES, state=["readonly"], exportselection=0,
+            self.internal_frame, dictionary=LANGUAGES, state=["readonly"], exportselection=0,
             font=base_font
         )
         self.langbox.set(self.settings.get_language())
         self.langbox.grid(row=1, column=2, pady=_common.INTERNAL_PAD)
         self.langbox.bind("<<ComboboxSelected>>", self.change_combobox)
         ttk.Label(
-            frame, text=_("Theme"), font=base_font
+            self.internal_frame, text=_("Theme"), font=base_font
         ).grid(row=2, column=1, sticky=tk.E, padx=_common.INTERNAL_PAD)
         # Language translation is used as keys, and English is used as values
         # so that English is stored in the settings file, while allowing the
@@ -599,40 +593,40 @@ class SettingsDialog(ModalDialog):
             _("Same as System"): "Same as System"
         }
         self.themebox = DropDown(
-            frame, dictionary=themes, state=["readonly"], exportselection=0,
+            self.internal_frame, dictionary=themes, state=["readonly"], exportselection=0,
             font=base_font
         )
         self.themebox.set(self.settings.get_theme())
         self.themebox.grid(row=2, column=2, pady=_common.INTERNAL_PAD)
         self.themebox.bind("<<ComboboxSelected>>", self.change_combobox)
         ttk.Checkbutton(
-            frame, text=_("Always on top"), variable=self.always_on_top,
+            self.internal_frame, text=_("Always on top"), variable=self.always_on_top,
             style='Switch.TCheckbutton'
         ).grid(
             row=3, column=2,
             padx=_common.INTERNAL_PAD, pady=_common.INTERNAL_PAD
         )
         ttk.Label(
-            frame, text=_("Regular Font"), font=base_font
+            self.internal_frame, text=_("Regular Font"), font=base_font
         ).grid(row=4, column=1, sticky=tk.E, padx=_common.INTERNAL_PAD)
         self.font_button = ttk.Button(
-            frame, text=self.fonts["regular"], command=self.show_font_chooser
+            self.internal_frame, text=self.fonts["regular"], command=self.show_font_chooser
         )
         self.font_button.grid(
             row=4, column=2,
             padx=_common.INTERNAL_PAD, pady=_common.INTERNAL_PAD
         )
         ttk.Label(
-            frame, text=_("Monospace Font"), font=base_font
+            self.internal_frame, text=_("Monospace Font"), font=base_font
         ).grid(row=5, column=1, sticky=tk.E, padx=_common.INTERNAL_PAD)
         self.fixed_font_button = ttk.Button(
-            frame, text=self.fonts["fixed"], command=self.show_fixedfont_chooser
+            self.internal_frame, text=self.fonts["fixed"], command=self.show_fixedfont_chooser
         )
         self.fixed_font_button.grid(
             row=5, column=2,
             padx=_common.INTERNAL_PAD, pady=_common.INTERNAL_PAD
         )
-        buttonframe = ttk.Frame(frame)
+        buttonframe = ttk.Frame(self.internal_frame)
         ttk.Button(
             buttonframe, text=_("Cancel"), command=self.dismiss
         ).grid(row=1, column=1, padx=_common.INTERNAL_PAD/2)
@@ -685,13 +679,11 @@ class SettingsDialog(ModalDialog):
         self.settings.write_settings()
         if old_language != self.langbox.get():
             self.parent.event_generate("<<LanguageChanged>>")
-        if (
-            self.fonts["regular"] != self.settings.regular_font.get_full_font().get_string()
-        ):
+        if self.fonts["regular"] != self.settings.regular_font.get_full_font(
+        ).get_string():
             self.parent.event_generate("<<FontChanged>>")
-        if (
-            self.fonts["fixed"] != self.settings.fixed_font.get_full_font().get_string()
-        ):
+        if self.fonts["fixed"] != self.settings.fixed_font.get_full_font(
+        ).get_string():
             self.parent.event_generate("<<FontChanged>>")
         self.parent.event_generate("<<SettingsChanged>>")
 
@@ -720,7 +712,12 @@ class FontChooser(ModalDialog):  # pylint: disable=too-many-instance-attributes
         A font using the currently selected details. Used to show the user
         what a sample text looks like.
     """
-    def __init__(self, parent, current_font: Optional[FontDescription] = None, iconpath=None):
+
+    def __init__(
+        self, parent: Optional[Misc] = None,
+        current_font: Optional[FontDescription] = None,
+        iconpath: Optional[str] = None
+    ):
         """
         Construct a FontChooser dialog.
 
@@ -773,11 +770,10 @@ class FontChooser(ModalDialog):  # pylint: disable=too-many-instance-attributes
         """
         Create the widgets that are displayed in the dialog.
         """
-        content = ttk.Frame(self, padding=_common.INTERNAL_PAD)
-        content.grid()
+        self.internal_frame.configure(padding=_common.INTERNAL_PAD)
         base_font = font.nametofont("TkDefaultFont")
 
-        familyframe = ttk.Frame(content)
+        familyframe = ttk.Frame(self.internal_frame)
         familyframe.grid(
             row=0, rowspan=2, sticky=tk.N+tk.W,
             padx=_common.INTERNAL_PAD, pady=_common.INTERNAL_PAD
@@ -791,7 +787,7 @@ class FontChooser(ModalDialog):  # pylint: disable=too-many-instance-attributes
             exportselection=0, relief=tk.FLAT, background="#555555",
             font=base_font
         )
-        if content.tk.call("ttk::style", "theme", "use") == "azure-dark":
+        if self.internal_frame.tk.call("ttk::style", "theme", "use") == "azure-dark":
             bg1 = "#333333"
             bg2 = "#444444"
         else:  # light theme
@@ -810,7 +806,10 @@ class FontChooser(ModalDialog):  # pylint: disable=too-many-instance-attributes
         lbox.bind("<<ListboxSelect>>", self._on_select)
 
         styleframe = ttk.LabelFrame(
-            content, labelwidget=ttk.Label(content, text=_("Style"), font=base_font)
+            self.internal_frame,
+            labelwidget=ttk.Label(
+                self.internal_frame, text=_("Style"), font=base_font
+            )
         )
         styleframe.grid(
             row=0, column=1, sticky=tk.N+tk.W+tk.E,
@@ -834,7 +833,10 @@ class FontChooser(ModalDialog):  # pylint: disable=too-many-instance-attributes
         ).grid(row=4, padx=_common.INTERNAL_PAD, sticky=tk.N+tk.S+tk.W+tk.E)
 
         effectsframe = ttk.LabelFrame(
-            content, labelwidget=ttk.Label(content, text=_("Effects"), font=base_font)
+            self.internal_frame,
+            labelwidget=ttk.Label(
+                self.internal_frame, text=_("Effects"), font=base_font
+            )
         )
         effectsframe.grid(
             row=1, column=1, sticky=tk.N+tk.W+tk.E,
@@ -850,13 +852,15 @@ class FontChooser(ModalDialog):  # pylint: disable=too-many-instance-attributes
         ).grid(row=1, column=0, padx=_common.INTERNAL_PAD, sticky=tk.W)
 
         ScaleSpinner(
-            content, self.fontsize, text=_("Size"), length=71*4, from_=1, to=72,
-            as_int=True
+            self.internal_frame, self.fontsize, text=_("Size"), length=71*4,
+            from_=1, to=72, as_int=True
         ).grid(row=2, columnspan=2)
 
         previewframe = ttk.LabelFrame(
-            content,
-            labelwidget=ttk.Label(content, text=_("Preview"), font=base_font)
+            self.internal_frame,
+            labelwidget=ttk.Label(
+                self.internal_frame, text=_("Preview"), font=base_font
+            )
         )
         previewframe.grid(
             row=3, columnspan=2, sticky=tk.N+tk.S+tk.W+tk.E,
@@ -872,7 +876,7 @@ class FontChooser(ModalDialog):  # pylint: disable=too-many-instance-attributes
             compound=tk.CENTER, anchor=tk.SW
         ).grid(sticky=tk.N+tk.S+tk.W+tk.E, padx=_common.INTERNAL_PAD)
 
-        buttonframe = ttk.Frame(content)
+        buttonframe = ttk.Frame(self.internal_frame)
         buttonframe.grid(row=4, columnspan=2, sticky=tk.E)
         ttk.Button(
             buttonframe, text=_("Cancel"), command=self.dismiss
