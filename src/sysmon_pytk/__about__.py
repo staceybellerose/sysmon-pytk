@@ -1,28 +1,33 @@
-# coding: utf-8
-
 # SPDX-FileCopyrightText: © 2024 Stacey Adams <stacey.belle.rose@gmail.com>
 # SPDX-License-Identifier: MIT
 
 """
-Metadata about the application.
+Metadata about the package.
 """
 
-from app_locale import _
+from .app_locale import _
+
+__all__ = [
+    "__app_name__", "__version__", "__author_name__", "__author_email__",
+    "__author__", "__url__", "__keywords__", "__copyright_year__",
+    "__license__", "__license_url__", "__summary__", "__full_license__"
+]
 
 __app_name__ = "sysmon-pytk"
-__version__ = "0.2.0"
-__license__ = _("MIT License")
-__author__ = "Stacey Adams"
+__version__ = "0.3.0"
+__author_name__ = "Stacey Adams"
 __author_email__ = "stacey.belle.rose@gmail.com"
+__author__ = f"{__author_name__} <{__author_email__}>"
 __url__ = "https://github.com/staceybellerose/sysmon-pytk"
+__keywords__ = "system monitor"
+__copyright_year__ = "2024"
+__license__ = _("MIT License")
+__license_url__ = "https://opensource.org/licenses/MIT"
 __summary__ = _("""\
 sysmon-pytk is a system monitor. It monitors CPU usage and temperature, \
 RAM usage, and disk usage of the primary disk (containing the root \
 partition). It also displays the system's hostname, IP address, uptime, \
 and current process count.""")
-__keywords__ = "Python / 3, X11 Applications, Linux, System / Monitoring, Beta"
-__copyright_year__ = "2024"
-__license_url__ = "https://opensource.org/licenses/MIT"
 __full_license__ = """\
 MIT License
 

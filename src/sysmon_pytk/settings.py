@@ -1,18 +1,17 @@
-# SPDX-FileCopyrightText: © 2024 2024 Stacey Adams <stacey.belle.rose@gmail.com>
+# SPDX-FileCopyrightText: © 2024 Stacey Adams <stacey.belle.rose@gmail.com>
 # SPDX-License-Identifier: MIT
 
 """
 Application settings.
 """
 
-import os
 from configparser import ConfigParser
 import dataclasses
 from typing import Literal
 from tkinter.font import Font
-from app_locale import _
 
-import _common
+from .app_locale import _
+from . import _common
 
 
 @dataclasses.dataclass
@@ -38,15 +37,15 @@ class FontDescription():
 
     family: str
     size: int
-    weight: Literal['bold', 'normal']
-    slant: Literal['italic', 'roman']
+    weight: Literal["bold", "normal"]
+    slant: Literal["italic", "roman"]
     underline: bool
     overstrike: bool
 
-    REGULAR = 'r'
-    BOLD = 'b'
-    ITALIC = 'i'
-    BOLD_ITALIC = 'bi'
+    REGULAR = "r"
+    BOLD = "b"
+    ITALIC = "i"
+    BOLD_ITALIC = "bi"
 
     def get_font(self) -> Font:
         """
@@ -75,11 +74,11 @@ class FontDescription():
         """
         Get the font style, based on its slant and weight.
         """
-        if self.weight == 'bold' and self.slant == 'roman':
+        if self.weight == "bold" and self.slant == "roman":
             return FontDescription.BOLD
-        if self.weight == 'normal' and self.slant == 'italic':
+        if self.weight == "normal" and self.slant == "italic":
             return FontDescription.ITALIC
-        if self.weight == 'bold' and self.slant == 'italic':
+        if self.weight == "bold" and self.slant == "italic":
             return FontDescription.BOLD_ITALIC
         return FontDescription.REGULAR
 
@@ -124,7 +123,7 @@ class FontSettings():
         """
         self.config[self.section]["size"] = f"{fontsize}"
 
-    def get_weight(self) -> Literal['bold', 'normal']:
+    def get_weight(self) -> Literal["bold", "normal"]:
         """
         Get the font weight to use in the application.
         """
@@ -139,7 +138,7 @@ class FontSettings():
         """
         self.config[self.section]["weight"] = weight
 
-    def get_slant(self) -> Literal['italic', 'roman']:
+    def get_slant(self) -> Literal["italic", "roman"]:
         """
         Get the font slant to use in the application.
         """
@@ -220,7 +219,7 @@ class Settings():
     """
 
     def __init__(self, settings_file: str):
-        self.filename = f"{os.path.realpath(os.path.dirname(__file__))}/{settings_file}"
+        self.filename = settings_file
         self.config = ConfigParser()
         self.read_settings()
         self.regular_font = FontSettings(self.config, "font")
@@ -242,7 +241,7 @@ class Settings():
         """
         Write the settings to the configuration file.
         """
-        with open(self.filename, 'w', encoding="utf-8") as file:
+        with open(self.filename, "w", encoding="utf-8") as file:
             self.config.write(file)
 
     def get_theme(self) -> str:

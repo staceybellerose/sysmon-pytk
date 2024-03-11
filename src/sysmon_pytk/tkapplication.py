@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# SPDX-FileCopyrightText: © 2024 2024 Stacey Adams <stacey.belle.rose@gmail.com>
+# SPDX-FileCopyrightText: © 2024 Stacey Adams <stacey.belle.rose@gmail.com>
 # SPDX-License-Identifier: MIT
 
 """
@@ -16,14 +16,15 @@ from tkinter import ttk, font
 import darkdetect
 import psutil
 
-import _common
-import about
-import tkabout
-from settings import Settings
-from tkmeter import Meter
-from tkmodal import CpuDialog, TempDetailsDialog, MemUsageDialog, DiskUsageDialog, SettingsDialog
-from widgets import ToolTip
-from app_locale import _
+from . import _common
+from . import _file_utils
+from . import __about__ as about
+from . import tkabout
+from .settings import Settings
+from .tkmeter import Meter
+from .tkmodal import CpuDialog, TempDetailsDialog, MemUsageDialog, DiskUsageDialog, SettingsDialog
+from .widgets import ToolTip
+from .app_locale import _
 
 APP_TITLE = _("System Monitor")
 
@@ -36,7 +37,7 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
     def __init__(self, parent=None):
         super().__init__(parent)
         self.title(APP_TITLE)
-        self.iconphoto(False, tk.PhotoImage(file=_common.get_full_path("icon.png")))
+        self.iconphoto(False, tk.PhotoImage(file=_file_utils.get_full_path("images/icon.png")))
         self.read_settings()
         self._name = tk.StringVar()
         self._ip_addr = tk.StringVar()
@@ -53,11 +54,11 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         """
         Read application settings from configuration file.
         """
-        self.settings = Settings(_common.SETTINGS_FILE)
+        self.settings = Settings(_file_utils.settings_path())
         if self.settings.get_always_on_top():
-            self.call('wm', 'attributes', '.', '-topmost', '1')
+            self.call("wm", "attributes", ".", "-topmost", "1")
         else:
-            self.call('wm', 'attributes', '.', '-topmost', '0')
+            self.call("wm", "attributes", ".", "-topmost", "0")
 
     def init_theme(self):
         """
@@ -70,7 +71,7 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
             dark_mode = False
         elif self.settings.get_theme() == "Same as System":
             dark_mode = darkdetect.isDark()
-        self.tk.call("source", _common.get_full_path("azure/azure.tcl"))
+        self.tk.call("source", _file_utils.get_full_path("azure/azure.tcl"))
         self.tk.call("set_theme", "dark" if dark_mode else "light")
         base_font = font.nametofont("TkDefaultFont")
         style = ttk.Style()
@@ -163,7 +164,7 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         self._cpu_meter.grid(row=2, column=1, sticky=tk.N, ipady=_common.INTERNAL_PAD)
         if psutil.cpu_count() > 1:
             self._cpu_meter.configure(cursor="hand2")
-            ToolTip(self._cpu_meter, _('Click for per-CPU usage'))
+            ToolTip(self._cpu_meter, _("Click for per-CPU usage"))
 
         self._temp_meter = Meter(
             frame, width=220, height=165, unit="°C", blue=15,
@@ -171,14 +172,14 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         )
         self._temp_meter.grid(row=2, column=2, sticky=tk.N, ipady=_common.INTERNAL_PAD)
         self._temp_meter.configure(cursor="hand2")
-        ToolTip(self._temp_meter, _('Click for detailed temperature readings'))
+        ToolTip(self._temp_meter, _("Click for detailed temperature readings"))
 
         self._ram_meter = Meter(
             frame, width=220, height=165, unit="%", label=_("RAM Usage")
         )
         self._ram_meter.grid(row=2, column=3, sticky=tk.N, ipady=_common.INTERNAL_PAD)
         self._ram_meter.configure(cursor="hand2")
-        ToolTip(self._ram_meter, _('Click for detailed memory statistics'))
+        ToolTip(self._ram_meter, _("Click for detailed memory statistics"))
 
         self._disk_meter = Meter(
             frame, width=220, height=165, unit="%", label=_("Disk Usage: /"),
@@ -187,7 +188,7 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         )
         self._disk_meter.grid(row=2, column=4, sticky=tk.N, ipady=_common.INTERNAL_PAD)
         self._disk_meter.configure(cursor="hand2")
-        ToolTip(self._disk_meter, _('Click for usage details of each mount point'))
+        ToolTip(self._disk_meter, _("Click for usage details of each mount point"))
 
     def build_menu(self):
         """
@@ -199,27 +200,27 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         file_menu = tk.Menu(menu_bar, font=tk.font.nametofont("TkMenuFont"))
 
         menu_bar.add_cascade(
-            label=_('File'), menu=file_menu, underline=0,
+            label=_("File"), menu=file_menu, underline=0,
             font=tk.font.nametofont("TkMenuFont")
         )
         file_menu.add_command(
-            label=_('About'), accelerator=_("Ctrl+A"), underline=0,
+            label=_("About"), accelerator=_("Ctrl+A"), underline=0,
             command=self._on_about
         )
         file_menu.add_command(
-            label=_('Preferences'), accelerator=_("Ctrl+Shift+P"), underline=0,
+            label=_("Preferences"), accelerator=_("Ctrl+Shift+P"), underline=0,
             command=self._on_settings
         )
         file_menu.add_command(
-            label=_('Restart'), accelerator=_("Ctrl+R"), underline=0,
+            label=_("Restart"), accelerator=_("Ctrl+R"), underline=0,
             command=self._on_restart
         )
         file_menu.add_separator()
         file_menu.add_command(
-            label=_('Quit'), accelerator=_("Ctrl+Q"), underline=0,
+            label=_("Quit"), accelerator=_("Ctrl+Q"), underline=0,
             command=self._on_quit
         )
-        top['menu'] = menu_bar
+        top["menu"] = menu_bar
         # bind keypress events for menu here
         self.bind("<Control-KeyPress-a>", self._on_about)
         self.bind("<Control-Shift-KeyPress-P>", self._on_settings)
@@ -244,19 +245,21 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         Open the About modal dialog.
         """
         metadata = tkabout.AboutMetadata(
-            about.__app_name__, about.__version__, about.__author__,
+            about.__app_name__, about.__version__, about.__author_name__,
             about.__copyright_year__, about.__summary__, about.__url__,
             tkabout.LicenseMetadata(
                 about.__full_license__, about.__license__, about.__license_url__
             )
         )
-        tkabout.AboutDialog(self, metadata, iconpath=_common.get_full_path("icon.png"))
+        tkabout.AboutDialog(
+            self, metadata, iconpath=_file_utils.get_full_path("images/icon.png")
+        )
 
     def _on_quit(self, *_args):
         sys.exit(0)
 
     def _on_restart(self, *_args):
-        os.execl(sys.executable, 'python3', __file__, *sys.argv[1:])
+        os.execv(sys.argv[0], sys.argv)
 
     def _on_cpu_details(self, *_args):
         """
@@ -264,7 +267,7 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         """
         CpuDialog(
             self, title=_("{} :: CPU Details").format(APP_TITLE),
-            iconpath=_common.get_full_path("icon.png")
+            iconpath=_file_utils.get_full_path("images/icon.png")
         )
 
     def _on_temp_details(self, *_args):
@@ -273,7 +276,7 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         """
         TempDetailsDialog(
             self, title=_("{} :: Temperature Details").format(APP_TITLE),
-            iconpath=_common.get_full_path("icon.png")
+            iconpath=_file_utils.get_full_path("images/icon.png")
         )
 
     def _on_mem_details(self, *_args):
@@ -282,7 +285,7 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         """
         MemUsageDialog(
             self, title=_("{} :: Memory Usage").format(APP_TITLE),
-            iconpath=_common.get_full_path("icon.png")
+            iconpath=_file_utils.get_full_path("images/icon.png")
         )
 
     def _on_disk_usage(self, *_args):
@@ -291,7 +294,7 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         """
         DiskUsageDialog(
             self, title=_("{} :: Disk Usage").format(APP_TITLE),
-            iconpath=_common.get_full_path("icon.png")
+            iconpath=_file_utils.get_full_path("images/icon.png")
         )
 
     def _on_settings(self, *_args):
@@ -300,7 +303,7 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         """
         SettingsDialog(
             self.settings, self, _("{} Preferences").format(APP_TITLE),
-            iconpath=_common.get_full_path("icon.png")
+            iconpath=_file_utils.get_full_path("images/icon.png")
         )
         if self.settings.get_theme() == "Dark":
             dark_mode = True
@@ -325,7 +328,7 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         self._cpu_meter.set_value(psutil.cpu_percent(interval=None))
         self._temp_meter.set_value(_common.cpu_temp())
         self._ram_meter.set_value(psutil.virtual_memory().percent)
-        self._disk_meter.set_value(psutil.disk_usage('/').percent)
+        self._disk_meter.set_value(psutil.disk_usage("/").percent)
         self._name.set(_("Hostname: {}").format(gethostname()))
         self._ip_addr.set(_("IP Address: {}").format(_common.net_addr()))
         self._processes.set(_("Processes: {}").format(len(psutil.pids())))

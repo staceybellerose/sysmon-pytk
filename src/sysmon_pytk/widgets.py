@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: © 2024 2024 Stacey Adams <stacey.belle.rose@gmail.com>
+# SPDX-FileCopyrightText: © 2024 Stacey Adams <stacey.belle.rose@gmail.com>
 # SPDX-License-Identifier: MIT
 
 """
@@ -10,7 +10,7 @@ import tkinter as tk
 from tkinter import ttk, font, BaseWidget, Event, Variable
 import webbrowser
 
-import _common
+from . import _common
 
 # These lint errors don't make sense for GUI widgets, so are disabled here.
 # pragma pylint: disable=too-many-arguments, too-many-ancestors
@@ -30,7 +30,7 @@ class ToolTip:
         The text to display in the tooltip.
     """
 
-    def __init__(self, parent: BaseWidget, text: str = ''):
+    def __init__(self, parent: BaseWidget, text: str = ""):
         """
         Construct a tooltip.
 
@@ -44,9 +44,9 @@ class ToolTip:
         self.tooltip: Optional[tk.Toplevel] = None
         self.parent = parent
         self.text = text
-        self.parent.bind('<Enter>', self.on_enter)
-        self.parent.bind('<Motion>', self.on_move)
-        self.parent.bind('<Leave>', self.on_leave)
+        self.parent.bind("<Enter>", self.on_enter)
+        self.parent.bind("<Motion>", self.on_move)
+        self.parent.bind("<Leave>", self.on_leave)
 
     def on_enter(self, event: Event):
         """
@@ -54,7 +54,7 @@ class ToolTip:
         """
         self.tooltip = tk.Toplevel()
         self.tooltip.overrideredirect(True)
-        self.tooltip.geometry(f'+{event.x_root+10}+{event.y_root+10}')
+        self.tooltip.geometry(f"+{event.x_root+10}+{event.y_root+10}")
         ttk.Label(
             self.tooltip, text=self.text, anchor=tk.CENTER,
             background="#ffd", foreground="#000"
@@ -65,7 +65,7 @@ class ToolTip:
         Handle the event when the pointer moves within the widget.
         """
         if self.tooltip:
-            self.tooltip.geometry(f'+{event.x_root+10}+{event.y_root+10}')
+            self.tooltip.geometry(f"+{event.x_root+10}+{event.y_root+10}")
 
     def on_leave(self, _event: Event):
         """
@@ -89,7 +89,7 @@ class DropDown(ttk.Combobox):
         The dictionary to use in the dropdown.
     """
 
-    def __init__(self, parent: BaseWidget, dictionary: Dict, *args, **kwargs):
+    def __init__(self, parent: BaseWidget, dictionary: Dict[str, str], *args, **kwargs):
         """
         Construct a dropdown widget.
 
@@ -115,7 +115,7 @@ class DropDown(ttk.Combobox):
         Get the selected value.
         """
         key = super().get()
-        return self.dictionary[key] if key != '' else ''
+        return self.dictionary[key] if key != "" else ""
 
     def set(self, value: str):
         """
@@ -138,7 +138,7 @@ class UrlLabel(ttk.Label):
 
     def __init__(
         self, parent: BaseWidget, text: str, url: str,
-        style: str = 'URL.TLabel', show_tooltip: bool = False, **kw
+        style: str = "URL.TLabel", show_tooltip: bool = False, **kw
     ) -> None:
         """
         Construct a Label with a clickable URL.
@@ -159,7 +159,7 @@ class UrlLabel(ttk.Label):
             Additional keyword arguments for a `Label`.
         """
         self.url = url
-        cursor = 'hand2' if self._has_web_protocol() else 'arrow'
+        cursor = "hand2" if self._has_web_protocol() else "arrow"
         super().__init__(parent, cursor=cursor, style=style, text=text, **kw)
         if show_tooltip and url:
             ToolTip(self, url)
@@ -176,14 +176,14 @@ class UrlLabel(ttk.Label):
         """
         Determine whether the string contains a web protocol (http or https).
         """
-        return self.url[0:7] == 'http://' or self.url[0:8] == 'https://'
+        return self.url[0:7] == "http://" or self.url[0:8] == "https://"
 
     @classmethod
     def has_web_protocol(cls, url: str) -> bool:
         """
         Determine whether the string contains a web protocol (http or https).
         """
-        return url[0:7] == 'http://' or url[0:8] == 'https://'
+        return url[0:7] == "http://" or url[0:8] == "https://"
 
     @classmethod
     def test_web_protocol(cls, url: str, trueval: Any, falseval: Any) -> Any:
@@ -244,13 +244,13 @@ class ScaleSpinner(ttk.Frame):
             ).grid(row=0, column=0)
         self.scale = ttk.Scale(
             self, orient=tk.HORIZONTAL, length=length, from_=from_, to=to,
-            style='Tick.TScale'
+            style="Tick.TScale"
         )
         self.scale.grid(row=0, column=1, pady=10, padx=10)
         self.scale.set(variable.get())
         self.spinbox = ttk.Spinbox(
             self, textvariable=variable, from_=from_, to=to,
-            width=len(f"{to}")+3, state='readonly', font=base_font,
+            width=len(f"{to}")+3, state="readonly", font=base_font,
             command=self.update_from_spinbox
         )
         self.spinbox.grid(row=0, column=2)

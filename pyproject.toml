@@ -1,0 +1,87 @@
+# SPDX-FileCopyrightText: © 2024 Stacey Adams <stacey.belle.rose@gmail.com>
+# SPDX-License-Identifier: Unlicense
+
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sysmon_pytk"
+dynamic = ["version"]
+authors = [
+    {name = "Stacey Adams", email = "stacey.belle.rose@gmail.com"},
+]
+description = "System monitor app using Tkinter"
+readme = "README.md"
+license = {file = "LICENSE"}
+requires-python = ">=3.9"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: End Users/Desktop",
+    "Intended Audience :: System Administrators",
+    "Environment :: Console",
+    "Environment :: X11 Applications",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Natural Language :: Spanish",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Topic :: System :: Monitoring",
+]
+keywords = ["system monitor"]
+dependencies = [
+    "darkdetect==0.8.0",
+    "psutil >= 5.8.0, < 6.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pylint >= 3.0",
+    "mypy >= 1.5",
+    "reuse >= 3.0",
+    "pydocstyle >= 6.2",
+    "pycodestyle >= 2.11",
+    "types-psutil >= 5.8.0, < 6.0",
+    "types-setuptools >= 64"
+]
+
+[project.scripts]
+cli_sysmon = "sysmon_pytk.cli_monitor:cli_monitor"
+
+[project.gui-scripts]
+sysmon = "sysmon_pytk.main_gui:main_gui"
+
+[project.urls]
+Homepage = "https://github.com/staceybellerose/sysmon-pytk"
+Repository = "https://github.com/staceybellerose/sysmon-pytk.git"
+Issues = "https://github.com/staceybellerose/sysmon-pytk/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["sysmon_pytk*"]
+namespaces = false
+
+[tool.setuptools.package-data]
+"sysmon_pytk.azure" = ["*.tcl", "*.png", "LICENSE"]
+"sysmon_pytk.images" = ["*.png", "*.png.license"]
+"sysmon_pytk.locale" = ["*.mo"]
+
+[tool.setuptools.exclude-package-data]
+"sysmon_pytk.azure" = ["*screenshot.png"]
+
+[tool.setuptools.dynamic]
+version = {attr = "sysmon_pytk.__version__"}
+
+[tool.mypy]
+warn_return_any = true
+mypy_path = "./mypy/stubs"
+
+[tool.pydocstyle]
+convention = "numpy"
+add-ignore = "D200"
+match-dir = "^(?!(venv|azure)).*"
+
+[tool.gettext]
+domain = "app"

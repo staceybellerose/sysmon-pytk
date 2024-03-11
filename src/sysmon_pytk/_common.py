@@ -17,7 +17,6 @@ from tkinter.font import Font
 
 import psutil
 
-SETTINGS_FILE = 'sysmon.ini'
 MAIN_FONT_FAMILY = "Source Sans Pro"
 FIXED_FONT_FAMILY = "Source Code Pro"
 DISK_ALERT_LEVEL = 80
@@ -25,7 +24,7 @@ DISK_WARN_LEVEL = 60
 REFRESH_INTERVAL = 750  # milliseconds
 INTERNAL_PAD = 12
 
-BYTE_SYMBOLS = ('B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB')
+BYTE_SYMBOLS = ("B", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB")
 
 # SPDX-SnippetBegin
 # SPDX-SnippetName bytes2human function
@@ -117,7 +116,7 @@ def digits(numstr: str) -> List[int]:
     >> digits("13. Notes vol. 22, pp. 585-588, 1996.")
     [13, 22, 585, 588, 1996]
     """
-    return [int(s) for s in re.findall(r'\d+', numstr)]
+    return [int(s) for s in re.findall(r"\d+", numstr)]
 
 
 def cpu_temp(as_string: bool = False) -> Union[float, str]:
@@ -142,7 +141,7 @@ def cpu_temp(as_string: bool = False) -> Union[float, str]:
     41.0
     """
     temps = psutil.sensors_temperatures()
-    key = 'coretemp' if 'coretemp' in temps else list(temps)[0]
+    key = "coretemp" if "coretemp" in temps else list(temps)[0]
     return f"{temps[key][0].current}°C" if as_string else temps[key][0].current
 
 
@@ -157,11 +156,11 @@ def net_addr() -> str:
     """
     addresses = psutil.net_if_addrs()
     for nic, address_list in addresses.items():
-        if nic != 'lo':
+        if nic != "lo":
             for address in address_list:
                 if address.family == AF_INET:
                     return address.address
-    return ''
+    return ""
 
 
 def system_uptime() -> str:
@@ -270,7 +269,7 @@ def get_processor_name() -> str:
     if platform.system() == "Windows":
         return platform.processor()
     if platform.system() == "Darwin":
-        os.environ['PATH'] = os.environ['PATH'] + os.pathsep + '/usr/sbin'
+        os.environ["PATH"] = os.environ["PATH"] + os.pathsep + "/usr/sbin"
         command = "sysctl -n machdep.cpu.brand_string"
         return subprocess.check_output(command).decode("utf-8").strip()
     if platform.system() == "Linux":
@@ -282,18 +281,11 @@ def get_processor_name() -> str:
     return ""
 
 
-def get_full_path(relative_path: str) -> str:
-    """
-    Get the full path of a file, based on its relative path to this project.
-    """
-    return f"{os.path.realpath(os.path.dirname(__file__))}/{relative_path}"
-
-
 def modify_named_font(  # pylint: disable=too-many-arguments
     font_name: str, *,
     size: Optional[int] = None,
-    weight: Optional[Literal['normal', 'bold']] = None,
-    slant: Optional[Literal['roman', 'italic']] = None,
+    weight: Optional[Literal["normal", "bold"]] = None,
+    slant: Optional[Literal["roman", "italic"]] = None,
     underline: Optional[bool] = None,
     overstrike: Optional[bool] = None
 ) -> Font:
@@ -323,21 +315,21 @@ def modify_named_font(  # pylint: disable=too-many-arguments
     Example
     -------
     >>> modify_named_font("TkDefaultFont", size=13, weight="bold").actual()
-    {   'family': 'Bitstream Vera Sans',
-        'size': 13,
-        'weight': 'bold',
-        'slant': 'roman',
-        'underline': 0,
-        'overstrike': 0 }
+    {   "family": "Bitstream Vera Sans",
+        "size": 13,
+        "weight": "bold",
+        "slant": "roman",
+        "underline": 0,
+        "overstrike": 0 }
     """
     if font_name in font.names():
         fnt = font.nametofont(font_name).actual()
         return Font(
-            family=fnt['family'],
-            size=size if size is not None else fnt['size'],
-            weight=weight if weight is not None else fnt['weight'],
-            slant=slant if slant is not None else fnt['slant'],
-            underline=underline if underline is not None else fnt['underline'],
-            overstrike=overstrike if overstrike is not None else fnt['overstrike']
+            family=fnt["family"],
+            size=size if size is not None else fnt["size"],
+            weight=weight if weight is not None else fnt["weight"],
+            slant=slant if slant is not None else fnt["slant"],
+            underline=underline if underline is not None else fnt["underline"],
+            overstrike=overstrike if overstrike is not None else fnt["overstrike"]
         )
     return Font(name="TkDefaultFont")

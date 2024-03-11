@@ -5,9 +5,15 @@
 ignore-paths=^venv/.*$,^azure/.*$,^mypy/.*$
 recursive=y
 
-[FORMAT]
+[BASIC]
 good-names=r,g,b,n,i,j,x,y,z
-ignore-long-lines=^\s*(#\s*)?<?https?://\S+>?$|^\s*(\w*\s*=\s*)?(return\s*)?(f)?(\"|\').*(\"|\'),?\s*$
 
-[MESSAGES CONTROL]
-disable=fixme
+[FORMAT]
+ignore-long-lines=^\s*(#\s*)?<?https?://\S+>?$|^\s*(\w*\s*=\s*)?(return\s*)?(f)?(\"|\').*(\"|\'),?\s*$
+max-line-length=99
+
+[STRING]
+check-quote-consistency=yes
+
+[MISCELLANEOUS]
+notes=FIXME, XXX

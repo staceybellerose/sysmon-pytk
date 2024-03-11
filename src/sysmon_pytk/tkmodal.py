@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: © 2024 2024 Stacey Adams <stacey.belle.rose@gmail.com>
+# SPDX-FileCopyrightText: © 2024 Stacey Adams <stacey.belle.rose@gmail.com>
 # SPDX-License-Identifier: MIT
 
 """
@@ -14,11 +14,11 @@ from tkinter.font import Font
 import psutil
 from psutil._common import shwtemp
 
-import _common
-from settings import Settings, FontDescription
-from tkmeter import Meter
-from widgets import DropDown, ScaleSpinner
-from app_locale import _, LANGUAGES
+from . import _common
+from .settings import Settings, FontDescription
+from .tkmeter import Meter
+from .widgets import DropDown, ScaleSpinner
+from .app_locale import _, LANGUAGES
 
 
 class ModalDialog(tk.Toplevel):
@@ -197,7 +197,7 @@ class CpuDialog(ModalDialog):
         row += 1
         ttk.Button(
             self.internal_frame, text=_("Close"), command=self.dismiss,
-            style='Accent.TButton'
+            style="Accent.TButton"
         ).grid(
             row=row, column=1, sticky=tk.E, columnspan=max_columns,
             pady=_common.INTERNAL_PAD, padx=_common.INTERNAL_PAD
@@ -275,7 +275,7 @@ class TempDetailsDialog(ModalDialog):
             self._readings.append(entryreadings)
         ttk.Button(
             self.internal_frame, text=_("Close"), command=self.dismiss,
-            style='Accent.TButton'
+            style="Accent.TButton"
         ).grid(
             row=row, column=1, sticky=tk.E,
             pady=_common.INTERNAL_PAD, padx=_common.INTERNAL_PAD
@@ -373,7 +373,7 @@ class MemUsageDialog(ModalDialog):
             ).grid(row=count+2, column=4, sticky=tk.E, padx=_common.INTERNAL_PAD)
         ttk.Button(
             self.internal_frame, text=_("Close"), command=self.dismiss,
-            style='Accent.TButton'
+            style="Accent.TButton"
         ).grid(
             row=max(len(self._names), len(self._swaps))+3, column=3, columnspan=2,
             sticky=tk.E, pady=_common.INTERNAL_PAD, padx=_common.INTERNAL_PAD
@@ -454,7 +454,7 @@ class DiskUsageDialog(ModalDialog):
             )
         ttk.Button(
             self.internal_frame, text=_("Close"), command=self.dismiss,
-            style='Accent.TButton'
+            style="Accent.TButton"
         ).grid(
             row=2*len(self._diskmounts) + 2, column=1, sticky=tk.E,
             pady=_common.INTERNAL_PAD, padx=_common.INTERNAL_PAD
@@ -570,7 +570,7 @@ class SettingsDialog(ModalDialog):
         }
         self.internal_frame.configure(padding=_common.INTERNAL_PAD)
         base_font = font.nametofont("TkDefaultFont")
-        self.option_add('*TCombobox*Listbox.font', base_font)
+        self.option_add("*TCombobox*Listbox.font", base_font)
         ttk.Label(
             self.internal_frame, text=_("Language"), font=base_font
         ).grid(row=1, column=1, sticky=tk.E, padx=_common.INTERNAL_PAD)
@@ -601,7 +601,7 @@ class SettingsDialog(ModalDialog):
         self.themebox.bind("<<ComboboxSelected>>", self.change_combobox)
         ttk.Checkbutton(
             self.internal_frame, text=_("Always on top"), variable=self.always_on_top,
-            style='Switch.TCheckbutton'
+            style="Switch.TCheckbutton"
         ).grid(
             row=3, column=2,
             padx=_common.INTERNAL_PAD, pady=_common.INTERNAL_PAD
@@ -632,7 +632,7 @@ class SettingsDialog(ModalDialog):
         ).grid(row=1, column=1, padx=_common.INTERNAL_PAD/2)
         ttk.Button(
             buttonframe, text=_("OK"), command=self.save_and_dismiss,
-            style='Accent.TButton'
+            style="Accent.TButton"
         ).grid(row=1, column=2, padx=_common.INTERNAL_PAD/2)
         buttonframe.grid(row=6, column=1, columnspan=3, sticky=tk.E)
 
@@ -794,7 +794,7 @@ class FontChooser(ModalDialog):  # pylint: disable=too-many-instance-attributes
             bg1 = "#ffffff"
             bg2 = "#eeeeff"
         for idx, item in enumerate(self.fontchoices):
-            lbox.itemconfig(idx, {'bg': bg1 if idx % 2 else bg2})
+            lbox.itemconfig(idx, {"bg": bg1 if idx % 2 else bg2})
             if item == self.fontname:
                 lbox.selection_set(idx)
                 lbox.see(idx)
@@ -844,11 +844,11 @@ class FontChooser(ModalDialog):  # pylint: disable=too-many-instance-attributes
         )
         ttk.Checkbutton(
             effectsframe, text=_("Underline"), variable=self.underline,
-            style='Switch.TCheckbutton'
+            style="Switch.TCheckbutton"
         ).grid(row=0, column=0, padx=_common.INTERNAL_PAD, sticky=tk.W)
         ttk.Checkbutton(
             effectsframe, text=_("Overstrike"), variable=self.overstrike,
-            style='Switch.TCheckbutton'
+            style="Switch.TCheckbutton"
         ).grid(row=1, column=0, padx=_common.INTERNAL_PAD, sticky=tk.W)
 
         ScaleSpinner(
@@ -883,15 +883,15 @@ class FontChooser(ModalDialog):  # pylint: disable=too-many-instance-attributes
         ).grid(row=0, column=1, padx=_common.INTERNAL_PAD/2)
         ttk.Button(
             buttonframe, text=_("OK"), command=self.save_and_dismiss,
-            style='Accent.TButton'
+            style="Accent.TButton"
         ).grid(row=0, column=2, padx=_common.INTERNAL_PAD/2)
 
     def _update_preview(self, *_args):
         self.preview_font.configure(
             family=self.fontname,
             size=self.fontsize.get(),
-            weight="bold" if self.fontstyle.get() in ['b', 'bi'] else "normal",
-            slant="italic" if self.fontstyle.get() in ['i', 'bi'] else "roman",
+            weight="bold" if self.fontstyle.get() in ["b", "bi"] else "normal",
+            slant="italic" if self.fontstyle.get() in ["i", "bi"] else "roman",
             underline=self.underline.get(),
             overstrike=self.overstrike.get()
         )
@@ -906,8 +906,8 @@ class FontChooser(ModalDialog):  # pylint: disable=too-many-instance-attributes
         """
         Update `current_font` based on currently selected options.
         """
-        weight: Literal['bold', 'normal'] = "normal"
-        slant: Literal['italic', 'roman'] = "roman"
+        weight: Literal["bold", "normal"] = "normal"
+        slant: Literal["italic", "roman"] = "roman"
         if self.fontstyle.get() == FontDescription.BOLD:
             weight = "bold"
         elif self.fontstyle.get() == FontDescription.ITALIC:

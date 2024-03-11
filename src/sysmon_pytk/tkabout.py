@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: © 2024 2024 Stacey Adams <stacey.belle.rose@gmail.com>
+# SPDX-FileCopyrightText: © 2024 Stacey Adams <stacey.belle.rose@gmail.com>
 # SPDX-License-Identifier: MIT
 
 """
@@ -10,10 +10,11 @@ from typing import Optional
 import tkinter as tk
 from tkinter import ttk, font
 
-from tkmodal import ModalDialog
-from widgets import UrlLabel
-from _common import is_dark, modify_named_font, get_full_path, INTERNAL_PAD
-from app_locale import _
+from .tkmodal import ModalDialog
+from .widgets import UrlLabel
+from ._common import is_dark, modify_named_font, INTERNAL_PAD
+from ._file_utils import get_full_path
+from .app_locale import _
 
 
 @dataclasses.dataclass
@@ -166,5 +167,5 @@ class AboutDialog(ModalDialog):
             notebook.add(tab2, text=_("License"), sticky=tk.N)
         notebook.enable_traversal()
         ttk.Button(
-            self.internal_frame, text=_("Close"), command=self.dismiss, style='Accent.TButton'
+            self.internal_frame, text=_("Close"), command=self.dismiss, style="Accent.TButton"
         ).grid(sticky=tk.E)

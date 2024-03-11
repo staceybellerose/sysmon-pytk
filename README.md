@@ -1,7 +1,7 @@
 # System Monitor for python/Tk
 
 <!--
-SPDX-FileCopyrightText: © 2024 2024 Stacey Adams <stacey.belle.rose@gmail.com>
+SPDX-FileCopyrightText: © 2024 Stacey Adams <stacey.belle.rose@gmail.com>
 
 SPDX-License-Identifier: MIT
 -->
@@ -44,9 +44,7 @@ git clone --recurse-submodules https://github.com/staceybellerose/sysmon-pytk.gi
 ### Install the required python packages
 
 ```bash
-$ python -m venv venv
-$ source venv/bin/activate
-(venv) $ pip install -r requirements.txt
+make venv
 ```
 
 ### Generate translation files
@@ -55,20 +53,11 @@ Translations are available in English and Spanish. To build the translation
 files, run the following bash commands:
 
 ```bash
-cd locale
-for d in *
-do
-    if [ -d "$d" ]
-    then
-        pushd "$d/LC_MESSAGES"
-        msgfmt -o app.mo app.po -v
-        popd
-    fi
-done
+make translations
 ```
 
 ## Running
 
 ```bash
-(venv) $ python main.py &
+make run
 ```

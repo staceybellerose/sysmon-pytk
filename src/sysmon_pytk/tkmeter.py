@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: © 2024 2024 Stacey Adams <stacey.belle.rose@gmail.com>
+# SPDX-FileCopyrightText: © 2024 Stacey Adams <stacey.belle.rose@gmail.com>
 # SPDX-License-Identifier: MIT
 
 """
@@ -12,7 +12,7 @@ import dataclasses
 import tkinter as tk
 from tkinter import ttk
 
-from _common import is_dark, modify_named_font
+from ._common import is_dark, modify_named_font
 
 
 class Meter(tk.Frame):
@@ -132,7 +132,7 @@ class Meter(tk.Frame):
             coord,
             extent=Meter.EXTENT_ANGLE,
             start=Meter.START_ANGLE,
-            style='arc',
+            style="arc",
             outline=self.GREEN,
             width=width / 12
         )
@@ -141,7 +141,7 @@ class Meter(tk.Frame):
                 coord,
                 extent=self._percent_to_degrees(red),
                 start=Meter.START_ANGLE,
-                style='arc',
+                style="arc",
                 outline=self.RED,
                 width=width / 12
             )
@@ -150,7 +150,7 @@ class Meter(tk.Frame):
                 coord,
                 extent=self._percent_to_degrees(yellow),
                 start=self._percent_to_degrees(red) + Meter.START_ANGLE,
-                style='arc',
+                style="arc",
                 outline=self.YELLOW,
                 width=width / 12
             )
@@ -159,7 +159,7 @@ class Meter(tk.Frame):
                 coord,
                 start=Meter.EXTENT_ANGLE + Meter.START_ANGLE,
                 extent=-self._percent_to_degrees(blue),
-                style='arc',
+                style="arc",
                 outline=self.BLUE,
                 width=width / 12
             )
@@ -194,7 +194,7 @@ class Meter(tk.Frame):
         )
 
         self._update_meter_line(Meter.EXTENT_ANGLE + Meter.START_ANGLE)
-        self.var.trace_add('write', self._update_meter)
+        self.var.trace_add("write", self._update_meter)
         self.canvas.grid()
 
     def check_dark_mode(self):
