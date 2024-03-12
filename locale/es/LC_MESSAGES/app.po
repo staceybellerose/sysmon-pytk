@@ -2,18 +2,21 @@
 # SPDX-FileCopyrightText: © 2024 Stacey Adams <stacey.belle.rose@gmail.com>
 # SPDX-License-Identifier: MIT
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: sysmon-pytk 0.2.0\n"
 "Report-Msgid-Bugs-To: stacey.belle.rose@gmail.com\n"
 "POT-Creation-Date: 2024-03-12 09:05-0500\n"
-"PO-Revision-Date: 2024-03-12 09:05-0500\n"
+"PO-Revision-Date: 2024-03-12 18:07+0000\n"
 "Last-Translator: Stacey Adams <stacey.belle.rose@gmail.com>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/sysmon-pytk/"
+"sysmon-pytk/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: ../about.py:14
 msgid "MIT License"
@@ -251,7 +254,7 @@ msgstr "Cancelar"
 
 #: ../tkmodal.py:634 ../tkmodal.py:885
 msgid "OK"
-msgstr "OK"
+msgstr "Aceptar"
 
 #: ../tkmodal.py:733
 msgid "Choose Font"
@@ -267,7 +270,7 @@ msgstr "Estilo"
 
 #: ../tkmodal.py:819
 msgid "Regular"
-msgstr "Regular"
+msgstr "Normal"
 
 #: ../tkmodal.py:838
 msgid "Effects"

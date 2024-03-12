@@ -13,7 +13,8 @@ from _common import SETTINGS_FILE, get_full_path
 
 LANGUAGES = {
     "English": "en",
-    "Español": "es"
+    "Español": "es",
+    "Deutsch": "de"
 }
 
 __i18n_domain__ = "app"

@@ -1,25 +1,26 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR  <stacey.belle.rose@gmail.com>
-# This file is distributed under the same license as the sysmon-pytk package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# System monitor written in Python using Tk.
+# SPDX-FileCopyrightText: © 2024 Stacey Adams <stacey.belle.rose@gmail.com>
+# SPDX-License-Identifier: MIT
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: sysmon-pytk 0.2.0\n"
 "Report-Msgid-Bugs-To: stacey.belle.rose@gmail.com\n"
-"POT-Creation-Date: 2024-03-12 13:14-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2024-03-12 09:19-0500\n"
+"PO-Revision-Date: 2024-03-12 18:02+0000\n"
+"Last-Translator: Stacey Adams <stacey.belle.rose@gmail.com>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/sysmon-pytk/"
+"sysmon-pytk/de/>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: ../about.py:14
 msgid "MIT License"
-msgstr ""
+msgstr "MIT Lizenz"
 
 #: ../about.py:18
 msgid ""
@@ -28,261 +29,267 @@ msgid ""
 "It also displays the system's hostname, IP address, uptime, and current "
 "process count."
 msgstr ""
+"sysmon-pytk ist ein Systemmonitor. Es überwacht die CPU-Nutzung und -"
+"Temperatur, die RAM-Nutzung und die Festplattennutzung der primären "
+"Festplatte (die die Root-Partition enthält). Außerdem werden der Hostname, "
+"die IP-Adresse, die Betriebszeit und die aktuelle Prozessanzahl des Systems "
+"angezeigt."
 
 #: ../main.py:28
 msgid "System Monitor"
-msgstr ""
+msgstr "Systemmonitor"
 
 #: ../main.py:161
 msgid "CPU Usage"
-msgstr ""
+msgstr "CPU-Auslastung"
 
 #: ../main.py:166
 msgid "Click for per-CPU usage"
-msgstr ""
+msgstr "Klicken Sie hier, um die Nutzung pro CPU anzuzeigen"
 
 #: ../main.py:170
 msgid "Temperature"
-msgstr ""
+msgstr "Temperatur"
 
 #: ../main.py:174
 msgid "Click for detailed temperature readings"
-msgstr ""
+msgstr "Klicken Sie hier, um detaillierte Temperaturmessungen anzuzeigen"
 
 #: ../main.py:177
 msgid "RAM Usage"
-msgstr ""
+msgstr "RAM-Auslastung"
 
 #: ../main.py:181
 msgid "Click for detailed memory statistics"
-msgstr ""
+msgstr "Klicken Sie hier, um detaillierte RAM-Statistiken anzuzeigen"
 
 #: ../main.py:184
 msgid "Disk Usage: /"
-msgstr ""
+msgstr "Plattenauslastung: /"
 
 #: ../main.py:190
 msgid "Click for usage details of each mount point"
 msgstr ""
+"Klicken Sie hier, um Nutzungsinformationen für jeden Mountpunkt anzuzeigen"
 
 #: ../main.py:202
 msgid "File"
-msgstr ""
+msgstr "Datei"
 
 #: ../main.py:206
 msgid "About"
-msgstr ""
+msgstr "Über"
 
 #: ../main.py:206
 msgid "Ctrl+A"
-msgstr ""
+msgstr "Strg+A"
 
 #: ../main.py:210
 msgid "Preferences"
-msgstr ""
+msgstr "Einstellungen"
 
 #: ../main.py:210
 msgid "Ctrl+Shift+P"
-msgstr ""
+msgstr "Strg+Umschalt+P"
 
 #: ../main.py:214
 msgid "Restart"
-msgstr ""
+msgstr "Neustart"
 
 #: ../main.py:214
 msgid "Ctrl+R"
-msgstr ""
+msgstr "Strg+R"
 
 #: ../main.py:219
 msgid "Quit"
-msgstr ""
+msgstr "Beenden"
 
 #: ../main.py:219
 msgid "Ctrl+Q"
-msgstr ""
+msgstr "Strg-Q"
 
 #: ../main.py:266
 msgid "{} :: CPU Details"
-msgstr ""
+msgstr "{} :: CPU-Details"
 
 #: ../main.py:275
 msgid "{} :: Temperature Details"
-msgstr ""
+msgstr "{} :: Temperaturdetails"
 
 #: ../main.py:284
 msgid "{} :: Memory Usage"
-msgstr ""
+msgstr "{} :: RAM-Auslastung"
 
 #: ../main.py:293
 msgid "{} :: Disk Usage"
-msgstr ""
+msgstr "{} :: Plattenauslastung"
 
 #: ../main.py:302
 msgid "{} Preferences"
-msgstr ""
+msgstr "{} Einstellungen"
 
 #: ../main.py:329
 msgid "Hostname: {}"
-msgstr ""
+msgstr "Hostname : {}"
 
 #: ../main.py:330
 msgid "IP Address: {}"
-msgstr ""
+msgstr "IP-Adresse: {}"
 
 #: ../main.py:331
 msgid "Processes: {}"
-msgstr ""
+msgstr "Prozesse: {}"
 
 #: ../main.py:332
 msgid "Uptime: {}"
-msgstr ""
+msgstr "Betriebszeit: {}"
 
 #: ../settings.py:67 ../tkmodal.py:823
 msgid "Bold"
-msgstr ""
+msgstr "Fett"
 
 #: ../settings.py:69 ../tkmodal.py:827
 msgid "Italic"
-msgstr ""
+msgstr "Kursiv"
 
 #: ../settings.py:71 ../tkmodal.py:831
 msgid "Bold Italic"
-msgstr ""
+msgstr "Fett Kursiv"
 
 #: ../tkabout.py:59
 msgid "About {}"
-msgstr ""
+msgstr "Über {}"
 
 #: ../tkabout.py:108
 msgid "Version {}"
-msgstr ""
+msgstr "Version {}"
 
 #: ../tkabout.py:125
 msgid "Source Code"
-msgstr ""
+msgstr "Quellcode"
 
 #: ../tkabout.py:162
 msgid "Full license text available here"
-msgstr ""
+msgstr "Den vollständigen Lizenztext finden Sie hier"
 
 #: ../tkabout.py:166
 msgid "License"
-msgstr ""
+msgstr "Lizenz"
 
 #: ../tkabout.py:169 ../tkmodal.py:199 ../tkmodal.py:277 ../tkmodal.py:375
 #: ../tkmodal.py:456
 msgid "Close"
-msgstr ""
+msgstr "Schließen"
 
 #: ../tkmodal.py:161
 msgid "per-core CPU Usage"
-msgstr ""
+msgstr "CPU-Auslastung pro Kern"
 
 #: ../tkmodal.py:169 ../tkmodal.py:188
 msgid "CPU #{}"
-msgstr ""
+msgstr "CPU #{}"
 
 #: ../tkmodal.py:179
 msgid "per-core CPU Frequency (in MHz)"
-msgstr ""
+msgstr "CPU-Frequenz pro Kern (in MHz)"
 
 #: ../tkmodal.py:251
 msgid "Temperature Sensors"
-msgstr ""
+msgstr "Wärmesensoren"
 
 #: ../tkmodal.py:297
 #, python-brace-format
 msgid "{current}°C (high = {high}°C, critical = {critical}°C)"
-msgstr ""
+msgstr "{current}°C (höchste = {high}°C, kritischer = {critical}°C)"
 
 #: ../tkmodal.py:346
 msgid "Memory Statistics"
-msgstr ""
+msgstr "Speicherstatistik"
 
 #: ../tkmodal.py:349
 msgid "Virtual Memory"
-msgstr ""
+msgstr "Virtueller Speicher"
 
 #: ../tkmodal.py:353
 msgid "Swap Memory"
-msgstr ""
+msgstr "Speicher Austauschen"
 
 #: ../tkmodal.py:435
 msgid "Disk Usage"
-msgstr ""
+msgstr "Plattenauslastung"
 
 #: ../tkmodal.py:575
 msgid "Language"
-msgstr ""
+msgstr "Sprache"
 
 #: ../tkmodal.py:585
 msgid "Theme"
-msgstr ""
+msgstr "Thema"
 
 #: ../tkmodal.py:591
 msgid "Light"
-msgstr ""
+msgstr "Licht"
 
 #: ../tkmodal.py:592
 msgid "Dark"
-msgstr ""
+msgstr "Dunkel"
 
 #: ../tkmodal.py:593
 msgid "Same as System"
-msgstr ""
+msgstr "Gleiches wie System"
 
 #: ../tkmodal.py:603
 msgid "Always on top"
-msgstr ""
+msgstr "Immer im Vordergrund"
 
 #: ../tkmodal.py:610
 msgid "Regular Font"
-msgstr ""
+msgstr "Normal Schriftart"
 
 #: ../tkmodal.py:620
 msgid "Monospace Font"
-msgstr ""
+msgstr "Dicktengleiche Schrift"
 
 #: ../tkmodal.py:631 ../tkmodal.py:882
 msgid "Cancel"
-msgstr ""
+msgstr "Abbrechen"
 
 #: ../tkmodal.py:634 ../tkmodal.py:885
 msgid "OK"
-msgstr ""
+msgstr "Verstanden"
 
 #: ../tkmodal.py:733
 msgid "Choose Font"
-msgstr ""
+msgstr "Schriftart wählen"
 
 #: ../tkmodal.py:782
 msgid "Font"
-msgstr ""
+msgstr "Schriftart"
 
 #: ../tkmodal.py:811
 msgid "Style"
-msgstr ""
+msgstr "Stil"
 
 #: ../tkmodal.py:819
 msgid "Regular"
-msgstr ""
+msgstr "Normal"
 
 #: ../tkmodal.py:838
 msgid "Effects"
-msgstr ""
+msgstr "Effekte"
 
 #: ../tkmodal.py:846
 msgid "Underline"
-msgstr ""
+msgstr "Unterstrichen"
 
 #: ../tkmodal.py:850
 msgid "Overstrike"
-msgstr ""
+msgstr "Durchgestrichen"
 
 #: ../tkmodal.py:855
 msgid "Size"
-msgstr ""
+msgstr "Größe"
 
 #: ../tkmodal.py:862
 msgid "Preview"
-msgstr ""
+msgstr "Vorschau"
