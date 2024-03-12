@@ -16,6 +16,8 @@ LANGUAGES = {
     "Español": "es"
 }
 
+__i18n_domain__ = "app"
+
 CURRENT_LANG: str = "en"
 try:
     _filename = get_full_path(SETTINGS_FILE)
@@ -25,8 +27,8 @@ try:
 except Error:
     pass
 
-_localedir = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'locale')
+_localedir = os.path.join(os.path.abspath(os.path.dirname(__file__)), "locale")
 translation = gettext.translation(
-        'app', _localedir, fallback=True, languages=[CURRENT_LANG]
+        __i18n_domain__, _localedir, fallback=True, languages=[CURRENT_LANG]
     )
 _ = translation.gettext
