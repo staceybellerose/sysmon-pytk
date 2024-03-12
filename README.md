@@ -6,6 +6,9 @@ SPDX-FileCopyrightText: © 2024 2024 Stacey Adams <stacey.belle.rose@gmail.com>
 SPDX-License-Identifier: MIT
 -->
 
+![GitHub License](https://img.shields.io/github/license/staceybellerose/sysmon-pytk)
+[![REUSE status](https://api.reuse.software/badge/github.com/staceybellerose/sysmon-pytk)](https://api.reuse.software/info/github.com/staceybellerose/sysmon-pytk)
+
 System monitor written in Python using Tk. It monitors CPU usage and
 temperature, RAM usage, and disk usage of the primary disk (containing the
 root partition). It also displays the system's hostname, IP address, uptime,
@@ -44,9 +47,7 @@ git clone --recurse-submodules https://github.com/staceybellerose/sysmon-pytk.gi
 ### Install the required python packages
 
 ```bash
-$ python -m venv venv
-$ source venv/bin/activate
-(venv) $ pip install -r requirements.txt
+make venv
 ```
 
 ### Generate translation files
@@ -55,20 +56,26 @@ Translations are available in English and Spanish. To build the translation
 files, run the following bash commands:
 
 ```bash
-cd locale
-for d in *
-do
-    if [ -d "$d" ]
-    then
-        pushd "$d/LC_MESSAGES"
-        msgfmt -o app.mo app.po -v
-        popd
-    fi
-done
+make translations
 ```
 
 ## Running
 
 ```bash
-(venv) $ python main.py &
+# While the venv is activated
+python main.py &
+```
+
+OR
+
+```bash
+# Explicitly using the venv
+venv/bin/python main.py &
+```
+
+OR
+
+```bash
+# Let make handle everything automatically
+make run
 ```
