@@ -262,9 +262,9 @@ class ScaleSpinner(ttk.Frame):
         """
         self.scale.set(self.variable.get())
 
-    def update_from_scale(self, s):
+    def update_from_scale(self, size):
         """
         Update font size from scale widget.
         """
-        self.variable.set(round(float(s)) if self.as_int else float(s))
+        self.variable.set(round(float(size)) if self.as_int else float(size))
         self.spinbox.selection_clear()

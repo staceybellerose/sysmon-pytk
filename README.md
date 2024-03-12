@@ -8,6 +8,7 @@ SPDX-License-Identifier: MIT
 
 ![GitHub License](https://img.shields.io/github/license/staceybellerose/sysmon-pytk)
 [![REUSE status](https://api.reuse.software/badge/github.com/staceybellerose/sysmon-pytk)](https://api.reuse.software/info/github.com/staceybellerose/sysmon-pytk)
+[![CodeFactor](https://www.codefactor.io/repository/github/staceybellerose/sysmon-pytk/badge)](https://www.codefactor.io/repository/github/staceybellerose/sysmon-pytk)
 
 System monitor written in Python using Tk. It monitors CPU usage and
 temperature, RAM usage, and disk usage of the primary disk (containing the
