@@ -256,7 +256,7 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         sys.exit(0)
 
     def _on_restart(self, *_args):
-        os.execl(sys.executable, 'python3', __file__, *sys.argv[1:])
+        os.execv(sys.argv[0], sys.argv)  # nosec B606
 
     def _on_cpu_details(self, *_args):
         """

@@ -7,7 +7,7 @@ Shared functions used throughout the application.
 
 import os
 import platform
-import subprocess
+import subprocess  # nosec B404
 import re
 import time
 from socket import AF_INET
@@ -252,8 +252,10 @@ def is_dark(hexcolor: str) -> bool:
     >>> is_dark("#449F55")
     False
     """
-    assert len(hexcolor) == 7
-    assert hexcolor[:1] == "#"
+    assert len(hexcolor) == 7  # nosec B101
+    assert hexcolor[:1] == "#"  # nosec B101
+    if re.search(r"^#[\dA-Fa-f]{6}$", hexcolor) is None:
+        raise ValueError("hexcolor must start with '#' and have 6 hexadecimal digits")
     r = int(hexcolor[1:3], 16)
     g = int(hexcolor[3:5], 16)
     b = int(hexcolor[5:7], 16)
@@ -270,13 +272,12 @@ def get_processor_name() -> str:
     if platform.system() == "Windows":
         return platform.processor()
     if platform.system() == "Darwin":
-        os.environ['PATH'] = os.environ['PATH'] + os.pathsep + '/usr/sbin'
-        return subprocess.check_output(
-            ["sysctl", "-n", "machdep.cpu.brand_string"]
+        return subprocess.check_output(  # nosec B603
+            ["/usr/sbin/sysctl", "-n", "machdep.cpu.brand_string"]
         ).decode("utf-8").strip()
     if platform.system() == "Linux":
-        all_info = subprocess.check_output(
-            ["cat", "/proc/cpuinfo"], shell=False
+        all_info = subprocess.check_output(  # nosec B603
+            ["/usr/bin/cat", "/proc/cpuinfo"]
         ).decode().strip()
         for line in all_info.split("\n"):
             if "model name" in line:

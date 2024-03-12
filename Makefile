@@ -20,7 +20,7 @@ K := $(foreach exec,$(EXECUTABLES),\
 
 .DEFAULT_GOAL := help
 
-.PHONY: translations pylint mypy pycodestyle pydocstyle reuse clean help
+.PHONY: translations pylint mypy pycodestyle pydocstyle bandit reuse clean help
 
 $(VENV)/bin/activate: requirements.txt
 	python3 -m venv $(VENV)
@@ -40,7 +40,7 @@ run: $(VENV)/bin/activate translations  ## Run the application
 
 ##@ Testing
 
-lint: pylint mypy pycodestyle pydocstyle  ## All lint and static code checks
+lint: pylint mypy pycodestyle pydocstyle bandit reuse  ## All lint and static code checks
 
 pylint:  ## Code lint check
 	$(PYLINT) --verbose .
@@ -53,6 +53,9 @@ pycodestyle:  ## Check code style against PEP8
 
 pydocstyle:  ## Check dotstrings
 	$(PYDOCSTYLE) --verbose .
+
+bandit:  ## Check for common security issues
+	bandit -c bandit.yaml -r .
 
 reuse:  ## Verify REUSE Specification for Copyrights
 	$(REUSE) lint
