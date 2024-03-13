@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sysmon-pytk 0.2.0\n"
 "Report-Msgid-Bugs-To: stacey.belle.rose@gmail.com\n"
-"POT-Creation-Date: 2024-03-13 01:22-0500\n"
-"PO-Revision-Date: 2024-03-13 01:22-0500\n"
+"POT-Creation-Date: 2024-03-13 12:06-0500\n"
+"PO-Revision-Date: 2024-03-13 12:06-0500\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/sysmon-"
 "pytk/sysmon-pytk/nb_NO/>\n"
@@ -142,43 +142,47 @@ msgstr "Prosesser: {}"
 msgid "Uptime: {}"
 msgstr "Oppetid: {}"
 
-#: ../settings.py:66 ../modals/font_modal.py:154
+#: ../font_utils.py:70 ../modals/font_modal.py:154
 msgid "Bold"
 msgstr "Fet"
 
-#: ../settings.py:68 ../modals/font_modal.py:158
+#: ../font_utils.py:72 ../modals/font_modal.py:158
 msgid "Italic"
 msgstr "Kursiv"
 
-#: ../settings.py:70 ../modals/font_modal.py:162
+#: ../font_utils.py:74 ../modals/font_modal.py:162
 msgid "Bold Italic"
 msgstr "Fet kursiv"
 
-#: ../modals/about_modal.py:61
+#: ../modals/about_modal.py:70
 msgid "About {}"
 msgstr "Om {}"
 
-#: ../modals/about_modal.py:106
+#: ../modals/about_modal.py:118
 msgid "Version {}"
 msgstr "Versjon {}"
 
-#: ../modals/about_modal.py:123
+#: ../modals/about_modal.py:133
 msgid "Source Code"
 msgstr "Kildekode"
 
-#: ../modals/about_modal.py:160
-msgid "Full license text available here"
-msgstr "Full lisenstekst tilgjengelig her"
+#: ../modals/about_modal.py:144
+msgid "Translators"
+msgstr "Oversettere"
 
-#: ../modals/about_modal.py:164
+#: ../modals/about_modal.py:147
 msgid "License"
 msgstr "Lisens"
 
-#: ../modals/about_modal.py:167 ../modals/cpu_modal.py:94
+#: ../modals/about_modal.py:150 ../modals/cpu_modal.py:94
 #: ../modals/disk_usage_modal.py:72 ../modals/mem_usage_modal.py:85
 #: ../modals/temperature_modal.py:72
 msgid "Close"
 msgstr "Lukk"
+
+#: ../modals/about_modal.py:229
+msgid "Full license text available here"
+msgstr "Full lisenstekst tilgjengelig her"
 
 #: ../modals/cpu_modal.py:56
 msgid "per-core CPU Usage"
