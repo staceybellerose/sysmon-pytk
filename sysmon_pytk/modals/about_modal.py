@@ -13,6 +13,7 @@ from tkinter import ttk
 from ..widgets import UrlLabel
 from .._common import is_dark, INTERNAL_PAD
 from ..file_utils import get_full_path
+from ..translator import TRANSLATORS
 from ..app_locale import _
 
 from ._base_modal import ModalDialog
@@ -139,6 +140,8 @@ class AboutDialog(ModalDialog):
             ).grid(row=row)
             row += 1
         notebook.add(tab1, text=self.title(), sticky=tk.N, padding=INTERNAL_PAD)
+        tab2 = self.create_translators_tab(notebook)
+        notebook.add(tab2, text=_("Translators"), sticky=tk.N, padding=INTERNAL_PAD)
         if self.about.license is not None:
             tab3 = self.create_license_tab(notebook, self.about.license)
             notebook.add(tab3, text=_("License"), sticky=tk.N)
@@ -146,6 +149,48 @@ class AboutDialog(ModalDialog):
         ttk.Button(
             self.internal_frame, text=_("Close"), command=self.dismiss, style='Accent.TButton'
         ).grid(sticky=tk.E)
+
+    def create_translators_tab(
+        self, notebook: ttk.Notebook
+    ) -> ttk.Frame:
+        """
+        Create the Translators page of the Notebook widget.
+        """
+        tab = ttk.Frame(notebook)
+        text = tk.Text(
+            tab, font=self.base_font, height=4, width=55, wrap=tk.WORD,
+            undo=False, relief=tk.FLAT
+        )
+        for language, translator_list in TRANSLATORS.items():
+            text.insert(tk.END, f"{language}: ", ('language',))
+            for idx, translator in enumerate(translator_list):
+                text.insert(tk.END, translator.name)
+                if translator.github_username != "":
+                    linkstyle = UrlLabel.test_web_protocol(
+                        self.about.url, "About_URL.System.TLabel", "System.TLabel"
+                    )
+                    link = UrlLabel(
+                        text,
+                        text=f"{translator.github_username} @ GitHub",
+                        url=translator.github_url(), style=linkstyle,
+                        font=self.base_font, show_tooltip=True
+                    )
+                    text.insert(tk.END, " (")
+                    text.window_create(tk.END, window=link)
+                    text.insert(tk.END, ")")
+                if idx < len(translator_list)-1:
+                    text.insert(tk.END, ",")
+                else:
+                    text.insert(tk.END, "\n")
+        text.tag_configure('language', font=self.bold_font)
+        text.config(state=tk.DISABLED, spacing1=4, spacing2=4, spacing3=4)
+        text.grid(row=0, column=0)
+        # FOR LATER IF SCROLLING IS NEEDED
+        # text_scroller = ttk.Scrollbar(tab, orient=tk.VERTICAL)
+        # text_scroller.grid(row=0, column=1, sticky=tk.N+tk.S)
+        # text.config(yscrollcommand=text_scroller.set)
+        # text_scroller.config(command=text.yview)
+        return tab
 
     def create_license_tab(
         self, notebook: ttk.Notebook, license_data: LicenseMetadata
