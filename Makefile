@@ -55,7 +55,7 @@ pydocstyle:  ## Check dotstrings
 	$(PYDOCSTYLE) --verbose .
 
 bandit:  ## Check for common security issues
-	bandit -c bandit.yaml -r .
+	bandit --ini setup.cfg -r .
 
 reuse:  ## Verify REUSE Specification for Copyrights
 	$(REUSE) lint

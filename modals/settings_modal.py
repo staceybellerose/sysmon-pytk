@@ -7,7 +7,7 @@ Application settings modal dialog.
 
 from typing import Optional
 import tkinter as tk
-from tkinter import ttk, font, Misc
+from tkinter import ttk, Misc
 
 import _common
 from settings import Settings
@@ -74,9 +74,7 @@ class SettingsDialog(ModalDialog):
         Initialize the styles used in the modal dialog.
         """
         style = ttk.Style()
-        style.configure(
-            "Switch.TCheckbutton", font=font.nametofont("TkDefaultFont")
-        )
+        style.configure("Switch.TCheckbutton", font=self.base_font)
 
     def create_widgets(self) -> None:
         """
@@ -89,20 +87,19 @@ class SettingsDialog(ModalDialog):
             "fixed": self.settings.fixed_font.get_full_font().get_string()
         }
         self.internal_frame.configure(padding=_common.INTERNAL_PAD)
-        base_font = font.nametofont("TkDefaultFont")
-        self.option_add('*TCombobox*Listbox.font', base_font)
+        self.option_add('*TCombobox*Listbox.font', self.base_font)
         ttk.Label(
-            self.internal_frame, text=_("Language"), font=base_font
+            self.internal_frame, text=_("Language"), font=self.base_font
         ).grid(row=1, column=1, sticky=tk.E, padx=_common.INTERNAL_PAD)
         self.langbox = DropDown(
             self.internal_frame, dictionary=LANGUAGES, state=["readonly"], exportselection=0,
-            font=base_font
+            font=self.base_font
         )
         self.langbox.set(self.settings.get_language())
         self.langbox.grid(row=1, column=2, pady=_common.INTERNAL_PAD)
         self.langbox.bind("<<ComboboxSelected>>", self.change_combobox)
         ttk.Label(
-            self.internal_frame, text=_("Theme"), font=base_font
+            self.internal_frame, text=_("Theme"), font=self.base_font
         ).grid(row=2, column=1, sticky=tk.E, padx=_common.INTERNAL_PAD)
         # Language translation is used as keys, and English is used as values
         # so that English is stored in the settings file, while allowing the
@@ -114,7 +111,7 @@ class SettingsDialog(ModalDialog):
         }
         self.themebox = DropDown(
             self.internal_frame, dictionary=themes, state=["readonly"], exportselection=0,
-            font=base_font
+            font=self.base_font
         )
         self.themebox.set(self.settings.get_theme())
         self.themebox.grid(row=2, column=2, pady=_common.INTERNAL_PAD)
@@ -127,7 +124,7 @@ class SettingsDialog(ModalDialog):
             padx=_common.INTERNAL_PAD, pady=_common.INTERNAL_PAD
         )
         ttk.Label(
-            self.internal_frame, text=_("Regular Font"), font=base_font
+            self.internal_frame, text=_("Regular Font"), font=self.base_font
         ).grid(row=4, column=1, sticky=tk.E, padx=_common.INTERNAL_PAD)
         self.font_button = ttk.Button(
             self.internal_frame, text=self.fonts["regular"], command=self.show_font_chooser
@@ -137,7 +134,7 @@ class SettingsDialog(ModalDialog):
             padx=_common.INTERNAL_PAD, pady=_common.INTERNAL_PAD
         )
         ttk.Label(
-            self.internal_frame, text=_("Monospace Font"), font=base_font
+            self.internal_frame, text=_("Monospace Font"), font=self.base_font
         ).grid(row=5, column=1, sticky=tk.E, padx=_common.INTERNAL_PAD)
         self.fixed_font_button = ttk.Button(
             self.internal_frame, text=self.fonts["fixed"], command=self.show_fixedfont_chooser

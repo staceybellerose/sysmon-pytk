@@ -8,7 +8,10 @@ Modal dialogs base class.
 from abc import abstractmethod
 from typing import Optional, final
 import tkinter as tk
-from tkinter import ttk, Misc
+from tkinter import ttk, Misc, font
+
+import _common
+
 
 class ModalDialog(tk.Toplevel):
     """
@@ -22,6 +25,14 @@ class ModalDialog(tk.Toplevel):
         The path to the icon to display in the window title bar.
     internal_frame : Frame
         A `Frame` to manage the widgets added to the dialog.
+    base_font : Font
+        Standard font to use for widgets.
+    large_font : Font
+        Large font to use for headers.
+    bold_font : Font
+        Bold font to use for widgets.
+    fixed_font : Font
+        Fixed font to use for widgets.
     """
 
     def __init__(
@@ -49,6 +60,14 @@ class ModalDialog(tk.Toplevel):
         self.iconpath = iconpath
         if iconpath is not None:
             self.iconphoto(False, tk.PhotoImage(file=iconpath))
+        self.base_font = font.nametofont("TkDefaultFont")
+        self.large_font = _common.modify_named_font(
+            "TkDefaultFont", size=self.base_font.actual()["size"]+4
+        )
+        self.bold_font = _common.modify_named_font(
+            "TkDefaultFont", weight="bold"
+        )
+        self.fixed_font = font.nametofont("TkFixedFont")
         self.init_styles()
         self.internal_frame = ttk.Frame(self)
         self.internal_frame.grid()

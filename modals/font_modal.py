@@ -88,6 +88,8 @@ class FontChooser(ModalDialog):  # pylint: disable=too-many-instance-attributes
         """
         self.preview_font = Font(self, self.current_font.get_font())
         self.preview_text = "AaáBbḅCcçÑñXxẍYyýZzẑ 0123456789"
+        style = ttk.Style()
+        style.configure("Switch.TCheckbutton", font=self.base_font)
 
     def update_screen(self):
         """
@@ -101,7 +103,6 @@ class FontChooser(ModalDialog):  # pylint: disable=too-many-instance-attributes
         Create the widgets that are displayed in the dialog.
         """
         self.internal_frame.configure(padding=_common.INTERNAL_PAD)
-        base_font = font.nametofont("TkDefaultFont")
 
         familyframe = ttk.Frame(self.internal_frame)
         familyframe.grid(
@@ -109,13 +110,13 @@ class FontChooser(ModalDialog):  # pylint: disable=too-many-instance-attributes
             padx=_common.INTERNAL_PAD, pady=_common.INTERNAL_PAD
         )
         ttk.Label(
-            familyframe, text=_("Font"), font=base_font
+            familyframe, text=_("Font"), font=self.base_font
         ).grid(row=0, sticky=tk.W)
         choicesvar = tk.StringVar(value=self.fontchoices)  # type: ignore
         lbox = tk.Listbox(
             familyframe, listvariable=choicesvar, height=10, width=30, bd=1,
             exportselection=0, relief=tk.FLAT, background="#555555",
-            font=base_font
+            font=self.base_font
         )
         if self.internal_frame.tk.call("ttk::style", "theme", "use") == "azure-dark":
             bg1 = "#333333"
@@ -138,7 +139,7 @@ class FontChooser(ModalDialog):  # pylint: disable=too-many-instance-attributes
         styleframe = ttk.LabelFrame(
             self.internal_frame,
             labelwidget=ttk.Label(
-                self.internal_frame, text=_("Style"), font=base_font
+                self.internal_frame, text=_("Style"), font=self.base_font
             )
         )
         styleframe.grid(
@@ -165,7 +166,7 @@ class FontChooser(ModalDialog):  # pylint: disable=too-many-instance-attributes
         effectsframe = ttk.LabelFrame(
             self.internal_frame,
             labelwidget=ttk.Label(
-                self.internal_frame, text=_("Effects"), font=base_font
+                self.internal_frame, text=_("Effects"), font=self.base_font
             )
         )
         effectsframe.grid(
@@ -189,7 +190,7 @@ class FontChooser(ModalDialog):  # pylint: disable=too-many-instance-attributes
         previewframe = ttk.LabelFrame(
             self.internal_frame,
             labelwidget=ttk.Label(
-                self.internal_frame, text=_("Preview"), font=base_font
+                self.internal_frame, text=_("Preview"), font=self.base_font
             )
         )
         previewframe.grid(

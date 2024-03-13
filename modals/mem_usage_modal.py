@@ -7,7 +7,7 @@ Memory usage details modal dialog.
 
 from typing import List
 import tkinter as tk
-from tkinter import ttk, font
+from tkinter import ttk
 
 import psutil
 
@@ -15,6 +15,7 @@ import _common
 from app_locale import _
 
 from ._base_modal import ModalDialog
+
 
 class MemUsageDialog(ModalDialog):
     """
@@ -51,42 +52,34 @@ class MemUsageDialog(ModalDialog):
         for count, item in enumerate(swap._asdict().items()):
             self._swaps.append(item[0])
             self._swap_metrics.append(tk.StringVar())
-        base_font = font.nametofont("TkDefaultFont")
-        large_font = _common.modify_named_font(
-            "TkDefaultFont", size=base_font.actual()["size"]+4
-        )
-        bold_font = _common.modify_named_font(
-            "TkDefaultFont", weight="bold"
-        )
-        fixed_font = font.nametofont("TkFixedFont")
         ttk.Label(
-            self.internal_frame, text=_("Memory Statistics"), font=large_font
+            self.internal_frame, text=_("Memory Statistics"), font=self.large_font
         ).grid(row=0, column=0, columnspan=5)
         ttk.Label(
-            self.internal_frame, text=_("Virtual Memory"), font=bold_font
+            self.internal_frame, text=_("Virtual Memory"), font=self.bold_font
         ).grid(row=1, column=0, columnspan=2)
         ttk.Label(self.internal_frame, text="").grid(row=1, column=2)
         ttk.Label(
-            self.internal_frame, text=_("Swap Memory"), font=bold_font
+            self.internal_frame, text=_("Swap Memory"), font=self.bold_font
         ).grid(row=1, column=3, columnspan=2)
         self.internal_frame.columnconfigure(2, minsize=4*_common.INTERNAL_PAD)
         for count, name in enumerate(self._names):
             ttk.Label(
                 self.internal_frame, text=name.capitalize(), anchor=tk.W,
-                font=base_font
+                font=self.base_font
             ).grid(row=count+2, column=0, sticky=tk.W, padx=_common.INTERNAL_PAD)
             ttk.Label(
                 self.internal_frame, textvariable=self._metrics[count], anchor=tk.E,
-                font=fixed_font
+                font=self.fixed_font
             ).grid(row=count+2, column=1, sticky=tk.E, padx=_common.INTERNAL_PAD)
         for count, name in enumerate(self._swaps):
             ttk.Label(
                 self.internal_frame, text=name.capitalize(), anchor=tk.W,
-                font=base_font
+                font=self.base_font
             ).grid(row=count+2, column=3, sticky=tk.W, padx=_common.INTERNAL_PAD)
             ttk.Label(
                 self.internal_frame, textvariable=self._swap_metrics[count],
-                font=fixed_font, anchor=tk.E
+                font=self.fixed_font, anchor=tk.E
             ).grid(row=count+2, column=4, sticky=tk.E, padx=_common.INTERNAL_PAD)
         ttk.Button(
             self.internal_frame, text=_("Close"), command=self.dismiss,

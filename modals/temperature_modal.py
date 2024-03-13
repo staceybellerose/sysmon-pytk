@@ -7,7 +7,7 @@ CPU usage details modal dialog.
 
 from typing import List
 import tkinter as tk
-from tkinter import ttk, font
+from tkinter import ttk
 
 import psutil
 from psutil._common import shwtemp
@@ -42,21 +42,14 @@ class TempDetailsDialog(ModalDialog):
         Create the widgets to be displayed in the modal dialog.
         """
         self._readings: List[List[tk.StringVar]] = []
-        base_font = font.nametofont("TkDefaultFont")
-        large_font = _common.modify_named_font(
-            "TkDefaultFont", size=base_font.actual()["size"]+4
-        )
-        bold_font = _common.modify_named_font(
-            "TkDefaultFont", weight="bold"
-        )
         ttk.Label(
-            self.internal_frame, text=_("Temperature Sensors"), font=large_font
+            self.internal_frame, text=_("Temperature Sensors"), font=self.large_font
         ).grid(columnspan=2)
         temps = psutil.sensors_temperatures()
         row = 0
         for name, entries in temps.items():
             ttk.Label(
-                self.internal_frame, text=name.upper(), anchor=tk.SW, font=bold_font
+                self.internal_frame, text=name.upper(), anchor=tk.SW, font=self.bold_font
             ).grid(
                 column=0, row=row, sticky=tk.W, ipady=_common.INTERNAL_PAD,
                 padx=_common.INTERNAL_PAD
@@ -67,11 +60,11 @@ class TempDetailsDialog(ModalDialog):
                 entryreadings.append(tk.StringVar())
                 entryreadings[count].set(self._format_entry(entry))
                 ttk.Label(
-                    self.internal_frame, text=entry.label or name, anchor=tk.W, font=base_font
+                    self.internal_frame, text=entry.label or name, anchor=tk.W, font=self.base_font
                 ).grid(column=0, row=row, padx=_common.INTERNAL_PAD*2, sticky=tk.W)
                 ttk.Label(
                     self.internal_frame, textvariable=entryreadings[count], anchor=tk.W,
-                    font=base_font
+                    font=self.base_font
                 ).grid(column=1, row=row, padx=_common.INTERNAL_PAD, sticky=tk.W)
                 row += 1
             self._readings.append(entryreadings)

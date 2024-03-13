@@ -7,7 +7,7 @@ Disk usage details modal dialog.
 
 from typing import List
 import tkinter as tk
-from tkinter import ttk, font
+from tkinter import ttk
 
 import psutil
 
@@ -15,6 +15,7 @@ import _common
 from app_locale import _
 
 from ._base_modal import ModalDialog
+
 
 class DiskUsageDialog(ModalDialog):
     """
@@ -46,19 +47,14 @@ class DiskUsageDialog(ModalDialog):
             self._diskmounts.append(part.mountpoint)
             self._diskusages.append(tk.IntVar())
             self._diskusagefmts.append(tk.StringVar())
-        base_font = font.nametofont("TkDefaultFont")
-        large_font = _common.modify_named_font(
-            "TkDefaultFont", size=base_font.actual()["size"]+4
-        )
-        fixed_font = font.nametofont("TkFixedFont")
         ttk.Label(
-            self.internal_frame, text=_("Disk Usage"), font=large_font
+            self.internal_frame, text=_("Disk Usage"), font=self.large_font
         ).grid(columnspan=2)
         self._disklabels: List[ttk.Label] = []
         for col, mountpoint in enumerate(self._diskmounts):
             ttk.Label(
                 self.internal_frame, text=mountpoint, anchor=tk.SW,
-                font=base_font
+                font=self.base_font
             ).grid(row=2*col + 1, column=0, sticky=tk.W)
             ttk.Progressbar(
                 self.internal_frame, length=300, orient=tk.HORIZONTAL,
@@ -66,7 +62,7 @@ class DiskUsageDialog(ModalDialog):
             ).grid(row=2*col + 2, column=0)
             usagelabel = ttk.Label(
                 self.internal_frame, textvariable=self._diskusagefmts[col],
-                anchor=tk.E, font=fixed_font
+                anchor=tk.E, font=self.fixed_font
             )
             self._disklabels.append(usagelabel)
             usagelabel.grid(

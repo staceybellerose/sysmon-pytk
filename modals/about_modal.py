@@ -8,10 +8,10 @@ Display metadata about the application in a modal dialog.
 import dataclasses
 from typing import Optional
 import tkinter as tk
-from tkinter import ttk, font
+from tkinter import ttk
 
 from widgets import UrlLabel
-from _common import is_dark, modify_named_font, get_full_path, INTERNAL_PAD
+from _common import is_dark, get_full_path, INTERNAL_PAD
 from app_locale import _
 
 from ._base_modal import ModalDialog
@@ -96,19 +96,15 @@ class AboutDialog(ModalDialog):
         notebook = ttk.Notebook(self.internal_frame)
         notebook.grid(sticky=tk.W+tk.E+tk.N, pady=INTERNAL_PAD)
         tab1 = ttk.Frame(notebook)
-        base_font = font.nametofont("TkDefaultFont")
-        large_font = modify_named_font(
-            "TkDefaultFont", size=base_font.actual()["size"]+4
-        )
         ttk.Label(tab1, image=self.logo).grid()
         if self.about.app_name != "":
             ttk.Label(
-                tab1, text=self.about.app_name, font=large_font
+                tab1, text=self.about.app_name, font=self.large_font
             ).grid(row=1)
         if self.about.version != "":
             version = _("Version {}").format(self.about.version)
             ttk.Label(
-                tab1, text=version, font=base_font
+                tab1, text=version, font=self.base_font
             ).grid(row=2)
         if self.about.author != "":
             if self.about.copyright_year != "":
@@ -116,7 +112,7 @@ class AboutDialog(ModalDialog):
             else:
                 copyright_text = f"© {self.about.author}"
             ttk.Label(
-                tab1, text=copyright_text, font=base_font
+                tab1, text=copyright_text, font=self.base_font
             ).grid(row=3)
         if self.about.url != "":
             link1style = UrlLabel.test_web_protocol(
@@ -124,11 +120,11 @@ class AboutDialog(ModalDialog):
             )
             UrlLabel(
                 tab1, text=_("Source Code"), url=self.about.url,
-                style=link1style, font=base_font, show_tooltip=True
+                style=link1style, font=self.base_font, show_tooltip=True
             ).grid(row=4)
         if self.about.description != "":
             ttk.Label(
-                tab1, text=self.about.description, wraplength=450, font=base_font
+                tab1, text=self.about.description, wraplength=450, font=self.base_font
             ).grid(row=5)
         notebook.add(tab1, text=self.title(), sticky=tk.N, padding=INTERNAL_PAD)
         if self.about.license is not None:
@@ -140,7 +136,7 @@ class AboutDialog(ModalDialog):
                     ) for line in self.about.license.full_license.split("\n\n")
                 ]
                 text = tk.Text(
-                    tab2, font=base_font, height=14, width=55, wrap=tk.WORD,
+                    tab2, font=self.base_font, height=14, width=55, wrap=tk.WORD,
                     undo=False, relief=tk.FLAT
                 )
                 text.insert(tk.END, "\n\n".join(license_text))
@@ -152,7 +148,7 @@ class AboutDialog(ModalDialog):
                 text_scroller.config(command=text.yview)
             elif self.about.license.license_name != "":
                 tk.Label(
-                    tab2, font=base_font, text=self.about.license.license_name
+                    tab2, font=self.base_font, text=self.about.license.license_name
                 ).grid(row=0, pady=INTERNAL_PAD)
                 if self.about.license.license_url != "":
                     link2style = UrlLabel.test_web_protocol(

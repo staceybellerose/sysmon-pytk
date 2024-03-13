@@ -7,7 +7,7 @@ CPU usage details modal dialog.
 
 from typing import List
 import tkinter as tk
-from tkinter import ttk, font
+from tkinter import ttk
 
 import psutil
 
@@ -49,15 +49,11 @@ class CpuDialog(ModalDialog):
         self.cpu_count = psutil.cpu_count()
         cpu_model = _common.get_processor_name()
         max_columns = 4
-        base_font = font.nametofont("TkDefaultFont")
-        large_font = _common.modify_named_font(
-            "TkDefaultFont", size=base_font.actual()["size"]+4
-        )
         ttk.Label(
-            self.internal_frame, text=cpu_model, font=large_font
+            self.internal_frame, text=cpu_model, font=self.large_font
         ).grid(columnspan=max_columns)
         ttk.Label(
-            self.internal_frame, text=_("per-core CPU Usage"), font=large_font
+            self.internal_frame, text=_("per-core CPU Usage"), font=self.large_font
         ).grid(columnspan=max_columns, row=1)
         row = 2
         col = 0
@@ -76,7 +72,7 @@ class CpuDialog(ModalDialog):
         row += 1
         ttk.Label(
             self.internal_frame, text=_("per-core CPU Frequency (in MHz)"),
-            font=large_font
+            font=self.large_font
         ).grid(columnspan=max_columns, row=row)
         row += 1
         self._freqmeters: List[Meter] = []
