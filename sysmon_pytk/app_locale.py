@@ -14,7 +14,8 @@ from .file_utils import settings_path
 LANGUAGES = {
     "English": "en",
     "Español": "es",
-    "Deutsch": "de"
+    "Deutsch": "de",
+    "Norsk Bokmål": "nb_NO"
 }
 
 __i18n_domain__ = "app"

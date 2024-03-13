@@ -53,8 +53,8 @@ make venv
 
 ### Generate translation files
 
-Translations are available in English, Spanish, and German. To build the translation
-files, run the following bash commands:
+Translations are available in English, Spanish, German, and Norwegian Bokmål.
+To build the translation files, run the following bash commands:
 
 ```bash
 make translations
@@ -80,3 +80,13 @@ OR
 # Let make handle everything automatically
 make run
 ```
+
+## Translations
+
+Special thanks to our translators!
+
+| Language | Translator |
+|----------|------------|
+| Spanish  | Stacey Adams |
+| German   | Alisyn Arness |
+| Norwegian Bokmål | [Allan Nordhøy](https://github.com/comradekingu) |
