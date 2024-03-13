@@ -9,7 +9,7 @@ import os
 import gettext
 from configparser import ConfigParser, Error
 
-from _common import SETTINGS_FILE, get_full_path
+from file_utils import settings_path
 
 LANGUAGES = {
     "English": "en",
@@ -21,10 +21,11 @@ __i18n_domain__ = "app"
 
 CURRENT_LANG: str = "en"
 try:
-    _filename = get_full_path(SETTINGS_FILE)
+    _filename = settings_path()
     _config = ConfigParser()
     _config.read(_filename)
-    CURRENT_LANG = _config["general"].get("language", fallback="en")
+    if "general" in _config.sections():
+        CURRENT_LANG = _config["general"].get("language", fallback="en")
 except Error:
     pass
 

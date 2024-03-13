@@ -5,7 +5,6 @@
 Shared functions used throughout the application.
 """
 
-import os
 import platform
 import subprocess  # nosec B404
 import re
@@ -284,13 +283,6 @@ def get_processor_name() -> str:
             if "model name" in line:
                 return re.sub(".*model name.*:", "", line, 1)
     return ""
-
-
-def get_full_path(relative_path: str) -> str:
-    """
-    Get the full path of a file, based on its relative path to this project.
-    """
-    return f"{os.path.realpath(os.path.dirname(__file__))}/{relative_path}"
 
 
 def modify_named_font(  # pylint: disable=too-many-arguments

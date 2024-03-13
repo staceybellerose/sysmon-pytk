@@ -5,7 +5,6 @@
 Application settings.
 """
 
-import os
 from configparser import ConfigParser
 import dataclasses
 from typing import Literal
@@ -233,7 +232,7 @@ class Settings():
     """
 
     def __init__(self, settings_file: str):
-        self.filename = f"{os.path.realpath(os.path.dirname(__file__))}/{settings_file}"
+        self.filename = settings_file
         self.config = ConfigParser()
         self.read_settings()
         self.regular_font = FontSettings(self.config, "font")

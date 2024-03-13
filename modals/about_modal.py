@@ -11,7 +11,8 @@ import tkinter as tk
 from tkinter import ttk
 
 from widgets import UrlLabel
-from _common import is_dark, get_full_path, INTERNAL_PAD
+from _common import is_dark, INTERNAL_PAD
+from file_utils import get_full_path
 from app_locale import _
 
 from ._base_modal import ModalDialog
