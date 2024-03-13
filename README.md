@@ -53,7 +53,7 @@ make venv
 
 ### Generate translation files
 
-Translations are available in English and Spanish. To build the translation
+Translations are available in English, Spanish, and German. To build the translation
 files, run the following bash commands:
 
 ```bash
@@ -64,14 +64,14 @@ make translations
 
 ```bash
 # While the venv is activated
-python main.py &
+python -m sysmon_pytk.gui_monitor &
 ```
 
 OR
 
 ```bash
 # Explicitly using the venv
-venv/bin/python main.py &
+venv/bin/python -m sysmon_pytk.gui_monitor &
 ```
 
 OR

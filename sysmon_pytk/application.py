@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 # SPDX-FileCopyrightText: © 2024 2024 Stacey Adams <stacey.belle.rose@gmail.com>
 # SPDX-License-Identifier: MIT
 
@@ -16,15 +14,14 @@ from tkinter import ttk, font
 import darkdetect
 import psutil
 
-import _common
-import about
-from settings import Settings
-from tkmeter import Meter
-from modals import CpuDialog, TempDetailsDialog, MemUsageDialog, DiskUsageDialog, SettingsDialog
-from modals.about_modal import AboutMetadata, LicenseMetadata, AboutDialog
-from widgets import ToolTip
-from file_utils import get_full_path, settings_path
-from app_locale import _
+from . import _common
+from . import about
+from .settings import Settings
+from .modals import CpuDialog, TempDetailsDialog, MemUsageDialog, DiskUsageDialog, SettingsDialog
+from .modals.about_modal import AboutMetadata, LicenseMetadata, AboutDialog
+from .widgets import Meter, ToolTip
+from .file_utils import get_full_path, settings_path
+from .app_locale import _
 
 APP_TITLE = _("System Monitor")
 
@@ -37,7 +34,7 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
     def __init__(self, parent=None):
         super().__init__(parent)
         self.title(APP_TITLE)
-        self.iconphoto(False, tk.PhotoImage(file=get_full_path("icon.png")))
+        self.iconphoto(False, tk.PhotoImage(file=get_full_path("images/icon.png")))
         self.read_settings()
         self._name = tk.StringVar()
         self._ip_addr = tk.StringVar()
@@ -65,7 +62,7 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         Initialize the display theme.
         """
         dark_mode = self.get_dark_mode()
-        self.tk.call("source", get_full_path("azure/azure.tcl"))
+        self.tk.call("source", get_full_path("../azure/azure.tcl"))
         self.tk.call("set_theme", "dark" if dark_mode else "light")
         base_font = font.nametofont("TkDefaultFont")
         style = ttk.Style()
@@ -217,7 +214,7 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
                 about.__full_license__, about.__license__, about.__license_url__
             )
         )
-        AboutDialog(self, metadata, iconpath=get_full_path("icon.png"))
+        AboutDialog(self, metadata, iconpath=get_full_path("images/icon.png"))
 
     def _on_quit(self, *_args):
         sys.exit(0)
@@ -231,7 +228,7 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         """
         CpuDialog(
             self, title=_("{} :: CPU Details").format(APP_TITLE),
-            iconpath=get_full_path("icon.png")
+            iconpath=get_full_path("images/icon.png")
         )
 
     def _on_temp_details(self, *_args):
@@ -240,7 +237,7 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         """
         TempDetailsDialog(
             self, title=_("{} :: Temperature Details").format(APP_TITLE),
-            iconpath=get_full_path("icon.png")
+            iconpath=get_full_path("images/icon.png")
         )
 
     def _on_mem_details(self, *_args):
@@ -249,7 +246,7 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         """
         MemUsageDialog(
             self, title=_("{} :: Memory Usage").format(APP_TITLE),
-            iconpath=get_full_path("icon.png")
+            iconpath=get_full_path("images/icon.png")
         )
 
     def _on_disk_usage(self, *_args):
@@ -258,7 +255,7 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         """
         DiskUsageDialog(
             self, title=_("{} :: Disk Usage").format(APP_TITLE),
-            iconpath=get_full_path("icon.png")
+            iconpath=get_full_path("images/icon.png")
         )
 
     def _on_settings(self, *_args):
@@ -267,7 +264,7 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         """
         SettingsDialog(
             self.settings, self, _("{} Preferences").format(APP_TITLE),
-            iconpath=get_full_path("icon.png")
+            iconpath=get_full_path("images/icon.png")
         )
         dark_mode = self.get_dark_mode()
         self.tk.call("set_theme", "dark" if dark_mode else "light")
@@ -309,10 +306,3 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         Apply the new settings to the application.
         """
         self.read_settings()
-
-
-if __name__ == "__main__":
-    app = Application()
-    app.update()
-    app.minsize(app.winfo_width(), app.winfo_height())
-    app.mainloop()

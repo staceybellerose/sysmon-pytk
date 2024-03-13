@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 # SPDX-FileCopyrightText: © 2024 2024 Stacey Adams <stacey.belle.rose@gmail.com>
 # SPDX-License-Identifier: MIT
 
@@ -13,7 +11,7 @@ from socket import gethostname
 
 import psutil
 
-import _common
+from . import _common
 
 REFRESH_SLEEP = 1.0
 
@@ -46,8 +44,15 @@ def monitor_system():
         time.sleep(REFRESH_SLEEP)
 
 
-if __name__ == '__main__':
+def cli_monitor():
+    """
+    Entry point for CLI monitor.
+    """
     try:
         monitor_system()
     except KeyboardInterrupt:
         sys.exit(0)
+
+
+if __name__ == "__main__":
+    cli_monitor()

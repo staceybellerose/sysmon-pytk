@@ -11,9 +11,9 @@ from tkinter import ttk
 
 import psutil
 
-import _common
-from tkmeter import Meter
-from app_locale import _
+from .. import _common
+from ..widgets import Meter
+from ..app_locale import _
 
 from ._base_modal import ModalDialog
 

@@ -10,10 +10,10 @@ import tkinter as tk
 from tkinter import ttk, font, Event, Misc
 from tkinter.font import Font
 
-import _common
-from settings import FontDescription
-from widgets import ScaleSpinner
-from app_locale import _
+from .. import _common
+from ..settings import FontDescription
+from ..widgets import ScaleSpinner
+from ..app_locale import _
 
 from ._base_modal import ModalDialog
 

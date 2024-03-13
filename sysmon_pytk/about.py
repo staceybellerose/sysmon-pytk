@@ -7,7 +7,7 @@
 Metadata about the application.
 """
 
-from app_locale import _
+from .app_locale import _
 
 __app_name__ = "sysmon-pytk"
 __version__ = "0.2.0"

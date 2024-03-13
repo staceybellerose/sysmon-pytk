@@ -31,34 +31,52 @@ $(VENV)/bin/activate: requirements.txt
 venv: $(VENV)/bin/activate  ## Build Python virtual environment
 
 translations:  ## Make translations
-	$(MAKE) -C ./locale all
+	$(MAKE) -C sysmon_pytk/locale all
 
 ##@ Running
 
-run: $(VENV)/bin/activate translations  ## Run the application
-	$(PYTHON) main.py
+cli: $(VENV)/bin/activate translations  ## Run the command line application
+	$(PYTHON) -m sysmon_pytk.cli_monitor
+
+gui: run
+
+run: $(VENV)/bin/activate translations  ## Run the GUI application
+	$(PYTHON) -m sysmon_pytk.gui_monitor &
 
 ##@ Testing
 
 lint: pylint mypy pycodestyle pydocstyle bandit reuse  ## All lint and static code checks
 
 pylint:  ## Code lint check
-	$(PYLINT) --verbose .
+	$(PYLINT) --verbose sysmon_pytk
 
 mypy:  ## Validate type hinting
 	$(MYPY) .
 
 pycodestyle:  ## Check code style against PEP8
-	$(PYCODESTYLE) --benchmark --verbose .
+	$(PYCODESTYLE) --benchmark --verbose sysmon_pytk
 
 pydocstyle:  ## Check dotstrings
-	$(PYDOCSTYLE) --verbose .
+	$(PYDOCSTYLE) --verbose sysmon_pytk
 
 bandit:  ## Check for common security issues
-	bandit --ini setup.cfg -r .
+	bandit --ini setup.cfg -r sysmon_pytk
 
 reuse:  ## Verify REUSE Specification for Copyrights
 	$(REUSE) lint
+
+##@ Metrics
+
+metrics: radon-cc radon-mi radon-raw  ## All code metric calculations
+
+radon-cc:  ## Cyclomatic Complexity of codebase
+	radon cc sysmon_pytk --total-average --show-complexity --min b
+
+radon-mi:  ## Maintainability Index of codebase
+	radon mi sysmon_pytk --show
+
+radon-raw:  ## Raw metrics of codebase
+	radon raw sysmon_pytk --summary
 
 ##@ Cleanup
 

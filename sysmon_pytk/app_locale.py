@@ -9,7 +9,7 @@ import os
 import gettext
 from configparser import ConfigParser, Error
 
-from file_utils import settings_path
+from .file_utils import settings_path
 
 LANGUAGES = {
     "English": "en",

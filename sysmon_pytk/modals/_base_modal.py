@@ -10,7 +10,7 @@ from typing import Optional, final
 import tkinter as tk
 from tkinter import ttk, Misc, font
 
-import _common
+from .. import _common
 
 
 class ModalDialog(tk.Toplevel):

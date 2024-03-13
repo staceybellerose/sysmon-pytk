@@ -12,7 +12,7 @@ import dataclasses
 import tkinter as tk
 from tkinter import ttk
 
-from _common import is_dark, modify_named_font
+from .._common import is_dark, modify_named_font
 
 
 class Meter(tk.Frame):

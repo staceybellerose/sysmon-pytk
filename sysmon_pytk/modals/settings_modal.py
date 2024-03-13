@@ -9,10 +9,10 @@ from typing import Optional
 import tkinter as tk
 from tkinter import ttk, Misc
 
-import _common
-from settings import Settings
-from widgets import DropDown
-from app_locale import _, LANGUAGES
+from .. import _common
+from ..settings import Settings
+from ..widgets import DropDown
+from ..app_locale import _, LANGUAGES
 
 from ._base_modal import ModalDialog
 from .font_modal import FontChooser

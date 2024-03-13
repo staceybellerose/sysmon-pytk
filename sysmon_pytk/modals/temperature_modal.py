@@ -12,8 +12,8 @@ from tkinter import ttk
 import psutil
 from psutil._common import shwtemp
 
-import _common
-from app_locale import _
+from .. import _common
+from ..app_locale import _
 
 from ._base_modal import ModalDialog
 

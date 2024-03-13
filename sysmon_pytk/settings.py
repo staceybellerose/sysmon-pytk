@@ -9,9 +9,9 @@ from configparser import ConfigParser
 import dataclasses
 from typing import Literal
 from tkinter.font import Font
-from app_locale import _
 
-import _common
+from . import _common
+from .app_locale import _
 
 
 @dataclasses.dataclass

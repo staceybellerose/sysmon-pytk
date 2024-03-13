@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sysmon-pytk 0.2.0\n"
 "Report-Msgid-Bugs-To: stacey.belle.rose@gmail.com\n"
-"POT-Creation-Date: 2024-03-12 18:55-0500\n"
+"POT-Creation-Date: 2024-03-13 01:04-0500\n"
 "PO-Revision-Date: 2024-03-12 18:55-0500\n"
 "Last-Translator: Stacey Adams <stacey.belle.rose@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/sysmon-pytk/"
@@ -34,165 +34,165 @@ msgstr ""
 "raíz). También muestra el nombre de host del sistema, la dirección IP, el "
 "tiempo de actividad y el recuento de procesos actuales."
 
-#: ../main.py:28
+#: ../application.py:26
 msgid "System Monitor"
 msgstr "Monitoreo del sistema"
 
-#: ../main.py:127
+#: ../application.py:125
 msgid "CPU Usage"
 msgstr "Uso de CPU"
 
-#: ../main.py:132
+#: ../application.py:130
 msgid "Click for per-CPU usage"
 msgstr "Clic para ver el uso por CPU"
 
-#: ../main.py:136
+#: ../application.py:134
 msgid "Temperature"
 msgstr "Temperatura"
 
-#: ../main.py:140
+#: ../application.py:138
 msgid "Click for detailed temperature readings"
 msgstr "Clic para ver todos los sensores de temperatura"
 
-#: ../main.py:143
+#: ../application.py:141
 msgid "RAM Usage"
 msgstr "Uso de RAM"
 
-#: ../main.py:147
+#: ../application.py:145
 msgid "Click for detailed memory statistics"
 msgstr "Clic para obtener estadísticas detalladas de la memoria"
 
-#: ../main.py:150
+#: ../application.py:148
 msgid "Disk Usage: /"
 msgstr "Uso del disco: /"
 
-#: ../main.py:156
+#: ../application.py:154
 msgid "Click for usage details of each mount point"
 msgstr "Clic para obtener detalles de uso de cada punto de montaje"
 
-#: ../main.py:168
+#: ../application.py:166
 msgid "File"
 msgstr "Archivo"
 
-#: ../main.py:172
+#: ../application.py:170
 msgid "About"
 msgstr "Acerca de"
 
-#: ../main.py:172
+#: ../application.py:170
 msgid "Ctrl+A"
 msgstr "Ctrl+A"
 
-#: ../main.py:176
+#: ../application.py:174
 msgid "Preferences"
 msgstr "Preferencias"
 
-#: ../main.py:176
+#: ../application.py:174
 msgid "Ctrl+Shift+P"
 msgstr "Ctrl+Mayús+P"
 
-#: ../main.py:180
+#: ../application.py:178
 msgid "Restart"
 msgstr "Reiniciar"
 
-#: ../main.py:180
+#: ../application.py:178
 msgid "Ctrl+R"
 msgstr "Ctrl+R"
 
-#: ../main.py:185
+#: ../application.py:183
 msgid "Quit"
 msgstr "Salir"
 
-#: ../main.py:185
+#: ../application.py:183
 msgid "Ctrl+Q"
 msgstr "Ctrl+Q"
 
-#: ../main.py:232
+#: ../application.py:230
 msgid "{} :: CPU Details"
 msgstr "{} :: Detalles de la CPU"
 
-#: ../main.py:241
+#: ../application.py:239
 msgid "{} :: Temperature Details"
 msgstr "{} :: Detalles de temperatura"
 
-#: ../main.py:250
+#: ../application.py:248
 msgid "{} :: Memory Usage"
 msgstr "{} :: Uso de memoria"
 
-#: ../main.py:259
+#: ../application.py:257
 msgid "{} :: Disk Usage"
 msgstr "{} :: Uso del disco"
 
-#: ../main.py:268
+#: ../application.py:266
 msgid "{} Preferences"
 msgstr "{} Preferencias"
 
-#: ../main.py:300
+#: ../application.py:298
 msgid "Hostname: {}"
 msgstr "Nombre del host: {}"
 
-#: ../main.py:301
+#: ../application.py:299
 msgid "IP Address: {}"
 msgstr "Dirección IP: {}"
 
-#: ../main.py:302
+#: ../application.py:300
 msgid "Processes: {}"
 msgstr "Recuento de procesos: {}"
 
-#: ../main.py:303
+#: ../application.py:301
 msgid "Uptime: {}"
 msgstr "Tiempo de actividad: {}"
 
-#: ../settings.py:67 ../modals/font_modal.py:153
+#: ../settings.py:66 ../modals/font_modal.py:154
 msgid "Bold"
 msgstr "Negrita"
 
-#: ../settings.py:69 ../modals/font_modal.py:157
+#: ../settings.py:68 ../modals/font_modal.py:158
 msgid "Italic"
 msgstr "Cursiva"
 
-#: ../settings.py:71 ../modals/font_modal.py:161
+#: ../settings.py:70 ../modals/font_modal.py:162
 msgid "Bold Italic"
 msgstr "Cursiva negrita"
 
-#: ../modals/about_modal.py:60
+#: ../modals/about_modal.py:61
 msgid "About {}"
 msgstr "Acerca del {}"
 
-#: ../modals/about_modal.py:109
+#: ../modals/about_modal.py:106
 msgid "Version {}"
 msgstr "Versión {}"
 
-#: ../modals/about_modal.py:126
+#: ../modals/about_modal.py:123
 msgid "Source Code"
 msgstr "Código fuente"
 
-#: ../modals/about_modal.py:163
+#: ../modals/about_modal.py:160
 msgid "Full license text available here"
 msgstr "Texto completo de la licencia disponible aquí"
 
-#: ../modals/about_modal.py:167
+#: ../modals/about_modal.py:164
 msgid "License"
 msgstr "Licencia"
 
-#: ../modals/about_modal.py:170 ../modals/cpu_modal.py:98
-#: ../modals/disk_usage_modal.py:76 ../modals/mem_usage_modal.py:92
-#: ../modals/temperature_modal.py:79
+#: ../modals/about_modal.py:167 ../modals/cpu_modal.py:94
+#: ../modals/disk_usage_modal.py:72 ../modals/mem_usage_modal.py:85
+#: ../modals/temperature_modal.py:72
 msgid "Close"
 msgstr "Cerrar"
 
-#: ../modals/cpu_modal.py:60
+#: ../modals/cpu_modal.py:56
 msgid "per-core CPU Usage"
 msgstr "uso del CPU por núcleo"
 
-#: ../modals/cpu_modal.py:68 ../modals/cpu_modal.py:87
+#: ../modals/cpu_modal.py:64 ../modals/cpu_modal.py:83
 msgid "CPU #{}"
 msgstr "CPU #{}"
 
-#: ../modals/cpu_modal.py:78
+#: ../modals/cpu_modal.py:74
 msgid "per-core CPU Frequency (in MHz)"
 msgstr "Frecuencia de CPU pro núcleo (en MHz)"
 
-#: ../modals/disk_usage_modal.py:55
+#: ../modals/disk_usage_modal.py:51
 msgid "Disk Usage"
 msgstr "Uso del disco"
 
@@ -200,95 +200,95 @@ msgstr "Uso del disco"
 msgid "Choose Font"
 msgstr "Elege fuente"
 
-#: ../modals/font_modal.py:112
+#: ../modals/font_modal.py:113
 msgid "Font"
 msgstr "Fuente"
 
-#: ../modals/font_modal.py:141
+#: ../modals/font_modal.py:142
 msgid "Style"
 msgstr "Estilo"
 
-#: ../modals/font_modal.py:149
+#: ../modals/font_modal.py:150
 msgid "Regular"
 msgstr "Normal"
 
-#: ../modals/font_modal.py:168
+#: ../modals/font_modal.py:169
 msgid "Effects"
 msgstr "Efectos"
 
-#: ../modals/font_modal.py:176
+#: ../modals/font_modal.py:177
 msgid "Underline"
 msgstr "Subrayada"
 
-#: ../modals/font_modal.py:180
+#: ../modals/font_modal.py:181
 msgid "Overstrike"
 msgstr "Tachado"
 
-#: ../modals/font_modal.py:185
+#: ../modals/font_modal.py:186
 msgid "Size"
 msgstr "Tamaño"
 
-#: ../modals/font_modal.py:192
+#: ../modals/font_modal.py:193
 msgid "Preview"
 msgstr "Previsualización"
 
-#: ../modals/font_modal.py:212 ../modals/settings_modal.py:151
+#: ../modals/font_modal.py:213 ../modals/settings_modal.py:148
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: ../modals/font_modal.py:215 ../modals/settings_modal.py:154
+#: ../modals/font_modal.py:216 ../modals/settings_modal.py:151
 msgid "OK"
 msgstr "Aceptar"
 
-#: ../modals/mem_usage_modal.py:63
+#: ../modals/mem_usage_modal.py:56
 msgid "Memory Statistics"
 msgstr "Estadísticas de memoria"
 
-#: ../modals/mem_usage_modal.py:66
+#: ../modals/mem_usage_modal.py:59
 msgid "Virtual Memory"
 msgstr "memoria virtual"
 
-#: ../modals/mem_usage_modal.py:70
+#: ../modals/mem_usage_modal.py:63
 msgid "Swap Memory"
 msgstr "memoria de intercambio"
 
-#: ../modals/settings_modal.py:95
+#: ../modals/settings_modal.py:92
 msgid "Language"
 msgstr "Idioma"
 
-#: ../modals/settings_modal.py:105
+#: ../modals/settings_modal.py:102
 msgid "Theme"
 msgstr "Tema"
 
-#: ../modals/settings_modal.py:111
+#: ../modals/settings_modal.py:108
 msgid "Light"
 msgstr "Claro"
 
-#: ../modals/settings_modal.py:112
+#: ../modals/settings_modal.py:109
 msgid "Dark"
 msgstr "Oscuro"
 
-#: ../modals/settings_modal.py:113
+#: ../modals/settings_modal.py:110
 msgid "Same as System"
 msgstr "Igual que en el sistema"
 
-#: ../modals/settings_modal.py:123
+#: ../modals/settings_modal.py:120
 msgid "Always on top"
 msgstr "Siempre encima"
 
-#: ../modals/settings_modal.py:130
+#: ../modals/settings_modal.py:127
 msgid "Regular Font"
 msgstr "Fuente normal"
 
-#: ../modals/settings_modal.py:140
+#: ../modals/settings_modal.py:137
 msgid "Monospace Font"
 msgstr "Fuente monoespaciada"
 
-#: ../modals/temperature_modal.py:53
+#: ../modals/temperature_modal.py:46
 msgid "Temperature Sensors"
 msgstr "Sensores de temperatura"
 
-#: ../modals/temperature_modal.py:99
+#: ../modals/temperature_modal.py:92
 #, python-brace-format
 msgid "{current}°C (high = {high}°C, critical = {critical}°C)"
 msgstr "{current}°C (alta = {high}°C, critica = {critical}°C)"
