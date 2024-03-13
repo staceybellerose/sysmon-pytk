@@ -13,9 +13,11 @@ import psutil
 from psutil._common import shwtemp
 
 from .. import _common
-from ..app_locale import _
+from ..app_locale import get_translator
 
 from ._base_modal import ModalDialog
+
+_ = get_translator()
 
 
 class TempDetailsDialog(ModalDialog):

@@ -13,12 +13,17 @@ from tkinter.font import Font
 from .. import _common
 from ..settings import FontDescription
 from ..widgets import ScaleSpinner
-from ..app_locale import _
+from ..app_locale import get_translator
 
 from ._base_modal import ModalDialog
 
+_ = get_translator()
 
-class FontChooser(ModalDialog):  # pylint: disable=too-many-instance-attributes
+# These lint errors don't make sense for GUI widgets, so are disabled here.
+# pragma pylint: disable=too-many-instance-attributes
+
+
+class FontChooser(ModalDialog):
     """
     Font chooser dialog.
 

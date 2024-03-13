@@ -13,6 +13,7 @@ class Translator:
     """
     App translator data.
     """
+
     name: str
     github_username: str = ""
 
@@ -25,7 +26,7 @@ class Translator:
         return None
 
 
-TRANSLATORS : dict[str, list[Translator]] = {
+TRANSLATORS: dict[str, list[Translator]] = {
     "Español": [
         Translator("Stacey Adams (author)")
     ],

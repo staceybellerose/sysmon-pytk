@@ -12,9 +12,11 @@ from tkinter import ttk
 import psutil
 
 from .. import _common
-from ..app_locale import _
+from ..app_locale import get_translator
 
 from ._base_modal import ModalDialog
+
+_ = get_translator()
 
 
 class MemUsageDialog(ModalDialog):

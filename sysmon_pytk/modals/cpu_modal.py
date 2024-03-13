@@ -13,9 +13,11 @@ import psutil
 
 from .. import _common
 from ..widgets import Meter
-from ..app_locale import _
+from ..app_locale import get_translator
 
 from ._base_modal import ModalDialog
+
+_ = get_translator()
 
 
 class CpuDialog(ModalDialog):

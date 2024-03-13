@@ -5,7 +5,6 @@
 System monitor.
 """
 
-import os
 import sys
 import tkinter as tk
 from socket import gethostname
@@ -22,7 +21,9 @@ from .modals import CpuDialog, TempDetailsDialog, MemUsageDialog, DiskUsageDialo
 from .modals.about_modal import AboutMetadata, LicenseMetadata, AboutDialog
 from .widgets import Meter, ToolTip
 from .file_utils import get_full_path, settings_path
-from .app_locale import _
+from .app_locale import get_translator, reload_translated_modules
+
+_ = get_translator()
 
 APP_TITLE = _("System Monitor")
 
@@ -34,6 +35,7 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
 
     def __init__(self, parent=None):
         super().__init__(parent)
+        self.parent = parent
         self.title(APP_TITLE)
         self.iconphoto(False, tk.PhotoImage(file=get_full_path("images/icon.png")))
         self.read_settings()
@@ -41,6 +43,7 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         self._ip_addr = tk.StringVar()
         self._uptime = tk.StringVar()
         self._processes = tk.StringVar()
+        self._update_job = None
         self.init_theme()
         self.init_fonts()
         self.create_widgets()
@@ -131,8 +134,7 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
             ToolTip(self._cpu_meter, _('Click for per-CPU usage'))
 
         self._temp_meter = Meter(
-            frame, width=220, height=165, unit="°C", blue=15,
-            label=_("Temperature")
+            frame, width=220, height=165, unit="°C", blue=15, label=_("Temperature")
         )
         self._temp_meter.grid(row=2, column=2, sticky=tk.N, ipady=_common.INTERNAL_PAD)
         self._temp_meter.configure(cursor="hand2")
@@ -196,13 +198,20 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         Set up bindings for app events.
         """
         self.bind("<<SettingsChanged>>", self.apply_settings)
-        self.bind("<<LanguageChanged>>", self._on_restart)
+        self.bind("<<LanguageChanged>>", self._on_language)
         self.bind("<<FontChanged>>", self._on_restart)
         if psutil.cpu_count() > 1:
             self._cpu_meter.bind("<Button-1>", self._on_cpu_details)
         self._temp_meter.bind("<Button-1>", self._on_temp_details)
         self._ram_meter.bind("<Button-1>", self._on_mem_details)
         self._disk_meter.bind("<Button-1>", self._on_disk_usage)
+
+    def _on_language(self, *_args):
+        """
+        Update the selected language.
+        """
+        reload_translated_modules()
+        self._on_restart()
 
     def _on_about(self, *_args):
         """
@@ -221,7 +230,11 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         sys.exit(0)
 
     def _on_restart(self, *_args):
-        os.execv(sys.argv[0], sys.argv)  # nosec B606
+        if self._update_job is not None:
+            self.after_cancel(self._update_job)
+            self._update_job = None
+        self.destroy()
+        self.__init__(self.parent)  # pylint: disable=unnecessary-dunder-call
 
     def _on_cpu_details(self, *_args):
         """
@@ -300,7 +313,7 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         self._ip_addr.set(_("IP Address: {}").format(_common.net_addr()))
         self._processes.set(_("Processes: {}").format(len(psutil.pids())))
         self._uptime.set(_("Uptime: {}").format(_common.system_uptime()))
-        self.after(_common.REFRESH_INTERVAL, self.update_screen)
+        self._update_job = self.after(_common.REFRESH_INTERVAL, self.update_screen)
 
     def apply_settings(self, *_args):
         """

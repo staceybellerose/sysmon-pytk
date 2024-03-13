@@ -12,6 +12,9 @@ from tkinter import ttk, Misc, font
 
 from .. import font_utils
 
+# These lint errors don't make sense for GUI widgets, so are disabled here.
+# pragma pylint: disable=too-many-instance-attributes
+
 
 class ModalDialog(tk.Toplevel):
     """
@@ -68,6 +71,7 @@ class ModalDialog(tk.Toplevel):
             "TkDefaultFont", weight="bold"
         )
         self.fixed_font = font.nametofont("TkFixedFont")
+        self._events: list[str] = []
         self.init_styles()
         self.internal_frame = ttk.Frame(self)
         self.internal_frame.grid()
@@ -101,6 +105,16 @@ class ModalDialog(tk.Toplevel):
         """
         self.on_save()
         self.dismiss()
+        for event in self._events:
+            self.parent.event_generate(event)
+
+    @final
+    def save_dismiss_event(self, event_str: str):
+        """
+        Accumulate a list of events to trigger on dismissal when saving.
+        """
+        if event_str not in self._events:
+            self._events.append(event_str)
 
     @abstractmethod
     def on_save(self):

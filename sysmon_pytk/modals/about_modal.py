@@ -14,9 +14,11 @@ from ..widgets import UrlLabel
 from .._common import is_dark, INTERNAL_PAD
 from ..file_utils import get_full_path
 from ..translator import TRANSLATORS
-from ..app_locale import _
+from ..app_locale import get_translator
 
 from ._base_modal import ModalDialog
+
+_ = get_translator()
 
 
 @dataclasses.dataclass
@@ -158,7 +160,7 @@ class AboutDialog(ModalDialog):
         """
         tab = ttk.Frame(notebook)
         text = tk.Text(
-            tab, font=self.base_font, height=4, width=55, wrap=tk.WORD,
+            tab, font=self.base_font, height=4, width=50, wrap=tk.WORD,
             undo=False, relief=tk.FLAT
         )
         for language, translator_list in TRANSLATORS.items():
@@ -206,7 +208,7 @@ class AboutDialog(ModalDialog):
                 ) for line in license_data.full_license.split("\n\n")
             ]
             text = tk.Text(
-                tab, font=self.base_font, height=14, width=55, wrap=tk.WORD,
+                tab, font=self.base_font, height=16, width=50, wrap=tk.WORD,
                 undo=False, relief=tk.FLAT
             )
             text.insert(tk.END, "\n\n".join(license_text))

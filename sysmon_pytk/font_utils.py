@@ -10,7 +10,9 @@ from typing import Literal, Optional, TypeVar
 from tkinter import font
 from tkinter.font import Font
 
-from .app_locale import _
+from .app_locale import get_translator
+
+_ = get_translator()
 
 MAIN_FONT_FAMILY = "Source Sans Pro"
 FIXED_FONT_FAMILY = "Source Code Pro"

@@ -12,10 +12,12 @@ from tkinter import ttk, Misc
 from .. import _common
 from ..settings import Settings
 from ..widgets import DropDown
-from ..app_locale import _, LANGUAGES
+from ..app_locale import get_translator, LANGUAGES
 
 from ._base_modal import ModalDialog
 from .font_modal import FontChooser
+
+_ = get_translator()
 
 
 class SettingsDialog(ModalDialog):
@@ -195,11 +197,11 @@ class SettingsDialog(ModalDialog):
         self.settings.set_always_on_top(self.always_on_top.get())
         self.settings.write_settings()
         if old_language != self.langbox.get():
-            self.parent.event_generate("<<LanguageChanged>>")
+            self.save_dismiss_event("<<LanguageChanged>>")
         if self.fonts["regular"] != self.settings.regular_font.get_full_font(
         ).get_string():
-            self.parent.event_generate("<<FontChanged>>")
+            self.save_dismiss_event("<<FontChanged>>")
         if self.fonts["fixed"] != self.settings.fixed_font.get_full_font(
         ).get_string():
-            self.parent.event_generate("<<FontChanged>>")
-        self.parent.event_generate("<<SettingsChanged>>")
+            self.save_dismiss_event("<<FontChanged>>")
+        self.save_dismiss_event("<<SettingsChanged>>")

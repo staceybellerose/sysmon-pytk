@@ -7,10 +7,12 @@
 Metadata about the application.
 """
 
-from .app_locale import _
+from .app_locale import get_translator
+
+_ = get_translator()
 
 __app_name__ = "sysmon-pytk"
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 __license__ = _("MIT License")
 __author__ = "Stacey Adams"
 __author_email__ = "stacey.belle.rose@gmail.com"

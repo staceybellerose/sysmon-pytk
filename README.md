@@ -6,9 +6,11 @@ SPDX-FileCopyrightText: © 2024 2024 Stacey Adams <stacey.belle.rose@gmail.com>
 SPDX-License-Identifier: MIT
 -->
 
-![GitHub License](https://img.shields.io/github/license/staceybellerose/sysmon-pytk)
+![GitHub License](https://img.shields.io/github/license/staceybellerose/sysmon-pytk?color=7C4DFF)
+![GitHub Release](https://img.shields.io/github/v/release/staceybellerose/sysmon-pytk)
 [![REUSE status](https://api.reuse.software/badge/github.com/staceybellerose/sysmon-pytk)](https://api.reuse.software/info/github.com/staceybellerose/sysmon-pytk)
-[![CodeFactor](https://www.codefactor.io/repository/github/staceybellerose/sysmon-pytk/badge)](https://www.codefactor.io/repository/github/staceybellerose/sysmon-pytk)
+[![CodeFactor Grade](https://img.shields.io/codefactor/grade/github/staceybellerose/sysmon-pytk?logo=codefactor)](https://www.codefactor.io/repository/github/staceybellerose/sysmon-pytk)
+[![Maintainability](https://api.codeclimate.com/v1/badges/556c93bf800d0d58e7e4/maintainability)](https://codeclimate.com/github/staceybellerose/sysmon-pytk/maintainability)
 
 System monitor written in Python using Tk. It monitors CPU usage and
 temperature, RAM usage, and disk usage of the primary disk (containing the
@@ -85,8 +87,8 @@ make run
 
 Special thanks to our translators!
 
-| Language | Translator |
-|----------|------------|
-| Spanish  | Stacey Adams |
-| German   | Alisyn Arness |
-| Norwegian Bokmål | [Allan Nordhøy](https://github.com/comradekingu) |
+| Language         | Code  | Translator |
+|------------------|-------|------------|
+| German           | de    | Alisyn Arness |
+| Spanish          | es    | Stacey Adams (author) |
+| Norwegian Bokmål | nb_NO | [Allan Nordhøy](https://github.com/comradekingu) |
