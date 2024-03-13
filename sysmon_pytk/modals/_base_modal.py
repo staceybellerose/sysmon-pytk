@@ -10,7 +10,7 @@ from typing import Optional, final
 import tkinter as tk
 from tkinter import ttk, Misc, font
 
-from .. import _common
+from .. import font_utils
 
 
 class ModalDialog(tk.Toplevel):
@@ -61,10 +61,10 @@ class ModalDialog(tk.Toplevel):
         if iconpath is not None:
             self.iconphoto(False, tk.PhotoImage(file=iconpath))
         self.base_font = font.nametofont("TkDefaultFont")
-        self.large_font = _common.modify_named_font(
+        self.large_font = font_utils.modify_named_font(
             "TkDefaultFont", size=self.base_font.actual()["size"]+4
         )
-        self.bold_font = _common.modify_named_font(
+        self.bold_font = font_utils.modify_named_font(
             "TkDefaultFont", weight="bold"
         )
         self.fixed_font = font.nametofont("TkFixedFont")

@@ -12,7 +12,8 @@ import dataclasses
 import tkinter as tk
 from tkinter import ttk
 
-from .._common import is_dark, modify_named_font
+from .._common import is_dark
+from ..font_utils import modify_named_font
 
 
 class Meter(tk.Frame):
@@ -81,38 +82,23 @@ class Meter(tk.Frame):
 
         # Add text: label, mix, max, current
         self.canvas_objects.label1 = self.canvas.create_text(
-            width / 2,
-            height / 10,
-            font=text_font,
-            text=label,
-            fill=self._text_color
+            width / 2, height / 10,
+            font=text_font, text=label, fill=self._text_color
         )
         self.canvas_objects.min_value = self.canvas.create_text(
-            width / 6,
-            height * 0.55,
-            font=small_font,
-            text=f"{int(self._min_value)}{unit}",
-            fill=self._text_color,
-            anchor=tk.NE,
-            justify=tk.RIGHT
+            width / 6, height * 0.55,
+            font=small_font, text=f"{int(self._min_value)}{unit}",
+            fill=self._text_color, anchor=tk.NE, justify=tk.RIGHT
         )
         self.canvas_objects.max_value = self.canvas.create_text(
-            width * 5 / 6,
-            height * 0.55,
-            font=small_font,
-            text=f"{int(self._max_value)}{unit}",
-            fill=self._text_color,
-            anchor=tk.NW,
-            justify=tk.LEFT
+            width * 5 / 6, height * 0.55,
+            font=small_font, text=f"{int(self._max_value)}{unit}",
+            fill=self._text_color, anchor=tk.NW, justify=tk.LEFT
         )
         self.canvas_objects.current = self.canvas.create_text(
-            width / 2,
-            height - 1.75*font_size_lg,
-            font=large_font,
-            text=f"{self.var.get()}{self._unit}",
-            fill=self._text_color,
-            anchor=tk.N,
-            justify=tk.CENTER
+            width / 2, height - 1.75*font_size_lg,
+            font=large_font, text=f"{self.var.get()}{self._unit}",
+            fill=self._text_color, anchor=tk.N, justify=tk.CENTER
         )
 
         coord = width / 30, height / 4, width * 29 / 30, height * 1.5
@@ -123,74 +109,54 @@ class Meter(tk.Frame):
                 coord,
                 start=(i * (Meter.EXTENT_ANGLE / divisions) + Meter.START_ANGLE),
                 extent=(Meter.EXTENT_ANGLE / divisions),
-                width=1,
-                outline=self._text_color
+                width=1, outline=self._text_color
             ))
 
         # Add the color scale arcs
         self.canvas.create_arc(
             coord,
-            extent=Meter.EXTENT_ANGLE,
-            start=Meter.START_ANGLE,
-            style='arc',
-            outline=self.GREEN,
-            width=width / 12
+            extent=Meter.EXTENT_ANGLE, start=Meter.START_ANGLE,
+            style='arc', outline=self.GREEN, width=width / 12
         )
         if red > 0:
             self.canvas.create_arc(
                 coord,
-                extent=self._percent_to_degrees(red),
-                start=Meter.START_ANGLE,
-                style='arc',
-                outline=self.RED,
-                width=width / 12
+                extent=self._percent_to_degrees(red), start=Meter.START_ANGLE,
+                style='arc', outline=self.RED, width=width / 12
             )
         if yellow > 0:
             self.canvas.create_arc(
                 coord,
                 extent=self._percent_to_degrees(yellow),
                 start=self._percent_to_degrees(red) + Meter.START_ANGLE,
-                style='arc',
-                outline=self.YELLOW,
-                width=width / 12
+                style='arc', outline=self.YELLOW, width=width / 12
             )
         if blue > 0:
             self.canvas.create_arc(
                 coord,
                 start=Meter.EXTENT_ANGLE + Meter.START_ANGLE,
                 extent=-self._percent_to_degrees(blue),
-                style='arc',
-                outline=self.BLUE,
-                width=width / 12
+                style='arc', outline=self.BLUE, width=width / 12
             )
 
         # Add the moving indicator line
         self.canvas_objects.meter = self.canvas.create_arc(
             coord,
-            start=Meter.EXTENT_ANGLE + Meter.START_ANGLE,
-            extent=1,
-            fill=self._meter_color,
-            outline=self._meter_color,
-            width=3
+            start=Meter.EXTENT_ANGLE + Meter.START_ANGLE, extent=1,
+            fill=self._meter_color, outline=self._meter_color, width=3
         )
 
         # Add the inset
         inset_coord = width * 23 / 60, height * 23 / 32, width * 37 / 60, height * 33 / 32
         self.canvas_objects.inset = self.canvas.create_arc(
             inset_coord,
-            start=Meter.START_ANGLE,
-            extent=Meter.EXTENT_ANGLE,
-            fill=self._text_color,
-            outline=self._text_color,
-            width=2
+            start=Meter.START_ANGLE, extent=Meter.EXTENT_ANGLE,
+            fill=self._text_color, outline=self._text_color, width=2
         )
         self.canvas_objects.inset_border = self.canvas.create_arc(
             inset_coord,
-            start=Meter.START_ANGLE,
-            extent=Meter.EXTENT_ANGLE,
-            outline=self._meter_color,
-            style="arc",
-            width=1
+            start=Meter.START_ANGLE, extent=Meter.EXTENT_ANGLE,
+            outline=self._meter_color, style="arc", width=1
         )
 
         self._update_meter_line(Meter.EXTENT_ANGLE + Meter.START_ANGLE)

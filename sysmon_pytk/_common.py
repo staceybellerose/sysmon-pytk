@@ -10,17 +10,11 @@ import subprocess  # nosec B404
 import re
 import time
 from socket import AF_INET
-from typing import List, Literal, Union, Optional, TypeVar
-from tkinter import font
-from tkinter.font import Font
+from typing import List, Union
 
 import psutil
 
-T = TypeVar("T")
 
-SETTINGS_FILE = 'sysmon.ini'
-MAIN_FONT_FAMILY = "Source Sans Pro"
-FIXED_FONT_FAMILY = "Source Code Pro"
 DISK_ALERT_LEVEL = 80
 DISK_WARN_LEVEL = 60
 REFRESH_INTERVAL = 750  # milliseconds
@@ -283,76 +277,3 @@ def get_processor_name() -> str:
             if "model name" in line:
                 return re.sub(".*model name.*:", "", line, 1)
     return ""
-
-
-def modify_named_font(  # pylint: disable=too-many-arguments
-    font_name: str, *,
-    size: Optional[int] = None,
-    weight: Optional[Literal['normal', 'bold']] = None,
-    slant: Optional[Literal['roman', 'italic']] = None,
-    underline: Optional[bool] = None,
-    overstrike: Optional[bool] = None
-) -> Font:
-    """
-    Modify a named font by optionally changing weight, size, slant, etc.
-
-    Parameters
-    ----------
-    font_name : str
-        The name of the font to use
-    size : int, optional
-        The font size to use
-    weight : Literal['normal', 'bold'], optional
-        The font weight to use
-    slant : Literal['roman', 'italic'], optional
-        The font slant to use
-    underline : bool, optional
-        Whether the font should be underlined
-    overstrike : bool, optional
-        Whether the font should have strikethrough
-
-    Returns
-    -------
-    Font
-        A new font, with the parameters given.
-
-    Example
-    -------
-    >>> modify_named_font("TkDefaultFont", size=13, weight="bold").actual()
-    {   'family': 'Bitstream Vera Sans',
-        'size': 13,
-        'weight': 'bold',
-        'slant': 'roman',
-        'underline': 0,
-        'overstrike': 0 }
-    """
-    if font_name in font.names():
-        fnt = font.nametofont(font_name).actual()
-        return Font(
-            family=fnt['family'],
-            size=get_with_fallback(size, fnt['size']),
-            weight=get_with_fallback(weight, fnt['weight']),
-            slant=get_with_fallback(slant, fnt['slant']),
-            underline=get_with_fallback(underline, fnt['underline']),
-            overstrike=get_with_fallback(overstrike, fnt['overstrike'])
-        )
-    return Font(name="TkDefaultFont")
-
-
-def get_with_fallback(value: Optional[T], fallback: T) -> T:
-    """
-    Return the value provided unless it is None. In that case, return the fallback.
-
-    Parameters
-    ----------
-    value : Optional[T]
-        Any value, possibly None
-    fallback : T
-        A fallback value, cannot be None
-
-    Returns
-    -------
-    T
-        A value that is not None
-    """
-    return value if value is not None else fallback

@@ -30,111 +30,111 @@ msgstr ""
 "It also displays the system's hostname, IP address, uptime, and current "
 "process count."
 
-#: ../application.py:26
+#: ../application.py:27
 msgid "System Monitor"
 msgstr "System Monitor"
 
-#: ../application.py:125
+#: ../application.py:126
 msgid "CPU Usage"
 msgstr "CPU Usage"
 
-#: ../application.py:130
+#: ../application.py:131
 msgid "Click for per-CPU usage"
 msgstr "Click for per-CPU usage"
 
-#: ../application.py:134
+#: ../application.py:135
 msgid "Temperature"
 msgstr "Temperature"
 
-#: ../application.py:138
+#: ../application.py:139
 msgid "Click for detailed temperature readings"
 msgstr "Click for detailed temperature readings"
 
-#: ../application.py:141
+#: ../application.py:142
 msgid "RAM Usage"
 msgstr "RAM Usage"
 
-#: ../application.py:145
+#: ../application.py:146
 msgid "Click for detailed memory statistics"
 msgstr "Click for detailed memory statistics"
 
-#: ../application.py:148
+#: ../application.py:149
 msgid "Disk Usage: /"
 msgstr "Disk Usage: /"
 
-#: ../application.py:154
+#: ../application.py:155
 msgid "Click for usage details of each mount point"
 msgstr "Click for usage details of each mount point"
 
-#: ../application.py:166
+#: ../application.py:167
 msgid "File"
 msgstr "File"
 
-#: ../application.py:170
+#: ../application.py:171
 msgid "About"
 msgstr "About"
 
-#: ../application.py:170
+#: ../application.py:171
 msgid "Ctrl+A"
 msgstr "Ctrl+A"
 
-#: ../application.py:174
+#: ../application.py:175
 msgid "Preferences"
 msgstr "Preferences"
 
-#: ../application.py:174
+#: ../application.py:175
 msgid "Ctrl+Shift+P"
 msgstr "Ctrl+Shift+P"
 
-#: ../application.py:178
+#: ../application.py:179
 msgid "Restart"
 msgstr "Restart"
 
-#: ../application.py:178
+#: ../application.py:179
 msgid "Ctrl+R"
 msgstr "Ctrl+R"
 
-#: ../application.py:183
+#: ../application.py:184
 msgid "Quit"
 msgstr "Quit"
 
-#: ../application.py:183
+#: ../application.py:184
 msgid "Ctrl+Q"
 msgstr "Ctrl+Q"
 
-#: ../application.py:230
+#: ../application.py:231
 msgid "{} :: CPU Details"
 msgstr "{} :: CPU Details"
 
-#: ../application.py:239
+#: ../application.py:240
 msgid "{} :: Temperature Details"
 msgstr "{} :: Temperature Details"
 
-#: ../application.py:248
+#: ../application.py:249
 msgid "{} :: Memory Usage"
 msgstr "{} :: Memory Usage"
 
-#: ../application.py:257
+#: ../application.py:258
 msgid "{} :: Disk Usage"
 msgstr "{} :: Disk Usage"
 
-#: ../application.py:266
+#: ../application.py:267
 msgid "{} Preferences"
 msgstr "{} Preferences"
 
-#: ../application.py:298
+#: ../application.py:299
 msgid "Hostname: {}"
 msgstr "Hostname: {}"
 
-#: ../application.py:299
+#: ../application.py:300
 msgid "IP Address: {}"
 msgstr "IP Address: {}"
 
-#: ../application.py:300
+#: ../application.py:301
 msgid "Processes: {}"
 msgstr "Processes: {}"
 
-#: ../application.py:301
+#: ../application.py:302
 msgid "Uptime: {}"
 msgstr "Uptime: {}"
 

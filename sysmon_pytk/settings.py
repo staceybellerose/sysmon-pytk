@@ -6,81 +6,10 @@ Application settings.
 """
 
 from configparser import ConfigParser
-import dataclasses
 from typing import Literal
 from tkinter.font import Font
 
-from . import _common
-from .app_locale import _
-
-
-@dataclasses.dataclass
-class FontDescription():
-    """
-    Font data, like what is returned by the `actual` method of a `Font` object.
-
-    Attributes
-    ----------
-    family : str
-        The font family name.
-    size : int
-        The font size.
-    weight : {'bold', 'normal'}
-        The font weight.
-    slant : {'italic', 'roman'}
-        The font slant.
-    underline : bool
-        Whether the font uses underline.
-    overstrike : bool
-        Whether the font uses strikethrough.
-    """
-
-    family: str
-    size: int
-    weight: Literal['bold', 'normal']
-    slant: Literal['italic', 'roman']
-    underline: bool
-    overstrike: bool
-
-    REGULAR = 'r'
-    BOLD = 'b'
-    ITALIC = 'i'
-    BOLD_ITALIC = 'bi'
-
-    def get_font(self) -> Font:
-        """
-        Return a Tk font based on this object's data.
-        """
-        return Font(
-            family=self.family, size=self.size, weight=self.weight,
-            slant=self.slant, underline=self.underline, overstrike=self.overstrike
-        )
-
-    def get_string(self) -> str:
-        """
-        Get the string which describes the font.
-        """
-        style = self.get_style()
-        style_text = ""
-        if style == FontDescription.BOLD:
-            style_text = _("Bold")
-        elif style == FontDescription.ITALIC:
-            style_text = _("Italic")
-        elif style == FontDescription.BOLD_ITALIC:
-            style_text = _("Bold Italic")
-        return f"{self.family} {style_text} {self.size}"
-
-    def get_style(self) -> str:
-        """
-        Get the font style, based on its slant and weight.
-        """
-        if self.weight == 'bold' and self.slant == 'roman':
-            return FontDescription.BOLD
-        if self.weight == 'normal' and self.slant == 'italic':
-            return FontDescription.ITALIC
-        if self.weight == 'bold' and self.slant == 'italic':
-            return FontDescription.BOLD_ITALIC
-        return FontDescription.REGULAR
+from .font_utils import MAIN_FONT_FAMILY, FontDescription
 
 
 class FontSettings():
@@ -103,7 +32,7 @@ class FontSettings():
         """
         Get the font name to use in the application.
         """
-        return self.config[self.section].get("name", fallback=_common.MAIN_FONT_FAMILY)
+        return self.config[self.section].get("name", fallback=MAIN_FONT_FAMILY)
 
     def set_name(self, fontname: str):
         """

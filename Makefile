@@ -73,7 +73,7 @@ radon-cc:  ## Cyclomatic Complexity of codebase
 	radon cc sysmon_pytk --total-average --show-complexity --min b
 
 radon-mi:  ## Maintainability Index of codebase
-	radon mi sysmon_pytk --show
+	radon mi sysmon_pytk --show | sort -t "(" -k 2 -g -r
 
 radon-raw:  ## Raw metrics of codebase
 	radon raw sysmon_pytk --summary

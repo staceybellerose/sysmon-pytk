@@ -29,111 +29,111 @@ msgid ""
 "process count."
 msgstr ""
 
-#: ../application.py:26
+#: ../application.py:27
 msgid "System Monitor"
 msgstr ""
 
-#: ../application.py:125
+#: ../application.py:126
 msgid "CPU Usage"
 msgstr ""
 
-#: ../application.py:130
+#: ../application.py:131
 msgid "Click for per-CPU usage"
 msgstr ""
 
-#: ../application.py:134
+#: ../application.py:135
 msgid "Temperature"
 msgstr ""
 
-#: ../application.py:138
+#: ../application.py:139
 msgid "Click for detailed temperature readings"
 msgstr ""
 
-#: ../application.py:141
+#: ../application.py:142
 msgid "RAM Usage"
 msgstr ""
 
-#: ../application.py:145
+#: ../application.py:146
 msgid "Click for detailed memory statistics"
 msgstr ""
 
-#: ../application.py:148
+#: ../application.py:149
 msgid "Disk Usage: /"
 msgstr ""
 
-#: ../application.py:154
+#: ../application.py:155
 msgid "Click for usage details of each mount point"
 msgstr ""
 
-#: ../application.py:166
+#: ../application.py:167
 msgid "File"
 msgstr ""
 
-#: ../application.py:170
+#: ../application.py:171
 msgid "About"
 msgstr ""
 
-#: ../application.py:170
+#: ../application.py:171
 msgid "Ctrl+A"
 msgstr ""
 
-#: ../application.py:174
+#: ../application.py:175
 msgid "Preferences"
 msgstr ""
 
-#: ../application.py:174
+#: ../application.py:175
 msgid "Ctrl+Shift+P"
 msgstr ""
 
-#: ../application.py:178
+#: ../application.py:179
 msgid "Restart"
 msgstr ""
 
-#: ../application.py:178
+#: ../application.py:179
 msgid "Ctrl+R"
 msgstr ""
 
-#: ../application.py:183
+#: ../application.py:184
 msgid "Quit"
 msgstr ""
 
-#: ../application.py:183
+#: ../application.py:184
 msgid "Ctrl+Q"
 msgstr ""
 
-#: ../application.py:230
+#: ../application.py:231
 msgid "{} :: CPU Details"
 msgstr ""
 
-#: ../application.py:239
+#: ../application.py:240
 msgid "{} :: Temperature Details"
 msgstr ""
 
-#: ../application.py:248
+#: ../application.py:249
 msgid "{} :: Memory Usage"
 msgstr ""
 
-#: ../application.py:257
+#: ../application.py:258
 msgid "{} :: Disk Usage"
 msgstr ""
 
-#: ../application.py:266
+#: ../application.py:267
 msgid "{} Preferences"
 msgstr ""
 
-#: ../application.py:298
+#: ../application.py:299
 msgid "Hostname: {}"
 msgstr ""
 
-#: ../application.py:299
+#: ../application.py:300
 msgid "IP Address: {}"
 msgstr ""
 
-#: ../application.py:300
+#: ../application.py:301
 msgid "Processes: {}"
 msgstr ""
 
-#: ../application.py:301
+#: ../application.py:302
 msgid "Uptime: {}"
 msgstr ""
 

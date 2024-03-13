@@ -16,6 +16,7 @@ import psutil
 
 from . import _common
 from . import about
+from . import font_utils
 from .settings import Settings
 from .modals import CpuDialog, TempDetailsDialog, MemUsageDialog, DiskUsageDialog, SettingsDialog
 from .modals.about_modal import AboutMetadata, LicenseMetadata, AboutDialog
@@ -86,13 +87,13 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
             self.settings.regular_font.configure_font(text_font)
             self.settings.regular_font.configure_font(menu_font)
         else:
-            base_font.configure(family=_common.MAIN_FONT_FAMILY, size=12)
-            text_font.configure(family=_common.MAIN_FONT_FAMILY, size=12)
-            menu_font.configure(family=_common.MAIN_FONT_FAMILY, size=12)
+            base_font.configure(family=font_utils.MAIN_FONT_FAMILY, size=12)
+            text_font.configure(family=font_utils.MAIN_FONT_FAMILY, size=12)
+            menu_font.configure(family=font_utils.MAIN_FONT_FAMILY, size=12)
         if self.settings.fixed_font.get_name() != "":
             self.settings.fixed_font.configure_font(fixed_font)
         else:
-            fixed_font.configure(family=_common.FIXED_FONT_FAMILY, size=12)
+            fixed_font.configure(family=font_utils.FIXED_FONT_FAMILY, size=12)
 
     def create_widgets(self):
         """
