@@ -78,13 +78,15 @@ class FontDescription():
         """
         Get the font style, based on its slant and weight.
         """
-        if self.weight == 'bold' and self.slant == 'roman':
-            return FontDescription.BOLD
-        if self.weight == 'normal' and self.slant == 'italic':
-            return FontDescription.ITALIC
-        if self.weight == 'bold' and self.slant == 'italic':
-            return FontDescription.BOLD_ITALIC
-        return FontDescription.REGULAR
+        style = FontDescription.REGULAR
+        if self.weight == 'bold':
+            if self.slant == 'italic':
+                style = FontDescription.BOLD_ITALIC
+            else:
+                style = FontDescription.BOLD
+        elif self.slant == 'italic':
+            style = FontDescription.ITALIC
+        return style
 
 
 def modify_named_font(  # pylint: disable=too-many-arguments

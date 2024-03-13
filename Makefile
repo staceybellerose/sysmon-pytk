@@ -12,6 +12,8 @@ MYPY := $(VENV)/bin/mypy
 PYCODESTYLE := $(VENV)/bin/pycodestyle
 PYDOCSTYLE := $(VENV)/bin/pydocstyle
 REUSE := $(VENV)/bin/reuse
+BANDIT := $(VENV)/bin/bandit
+RADON := $(VENV)/bin/radon
 
 # make sure all external programs are available
 EXECUTABLES = python3 awk
@@ -22,9 +24,10 @@ K := $(foreach exec,$(EXECUTABLES),\
 
 .PHONY: translations pylint mypy pycodestyle pydocstyle bandit reuse clean help
 
-$(VENV)/bin/activate: requirements.txt
+$(VENV)/bin/activate: requirements.txt requirements-dev.txt
 	python3 -m venv $(VENV)
 	$(PIP) install -r requirements.txt
+	$(PIP) install -r requirements-dev.txt
 
 ##@ Dependencies
 
@@ -60,7 +63,7 @@ pydocstyle:  ## Check dotstrings
 	$(PYDOCSTYLE) --verbose sysmon_pytk
 
 bandit:  ## Check for common security issues
-	bandit --ini setup.cfg -r sysmon_pytk
+	$(BANDIT) -r sysmon_pytk
 
 reuse:  ## Verify REUSE Specification for Copyrights
 	$(REUSE) lint
@@ -70,13 +73,13 @@ reuse:  ## Verify REUSE Specification for Copyrights
 metrics: radon-cc radon-mi radon-raw  ## All code metric calculations
 
 radon-cc:  ## Cyclomatic Complexity of codebase
-	radon cc sysmon_pytk --total-average --show-complexity --min b
+	$(RADON) cc sysmon_pytk --total-average --show-complexity --min b
 
 radon-mi:  ## Maintainability Index of codebase
-	radon mi sysmon_pytk --show | sort -t "(" -k 2 -g -r
+	$(RADON) mi sysmon_pytk --show | sort -t "(" -k 2 -g -r
 
 radon-raw:  ## Raw metrics of codebase
-	radon raw sysmon_pytk --summary
+	$(RADON) raw sysmon_pytk --summary
 
 ##@ Cleanup
 

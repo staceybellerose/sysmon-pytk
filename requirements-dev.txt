@@ -1,0 +1,13 @@
+# SPDX-FileCopyrightText: © 2024 Stacey Adams <stacey.belle.rose@gmail.com>
+# SPDX-License-Identifier: Unlicense
+
+bandit >= 1.7.5
+mypy >= 1.5
+pycodestyle >= 2.11
+pydocstyle >= 6.2
+pylint >= 3.0
+radon >= 6.0
+reuse >= 3.0
+setuptools >= 64
+types-psutil >= 5.8.0, < 6.0
+types-setuptools >= 64

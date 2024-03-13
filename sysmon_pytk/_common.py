@@ -264,16 +264,29 @@ def get_processor_name() -> str:
     Get the full processor name of the computer running.
     """
     if platform.system() == "Windows":
-        return platform.processor()
+        return _get_processor_name_windows()
     if platform.system() == "Darwin":
-        return subprocess.check_output(  # nosec B603
-            ["/usr/sbin/sysctl", "-n", "machdep.cpu.brand_string"]
-        ).decode("utf-8").strip()
+        return _get_processor_name_darwin()
     if platform.system() == "Linux":
-        all_info = subprocess.check_output(  # nosec B603
-            ["/usr/bin/cat", "/proc/cpuinfo"]
-        ).decode().strip()
-        for line in all_info.split("\n"):
-            if "model name" in line:
-                return re.sub(".*model name.*:", "", line, 1)
+        return _get_processor_name_linux()
+    return ""
+
+
+def _get_processor_name_windows() -> str:
+    return platform.processor()
+
+
+def _get_processor_name_darwin() -> str:
+    return subprocess.check_output(  # nosec B603
+        ["/usr/sbin/sysctl", "-n", "machdep.cpu.brand_string"]
+    ).decode("utf-8").strip()
+
+
+def _get_processor_name_linux() -> str:
+    all_info = subprocess.check_output(  # nosec B603
+        ["/usr/bin/cat", "/proc/cpuinfo"]
+    ).decode().strip()
+    for line in all_info.split("\n"):
+        if "model name" in line:
+            return re.sub(".*model name.*:", "", line, 1)
     return ""
