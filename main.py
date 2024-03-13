@@ -18,10 +18,10 @@ import psutil
 
 import _common
 import about
-import tkabout
 from settings import Settings
 from tkmeter import Meter
-from tkmodal import CpuDialog, TempDetailsDialog, MemUsageDialog, DiskUsageDialog, SettingsDialog
+from modals import CpuDialog, TempDetailsDialog, MemUsageDialog, DiskUsageDialog, SettingsDialog
+from modals.about_modal import AboutMetadata, LicenseMetadata, AboutDialog
 from widgets import ToolTip
 from app_locale import _
 
@@ -63,13 +63,7 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         """
         Initialize the display theme.
         """
-        dark_mode = darkdetect.isDark()
-        if self.settings.get_theme() == "Dark":
-            dark_mode = True
-        elif self.settings.get_theme() == "Light":
-            dark_mode = False
-        elif self.settings.get_theme() == "Same as System":
-            dark_mode = darkdetect.isDark()
+        dark_mode = self.get_dark_mode()
         self.tk.call("source", _common.get_full_path("azure/azure.tcl"))
         self.tk.call("set_theme", "dark" if dark_mode else "light")
         base_font = font.nametofont("TkDefaultFont")
@@ -90,43 +84,15 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         menu_font = font.nametofont("TkMenuFont")
         fixed_font = font.nametofont("TkFixedFont")
         if self.settings.regular_font.get_name() != "":
-            base_font.configure(
-                family=self.settings.regular_font.get_name(),
-                size=self.settings.regular_font.get_size(),
-                weight=self.settings.regular_font.get_weight(),
-                slant=self.settings.regular_font.get_slant(),
-                underline=self.settings.regular_font.get_underline(),
-                overstrike=self.settings.regular_font.get_overstrike()
-            )
-            text_font.configure(
-                family=self.settings.regular_font.get_name(),
-                size=self.settings.regular_font.get_size(),
-                weight=self.settings.regular_font.get_weight(),
-                slant=self.settings.regular_font.get_slant(),
-                underline=self.settings.regular_font.get_underline(),
-                overstrike=self.settings.regular_font.get_overstrike()
-            )
-            menu_font.configure(
-                family=self.settings.regular_font.get_name(),
-                size=self.settings.regular_font.get_size(),
-                weight=self.settings.regular_font.get_weight(),
-                slant=self.settings.regular_font.get_slant(),
-                underline=self.settings.regular_font.get_underline(),
-                overstrike=self.settings.regular_font.get_overstrike()
-            )
+            self.settings.regular_font.configure_font(base_font)
+            self.settings.regular_font.configure_font(text_font)
+            self.settings.regular_font.configure_font(menu_font)
         else:
             base_font.configure(family=_common.MAIN_FONT_FAMILY, size=12)
             text_font.configure(family=_common.MAIN_FONT_FAMILY, size=12)
             menu_font.configure(family=_common.MAIN_FONT_FAMILY, size=12)
         if self.settings.fixed_font.get_name() != "":
-            fixed_font.configure(
-                family=self.settings.fixed_font.get_name(),
-                size=self.settings.fixed_font.get_size(),
-                weight=self.settings.fixed_font.get_weight(),
-                slant=self.settings.fixed_font.get_slant(),
-                underline=self.settings.fixed_font.get_underline(),
-                overstrike=self.settings.fixed_font.get_overstrike()
-            )
+            self.settings.fixed_font.configure_font(fixed_font)
         else:
             fixed_font.configure(family=_common.FIXED_FONT_FAMILY, size=12)
 
@@ -243,14 +209,14 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         """
         Open the About modal dialog.
         """
-        metadata = tkabout.AboutMetadata(
+        metadata = AboutMetadata(
             about.__app_name__, about.__version__, about.__author__,
             about.__copyright_year__, about.__summary__, about.__url__,
-            tkabout.LicenseMetadata(
+            LicenseMetadata(
                 about.__full_license__, about.__license__, about.__license_url__
             )
         )
-        tkabout.AboutDialog(self, metadata, iconpath=_common.get_full_path("icon.png"))
+        AboutDialog(self, metadata, iconpath=_common.get_full_path("icon.png"))
 
     def _on_quit(self, *_args):
         sys.exit(0)
@@ -302,12 +268,7 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
             self.settings, self, _("{} Preferences").format(APP_TITLE),
             iconpath=_common.get_full_path("icon.png")
         )
-        if self.settings.get_theme() == "Dark":
-            dark_mode = True
-        elif self.settings.get_theme() == "Light":
-            dark_mode = False
-        elif self.settings.get_theme() == "Same as System":
-            dark_mode = darkdetect.isDark()
+        dark_mode = self.get_dark_mode()
         self.tk.call("set_theme", "dark" if dark_mode else "light")
         self._cpu_meter.update_for_dark_mode()
         self._temp_meter.update_for_dark_mode()
@@ -317,6 +278,16 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         style.configure("Safe.TLabel", foreground="#0a0" if dark_mode else "#090")
         style.configure("Warn.TLabel", foreground="#ff2" if dark_mode else "#aa0")
         style.configure("Alert.TLabel", foreground="#f22" if dark_mode else "#c00")
+
+    def get_dark_mode(self) -> bool:
+        """
+        Determine dark mode by checking settings or detecting the system theme.
+        """
+        if self.settings.get_theme() == "Dark":
+            return True
+        if self.settings.get_theme() == "Light":
+            return False
+        return darkdetect.isDark()
 
     def update_screen(self):
         """

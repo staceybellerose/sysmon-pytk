@@ -202,6 +202,19 @@ class FontSettings():
         self.set_underline(font.underline)
         self.set_overstrike(font.overstrike)
 
+    def configure_font(self, font: Font):
+        """
+        Configure an existing Font to use the current settings.
+        """
+        font.configure(
+            family=self.get_name(),
+            size=self.get_size(),
+            weight=self.get_weight(),
+            slant=self.get_slant(),
+            underline=self.get_underline(),
+            overstrike=self.get_overstrike()
+        )
+
 
 class Settings():
     """

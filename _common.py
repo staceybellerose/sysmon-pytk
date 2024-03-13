@@ -11,11 +11,13 @@ import subprocess  # nosec B404
 import re
 import time
 from socket import AF_INET
-from typing import List, Literal, Union, Optional
+from typing import List, Literal, Union, Optional, TypeVar
 from tkinter import font
 from tkinter.font import Font
 
 import psutil
+
+T = TypeVar("T")
 
 SETTINGS_FILE = 'sysmon.ini'
 MAIN_FONT_FAMILY = "Source Sans Pro"
@@ -156,12 +158,11 @@ def net_addr() -> str:
         The discovered network address.
     """
     addresses = psutil.net_if_addrs()
-    for nic, address_list in addresses.items():
-        if nic != 'lo':
-            for address in address_list:
-                if address.family == AF_INET:
-                    return address.address
-    return ''
+    for nic, addr_list in addresses.items():
+        if nic != "lo":
+            addr = [addr.address for addr in addr_list if addr.family == AF_INET]
+            return addr[0] if len(addr) > 0 else ""
+    return ""
 
 
 def system_uptime() -> str:
@@ -337,10 +338,29 @@ def modify_named_font(  # pylint: disable=too-many-arguments
         fnt = font.nametofont(font_name).actual()
         return Font(
             family=fnt['family'],
-            size=size if size is not None else fnt['size'],
-            weight=weight if weight is not None else fnt['weight'],
-            slant=slant if slant is not None else fnt['slant'],
-            underline=underline if underline is not None else fnt['underline'],
-            overstrike=overstrike if overstrike is not None else fnt['overstrike']
+            size=get_with_fallback(size, fnt['size']),
+            weight=get_with_fallback(weight, fnt['weight']),
+            slant=get_with_fallback(slant, fnt['slant']),
+            underline=get_with_fallback(underline, fnt['underline']),
+            overstrike=get_with_fallback(overstrike, fnt['overstrike'])
         )
     return Font(name="TkDefaultFont")
+
+
+def get_with_fallback(value: Optional[T], fallback: T) -> T:
+    """
+    Return the value provided unless it is None. In that case, return the fallback.
+
+    Parameters
+    ----------
+    value : Optional[T]
+        Any value, possibly None
+    fallback : T
+        A fallback value, cannot be None
+
+    Returns
+    -------
+    T
+        A value that is not None
+    """
+    return value if value is not None else fallback

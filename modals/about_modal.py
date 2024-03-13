@@ -10,10 +10,11 @@ from typing import Optional
 import tkinter as tk
 from tkinter import ttk, font
 
-from tkmodal import ModalDialog
 from widgets import UrlLabel
 from _common import is_dark, modify_named_font, get_full_path, INTERNAL_PAD
 from app_locale import _
+
+from ._base_modal import ModalDialog
 
 
 @dataclasses.dataclass

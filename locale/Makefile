@@ -8,6 +8,8 @@ MSGFMT = msgfmt
 XGETTEXT = xgettext
 WIDTH = 79
 
+srcs := $(wildcard ../*.py ../modals/*.py)
+
 # make sure all external programs are available
 EXECUTABLES = xgettext msgfmt msgmerge awk touch
 K := $(foreach exec,$(EXECUTABLES),\
@@ -35,7 +37,7 @@ po: $(SUBDIRS:.=$(DOMAIN).po)  ## Update PO files
 
 mo: $(SUBDIRS:.=$(DOMAIN).mo)  ## Compile MO files
 
-$(DOMAIN).pot: ../*.py
+$(DOMAIN).pot: $(srcs)
 	xgettext --default-domain="$(DOMAIN)" --output="$(DOMAIN).pot" --verbose \
 	--add-location=full --width=$(WIDTH) --copyright-holder="$(COPYRIGHT_HOLDER)" \
 	--package-name="$(PACKAGE)" --package-version="$(VERSION)" \
