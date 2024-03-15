@@ -71,13 +71,6 @@ class SettingsDialog(ModalDialog):
         This dialog does not require screen updates.
         """
 
-    def init_styles(self):
-        """
-        Initialize the styles used in the modal dialog.
-        """
-        style = ttk.Style()
-        style.configure("Switch.TCheckbutton", font=self.base_font)
-
     def create_widgets(self) -> None:
         """
         Create the widgets to be displayed in the modal dialog.

@@ -39,13 +39,6 @@ class CpuDialog(ModalDialog):
         This dialog does not need a save feature.
         """
 
-    def init_styles(self):
-        """
-        Initialize the styles used in the modal dialog.
-
-        This dialog does not require additional styles.
-        """
-
     def create_widgets(self) -> None:
         """
         Create the widgets to be displayed in the modal dialog.

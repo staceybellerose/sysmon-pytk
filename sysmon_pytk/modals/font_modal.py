@@ -12,6 +12,7 @@ from tkinter import ttk, font, Event, Misc
 from .. import _common
 from ..settings import FontDescription
 from ..widgets import ScaleSpinner
+from ..style_manager import StyleManager
 from ..app_locale import get_translator
 
 from ._base_modal import ModalDialog
@@ -95,13 +96,6 @@ class FontChooser(ModalDialog):
         self.overstrike.trace_add("write", self._update_preview)
         super().__init__(parent, title, iconpath, class_="FontChooser")
 
-    def init_styles(self):
-        """
-        Initialize the styles used in the modal dialog.
-        """
-        style = ttk.Style()
-        style.configure("Switch.TCheckbutton", font=self.base_font)
-
     def update_screen(self):
         """
         Update the modal dialog window.
@@ -132,14 +126,11 @@ class FontChooser(ModalDialog):
             exportselection=0, relief=tk.FLAT, background="#555555",
             font=self.base_font
         )
-        if self.internal_frame.tk.call("ttk::style", "theme", "use") == "azure-dark":
-            bg1 = "#333333"
-            bg2 = "#444444"
-        else:  # light theme
-            bg1 = "#ffffff"
-            bg2 = "#eeeeff"
+        bg1 = StyleManager.test_dark_mode("#333333", "#ffffff")
+        bg2 = StyleManager.test_dark_mode("#444444", "#eeeeff")
         for idx, item in enumerate(self.fontchoices):
-            lbox.itemconfig(idx, {'bg': bg1 if idx % 2 else bg2})
+            bg = bg1 if idx % 2 else bg2
+            lbox.itemconfig(idx, background=bg)
             if item == self.fontname:
                 lbox.selection_set(idx)
                 lbox.see(idx)

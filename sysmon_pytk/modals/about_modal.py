@@ -12,7 +12,7 @@ from tkinter import ttk, BaseWidget
 from tkinter.font import Font
 
 from ..widgets import UrlLabel
-from .._common import is_dark, INTERNAL_PAD
+from .._common import INTERNAL_PAD
 from ..file_utils import get_full_path
 from ..translator import TRANSLATORS
 from ..app_locale import get_translator
@@ -76,19 +76,6 @@ class AboutDialog(ModalDialog):
         self.logo = tk.PhotoImage(file=get_full_path("images/icon-lg.png"))
         super().__init__(parent, title=title, iconpath=iconpath, class_="AboutBox")
 
-    def init_styles(self):
-        """
-        Initialize the styles used in the modal dialog.
-        """
-        style = ttk.Style()
-        background = style.lookup("TLabel", "background")
-        dark_mode = is_dark(f"{background}")
-        style.configure("System.TLabel", font="TkDefaultFont")
-        style.configure(
-            "About_URL.System.TLabel",
-            foreground="#66CCFF" if dark_mode else "#0000EE"
-        )
-
     def update_screen(self):
         """
         Update the modal dialog window.
@@ -129,7 +116,7 @@ class AboutDialog(ModalDialog):
         )
         if self.about.url != "":
             link1style = UrlLabel.test_web_protocol(
-                self.about.url, "About_URL.System.TLabel", "System.TLabel"
+                self.about.url, "URL.TLabel", "System.TLabel"
             )
             UrlLabel(
                 tab1, text=_("Source Code"), url=self.about.url,
@@ -188,7 +175,7 @@ class AboutDialog(ModalDialog):
                 text.insert(tk.END, translator.name)
                 if translator.github_username != "":
                     linkstyle = UrlLabel.test_web_protocol(
-                        self.about.url, "About_URL.System.TLabel", "System.TLabel"
+                        self.about.url, "URL.TLabel", "System.TLabel"
                     )
                     link = UrlLabel(
                         text,
@@ -245,8 +232,7 @@ class AboutDialog(ModalDialog):
             ).grid(row=0, pady=INTERNAL_PAD)
             if license_data.license_url != "":
                 link2style = UrlLabel.test_web_protocol(
-                    license_data.license_url,
-                    "About_URL.System.TLabel", "System.TLabel"
+                    license_data.license_url, "URL.TLabel", "System.TLabel"
                 )
                 UrlLabel(
                     tab, text=_("Full license text available here"),

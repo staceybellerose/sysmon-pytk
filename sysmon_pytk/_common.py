@@ -221,44 +221,6 @@ def disk_usage(mountpoint: str) -> str:
     return f"{used_fmt}/{total_fmt} {round(diskinfo.percent)}%"
 
 
-def is_dark(hexcolor: str) -> bool:
-    """
-    Determine whether a given hex color is light or dark.
-
-    Parameters
-    ----------
-    hexcolor: str
-        a string with the format "#xxxxxx" where x is a hex digit (0-9, A-F)
-
-    Returns
-    -------
-    bool
-        True when the color is determined to be dark; False otherwise.
-
-    Examples
-    --------
-    >>> is_dark("#000000")
-    True
-    >>> is_dark("#ffffff")
-    False
-    >>> is_dark("#123456")
-    True
-    >>> is_dark("#449F55")
-    False
-    """
-    assert len(hexcolor) == 7  # nosec B101
-    assert hexcolor[:1] == "#"  # nosec B101
-    if re.search(r"^#[\dA-Fa-f]{6}$", hexcolor) is None:
-        raise ValueError("hexcolor must start with '#' and have 6 hexadecimal digits")
-    r = int(hexcolor[1:3], 16)
-    g = int(hexcolor[3:5], 16)
-    b = int(hexcolor[5:7], 16)
-    # calculate the square of the luminance and compare it to a cutoff value of 127.5²
-    # this way, sqrt() doesn't need to be called
-    hsp = 0.299 * (r * r) + 0.587 * (g * g) + 0.114 * (b * b)
-    return hsp < 16256.25
-
-
 def get_processor_name() -> str:
     """
     Get the full processor name of the computer running.

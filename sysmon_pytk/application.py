@@ -10,13 +10,12 @@ import tkinter as tk
 from socket import gethostname
 from tkinter import ttk, font
 
-import darkdetect
 import psutil
 
 from . import _common
 from . import about
-from . import font_utils
 from .settings import Settings
+from .style_manager import StyleManager
 from .modals import CpuDialog, TempDetailsDialog, MemUsageDialog, DiskUsageDialog, SettingsDialog
 from .modals.about_modal import AboutMetadata, LicenseMetadata, AboutDialog
 from .widgets import Meter, ToolTip
@@ -44,8 +43,8 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         self._uptime = tk.StringVar()
         self._processes = tk.StringVar()
         self._update_job = None
-        self.init_theme()
-        self.init_fonts()
+        StyleManager.init_theme(self, self.settings)
+        StyleManager.init_fonts(self.settings)
         self.create_widgets()
         self.build_menu()
         self.bind_events()
@@ -61,43 +60,6 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         else:
             self.call('wm', 'attributes', '.', '-topmost', '0')
 
-    def init_theme(self):
-        """
-        Initialize the display theme.
-        """
-        dark_mode = self.get_dark_mode()
-        self.tk.call("source", get_full_path("../azure/azure.tcl"))
-        self.tk.call("set_theme", "dark" if dark_mode else "light")
-        base_font = font.nametofont("TkDefaultFont")
-        style = ttk.Style()
-        style.configure("Safe.TLabel", foreground="#0a0" if dark_mode else "#090")
-        style.configure("Warn.TLabel", foreground="#ff2" if dark_mode else "#aa0")
-        style.configure("Alert.TLabel", foreground="#f22" if dark_mode else "#c00")
-        style.configure("TButton", font=base_font)
-        style.configure("TRadiobutton", font=base_font)
-        style.configure("TLabelFrame", font=base_font)
-
-    def init_fonts(self):
-        """
-        Initialize the fonts to be used.
-        """
-        base_font = font.nametofont("TkDefaultFont")
-        text_font = font.nametofont("TkTextFont")
-        menu_font = font.nametofont("TkMenuFont")
-        fixed_font = font.nametofont("TkFixedFont")
-        if self.settings.regular_font.get_name() != "":
-            self.settings.regular_font.configure_font(base_font)
-            self.settings.regular_font.configure_font(text_font)
-            self.settings.regular_font.configure_font(menu_font)
-        else:
-            base_font.configure(family=font_utils.MAIN_FONT_FAMILY, size=12)
-            text_font.configure(family=font_utils.MAIN_FONT_FAMILY, size=12)
-            menu_font.configure(family=font_utils.MAIN_FONT_FAMILY, size=12)
-        if self.settings.fixed_font.get_name() != "":
-            self.settings.fixed_font.configure_font(fixed_font)
-        else:
-            fixed_font.configure(family=font_utils.FIXED_FONT_FAMILY, size=12)
-
     def create_widgets(self):
         """
         Create the widgets to be displayed in the main application window.
@@ -111,18 +73,18 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         frame.columnconfigure(3, weight=1)
         frame.columnconfigure(4, weight=1)
 
-        basefont = font.nametofont("TkDefaultFont")
+        base_font = StyleManager.get_base_font()
         ttk.Label(
-            frame, textvariable=self._name, font=basefont, anchor=tk.CENTER
+            frame, textvariable=self._name, font=base_font, anchor=tk.CENTER
         ).grid(row=1, column=1, sticky=tk.NSEW, ipady=_common.INTERNAL_PAD)
         ttk.Label(
-            frame, textvariable=self._ip_addr, font=basefont, anchor=tk.CENTER
+            frame, textvariable=self._ip_addr, font=base_font, anchor=tk.CENTER
         ).grid(row=1, column=2, sticky=tk.NSEW, ipady=_common.INTERNAL_PAD)
         ttk.Label(
-            frame, textvariable=self._processes, font=basefont, anchor=tk.CENTER
+            frame, textvariable=self._processes, font=base_font, anchor=tk.CENTER
         ).grid(row=1, column=3, sticky=tk.NSEW, ipady=_common.INTERNAL_PAD)
         ttk.Label(
-            frame, textvariable=self._uptime, font=basefont, anchor=tk.CENTER
+            frame, textvariable=self._uptime, font=base_font, anchor=tk.CENTER
         ).grid(row=1, column=4, sticky=tk.NSEW, ipady=_common.INTERNAL_PAD)
 
         self._cpu_meter = Meter(
@@ -286,26 +248,11 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
             self.settings, self, _("{} Preferences").format(APP_TITLE),
             iconpath=get_full_path("images/icon.png")
         )
-        dark_mode = self.get_dark_mode()
-        self.tk.call("set_theme", "dark" if dark_mode else "light")
+        StyleManager.update_by_dark_mode(self, self.settings)
         self._cpu_meter.update_for_dark_mode()
         self._temp_meter.update_for_dark_mode()
         self._ram_meter.update_for_dark_mode()
         self._disk_meter.update_for_dark_mode()
-        style = ttk.Style()
-        style.configure("Safe.TLabel", foreground="#0a0" if dark_mode else "#090")
-        style.configure("Warn.TLabel", foreground="#ff2" if dark_mode else "#aa0")
-        style.configure("Alert.TLabel", foreground="#f22" if dark_mode else "#c00")
-
-    def get_dark_mode(self) -> bool:
-        """
-        Determine dark mode by checking settings or detecting the system theme.
-        """
-        if self.settings.get_theme() == "Dark":
-            return True
-        if self.settings.get_theme() == "Light":
-            return False
-        return darkdetect.isDark()
 
     def update_screen(self):
         """

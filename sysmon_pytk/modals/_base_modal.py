@@ -8,9 +8,9 @@ Modal dialogs base class.
 from abc import abstractmethod
 from typing import Optional, final
 import tkinter as tk
-from tkinter import ttk, Misc, font
+from tkinter import ttk, Misc
 
-from .. import font_utils
+from ..style_manager import StyleManager
 
 # These lint errors don't make sense for GUI widgets, so are disabled here.
 # pragma pylint: disable=too-many-instance-attributes
@@ -63,16 +63,11 @@ class ModalDialog(tk.Toplevel):
         self.iconpath = iconpath
         if iconpath is not None:
             self.iconphoto(False, tk.PhotoImage(file=iconpath))
-        self.base_font = font.nametofont("TkDefaultFont")
-        self.large_font = font_utils.modify_named_font(
-            "TkDefaultFont", size=self.base_font.actual()["size"]+4
-        )
-        self.bold_font = font_utils.modify_named_font(
-            "TkDefaultFont", weight="bold"
-        )
-        self.fixed_font = font.nametofont("TkFixedFont")
+        self.base_font = StyleManager.get_base_font()
+        self.large_font = StyleManager.get_large_font()
+        self.bold_font = StyleManager.get_bold_font()
+        self.fixed_font = StyleManager.get_fixed_font()
         self._events: list[str] = []
-        self.init_styles()
         self.internal_frame = ttk.Frame(self)
         self.internal_frame.grid(sticky=tk.NSEW)
         self.create_widgets()
@@ -124,12 +119,6 @@ class ModalDialog(tk.Toplevel):
     def on_save(self):
         """
         Save what was entered in the modal dialog.
-        """
-
-    @abstractmethod
-    def init_styles(self):
-        """
-        Initialize the styles used in the modal dialog.
         """
 
     @abstractmethod

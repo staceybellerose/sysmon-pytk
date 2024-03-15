@@ -38,13 +38,6 @@ class DiskUsageDialog(ModalDialog):
         This dialog does not need a save feature.
         """
 
-    def init_styles(self):
-        """
-        Initialize the styles used in the modal dialog.
-
-        This dialog does not require additional styles.
-        """
-
     def create_widgets(self) -> None:
         """
         Create the widgets to be displayed in the modal dialog.
@@ -61,7 +54,7 @@ class DiskUsageDialog(ModalDialog):
         ttk.Label(
             self.internal_frame, text=_("Disk Usage"), font=self.large_font,
             anchor=tk.CENTER
-        ).grid(columnspan=2, sticky=tk.NSEW)
+        ).grid(columnspan=2, sticky=tk.NSEW, ipady=_common.INTERNAL_PAD)
         self._create_mount_widgets()
         for i in range(1, 2*len(self._diskmounts) + 1):
             self.internal_frame.rowconfigure(i, weight=1)

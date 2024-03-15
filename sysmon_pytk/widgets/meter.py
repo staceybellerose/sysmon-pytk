@@ -12,7 +12,7 @@ import dataclasses
 import tkinter as tk
 from tkinter import ttk
 
-from .._common import is_dark
+from ..style_manager import StyleManager
 from ..font_utils import modify_named_font
 
 
@@ -175,17 +175,17 @@ class Meter(tk.Frame):
         style = ttk.Style()
         self._text_color = style.lookup("TLabel", "foreground")
         self._background = style.lookup("TLabel", "background")
-        dark_mode = is_dark(f"{self._background}")
-        self._meter_color = "#ccc" if dark_mode else "#666"
-        self._meter_red = "#f22" if dark_mode else "#c00"
-        self._meter_yellow = "#ff2" if dark_mode else "#cc0"
-        self._meter_blue = "#22f" if dark_mode else "#00c"
+        self._meter_color = StyleManager.test_dark_mode("#cccccc", "#666666")
+        self._meter_red = StyleManager.test_dark_mode("#ff2222", "#cc0000")
+        self._meter_yellow = StyleManager.test_dark_mode("#ffff22", "#cccc00")
+        self._meter_blue = StyleManager.test_dark_mode("#2222ff", "#0000cc")
 
     def update_for_dark_mode(self):
         """
         Update the meter colors based on detected dark mode.
         """
         self.check_dark_mode()
+        self.canvas.config(background=self._background)
         self.canvas.itemconfig(self.canvas_objects.label1, fill=self._text_color)
         self.canvas.itemconfig(self.canvas_objects.min_value, fill=self._text_color)
         self.canvas.itemconfig(self.canvas_objects.max_value, fill=self._text_color)

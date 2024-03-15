@@ -7,7 +7,9 @@ Combination of a Scale and Spinbox.
 
 from typing import Optional
 import tkinter as tk
-from tkinter import ttk, font, BaseWidget, Variable
+from tkinter import ttk, BaseWidget, Variable
+
+from ..style_manager import StyleManager
 
 # These lint errors don't make sense for GUI widgets, so are disabled here.
 # pragma pylint: disable=too-many-arguments, too-many-ancestors
@@ -59,7 +61,7 @@ class ScaleSpinner(ttk.Frame):
         self.as_int = as_int
         self.rowconfigure(0, weight=1)
         self.columnconfigure(1, weight=1)
-        base_font = font.nametofont("TkDefaultFont")
+        base_font = StyleManager.get_base_font()
         if text is not None:
             ttk.Label(
                 self, text=text, anchor=tk.W, font=base_font
