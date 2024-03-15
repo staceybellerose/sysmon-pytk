@@ -74,7 +74,7 @@ class ModalDialog(tk.Toplevel):
         self._events: list[str] = []
         self.init_styles()
         self.internal_frame = ttk.Frame(self)
-        self.internal_frame.grid()
+        self.internal_frame.grid(sticky=tk.NSEW)
         self.create_widgets()
         self.update_screen()
         self.protocol("WM_DELETE_WINDOW", self.dismiss)
@@ -84,6 +84,10 @@ class ModalDialog(tk.Toplevel):
         self.transient(parent)  # type: ignore
         self.wait_visibility()
         self.grab_set()
+        top = self.winfo_toplevel()
+        top.rowconfigure(0, weight=1)
+        top.columnconfigure(0, weight=1)
+        self.minsize(self.winfo_width(), self.winfo_height())
         self.wait_window()
 
     @final

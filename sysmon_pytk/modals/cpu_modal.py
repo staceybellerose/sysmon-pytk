@@ -30,6 +30,8 @@ class CpuDialog(ModalDialog):
         The number of logical CPUs in the system.
     """
 
+    MAX_COLUMNS = 4
+
     def on_save(self):
         """
         Save what was entered in the modal dialog.
@@ -49,35 +51,63 @@ class CpuDialog(ModalDialog):
         Create the widgets to be displayed in the modal dialog.
         """
         self.cpu_count = psutil.cpu_count()
-        cpu_model = _common.get_processor_name()
-        max_columns = 4
-        ttk.Label(
-            self.internal_frame, text=cpu_model, font=self.large_font
-        ).grid(columnspan=max_columns)
-        ttk.Label(
-            self.internal_frame, text=_("per-core CPU Usage"), font=self.large_font
-        ).grid(columnspan=max_columns, row=1)
-        row = 2
-        col = 0
+        self.internal_frame.columnconfigure(0, weight=1)
+        self.internal_frame.columnconfigure(1, weight=1)
+        self.internal_frame.columnconfigure(2, weight=1)
+        self.internal_frame.columnconfigure(3, weight=1)
+        self._meter_rows: list[int] = []
         self._meters: List[Meter] = []
+        self._freqmeters: List[Meter] = []
+        ttk.Label(
+            self.internal_frame, text=_common.get_processor_name(),
+            font=self.large_font, anchor=tk.CENTER
+        ).grid(columnspan=self.MAX_COLUMNS, sticky=tk.EW, ipady=_common.INTERNAL_PAD)
+        ttk.Label(
+            self.internal_frame, text=_("per-core CPU Usage"),
+            font=self.large_font, anchor=tk.CENTER
+        ).grid(columnspan=self.MAX_COLUMNS, row=1, sticky=tk.EW)
+        row = 2
+        row = self._create_usage_widgets(row) + 1
+        ttk.Label(
+            self.internal_frame, text=_("per-core CPU Frequency (in MHz)"),
+            font=self.large_font, anchor=tk.CENTER
+        ).grid(columnspan=self.MAX_COLUMNS, row=row, sticky=tk.EW)
+        row = self._create_freq_widgets(row+1) + 1
+        for meter_row in self._meter_rows:
+            self.internal_frame.rowconfigure(meter_row, weight=1)
+        ttk.Button(
+            self.internal_frame, text=_("Close"), command=self.dismiss,
+            style='Accent.TButton'
+        ).grid(
+            row=row, column=1, sticky=tk.E, columnspan=self.MAX_COLUMNS,
+            padx=_common.INTERNAL_PAD/2
+        )
+        ttk.Sizegrip(self.internal_frame).grid(
+            row=row+1, column=self.MAX_COLUMNS, sticky=tk.SE,
+            padx=_common.INTERNAL_PAD/2, pady=_common.INTERNAL_PAD/2
+        )
+
+    def _create_usage_widgets(self, start_row: int) -> int:
+        row = start_row
+        col = 0
         for core in range(self.cpu_count):
             meter = Meter(
                 self.internal_frame, width=220, height=165, unit="%",
                 label=_("CPU #{}").format(core)
             )
-            meter.grid(row=row, column=col, sticky=tk.N, ipady=_common.INTERNAL_PAD)
+            meter.grid(row=row, column=col, sticky=tk.NSEW, ipady=_common.INTERNAL_PAD)
+            if row not in self._meter_rows:
+                self._meter_rows.append(row)
             self._meters.append(meter)
             col += 1
-            if col == max_columns:
+            if col == self.MAX_COLUMNS:
                 col = 0
                 row += 1
-        row += 1
-        ttk.Label(
-            self.internal_frame, text=_("per-core CPU Frequency (in MHz)"),
-            font=self.large_font
-        ).grid(columnspan=max_columns, row=row)
-        row += 1
-        self._freqmeters: List[Meter] = []
+        return row
+
+    def _create_freq_widgets(self, start_row: int) -> int:
+        row = start_row
+        col = 0
         freqs = psutil.cpu_freq(percpu=True)
         for core in range(self.cpu_count):
             meter = Meter(
@@ -85,20 +115,15 @@ class CpuDialog(ModalDialog):
                 label=_("CPU #{}").format(core),
                 min_value=freqs[core].min, max_value=freqs[core].max  # type: ignore
             )
-            meter.grid(row=row, column=col, sticky=tk.N, ipady=_common.INTERNAL_PAD)
+            meter.grid(row=row, column=col, sticky=tk.NSEW, ipady=_common.INTERNAL_PAD)
+            if row not in self._meter_rows:
+                self._meter_rows.append(row)
             self._freqmeters.append(meter)
             col += 1
-            if col == max_columns:
+            if col == self.MAX_COLUMNS:
                 col = 0
                 row += 1
-        row += 1
-        ttk.Button(
-            self.internal_frame, text=_("Close"), command=self.dismiss,
-            style='Accent.TButton'
-        ).grid(
-            row=row, column=1, sticky=tk.E, columnspan=max_columns,
-            pady=_common.INTERNAL_PAD, padx=_common.INTERNAL_PAD
-        )
+        return row
 
     def update_screen(self):
         """

@@ -103,7 +103,7 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         Create the widgets to be displayed in the main application window.
         """
         frame = ttk.Frame(self)
-        frame.grid()
+        frame.grid(sticky=tk.NSEW)
         frame.rowconfigure(1, weight=1)
         frame.rowconfigure(2, weight=1)
         frame.columnconfigure(1, weight=1)
@@ -113,22 +113,22 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
 
         basefont = font.nametofont("TkDefaultFont")
         ttk.Label(
-            frame, textvariable=self._name, font=basefont
-        ).grid(row=1, column=1, sticky=tk.S, ipady=_common.INTERNAL_PAD)
+            frame, textvariable=self._name, font=basefont, anchor=tk.CENTER
+        ).grid(row=1, column=1, sticky=tk.NSEW, ipady=_common.INTERNAL_PAD)
         ttk.Label(
-            frame, textvariable=self._ip_addr, font=basefont
-        ).grid(row=1, column=2, sticky=tk.S, ipady=_common.INTERNAL_PAD)
+            frame, textvariable=self._ip_addr, font=basefont, anchor=tk.CENTER
+        ).grid(row=1, column=2, sticky=tk.NSEW, ipady=_common.INTERNAL_PAD)
         ttk.Label(
-            frame, textvariable=self._processes, font=basefont
-        ).grid(row=1, column=3, sticky=tk.S, ipady=_common.INTERNAL_PAD)
+            frame, textvariable=self._processes, font=basefont, anchor=tk.CENTER
+        ).grid(row=1, column=3, sticky=tk.NSEW, ipady=_common.INTERNAL_PAD)
         ttk.Label(
-            frame, textvariable=self._uptime, font=basefont
-        ).grid(row=1, column=4, sticky=tk.S, ipady=_common.INTERNAL_PAD)
+            frame, textvariable=self._uptime, font=basefont, anchor=tk.CENTER
+        ).grid(row=1, column=4, sticky=tk.NSEW, ipady=_common.INTERNAL_PAD)
 
         self._cpu_meter = Meter(
             frame, width=220, height=165, unit="%", label=_("CPU Usage")
         )
-        self._cpu_meter.grid(row=2, column=1, sticky=tk.N, ipady=_common.INTERNAL_PAD)
+        self._cpu_meter.grid(row=2, column=1, sticky=tk.NSEW, ipady=_common.INTERNAL_PAD)
         if psutil.cpu_count() > 1:
             self._cpu_meter.configure(cursor="hand2")
             ToolTip(self._cpu_meter, _('Click for per-CPU usage'))
@@ -136,14 +136,14 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         self._temp_meter = Meter(
             frame, width=220, height=165, unit="°C", blue=15, label=_("Temperature")
         )
-        self._temp_meter.grid(row=2, column=2, sticky=tk.N, ipady=_common.INTERNAL_PAD)
+        self._temp_meter.grid(row=2, column=2, sticky=tk.NSEW, ipady=_common.INTERNAL_PAD)
         self._temp_meter.configure(cursor="hand2")
         ToolTip(self._temp_meter, _('Click for detailed temperature readings'))
 
         self._ram_meter = Meter(
             frame, width=220, height=165, unit="%", label=_("RAM Usage")
         )
-        self._ram_meter.grid(row=2, column=3, sticky=tk.N, ipady=_common.INTERNAL_PAD)
+        self._ram_meter.grid(row=2, column=3, sticky=tk.NSEW, ipady=_common.INTERNAL_PAD)
         self._ram_meter.configure(cursor="hand2")
         ToolTip(self._ram_meter, _('Click for detailed memory statistics'))
 
@@ -152,9 +152,13 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
             red=100 - _common.DISK_ALERT_LEVEL,
             yellow=_common.DISK_ALERT_LEVEL - _common.DISK_WARN_LEVEL
         )
-        self._disk_meter.grid(row=2, column=4, sticky=tk.N, ipady=_common.INTERNAL_PAD)
+        self._disk_meter.grid(row=2, column=4, sticky=tk.NSEW, ipady=_common.INTERNAL_PAD)
         self._disk_meter.configure(cursor="hand2")
         ToolTip(self._disk_meter, _('Click for usage details of each mount point'))
+        ttk.Sizegrip(frame).grid(
+            row=3, column=4, sticky=tk.SE, padx=_common.INTERNAL_PAD/2,
+            pady=(0, _common.INTERNAL_PAD/2)
+        )
 
     def build_menu(self):
         """
@@ -162,8 +166,10 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         """
         self.option_add("*tearOff", False)  # Fix menus
         top = self.winfo_toplevel()
+        top.rowconfigure(0, weight=1)
+        top.columnconfigure(0, weight=1)
         menu_bar = tk.Menu(top)
-        file_menu = tk.Menu(menu_bar, font=tk.font.nametofont("TkMenuFont"))
+        file_menu = tk.Menu(menu_bar, font=font.nametofont("TkMenuFont"))
 
         menu_bar.add_cascade(
             label=_('File'), menu=file_menu, underline=0,

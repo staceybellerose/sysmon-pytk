@@ -8,7 +8,6 @@ Application font settings modal dialog.
 from typing import Optional, Literal
 import tkinter as tk
 from tkinter import ttk, font, Event, Misc
-from tkinter.font import Font
 
 from .. import _common
 from ..settings import FontDescription
@@ -48,6 +47,8 @@ class FontChooser(ModalDialog):
         what a sample text looks like.
     """
 
+    PREVIEW_TEXT = "AaáBbḅCcçÑñXxẍYyýZzẑ 0123456789"
+
     def __init__(
         self, parent: Optional[Misc] = None,
         current_font: Optional[FontDescription] = None,
@@ -69,21 +70,28 @@ class FontChooser(ModalDialog):
         self.current_font = current_font
         self.fontchoices = list(set(font.families()))
         self.fontchoices.sort()
-        self.fontname = current_font.family if current_font is not None else None
         self.fontsize = tk.IntVar()
-        self.fontsize.set(current_font.size if current_font is not None else 12)
-        self.fontsize.trace_add("write", self._update_preview)
         self.fontstyle = tk.StringVar()
-        if current_font is not None:
-            self.fontstyle.set(current_font.get_style())
-        else:
-            self.fontstyle.set(FontDescription.REGULAR)  # default to regular
-        self.fontstyle.trace_add("write", self._update_preview)
         self.underline = tk.BooleanVar()
-        self.underline.set(current_font.underline if current_font is not None else False)
-        self.underline.trace_add("write", self._update_preview)
         self.overstrike = tk.BooleanVar()
-        self.overstrike.set(current_font.overstrike if current_font is not None else False)
+        if self.current_font is not None:
+            self.fontname: Optional[str] = self.current_font.family
+            self.fontstyle.set(self.current_font.get_style())
+            self.fontsize.set(self.current_font.size)
+            self.underline.set(self.current_font.underline)
+            self.overstrike.set(self.current_font.overstrike)
+            self.preview_font = self.current_font.get_font()
+        else:
+            # default selections
+            self.fontname = None
+            self.fontstyle.set(FontDescription.REGULAR)
+            self.fontsize.set(12)
+            self.underline.set(False)
+            self.overstrike.set(False)
+            self.preview_font = self.base_font
+        self.fontsize.trace_add("write", self._update_preview)
+        self.fontstyle.trace_add("write", self._update_preview)
+        self.underline.trace_add("write", self._update_preview)
         self.overstrike.trace_add("write", self._update_preview)
         super().__init__(parent, title, iconpath, class_="FontChooser")
 
@@ -91,8 +99,6 @@ class FontChooser(ModalDialog):
         """
         Initialize the styles used in the modal dialog.
         """
-        self.preview_font = Font(self, self.current_font.get_font())
-        self.preview_text = "AaáBbḅCcçÑñXxẍYyýZzẑ 0123456789"
         style = ttk.Style()
         style.configure("Switch.TCheckbutton", font=self.base_font)
 
@@ -107,16 +113,19 @@ class FontChooser(ModalDialog):
         """
         Create the widgets that are displayed in the dialog.
         """
-        self.internal_frame.configure(padding=_common.INTERNAL_PAD)
+        self.internal_frame.rowconfigure(1, weight=1)
+        self.internal_frame.columnconfigure(0, weight=1)
 
         familyframe = ttk.Frame(self.internal_frame)
         familyframe.grid(
-            row=0, rowspan=2, sticky=tk.N+tk.W,
-            padx=_common.INTERNAL_PAD, pady=_common.INTERNAL_PAD
+            row=0, rowspan=2, sticky=tk.NSEW,
+            padx=(_common.INTERNAL_PAD, 0), pady=(_common.INTERNAL_PAD, 0)
         )
+        familyframe.rowconfigure(1, weight=1)
+        familyframe.columnconfigure(0, weight=1)
         ttk.Label(
             familyframe, text=_("Font"), font=self.base_font
-        ).grid(row=0, sticky=tk.W)
+        ).grid(row=0, sticky=tk.NSEW)
         choicesvar = tk.StringVar(value=self.fontchoices)  # type: ignore
         lbox = tk.Listbox(
             familyframe, listvariable=choicesvar, height=10, width=30, bd=1,
@@ -134,9 +143,9 @@ class FontChooser(ModalDialog):
             if item == self.fontname:
                 lbox.selection_set(idx)
                 lbox.see(idx)
-        lbox.grid(row=1, column=0)
+        lbox.grid(row=1, column=0, sticky=tk.NSEW)
         scroll = ttk.Scrollbar(familyframe, orient=tk.VERTICAL)
-        scroll.grid(row=1, column=1, sticky=tk.N+tk.S)
+        scroll.grid(row=1, column=1, sticky=tk.NS)
         lbox.config(yscrollcommand=scroll.set)
         scroll.config(command=lbox.yview)
         lbox.bind("<<ListboxSelect>>", self._on_select)
@@ -148,25 +157,25 @@ class FontChooser(ModalDialog):
             )
         )
         styleframe.grid(
-            row=0, column=1, sticky=tk.N+tk.W+tk.E,
+            row=0, column=1, sticky=tk.NSEW,
             padx=_common.INTERNAL_PAD, pady=_common.INTERNAL_PAD
         )
         ttk.Radiobutton(
             styleframe, text=_("Regular"), value=FontDescription.REGULAR,
             variable=self.fontstyle
-        ).grid(row=1, padx=_common.INTERNAL_PAD, sticky=tk.N+tk.S+tk.W+tk.E)
+        ).grid(row=1, padx=_common.INTERNAL_PAD, sticky=tk.NSEW)
         ttk.Radiobutton(
             styleframe, text=_("Bold"), value=FontDescription.BOLD,
             variable=self.fontstyle
-        ).grid(row=2, padx=_common.INTERNAL_PAD, sticky=tk.N+tk.S+tk.W+tk.E)
+        ).grid(row=2, padx=_common.INTERNAL_PAD, sticky=tk.NSEW)
         ttk.Radiobutton(
             styleframe, text=_("Italic"), value=FontDescription.ITALIC,
             variable=self.fontstyle
-        ).grid(row=3, padx=_common.INTERNAL_PAD, sticky=tk.N+tk.S+tk.W+tk.E)
+        ).grid(row=3, padx=_common.INTERNAL_PAD, sticky=tk.NSEW)
         ttk.Radiobutton(
             styleframe, text=_("Bold Italic"), value=FontDescription.BOLD_ITALIC,
             variable=self.fontstyle
-        ).grid(row=4, padx=_common.INTERNAL_PAD, sticky=tk.N+tk.S+tk.W+tk.E)
+        ).grid(row=4, padx=_common.INTERNAL_PAD, sticky=tk.NSEW)
 
         effectsframe = ttk.LabelFrame(
             self.internal_frame,
@@ -175,8 +184,7 @@ class FontChooser(ModalDialog):
             )
         )
         effectsframe.grid(
-            row=1, column=1, sticky=tk.N+tk.W+tk.E,
-            padx=_common.INTERNAL_PAD
+            row=1, column=1, sticky=tk.N, padx=_common.INTERNAL_PAD
         )
         ttk.Checkbutton(
             effectsframe, text=_("Underline"), variable=self.underline,
@@ -190,7 +198,10 @@ class FontChooser(ModalDialog):
         ScaleSpinner(
             self.internal_frame, self.fontsize, text=_("Size"), length=71*4,
             from_=1, to=72, as_int=True
-        ).grid(row=2, columnspan=2)
+        ).grid(
+            row=2, columnspan=2, sticky=tk.NSEW, padx=_common.INTERNAL_PAD,
+            pady=(_common.INTERNAL_PAD, 0)
+        )
 
         previewframe = ttk.LabelFrame(
             self.internal_frame,
@@ -199,18 +210,18 @@ class FontChooser(ModalDialog):
             )
         )
         previewframe.grid(
-            row=3, columnspan=2, sticky=tk.N+tk.S+tk.W+tk.E,
-            padx=_common.INTERNAL_PAD, pady=_common.INTERNAL_PAD
+            row=3, columnspan=2, sticky=tk.NSEW,
+            padx=_common.INTERNAL_PAD, pady=(0, _common.INTERNAL_PAD)
         )
         # Specifically using tk.Label here to convert the width to pixels when
         # an image is included - ttk.Label does not have this same "feature".
         # This fixes the width, not allowing the label to change size when the
         # font size changes.
         tk.Label(
-            previewframe, text=self.preview_text, font=self.preview_font,
+            previewframe, text=self.PREVIEW_TEXT, font=self.preview_font,
             image=tk.PhotoImage(width=1, height=1), width=420,
             compound=tk.CENTER, anchor=tk.SW
-        ).grid(sticky=tk.N+tk.S+tk.W+tk.E, padx=_common.INTERNAL_PAD)
+        ).grid(sticky=tk.NSEW, padx=_common.INTERNAL_PAD)
 
         buttonframe = ttk.Frame(self.internal_frame)
         buttonframe.grid(row=4, columnspan=2, sticky=tk.E)
@@ -221,6 +232,10 @@ class FontChooser(ModalDialog):
             buttonframe, text=_("OK"), command=self.save_and_dismiss,
             style='Accent.TButton'
         ).grid(row=0, column=2, padx=_common.INTERNAL_PAD/2)
+        ttk.Sizegrip(self.internal_frame).grid(
+            row=5, column=1, sticky=tk.SE, padx=_common.INTERNAL_PAD/2,
+            pady=_common.INTERNAL_PAD/2
+        )
 
     def _update_preview(self, *_args):
         self.preview_font.configure(

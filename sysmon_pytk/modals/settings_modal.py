@@ -88,7 +88,12 @@ class SettingsDialog(ModalDialog):
             "regular": self.settings.regular_font.get_full_font().get_string(),
             "fixed": self.settings.fixed_font.get_full_font().get_string()
         }
-        self.internal_frame.configure(padding=_common.INTERNAL_PAD)
+        self.internal_frame.rowconfigure(1, weight=1)
+        self.internal_frame.rowconfigure(2, weight=1)
+        self.internal_frame.rowconfigure(3, weight=1)
+        self.internal_frame.rowconfigure(4, weight=1)
+        self.internal_frame.rowconfigure(5, weight=1)
+        self.internal_frame.columnconfigure(2, weight=1)
         self.option_add('*TCombobox*Listbox.font', self.base_font)
         ttk.Label(
             self.internal_frame, text=_("Language"), font=self.base_font
@@ -98,7 +103,10 @@ class SettingsDialog(ModalDialog):
             font=self.base_font
         )
         self.langbox.set(self.settings.get_language())
-        self.langbox.grid(row=1, column=2, pady=_common.INTERNAL_PAD)
+        self.langbox.grid(
+            row=1, column=2, sticky=tk.EW, pady=_common.INTERNAL_PAD,
+            padx=(0, _common.INTERNAL_PAD)
+        )
         self.langbox.bind("<<ComboboxSelected>>", self.change_combobox)
         ttk.Label(
             self.internal_frame, text=_("Theme"), font=self.base_font
@@ -116,13 +124,16 @@ class SettingsDialog(ModalDialog):
             font=self.base_font
         )
         self.themebox.set(self.settings.get_theme())
-        self.themebox.grid(row=2, column=2, pady=_common.INTERNAL_PAD)
+        self.themebox.grid(
+            row=2, column=2, sticky=tk.EW, pady=_common.INTERNAL_PAD,
+            padx=(0, _common.INTERNAL_PAD)
+        )
         self.themebox.bind("<<ComboboxSelected>>", self.change_combobox)
         ttk.Checkbutton(
             self.internal_frame, text=_("Always on top"), variable=self.always_on_top,
             style='Switch.TCheckbutton'
         ).grid(
-            row=3, column=2,
+            row=3, column=2, sticky=tk.EW,
             padx=_common.INTERNAL_PAD, pady=_common.INTERNAL_PAD
         )
         ttk.Label(
@@ -132,7 +143,7 @@ class SettingsDialog(ModalDialog):
             self.internal_frame, text=self.fonts["regular"], command=self.show_font_chooser
         )
         self.font_button.grid(
-            row=4, column=2,
+            row=4, column=2, sticky=tk.EW,
             padx=_common.INTERNAL_PAD, pady=_common.INTERNAL_PAD
         )
         ttk.Label(
@@ -142,7 +153,7 @@ class SettingsDialog(ModalDialog):
             self.internal_frame, text=self.fonts["fixed"], command=self.show_fixedfont_chooser
         )
         self.fixed_font_button.grid(
-            row=5, column=2,
+            row=5, column=2, sticky=tk.EW,
             padx=_common.INTERNAL_PAD, pady=_common.INTERNAL_PAD
         )
         buttonframe = ttk.Frame(self.internal_frame)
@@ -154,6 +165,10 @@ class SettingsDialog(ModalDialog):
             style='Accent.TButton'
         ).grid(row=1, column=2, padx=_common.INTERNAL_PAD/2)
         buttonframe.grid(row=6, column=1, columnspan=3, sticky=tk.E)
+        ttk.Sizegrip(self.internal_frame).grid(
+            row=7, column=2, sticky=tk.SE, padx=_common.INTERNAL_PAD/2,
+            pady=_common.INTERNAL_PAD/2
+        )
 
     def change_combobox(self, event: tk.Event):
         """

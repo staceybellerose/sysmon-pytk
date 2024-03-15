@@ -70,7 +70,7 @@ reuse:  ## Verify REUSE Specification for Copyrights
 
 ##@ Metrics
 
-metrics: radon-cc radon-mi radon-raw  ## All code metric calculations
+metrics: radon-raw radon-cc radon-mi  ## All code metric calculations
 
 radon-cc:  ## Cyclomatic Complexity of codebase
 	$(RADON) cc sysmon_pytk --total-average --show-complexity --min b

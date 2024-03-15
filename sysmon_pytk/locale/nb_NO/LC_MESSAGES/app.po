@@ -70,95 +70,95 @@ msgstr "Diskbruk: /"
 msgid "Click for usage details of each mount point"
 msgstr "Klikk for detaljert for hvert monteringspunkt"
 
-#: ../application.py:169
+#: ../application.py:175
 msgid "File"
 msgstr "Fil"
 
-#: ../application.py:173
+#: ../application.py:179
 msgid "About"
 msgstr "Om"
 
-#: ../application.py:173
+#: ../application.py:179
 msgid "Ctrl+A"
 msgstr "Ctrl+A"
 
-#: ../application.py:177
+#: ../application.py:183
 msgid "Preferences"
 msgstr "Innstillinger"
 
-#: ../application.py:177
+#: ../application.py:183
 msgid "Ctrl+Shift+P"
 msgstr "Ctrl+Shift+P"
 
-#: ../application.py:181
+#: ../application.py:187
 msgid "Restart"
 msgstr "Omstart"
 
-#: ../application.py:181
+#: ../application.py:187
 msgid "Ctrl+R"
 msgstr "Ctrl+R"
 
-#: ../application.py:186
+#: ../application.py:192
 msgid "Quit"
 msgstr "Avslutt"
 
-#: ../application.py:186
+#: ../application.py:192
 msgid "Ctrl+Q"
 msgstr "Ctrl+Q"
 
-#: ../application.py:244
+#: ../application.py:250
 msgid "{} :: CPU Details"
 msgstr "{} :: Prosessordetaljer"
 
-#: ../application.py:253
+#: ../application.py:259
 msgid "{} :: Temperature Details"
 msgstr "{} :: Temperaturdetaljer"
 
-#: ../application.py:262
+#: ../application.py:268
 msgid "{} :: Memory Usage"
 msgstr "{} :: Minnebruk"
 
-#: ../application.py:271
+#: ../application.py:277
 msgid "{} :: Disk Usage"
 msgstr "{} :: Diskbruk"
 
-#: ../application.py:280
+#: ../application.py:286
 msgid "{} Preferences"
 msgstr "{} Innstillinger"
 
-#: ../application.py:312
+#: ../application.py:318
 msgid "Hostname: {}"
 msgstr "Vertsnavn: {}"
 
-#: ../application.py:313
+#: ../application.py:319
 msgid "IP Address: {}"
 msgstr "IP-adresse: {}"
 
-#: ../application.py:314
+#: ../application.py:320
 msgid "Processes: {}"
 msgstr "Prosesser: {}"
 
-#: ../application.py:315
+#: ../application.py:321
 msgid "Uptime: {}"
 msgstr "Oppetid: {}"
 
-#: ../font_utils.py:72 ../modals/font_modal.py:159
+#: ../font_utils.py:72 ../modals/font_modal.py:168
 msgid "Bold"
 msgstr "Fet"
 
-#: ../font_utils.py:74 ../modals/font_modal.py:163
+#: ../font_utils.py:74 ../modals/font_modal.py:172
 msgid "Italic"
 msgstr "Kursiv"
 
-#: ../font_utils.py:76 ../modals/font_modal.py:167
+#: ../font_utils.py:76 ../modals/font_modal.py:176
 msgid "Bold Italic"
 msgstr "Fet kursiv"
 
-#: ../modals/about_modal.py:72
+#: ../modals/about_modal.py:75
 msgid "About {}"
 msgstr "Om {}"
 
-#: ../modals/about_modal.py:120
+#: ../modals/about_modal.py:125
 msgid "Version {}"
 msgstr "Versjon {}"
 
@@ -166,133 +166,133 @@ msgstr "Versjon {}"
 msgid "Source Code"
 msgstr "Kildekode"
 
-#: ../modals/about_modal.py:146
+#: ../modals/about_modal.py:153
 msgid "Translators"
 msgstr "Oversettere"
 
-#: ../modals/about_modal.py:149
+#: ../modals/about_modal.py:156
 msgid "License"
 msgstr "Lisens"
 
-#: ../modals/about_modal.py:152 ../modals/cpu_modal.py:96
-#: ../modals/disk_usage_modal.py:74 ../modals/mem_usage_modal.py:87
-#: ../modals/temperature_modal.py:74
+#: ../modals/about_modal.py:159 ../modals/cpu_modal.py:79
+#: ../modals/disk_usage_modal.py:69 ../modals/mem_usage_modal.py:78
+#: ../modals/temperature_modal.py:57
 msgid "Close"
 msgstr "Lukk"
 
-#: ../modals/about_modal.py:231
+#: ../modals/about_modal.py:252
 msgid "Full license text available here"
 msgstr "Full lisenstekst tilgjengelig her"
 
-#: ../modals/cpu_modal.py:58
+#: ../modals/cpu_modal.py:66
 msgid "per-core CPU Usage"
 msgstr "prosessorbruk per kjerne"
 
-#: ../modals/cpu_modal.py:66 ../modals/cpu_modal.py:85
-msgid "CPU #{}"
-msgstr "Prosessor #{}"
-
-#: ../modals/cpu_modal.py:76
+#: ../modals/cpu_modal.py:72
 msgid "per-core CPU Frequency (in MHz)"
 msgstr "prosessorfrekvens per kjerne (i MHz)"
 
-#: ../modals/disk_usage_modal.py:53
+#: ../modals/cpu_modal.py:96 ../modals/cpu_modal.py:115
+msgid "CPU #{}"
+msgstr "Prosessor #{}"
+
+#: ../modals/disk_usage_modal.py:62
 msgid "Disk Usage"
 msgstr "Diskbruk"
 
-#: ../modals/font_modal.py:68
+#: ../modals/font_modal.py:69
 msgid "Choose Font"
 msgstr "Velg skrift"
 
-#: ../modals/font_modal.py:118
+#: ../modals/font_modal.py:127
 msgid "Font"
 msgstr "Skrift"
 
-#: ../modals/font_modal.py:147
+#: ../modals/font_modal.py:156
 msgid "Style"
 msgstr "Stil"
 
-#: ../modals/font_modal.py:155
+#: ../modals/font_modal.py:164
 msgid "Regular"
 msgstr "Vanlig"
 
-#: ../modals/font_modal.py:174
+#: ../modals/font_modal.py:183
 msgid "Effects"
 msgstr "Effekter"
 
-#: ../modals/font_modal.py:182
+#: ../modals/font_modal.py:190
 msgid "Underline"
 msgstr "Understrek"
 
-#: ../modals/font_modal.py:186
+#: ../modals/font_modal.py:194
 msgid "Overstrike"
 msgstr "Gjennomstrek"
 
-#: ../modals/font_modal.py:191
+#: ../modals/font_modal.py:199
 msgid "Size"
 msgstr "Størrelse"
 
-#: ../modals/font_modal.py:198
+#: ../modals/font_modal.py:209
 msgid "Preview"
 msgstr "Forhåndsvis"
 
-#: ../modals/font_modal.py:218 ../modals/settings_modal.py:150
+#: ../modals/font_modal.py:229 ../modals/settings_modal.py:161
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: ../modals/font_modal.py:221 ../modals/settings_modal.py:153
+#: ../modals/font_modal.py:232 ../modals/settings_modal.py:164
 msgid "OK"
 msgstr "OK"
 
-#: ../modals/mem_usage_modal.py:58
+#: ../modals/mem_usage_modal.py:61
 msgid "Memory Statistics"
 msgstr "Minnestatistikk"
 
-#: ../modals/mem_usage_modal.py:61
+#: ../modals/mem_usage_modal.py:65
 msgid "Virtual Memory"
 msgstr "Virtuelt minne"
 
-#: ../modals/mem_usage_modal.py:65
+#: ../modals/mem_usage_modal.py:70
 msgid "Swap Memory"
 msgstr "Sidevekslingsfil"
 
-#: ../modals/settings_modal.py:94
+#: ../modals/settings_modal.py:99
 msgid "Language"
 msgstr "Språk"
 
-#: ../modals/settings_modal.py:104
+#: ../modals/settings_modal.py:112
 msgid "Theme"
 msgstr "Drakt"
 
-#: ../modals/settings_modal.py:110
+#: ../modals/settings_modal.py:118
 msgid "Light"
 msgstr "Lys"
 
-#: ../modals/settings_modal.py:111
+#: ../modals/settings_modal.py:119
 msgid "Dark"
 msgstr "Mørk"
 
-#: ../modals/settings_modal.py:112
+#: ../modals/settings_modal.py:120
 msgid "Same as System"
 msgstr "Samme som systemet"
 
-#: ../modals/settings_modal.py:122
+#: ../modals/settings_modal.py:133
 msgid "Always on top"
 msgstr "Alltid på topp"
 
-#: ../modals/settings_modal.py:129
+#: ../modals/settings_modal.py:140
 msgid "Regular Font"
 msgstr "Vanlig skrift"
 
-#: ../modals/settings_modal.py:139
+#: ../modals/settings_modal.py:150
 msgid "Monospace Font"
 msgstr "Fastbreddeskrift"
 
-#: ../modals/temperature_modal.py:48
+#: ../modals/temperature_modal.py:49
 msgid "Temperature Sensors"
 msgstr "Temperatursensorer"
 
-#: ../modals/temperature_modal.py:94
+#: ../modals/temperature_modal.py:114
 #, python-brace-format
 msgid "{current}°C (high = {high}°C, critical = {critical}°C)"
 msgstr "{current}°C (høy = {high}°C, kritisk = {critical}°C)"

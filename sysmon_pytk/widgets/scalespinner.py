@@ -57,23 +57,25 @@ class ScaleSpinner(ttk.Frame):
         super().__init__(parent)
         self.variable = variable
         self.as_int = as_int
+        self.rowconfigure(0, weight=1)
+        self.columnconfigure(1, weight=1)
         base_font = font.nametofont("TkDefaultFont")
         if text is not None:
             ttk.Label(
                 self, text=text, anchor=tk.W, font=base_font
-            ).grid(row=0, column=0)
+            ).grid(row=0, column=0, sticky=tk.NSEW)
         self.scale = ttk.Scale(
             self, orient=tk.HORIZONTAL, length=length, from_=from_, to=to,
             style='Tick.TScale'
         )
-        self.scale.grid(row=0, column=1, pady=10, padx=10)
+        self.scale.grid(row=0, column=1, pady=10, padx=10, sticky=tk.NSEW)
         self.scale.set(variable.get())
         self.spinbox = ttk.Spinbox(
             self, textvariable=variable, from_=from_, to=to,
             width=len(f"{to}")+3, state='readonly', font=base_font,
             command=self.update_from_spinbox
         )
-        self.spinbox.grid(row=0, column=2)
+        self.spinbox.grid(row=0, column=2, sticky=tk.EW)
         self.scale.configure(command=self.update_from_scale)
 
     def update_from_spinbox(self):

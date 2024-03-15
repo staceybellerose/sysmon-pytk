@@ -70,8 +70,13 @@ class Meter(tk.Frame):
         self.check_dark_mode()
         super().__init__(parent, background=self._background, class_="Meter", **kw)
         self.var = tk.DoubleVar(self, 0)
+        self.rowconfigure(0, weight=1)
+        self.columnconfigure(0, weight=1)
+        # This `canvas_holder` frame is to keep the canvas centered in the widget.
+        canvas_holder = tk.Frame(self)
+        canvas_holder.grid()
         self.canvas = tk.Canvas(
-            self,
+            canvas_holder,
             width=width,
             height=height,
             background=self._background,
@@ -161,7 +166,7 @@ class Meter(tk.Frame):
 
         self._update_meter_line(Meter.EXTENT_ANGLE + Meter.START_ANGLE)
         self.var.trace_add('write', self._update_meter)
-        self.canvas.grid()
+        self.canvas.grid(sticky=tk.EW)
 
     def check_dark_mode(self):
         """
