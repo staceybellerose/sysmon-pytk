@@ -65,19 +65,11 @@ class MemUsageDialog(ModalDialog):
         ).grid(row=1, column=3, columnspan=2, sticky=tk.NSEW)
         self.internal_frame.columnconfigure(2, minsize=4*_common.INTERNAL_PAD)
         self._create_detail_widgets()
-        for i in range(2, max(len(self._names), len(self._swaps))+2):
+        max_list = max(len(self._names), len(self._swaps))
+        for i in range(2, max_list+2):
             self.internal_frame.rowconfigure(i, weight=1)
-        ttk.Button(
-            self.internal_frame, text=_("Close"), command=self.dismiss,
-            style='Accent.TButton'
-        ).grid(
-            row=max(len(self._names), len(self._swaps))+3, column=3, columnspan=2,
-            sticky=tk.E, padx=_common.INTERNAL_PAD/2
-        )
-        ttk.Sizegrip(self.internal_frame).grid(
-            row=max(len(self._names), len(self._swaps))+4, column=4, sticky=tk.SE,
-            padx=_common.INTERNAL_PAD/2, pady=_common.INTERNAL_PAD/2
-        )
+        self.add_close_button()
+        self.add_sizegrip()
 
     def _create_detail_widgets(self):
         for count, name in enumerate(self._names):

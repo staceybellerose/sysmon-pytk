@@ -44,7 +44,6 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         self._processes = tk.StringVar()
         self._update_job = None
         StyleManager.init_theme(self, self.settings)
-        StyleManager.init_fonts(self.settings)
         self.create_widgets()
         self.build_menu()
         self.bind_events()

@@ -5,9 +5,9 @@
 CPU usage details modal dialog.
 """
 
-from typing import List
+from typing import List, Optional
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, Misc
 
 import psutil
 
@@ -31,6 +31,13 @@ class CpuDialog(ModalDialog):
     """
 
     MAX_COLUMNS = 4
+
+    def __init__(
+        self, parent: Optional[Misc] = None, title: Optional[str] = None,
+        iconpath: Optional[str] = None, class_: str = "ModalDialog"
+    ):
+        self._max_used_column = 0
+        super().__init__(parent, title, iconpath, class_)
 
     def on_save(self):
         """
@@ -68,17 +75,8 @@ class CpuDialog(ModalDialog):
         row = self._create_freq_widgets(row+1) + 1
         for meter_row in self._meter_rows:
             self.internal_frame.rowconfigure(meter_row, weight=1)
-        ttk.Button(
-            self.internal_frame, text=_("Close"), command=self.dismiss,
-            style='Accent.TButton'
-        ).grid(
-            row=row, column=1, sticky=tk.E, columnspan=self.MAX_COLUMNS,
-            padx=_common.INTERNAL_PAD/2
-        )
-        ttk.Sizegrip(self.internal_frame).grid(
-            row=row+1, column=self.MAX_COLUMNS, sticky=tk.SE,
-            padx=_common.INTERNAL_PAD/2, pady=_common.INTERNAL_PAD/2
-        )
+        self.add_close_button()
+        self.add_sizegrip()
 
     def _create_usage_widgets(self, start_row: int) -> int:
         row = start_row
@@ -92,6 +90,7 @@ class CpuDialog(ModalDialog):
             if row not in self._meter_rows:
                 self._meter_rows.append(row)
             self._meters.append(meter)
+            self._max_used_column = max(self._max_used_column, col)
             col += 1
             if col == self.MAX_COLUMNS:
                 col = 0
@@ -112,6 +111,7 @@ class CpuDialog(ModalDialog):
             if row not in self._meter_rows:
                 self._meter_rows.append(row)
             self._freqmeters.append(meter)
+            self._max_used_column = max(self._max_used_column, col)
             col += 1
             if col == self.MAX_COLUMNS:
                 col = 0

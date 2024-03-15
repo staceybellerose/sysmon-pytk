@@ -11,6 +11,10 @@ import tkinter as tk
 from tkinter import ttk, Misc
 
 from ..style_manager import StyleManager
+from .._common import INTERNAL_PAD
+from ..app_locale import get_translator
+
+_ = get_translator()
 
 # These lint errors don't make sense for GUI widgets, so are disabled here.
 # pragma pylint: disable=too-many-instance-attributes
@@ -114,6 +118,47 @@ class ModalDialog(tk.Toplevel):
         """
         if event_str not in self._events:
             self._events.append(event_str)
+
+    @final
+    def add_close_button(self):
+        """
+        Add a Close button to the bottom row of the modal dialog.
+        """
+        max_columns, max_rows = self.internal_frame.grid_size()
+        ttk.Button(
+            self.internal_frame, text=_("Close"), command=self.dismiss,
+            style='Accent.TButton'
+        ).grid(
+            row=max_rows, column=0, sticky=tk.E, columnspan=max_columns,
+            padx=INTERNAL_PAD/2, pady=INTERNAL_PAD/2
+        )
+
+    @final
+    def add_ok_cancel_buttons(self):
+        """
+        Add OK and Cancel buttons to the bottom row of the modal dialog.
+        """
+        max_columns, max_rows = self.internal_frame.grid_size()
+        buttonframe = ttk.Frame(self.internal_frame)
+        ttk.Button(
+            buttonframe, text=_("Cancel"), command=self.dismiss
+        ).grid(row=0, column=0, padx=INTERNAL_PAD/2)
+        ttk.Button(
+            buttonframe, text=_("OK"), command=self.save_and_dismiss,
+            style='Accent.TButton'
+        ).grid(row=0, column=1, padx=INTERNAL_PAD/2)
+        buttonframe.grid(row=max_rows, column=0, sticky=tk.E, columnspan=max_columns)
+
+    @final
+    def add_sizegrip(self):
+        """
+        Add a Sizegrip widget to the bottom row of the modal dialog.
+        """
+        max_columns, max_rows = self.internal_frame.grid_size()
+        ttk.Sizegrip(self.internal_frame).grid(
+            row=max_rows, column=max_columns-1, sticky=tk.SE, padx=INTERNAL_PAD/2,
+            pady=INTERNAL_PAD/2
+        )
 
     @abstractmethod
     def on_save(self):

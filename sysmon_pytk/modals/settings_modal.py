@@ -87,7 +87,6 @@ class SettingsDialog(ModalDialog):
         self.internal_frame.rowconfigure(4, weight=1)
         self.internal_frame.rowconfigure(5, weight=1)
         self.internal_frame.columnconfigure(2, weight=1)
-        self.option_add('*TCombobox*Listbox.font', self.base_font)
         ttk.Label(
             self.internal_frame, text=_("Language"), font=self.base_font
         ).grid(row=1, column=1, sticky=tk.E, padx=_common.INTERNAL_PAD)
@@ -149,19 +148,8 @@ class SettingsDialog(ModalDialog):
             row=5, column=2, sticky=tk.EW,
             padx=_common.INTERNAL_PAD, pady=_common.INTERNAL_PAD
         )
-        buttonframe = ttk.Frame(self.internal_frame)
-        ttk.Button(
-            buttonframe, text=_("Cancel"), command=self.dismiss
-        ).grid(row=1, column=1, padx=_common.INTERNAL_PAD/2)
-        ttk.Button(
-            buttonframe, text=_("OK"), command=self.save_and_dismiss,
-            style='Accent.TButton'
-        ).grid(row=1, column=2, padx=_common.INTERNAL_PAD/2)
-        buttonframe.grid(row=6, column=1, columnspan=3, sticky=tk.E)
-        ttk.Sizegrip(self.internal_frame).grid(
-            row=7, column=2, sticky=tk.SE, padx=_common.INTERNAL_PAD/2,
-            pady=_common.INTERNAL_PAD/2
-        )
+        self.add_ok_cancel_buttons()
+        self.add_sizegrip()
 
     def change_combobox(self, event: tk.Event):
         """

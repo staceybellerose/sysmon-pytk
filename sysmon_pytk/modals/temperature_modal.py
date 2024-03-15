@@ -43,21 +43,15 @@ class TempDetailsDialog(ModalDialog):
             anchor=tk.CENTER
         ).grid(columnspan=2, sticky=tk.NSEW, pady=(_common.INTERNAL_PAD, 0))
         temps = psutil.sensors_temperatures()
-        row, stretchy_rows = self._create_detail_widgets(temps, 1)
+        stretchy_rows = self._create_detail_widgets(temps, 1)
         for i in stretchy_rows:
             self.internal_frame.rowconfigure(i, weight=1)
-        ttk.Button(
-            self.internal_frame, text=_("Close"), command=self.dismiss,
-            style='Accent.TButton'
-        ).grid(row=row, column=1, sticky=tk.E, padx=_common.INTERNAL_PAD/2)
-        ttk.Sizegrip(self.internal_frame).grid(
-            row=row+1, column=1, sticky=tk.SE, padx=_common.INTERNAL_PAD/2,
-            pady=_common.INTERNAL_PAD/2
-        )
+        self.add_close_button()
+        self.add_sizegrip()
 
     def _create_detail_widgets(
         self, temps: dict[str, list[shwtemp]], start_row
-    ) -> tuple[int, list[int]]:
+    ) -> list[int]:
         row = start_row
         stretchy_rows: list[int] = []
         for name, entries in temps.items():
@@ -89,7 +83,7 @@ class TempDetailsDialog(ModalDialog):
                 padx=_common.INTERNAL_PAD, pady=_common.INTERNAL_PAD
             )
             row += 1
-        return (row, stretchy_rows)
+        return stretchy_rows
 
     def update_screen(self):
         """

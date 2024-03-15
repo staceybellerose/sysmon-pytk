@@ -94,11 +94,10 @@ class AboutDialog(ModalDialog):
         """
         Create the widgets to be displayed in the modal dialog.
         """
-        self.internal_frame.configure(padding=INTERNAL_PAD/2)
         self.internal_frame.rowconfigure(0, weight=1)
         self.internal_frame.columnconfigure(0, weight=1)
         notebook = ttk.Notebook(self.internal_frame)
-        notebook.grid(row=0, sticky=tk.NSEW, pady=INTERNAL_PAD/2)
+        notebook.grid(row=0, sticky=tk.NSEW, padx=INTERNAL_PAD/2, pady=INTERNAL_PAD/2)
         tab1 = ttk.Frame(notebook)
         tab1.rowconfigure(0, weight=1)
         tab1.columnconfigure(0, weight=1)
@@ -142,10 +141,8 @@ class AboutDialog(ModalDialog):
             tab3 = self.create_license_tab(notebook, self.about.license)
             notebook.add(tab3, text=_("License"), sticky=tk.NSEW)
         notebook.enable_traversal()
-        ttk.Button(
-            self.internal_frame, text=_("Close"), command=self.dismiss, style='Accent.TButton'
-        ).grid(row=1, sticky=tk.E, pady=INTERNAL_PAD/2)
-        ttk.Sizegrip(self.internal_frame).grid(row=2, column=0, sticky=tk.SE)
+        self.add_close_button()
+        self.add_sizegrip()
 
     def _add_label_if_string(
         self, parent: BaseWidget, text: str, font: Font, row: int

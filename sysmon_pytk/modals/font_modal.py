@@ -109,7 +109,14 @@ class FontChooser(ModalDialog):
         """
         self.internal_frame.rowconfigure(1, weight=1)
         self.internal_frame.columnconfigure(0, weight=1)
+        self._create_font_family_widget_frame()
+        self._create_font_option_widgets()
+        self._create_font_size_widgets()
+        self._create_font_preview_widgets()
+        self.add_ok_cancel_buttons()
+        self.add_sizegrip()
 
+    def _create_font_family_widget_frame(self):
         familyframe = ttk.Frame(self.internal_frame)
         familyframe.grid(
             row=0, rowspan=2, sticky=tk.NSEW,
@@ -129,8 +136,8 @@ class FontChooser(ModalDialog):
         bg1 = StyleManager.test_dark_mode("#333333", "#ffffff")
         bg2 = StyleManager.test_dark_mode("#444444", "#eeeeff")
         for idx, item in enumerate(self.fontchoices):
-            bg = bg1 if idx % 2 else bg2
-            lbox.itemconfig(idx, background=bg)
+            item_bg = bg1 if idx % 2 else bg2
+            lbox.itemconfig(idx, background=item_bg)
             if item == self.fontname:
                 lbox.selection_set(idx)
                 lbox.see(idx)
@@ -141,6 +148,7 @@ class FontChooser(ModalDialog):
         scroll.config(command=lbox.yview)
         lbox.bind("<<ListboxSelect>>", self._on_select)
 
+    def _create_font_option_widgets(self):
         styleframe = ttk.LabelFrame(
             self.internal_frame,
             labelwidget=ttk.Label(
@@ -186,6 +194,7 @@ class FontChooser(ModalDialog):
             style='Switch.TCheckbutton'
         ).grid(row=1, column=0, padx=_common.INTERNAL_PAD, sticky=tk.W)
 
+    def _create_font_size_widgets(self):
         ScaleSpinner(
             self.internal_frame, self.fontsize, text=_("Size"), length=71*4,
             from_=1, to=72, as_int=True
@@ -194,6 +203,7 @@ class FontChooser(ModalDialog):
             pady=(_common.INTERNAL_PAD, 0)
         )
 
+    def _create_font_preview_widgets(self):
         previewframe = ttk.LabelFrame(
             self.internal_frame,
             labelwidget=ttk.Label(
@@ -213,20 +223,6 @@ class FontChooser(ModalDialog):
             image=tk.PhotoImage(width=1, height=1), width=420,
             compound=tk.CENTER, anchor=tk.SW
         ).grid(sticky=tk.NSEW, padx=_common.INTERNAL_PAD)
-
-        buttonframe = ttk.Frame(self.internal_frame)
-        buttonframe.grid(row=4, columnspan=2, sticky=tk.E)
-        ttk.Button(
-            buttonframe, text=_("Cancel"), command=self.dismiss
-        ).grid(row=0, column=1, padx=_common.INTERNAL_PAD/2)
-        ttk.Button(
-            buttonframe, text=_("OK"), command=self.save_and_dismiss,
-            style='Accent.TButton'
-        ).grid(row=0, column=2, padx=_common.INTERNAL_PAD/2)
-        ttk.Sizegrip(self.internal_frame).grid(
-            row=5, column=1, sticky=tk.SE, padx=_common.INTERNAL_PAD/2,
-            pady=_common.INTERNAL_PAD/2
-        )
 
     def _update_preview(self, *_args):
         self.preview_font.configure(

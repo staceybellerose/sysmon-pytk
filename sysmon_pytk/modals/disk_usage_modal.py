@@ -58,17 +58,8 @@ class DiskUsageDialog(ModalDialog):
         self._create_mount_widgets()
         for i in range(1, 2*len(self._diskmounts) + 1):
             self.internal_frame.rowconfigure(i, weight=1)
-        ttk.Button(
-            self.internal_frame, text=_("Close"), command=self.dismiss,
-            style='Accent.TButton'
-        ).grid(
-            row=2*len(self._diskmounts) + 2, column=1, sticky=tk.E,
-            padx=_common.INTERNAL_PAD/2, pady=(_common.INTERNAL_PAD, 0)
-        )
-        ttk.Sizegrip(self.internal_frame).grid(
-            row=2*len(self._diskmounts) + 3, column=1, sticky=tk.SE,
-            padx=_common.INTERNAL_PAD/2, pady=_common.INTERNAL_PAD/2
-        )
+        self.add_close_button()
+        self.add_sizegrip()
 
     def _create_mount_widgets(self) -> None:
         for col, mountpoint in enumerate(self._diskmounts):
