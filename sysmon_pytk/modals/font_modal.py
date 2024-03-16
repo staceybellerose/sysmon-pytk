@@ -48,7 +48,7 @@ class FontChooser(ModalDialog):
         what a sample text looks like.
     """
 
-    PREVIEW_TEXT = "AaáBbḅCcçÑñXxẍYyýZzẑ 0123456789"
+    PREVIEW_TEXT = "AaÁáÅåCcÇçNnÑñSsẞßUuÜü 0123456789"
 
     def __init__(
         self, parent: Optional[Misc] = None,
@@ -205,7 +205,7 @@ class FontChooser(ModalDialog):
 
     def _create_font_preview_widgets(self):
         previewframe = ttk.LabelFrame(
-            self.internal_frame,
+            self.internal_frame, height=150, width=500,
             labelwidget=ttk.Label(
                 self.internal_frame, text=_("Preview"), font=self.base_font
             )
@@ -214,15 +214,13 @@ class FontChooser(ModalDialog):
             row=3, columnspan=2, sticky=tk.NSEW,
             padx=_common.INTERNAL_PAD, pady=(0, _common.INTERNAL_PAD)
         )
-        # Specifically using tk.Label here to convert the width to pixels when
-        # an image is included - ttk.Label does not have this same "feature".
-        # This fixes the width, not allowing the label to change size when the
-        # font size changes.
-        tk.Label(
+        previewframe.columnconfigure(0, weight=1)
+        previewframe.rowconfigure(0, weight=1)
+        previewframe.grid_propagate(0)
+        ttk.Label(
             previewframe, text=self.PREVIEW_TEXT, font=self.preview_font,
-            image=tk.PhotoImage(width=1, height=1), width=420,
-            compound=tk.CENTER, anchor=tk.SW
-        ).grid(sticky=tk.NSEW, padx=_common.INTERNAL_PAD)
+            anchor=tk.CENTER
+        ).grid(sticky=tk.NSEW)
 
     def _update_preview(self, *_args):
         self.preview_font.configure(
