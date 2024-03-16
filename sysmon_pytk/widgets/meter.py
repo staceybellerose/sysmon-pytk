@@ -16,6 +16,22 @@ from ..style_manager import StyleManager
 from ..font_utils import modify_named_font
 
 
+@dataclasses.dataclass
+class CanvasObjects:
+    """
+    Various canvas objects that need to be tracked.
+    """
+
+    label1: int = 0
+    min_value: int = 0
+    max_value: int = 0
+    current: int = 0
+    meter: int = 0
+    inset: int = 0
+    inset_border: int = 0
+    wedges: list = dataclasses.field(default_factory=lambda: [])
+
+
 class Meter(tk.Frame):
     """
     Shows a meter widget, like a speedometer.
@@ -28,21 +44,6 @@ class Meter(tk.Frame):
 
     START_ANGLE = 36
     EXTENT_ANGLE = 180 - 2*START_ANGLE
-
-    @dataclasses.dataclass
-    class CanvasObjects:
-        """
-        Various canvas objects that need to be tracked.
-        """
-
-        label1: int = 0
-        min_value: int = 0
-        max_value: int = 0
-        current: int = 0
-        meter: int = 0
-        inset: int = 0
-        inset_border: int = 0
-        wedges: list = dataclasses.field(default_factory=lambda: [])
 
     def __init__(
             self,
@@ -61,12 +62,10 @@ class Meter(tk.Frame):
         self._unit = unit
         self._min_value = min_value
         self._max_value = max_value
+        self._width = width
+        self._height = height
+        self._divisions = divisions
         self.range = {"blue": blue, "yellow": yellow, "red": red}
-        font_size_lg = int(height / 15)
-        font_size_sm = int(height / 20)
-        text_font = modify_named_font("TkDefaultFont", size=font_size_lg)
-        large_font = modify_named_font("TkFixedFont", size=font_size_lg)
-        small_font = modify_named_font("TkFixedFont", size=font_size_sm)
         self.check_dark_mode()
         super().__init__(parent, background=self._background, class_="Meter", **kw)
         self.var = tk.DoubleVar(self, 0)
@@ -83,37 +82,53 @@ class Meter(tk.Frame):
             borderwidth=0,
             highlightthickness=0
         )
-        self.canvas_objects = self.CanvasObjects()
+        self.canvas_objects = CanvasObjects()
+        self._add_labels(label, unit)
+        self._add_gauge_lines(red, yellow, blue)
+        self._add_inset()
+        self._update_meter_line(Meter.EXTENT_ANGLE + Meter.START_ANGLE)
+        self.var.trace_add('write', self._update_meter)
+        self.canvas.grid(sticky=tk.EW)
 
+    def _add_labels(self, label: str, unit: str):
+        font_size_lg = int(self._height / 15)
+        font_size_sm = int(self._height / 20)
+        text_font = modify_named_font("TkDefaultFont", size=font_size_lg)
+        large_font = modify_named_font("TkFixedFont", size=font_size_lg)
+        small_font = modify_named_font("TkFixedFont", size=font_size_sm)
         # Add text: label, mix, max, current
         self.canvas_objects.label1 = self.canvas.create_text(
-            width / 2, height / 10,
+            self._width / 2, self._height / 10,
             font=text_font, text=label, fill=self._text_color
         )
         self.canvas_objects.min_value = self.canvas.create_text(
-            width / 6, height * 0.55,
+            self._width / 6, self._height * 0.55,
             font=small_font, text=f"{int(self._min_value)}{unit}",
             fill=self._text_color, anchor=tk.NE, justify=tk.RIGHT
         )
         self.canvas_objects.max_value = self.canvas.create_text(
-            width * 5 / 6, height * 0.55,
+            self._width * 5 / 6, self._height * 0.55,
             font=small_font, text=f"{int(self._max_value)}{unit}",
             fill=self._text_color, anchor=tk.NW, justify=tk.LEFT
         )
         self.canvas_objects.current = self.canvas.create_text(
-            width / 2, height - 1.75*font_size_lg,
+            self._width / 2, self._height - 1.75*font_size_lg,
             font=large_font, text=f"{self.var.get()}{self._unit}",
             fill=self._text_color, anchor=tk.N, justify=tk.CENTER
         )
 
-        coord = width / 30, height / 4, width * 29 / 30, height * 1.5
+    def _add_gauge_lines(self, red: float, yellow: float, blue: float):
+        coord = (
+            self._width / 30, self._height / 4,
+            self._width * 29 / 30, self._height * 1.5
+        )
         # Add the divisions
         self.canvas_objects.wedges = []
-        for i in range(divisions):
+        for i in range(self._divisions):
             self.canvas_objects.wedges.append(self.canvas.create_arc(
                 coord,
-                start=(i * (Meter.EXTENT_ANGLE / divisions) + Meter.START_ANGLE),
-                extent=(Meter.EXTENT_ANGLE / divisions),
+                start=(i * (Meter.EXTENT_ANGLE / self._divisions) + Meter.START_ANGLE),
+                extent=(Meter.EXTENT_ANGLE / self._divisions),
                 width=1, outline=self._text_color
             ))
 
@@ -121,27 +136,27 @@ class Meter(tk.Frame):
         self.canvas.create_arc(
             coord,
             extent=Meter.EXTENT_ANGLE, start=Meter.START_ANGLE,
-            style='arc', outline=self.GREEN, width=width / 12
+            style='arc', outline=self.GREEN, width=self._width / 12
         )
         if red > 0:
             self.canvas.create_arc(
                 coord,
                 extent=self._percent_to_degrees(red), start=Meter.START_ANGLE,
-                style='arc', outline=self.RED, width=width / 12
+                style='arc', outline=self.RED, width=self._width / 12
             )
         if yellow > 0:
             self.canvas.create_arc(
                 coord,
                 extent=self._percent_to_degrees(yellow),
                 start=self._percent_to_degrees(red) + Meter.START_ANGLE,
-                style='arc', outline=self.YELLOW, width=width / 12
+                style='arc', outline=self.YELLOW, width=self._width / 12
             )
         if blue > 0:
             self.canvas.create_arc(
                 coord,
                 start=Meter.EXTENT_ANGLE + Meter.START_ANGLE,
                 extent=-self._percent_to_degrees(blue),
-                style='arc', outline=self.BLUE, width=width / 12
+                style='arc', outline=self.BLUE, width=self._width / 12
             )
 
         # Add the moving indicator line
@@ -151,8 +166,12 @@ class Meter(tk.Frame):
             fill=self._meter_color, outline=self._meter_color, width=3
         )
 
+    def _add_inset(self):
         # Add the inset
-        inset_coord = width * 23 / 60, height * 23 / 32, width * 37 / 60, height * 33 / 32
+        inset_coord = (
+            self._width * 23 / 60, self._height * 23 / 32,
+            self._width * 37 / 60, self._height * 33 / 32
+        )
         self.canvas_objects.inset = self.canvas.create_arc(
             inset_coord,
             start=Meter.START_ANGLE, extent=Meter.EXTENT_ANGLE,
@@ -163,10 +182,6 @@ class Meter(tk.Frame):
             start=Meter.START_ANGLE, extent=Meter.EXTENT_ANGLE,
             outline=self._meter_color, style="arc", width=1
         )
-
-        self._update_meter_line(Meter.EXTENT_ANGLE + Meter.START_ANGLE)
-        self.var.trace_add('write', self._update_meter)
-        self.canvas.grid(sticky=tk.EW)
 
     def check_dark_mode(self):
         """

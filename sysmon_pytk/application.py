@@ -44,7 +44,16 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         self._processes = tk.StringVar()
         self._update_job = None
         StyleManager.init_theme(self, self.settings)
-        self.create_widgets()
+        frame = self._init_frame()
+        self._add_variable_label(frame, self._name, 1, 1)
+        self._add_variable_label(frame, self._ip_addr, 1, 2)
+        self._add_variable_label(frame, self._processes, 1, 3)
+        self._add_variable_label(frame, self._uptime, 1, 4)
+        self._add_cpu_meter(frame)
+        self._add_temp_meter(frame)
+        self._add_ram_meter(frame)
+        self._add_disk_meter(frame)
+        self._add_sizegrip(frame)
         self.build_menu()
         self.bind_events()
         self.update_screen()
@@ -59,10 +68,7 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         else:
             self.call('wm', 'attributes', '.', '-topmost', '0')
 
-    def create_widgets(self):
-        """
-        Create the widgets to be displayed in the main application window.
-        """
+    def _init_frame(self) -> ttk.Frame:
         frame = ttk.Frame(self)
         frame.grid(sticky=tk.NSEW)
         frame.rowconfigure(1, weight=1)
@@ -71,51 +77,64 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         frame.columnconfigure(2, weight=1)
         frame.columnconfigure(3, weight=1)
         frame.columnconfigure(4, weight=1)
+        return frame
 
+    def _add_variable_label(self, frame, textvariable, row, column):
         base_font = StyleManager.get_base_font()
         ttk.Label(
-            frame, textvariable=self._name, font=base_font, anchor=tk.CENTER
-        ).grid(row=1, column=1, sticky=tk.NSEW, ipady=_common.INTERNAL_PAD)
-        ttk.Label(
-            frame, textvariable=self._ip_addr, font=base_font, anchor=tk.CENTER
-        ).grid(row=1, column=2, sticky=tk.NSEW, ipady=_common.INTERNAL_PAD)
-        ttk.Label(
-            frame, textvariable=self._processes, font=base_font, anchor=tk.CENTER
-        ).grid(row=1, column=3, sticky=tk.NSEW, ipady=_common.INTERNAL_PAD)
-        ttk.Label(
-            frame, textvariable=self._uptime, font=base_font, anchor=tk.CENTER
-        ).grid(row=1, column=4, sticky=tk.NSEW, ipady=_common.INTERNAL_PAD)
+            frame, textvariable=textvariable, font=base_font, anchor=tk.CENTER
+        ).grid(
+            row=row, column=column, sticky=tk.NSEW,
+            pady=(_common.INTERNAL_PAD, 0)
+        )
 
+    def _add_cpu_meter(self, frame: ttk.Frame):
         self._cpu_meter = Meter(
             frame, width=220, height=165, unit="%", label=_("CPU Usage")
         )
-        self._cpu_meter.grid(row=2, column=1, sticky=tk.NSEW, ipady=_common.INTERNAL_PAD)
+        self._cpu_meter.grid(
+            row=2, column=1, sticky=tk.NSEW, pady=(_common.INTERNAL_PAD, 0)
+        )
         if psutil.cpu_count() > 1:
             self._cpu_meter.configure(cursor="hand2")
             ToolTip(self._cpu_meter, _('Click for per-CPU usage'))
 
+    def _add_temp_meter(self, frame: ttk.Frame):
         self._temp_meter = Meter(
-            frame, width=220, height=165, unit="°C", blue=15, label=_("Temperature")
+            frame, width=220, height=165, unit="°C", blue=15,
+            label=_("Temperature")
         )
-        self._temp_meter.grid(row=2, column=2, sticky=tk.NSEW, ipady=_common.INTERNAL_PAD)
+        self._temp_meter.grid(
+            row=2, column=2, sticky=tk.NSEW, pady=(_common.INTERNAL_PAD, 0)
+        )
         self._temp_meter.configure(cursor="hand2")
         ToolTip(self._temp_meter, _('Click for detailed temperature readings'))
 
+    def _add_ram_meter(self, frame: ttk.Frame):
         self._ram_meter = Meter(
             frame, width=220, height=165, unit="%", label=_("RAM Usage")
         )
-        self._ram_meter.grid(row=2, column=3, sticky=tk.NSEW, ipady=_common.INTERNAL_PAD)
+        self._ram_meter.grid(
+            row=2, column=3, sticky=tk.NSEW, pady=(_common.INTERNAL_PAD, 0)
+        )
         self._ram_meter.configure(cursor="hand2")
         ToolTip(self._ram_meter, _('Click for detailed memory statistics'))
 
+    def _add_disk_meter(self, frame: ttk.Frame):
         self._disk_meter = Meter(
             frame, width=220, height=165, unit="%", label=_("Disk Usage: /"),
             red=100 - _common.DISK_ALERT_LEVEL,
             yellow=_common.DISK_ALERT_LEVEL - _common.DISK_WARN_LEVEL
         )
-        self._disk_meter.grid(row=2, column=4, sticky=tk.NSEW, ipady=_common.INTERNAL_PAD)
+        self._disk_meter.grid(
+            row=2, column=4, sticky=tk.NSEW, pady=(_common.INTERNAL_PAD, 0)
+        )
         self._disk_meter.configure(cursor="hand2")
-        ToolTip(self._disk_meter, _('Click for usage details of each mount point'))
+        ToolTip(
+            self._disk_meter, _('Click for usage details of each mount point')
+        )
+
+    def _add_sizegrip(self, frame: ttk.Frame):
         ttk.Sizegrip(frame).grid(
             row=3, column=4, sticky=tk.SE, padx=_common.INTERNAL_PAD/2,
             pady=(0, _common.INTERNAL_PAD/2)
@@ -182,7 +201,7 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
 
     def _on_about(self, *_args):
         """
-        Open the About modal dialog.
+        Open About box.
         """
         metadata = AboutMetadata(
             about.__app_name__, about.__version__, about.__author__,
@@ -205,7 +224,7 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
 
     def _on_cpu_details(self, *_args):
         """
-        Open the CPU Details modal dialog.
+        Open CPU Details.
         """
         CpuDialog(
             self, title=_("{} :: CPU Details").format(APP_TITLE),
@@ -214,7 +233,7 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
 
     def _on_temp_details(self, *_args):
         """
-        Open the Temperature Details modal dialog.
+        Open Temperature Details.
         """
         TempDetailsDialog(
             self, title=_("{} :: Temperature Details").format(APP_TITLE),
@@ -223,7 +242,7 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
 
     def _on_mem_details(self, *_args):
         """
-        Open the Memory Usage modal dialog.
+        Open Memory Usage.
         """
         MemUsageDialog(
             self, title=_("{} :: Memory Usage").format(APP_TITLE),
@@ -232,7 +251,7 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
 
     def _on_disk_usage(self, *_args):
         """
-        Open the Disk Usage modal dialog.
+        Open Disk Usage.
         """
         DiskUsageDialog(
             self, title=_("{} :: Disk Usage").format(APP_TITLE),
@@ -241,7 +260,7 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
 
     def _on_settings(self, *_args):
         """
-        Open the Settings modal dialog and process any changes afterward.
+        Open Settings and process any changes afterward.
         """
         SettingsDialog(
             self.settings, self, _("{} Preferences").format(APP_TITLE),
@@ -265,7 +284,9 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         self._ip_addr.set(_("IP Address: {}").format(_common.net_addr()))
         self._processes.set(_("Processes: {}").format(len(psutil.pids())))
         self._uptime.set(_("Uptime: {}").format(_common.system_uptime()))
-        self._update_job = self.after(_common.REFRESH_INTERVAL, self.update_screen)
+        self._update_job = self.after(
+            _common.REFRESH_INTERVAL, self.update_screen
+        )
 
     def apply_settings(self, *_args):
         """

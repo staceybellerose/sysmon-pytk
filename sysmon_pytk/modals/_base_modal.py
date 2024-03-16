@@ -63,31 +63,52 @@ class ModalDialog(tk.Toplevel):
         """
         super().__init__(parent, class_=class_)
         self.parent = parent
-        self.title(title)
         self.iconpath = iconpath
-        if iconpath is not None:
-            self.iconphoto(False, tk.PhotoImage(file=iconpath))
+        self._events: list[str] = []
+        self.title(title)
+        if self.iconpath is not None:
+            self.iconphoto(False, tk.PhotoImage(file=self.iconpath))
+        self.internal_frame = ttk.Frame(self)
+        self.internal_frame.grid(sticky=tk.NSEW)
+        self.load_fonts()
+        self.bind_events()
+        self.create_widgets()
+        self.update_screen()
+        top = self.winfo_toplevel()
+        top.rowconfigure(0, weight=1)
+        top.columnconfigure(0, weight=1)
+        self.make_modal()
+        self.wait_window()
+
+    @final
+    def load_fonts(self):
+        """
+        Load the standard fonts from the StyleManager.
+        """
         self.base_font = StyleManager.get_base_font()
         self.large_font = StyleManager.get_large_font()
         self.bold_font = StyleManager.get_bold_font()
         self.fixed_font = StyleManager.get_fixed_font()
-        self._events: list[str] = []
-        self.internal_frame = ttk.Frame(self)
-        self.internal_frame.grid(sticky=tk.NSEW)
-        self.create_widgets()
-        self.update_screen()
+
+    @final
+    def bind_events(self):
+        """
+        Bind window events.
+        """
         self.protocol("WM_DELETE_WINDOW", self.dismiss)
         self.bind("<KeyPress-Escape>", self.dismiss)
         self.bind("<KeyPress-Return>", self.save_and_dismiss)
         self.bind("<KeyPress-KP_Enter>", self.save_and_dismiss)
-        self.transient(parent)  # type: ignore
+
+    @final
+    def make_modal(self):
+        """
+        Make this behave like a modal window.
+        """
+        self.transient(self.parent)  # type: ignore
         self.wait_visibility()
         self.grab_set()
-        top = self.winfo_toplevel()
-        top.rowconfigure(0, weight=1)
-        top.columnconfigure(0, weight=1)
         self.minsize(self.winfo_width(), self.winfo_height())
-        self.wait_window()
 
     @final
     def dismiss(self, *_args):

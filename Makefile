@@ -11,6 +11,7 @@ PYLINT := $(VENV)/bin/pylint
 MYPY := $(VENV)/bin/mypy
 PYCODESTYLE := $(VENV)/bin/pycodestyle
 PYDOCSTYLE := $(VENV)/bin/pydocstyle
+PYFLAKES := $(VENV)/bin/pyflakes
 REUSE := $(VENV)/bin/reuse
 BANDIT := $(VENV)/bin/bandit
 RADON := $(VENV)/bin/radon
@@ -48,19 +49,22 @@ run: $(VENV)/bin/activate translations  ## Run the GUI application
 
 ##@ Testing
 
-lint: pylint mypy pycodestyle pydocstyle bandit reuse  ## All lint and static code checks
+lint: pyflakes pylint mypy pycodestyle pydocstyle bandit reuse  ## All lint and static code checks
 
 pylint:  ## Code lint check
 	$(PYLINT) --verbose sysmon_pytk
 
 mypy:  ## Validate type hinting
-	$(MYPY) .
+	$(MYPY) sysmon_pytk
 
 pycodestyle:  ## Check code style against PEP8
 	$(PYCODESTYLE) --benchmark --verbose sysmon_pytk
 
 pydocstyle:  ## Check dotstrings
 	$(PYDOCSTYLE) --verbose sysmon_pytk
+
+pyflakes:  ## Code error linter
+	$(PYFLAKES) sysmon_pytk
 
 bandit:  ## Check for common security issues
 	$(BANDIT) -r sysmon_pytk
