@@ -58,15 +58,12 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         self.bind_events()
         self.update_screen()
 
-    def read_settings(self):
+    def read_settings(self, *_args):
         """
         Read application settings from configuration file.
         """
         self.settings = Settings(settings_path())
-        if self.settings.get_always_on_top():
-            self.call('wm', 'attributes', '.', '-topmost', '1')
-        else:
-            self.call('wm', 'attributes', '.', '-topmost', '0')
+        self.call('wm', 'attributes', '.', '-topmost', f'{self.settings.get_always_on_top()}')
 
     def _init_frame(self) -> ttk.Frame:
         frame = ttk.Frame(self)
@@ -84,8 +81,7 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         ttk.Label(
             frame, textvariable=textvariable, font=base_font, anchor=tk.CENTER
         ).grid(
-            row=row, column=column, sticky=tk.NSEW,
-            pady=(_common.INTERNAL_PAD, 0)
+            row=row, column=column, sticky=tk.NSEW, pady=(_common.INTERNAL_PAD, 0)
         )
 
     def _add_cpu_meter(self, frame: ttk.Frame):
@@ -101,8 +97,7 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
 
     def _add_temp_meter(self, frame: ttk.Frame):
         self._temp_meter = Meter(
-            frame, width=220, height=165, unit="°C", blue=15,
-            label=_("Temperature")
+            frame, width=220, height=165, unit="°C", blue=15, label=_("Temperature")
         )
         self._temp_meter.grid(
             row=2, column=2, sticky=tk.NSEW, pady=(_common.INTERNAL_PAD, 0)
@@ -148,42 +143,38 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         top = self.winfo_toplevel()
         top.rowconfigure(0, weight=1)
         top.columnconfigure(0, weight=1)
-        menu_bar = tk.Menu(top)
-        file_menu = tk.Menu(menu_bar, font=font.nametofont("TkMenuFont"))
+        menu_bar = tk.Menu(top, relief=tk.FLAT)
+        file_menu = tk.Menu(menu_bar, font=font.nametofont("TkMenuFont"), relief=tk.SOLID)
 
         menu_bar.add_cascade(
-            label=_('File'), menu=file_menu, underline=0,
-            font=tk.font.nametofont("TkMenuFont")
+            label=_('File'), menu=file_menu, font=font.nametofont("TkMenuFont")
         )
         file_menu.add_command(
-            label=_('About'), accelerator=_("Ctrl+A"), underline=0,
-            command=self._on_about
+            label=_('About'), accelerator=_("Ctrl+A"), command=self._on_about
         )
         file_menu.add_command(
-            label=_('Preferences'), accelerator=_("Ctrl+Shift+P"), underline=0,
+            label=_('Preferences'), accelerator=_("Ctrl+Shift+P"),
             command=self._on_settings
         )
         file_menu.add_command(
-            label=_('Restart'), accelerator=_("Ctrl+R"), underline=0,
-            command=self._on_restart
+            label=_('Restart'), accelerator=_("Ctrl+R"), command=self._on_restart
         )
         file_menu.add_separator()
         file_menu.add_command(
-            label=_('Quit'), accelerator=_("Ctrl+Q"), underline=0,
-            command=self._on_quit
+            label=_('Quit'), accelerator=_("Ctrl+Q"), command=lambda : sys.exit(0)
         )
         top['menu'] = menu_bar
         # bind keypress events for menu here
         self.bind("<Control-KeyPress-a>", self._on_about)
         self.bind("<Control-Shift-KeyPress-P>", self._on_settings)
         self.bind("<Control-KeyPress-r>", self._on_restart)
-        self.bind("<Control-KeyPress-q>", self._on_quit)
+        self.bind("<Control-KeyPress-q>", lambda : sys.exit(0))
 
     def bind_events(self):
         """
         Set up bindings for app events.
         """
-        self.bind("<<SettingsChanged>>", self.apply_settings)
+        self.bind("<<SettingsChanged>>", self.read_settings)
         self.bind("<<LanguageChanged>>", self._on_language)
         self.bind("<<FontChanged>>", self._on_restart)
         if psutil.cpu_count() > 1:
@@ -211,9 +202,6 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
             )
         )
         AboutDialog(self, metadata, iconpath=get_full_path("images/icon.png"))
-
-    def _on_quit(self, *_args):
-        sys.exit(0)
 
     def _on_restart(self, *_args):
         if self._update_job is not None:
@@ -287,9 +275,3 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         self._update_job = self.after(
             _common.REFRESH_INTERVAL, self.update_screen
         )
-
-    def apply_settings(self, *_args):
-        """
-        Apply the new settings to the application.
-        """
-        self.read_settings()

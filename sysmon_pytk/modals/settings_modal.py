@@ -19,6 +19,12 @@ from .font_modal import FontChooser
 
 _ = get_translator()
 
+THEMES = {
+    _("Light"): "Light",
+    _("Dark"): "Dark",
+    _("Same as System"): "Same as System"
+}
+
 
 class SettingsDialog(ModalDialog):
     """
@@ -62,6 +68,12 @@ class SettingsDialog(ModalDialog):
             The path to the icon to display in the window title bar.
         """
         self.settings = settings
+        self.always_on_top = tk.IntVar()
+        self.always_on_top.set(self.settings.get_always_on_top())
+        self.fonts = {
+            "regular": self.settings.regular_font.get_full_font().get_string(),
+            "fixed": self.settings.fixed_font.get_full_font().get_string()
+        }
         super().__init__(parent, title=title, iconpath=iconpath)
 
     def update_screen(self):
@@ -75,24 +87,15 @@ class SettingsDialog(ModalDialog):
         """
         Create the widgets to be displayed in the modal dialog.
         """
-        self.always_on_top = tk.IntVar()
-        self.always_on_top.set(self.settings.get_always_on_top())
-        self.fonts = {
-            "regular": self.settings.regular_font.get_full_font().get_string(),
-            "fixed": self.settings.fixed_font.get_full_font().get_string()
-        }
-        self.internal_frame.rowconfigure(1, weight=1)
-        self.internal_frame.rowconfigure(2, weight=1)
-        self.internal_frame.rowconfigure(3, weight=1)
-        self.internal_frame.rowconfigure(4, weight=1)
-        self.internal_frame.rowconfigure(5, weight=1)
+        for row in range(1, 6):
+            self.internal_frame.rowconfigure(row, weight=1)
         self.internal_frame.columnconfigure(2, weight=1)
         ttk.Label(
             self.internal_frame, text=_("Language"), font=self.base_font
         ).grid(row=1, column=1, sticky=tk.E, padx=_common.INTERNAL_PAD)
         self.langbox = DropDown(
-            self.internal_frame, dictionary=LANGUAGES, state=["readonly"], exportselection=0,
-            font=self.base_font
+            self.internal_frame, dictionary=LANGUAGES, state=["readonly"],
+            exportselection=0, font=self.base_font
         )
         self.langbox.set(self.settings.get_language())
         self.langbox.grid(
@@ -106,14 +109,9 @@ class SettingsDialog(ModalDialog):
         # Language translation is used as keys, and English is used as values
         # so that English is stored in the settings file, while allowing the
         # user to choose their theme based on their selected language.
-        themes = {
-            _("Light"): "Light",
-            _("Dark"): "Dark",
-            _("Same as System"): "Same as System"
-        }
         self.themebox = DropDown(
-            self.internal_frame, dictionary=themes, state=["readonly"], exportselection=0,
-            font=self.base_font
+            self.internal_frame, dictionary=THEMES, state=["readonly"],
+            exportselection=0, font=self.base_font
         )
         self.themebox.set(self.settings.get_theme())
         self.themebox.grid(
@@ -125,8 +123,8 @@ class SettingsDialog(ModalDialog):
             self.internal_frame, text=_("Always on top"), variable=self.always_on_top,
             style='Switch.TCheckbutton'
         ).grid(
-            row=3, column=2, sticky=tk.EW,
-            padx=_common.INTERNAL_PAD, pady=_common.INTERNAL_PAD
+            row=3, column=2, sticky=tk.EW, padx=_common.INTERNAL_PAD,
+            pady=_common.INTERNAL_PAD
         )
         ttk.Label(
             self.internal_frame, text=_("Regular Font"), font=self.base_font
@@ -135,8 +133,8 @@ class SettingsDialog(ModalDialog):
             self.internal_frame, text=self.fonts["regular"], command=self.show_font_chooser
         )
         self.font_button.grid(
-            row=4, column=2, sticky=tk.EW,
-            padx=_common.INTERNAL_PAD, pady=_common.INTERNAL_PAD
+            row=4, column=2, sticky=tk.EW, padx=_common.INTERNAL_PAD,
+            pady=_common.INTERNAL_PAD
         )
         ttk.Label(
             self.internal_frame, text=_("Monospace Font"), font=self.base_font
@@ -145,8 +143,8 @@ class SettingsDialog(ModalDialog):
             self.internal_frame, text=self.fonts["fixed"], command=self.show_fixedfont_chooser
         )
         self.fixed_font_button.grid(
-            row=5, column=2, sticky=tk.EW,
-            padx=_common.INTERNAL_PAD, pady=_common.INTERNAL_PAD
+            row=5, column=2, sticky=tk.EW, padx=_common.INTERNAL_PAD,
+            pady=_common.INTERNAL_PAD
         )
         self.add_ok_cancel_buttons()
         self.add_sizegrip()

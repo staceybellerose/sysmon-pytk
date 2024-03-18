@@ -41,8 +41,7 @@ class DropDown(ttk.Combobox):
             Additional keyword arguments for a `Combobox`.
         """
         super().__init__(
-            parent, values=sorted(list(dictionary.keys())),
-            *args, **kwargs
+            parent, values=sorted(list(dictionary.keys())), *args, **kwargs
         )
         self.dictionary = dictionary
 

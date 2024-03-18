@@ -111,6 +111,7 @@ class StyleManager:
         style.configure("TNotebook.Tab", font="TkDefaultFont")
         style.configure("Switch.TCheckbutton", font="TkDefaultFont")
         style.configure("System.TLabel", font="TkDefaultFont")
+        style.configure("URL.TLabel", foreground="#007fff")
 
     @classmethod
     def update_by_dark_mode(cls, root: tk.Tk, settings: Settings) -> None:
@@ -124,12 +125,11 @@ class StyleManager:
             style.configure("Safe.TLabel", foreground="#00aa00")
             style.configure("Warn.TLabel", foreground="#ffff22")
             style.configure("Alert.TLabel", foreground="#ff2222")
-            style.configure("URL.TLabel", foreground="#66ccff")
         else:
             style.configure("Safe.TLabel", foreground="#009900")
             style.configure("Warn.TLabel", foreground="#aaaa00")
             style.configure("Alert.TLabel", foreground="#cc0000")
-            style.configure("URL.TLabel", foreground="#0000ee")
+        style.configure("ComboboxPopdownFrame", relief=tk.SOLID)
 
     @classmethod
     def test_dark_mode(cls, trueval: Any, falseval: Any) -> Any:

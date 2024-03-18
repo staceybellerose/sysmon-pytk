@@ -17,7 +17,7 @@ BANDIT := $(VENV)/bin/bandit
 RADON := $(VENV)/bin/radon
 
 # make sure all external programs are available
-EXECUTABLES = python3 awk
+EXECUTABLES = python3 awk sort
 K := $(foreach exec,$(EXECUTABLES),\
     $(if $(shell which $(exec)),some string,$(error "No $(exec) in PATH")))
 
@@ -77,10 +77,10 @@ reuse:  ## Verify REUSE Specification for Copyrights
 metrics: radon-raw radon-cc radon-mi  ## All code metric calculations
 
 radon-cc:  ## Cyclomatic Complexity of codebase
-	$(RADON) cc sysmon_pytk --total-average --show-complexity --min b
+	$(RADON) cc sysmon_pytk
 
 radon-mi:  ## Maintainability Index of codebase
-	$(RADON) mi sysmon_pytk --show | sort -t "(" -k 2 -g -r
+	$(RADON) mi sysmon_pytk | sort -t "(" -k 2 -g -r
 
 radon-raw:  ## Raw metrics of codebase
 	$(RADON) raw sysmon_pytk --summary

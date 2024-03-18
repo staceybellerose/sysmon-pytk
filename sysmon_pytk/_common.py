@@ -250,5 +250,5 @@ def _get_processor_name_linux() -> str:
     ).decode().strip()
     for line in all_info.split("\n"):
         if "model name" in line:
-            return re.sub(".*model name.*:", "", line, 1)
+            return re.sub(r".*model name.*:", "", line, 1)
     return ""
