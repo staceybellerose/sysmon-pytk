@@ -87,7 +87,7 @@ class Meter(tk.Frame):
         self._add_gauge_lines(red, yellow, blue)
         self._add_inset()
         self._update_meter_line(Meter.EXTENT_ANGLE + Meter.START_ANGLE)
-        self.var.trace_add('write', self._update_meter)
+        self.var.trace_add("write", self._update_meter)
         self.canvas.grid(sticky=tk.EW)
 
     def _add_labels(self, label: str, unit: str):
@@ -136,27 +136,27 @@ class Meter(tk.Frame):
         self.canvas.create_arc(
             coord,
             extent=Meter.EXTENT_ANGLE, start=Meter.START_ANGLE,
-            style='arc', outline=self.GREEN, width=self._width / 12
+            style="arc", outline=self.GREEN, width=self._width / 12
         )
         if red > 0:
             self.canvas.create_arc(
                 coord,
                 extent=self._percent_to_degrees(red), start=Meter.START_ANGLE,
-                style='arc', outline=self.RED, width=self._width / 12
+                style="arc", outline=self.RED, width=self._width / 12
             )
         if yellow > 0:
             self.canvas.create_arc(
                 coord,
                 extent=self._percent_to_degrees(yellow),
                 start=self._percent_to_degrees(red) + Meter.START_ANGLE,
-                style='arc', outline=self.YELLOW, width=self._width / 12
+                style="arc", outline=self.YELLOW, width=self._width / 12
             )
         if blue > 0:
             self.canvas.create_arc(
                 coord,
                 start=Meter.EXTENT_ANGLE + Meter.START_ANGLE,
                 extent=-self._percent_to_degrees(blue),
-                style='arc', outline=self.BLUE, width=self._width / 12
+                style="arc", outline=self.BLUE, width=self._width / 12
             )
 
         # Add the moving indicator line

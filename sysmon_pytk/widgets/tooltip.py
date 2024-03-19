@@ -26,7 +26,7 @@ class ToolTip:
         The text to display in the tooltip.
     """
 
-    def __init__(self, parent: BaseWidget, text: str = ''):
+    def __init__(self, parent: BaseWidget, text: str = ""):
         """
         Construct a tooltip.
 
@@ -40,9 +40,9 @@ class ToolTip:
         self.tooltip: Optional[tk.Toplevel] = None
         self.parent = parent
         self.text = text
-        self.parent.bind('<Enter>', self.on_enter)
-        self.parent.bind('<Motion>', self.on_move)
-        self.parent.bind('<Leave>', self.on_leave)
+        self.parent.bind("<Enter>", self.on_enter)
+        self.parent.bind("<Motion>", self.on_move)
+        self.parent.bind("<Leave>", self.on_leave)
 
     def on_enter(self, event: Event):
         """
@@ -50,7 +50,7 @@ class ToolTip:
         """
         self.tooltip = tk.Toplevel()
         self.tooltip.overrideredirect(True)
-        self.tooltip.geometry(f'+{event.x_root+10}+{event.y_root+10}')
+        self.tooltip.geometry(f"+{event.x_root+10}+{event.y_root+10}")
         ttk.Label(
             self.tooltip, text=self.text, anchor=tk.CENTER,
             background="#ffd", foreground="#000"
@@ -61,7 +61,7 @@ class ToolTip:
         Handle the event when the pointer moves within the widget.
         """
         if self.tooltip:
-            self.tooltip.geometry(f'+{event.x_root+10}+{event.y_root+10}')
+            self.tooltip.geometry(f"+{event.x_root+10}+{event.y_root+10}")
 
     def on_leave(self, _event: Event):
         """

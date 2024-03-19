@@ -148,7 +148,7 @@ class ModalDialog(tk.Toplevel):
         max_columns, max_rows = self.internal_frame.grid_size()
         ttk.Button(
             self.internal_frame, text=_("Close"), command=self.dismiss,
-            style='Accent.TButton'
+            style="Accent.TButton"
         ).grid(
             row=max_rows, column=0, sticky=tk.E, columnspan=max_columns,
             padx=INTERNAL_PAD/2, pady=INTERNAL_PAD/2
@@ -166,7 +166,7 @@ class ModalDialog(tk.Toplevel):
         ).grid(row=0, column=0, padx=INTERNAL_PAD/2)
         ttk.Button(
             buttonframe, text=_("OK"), command=self.save_and_dismiss,
-            style='Accent.TButton'
+            style="Accent.TButton"
         ).grid(row=0, column=1, padx=INTERNAL_PAD/2)
         buttonframe.grid(row=max_rows, column=0, sticky=tk.E, columnspan=max_columns)
 

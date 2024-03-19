@@ -50,7 +50,7 @@ class DropDown(ttk.Combobox):
         Get the selected value.
         """
         key = super().get()
-        return self.dictionary[key] if key != '' else ''
+        return self.dictionary[key] if key != "" else ""
 
     def set(self, value: str):
         """

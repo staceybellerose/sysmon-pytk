@@ -80,7 +80,7 @@ class StyleManager:
         root.tk.call("source", get_full_path("../azure/azure.tcl"))
         cls.update_by_dark_mode(root, settings)
         cls.init_fonts(settings)
-        root.option_add('*TCombobox*Listbox.font', "TkDefaultFont")
+        root.option_add("*TCombobox*Listbox.font", "TkDefaultFont")
 
     @classmethod
     def init_fonts(cls, settings: Settings) -> None:

@@ -62,7 +62,7 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         Read application settings from configuration file.
         """
         self.settings = Settings(settings_path())
-        self.call('wm', 'attributes', '.', '-topmost', f'{self.settings.get_always_on_top()}')
+        self.call("wm", "attributes", ".", "-topmost", f"{self.settings.get_always_on_top()}")
 
     def _init_frame(self) -> ttk.Frame:
         frame = ttk.Frame(self)
@@ -92,7 +92,7 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         )
         if psutil.cpu_count() > 1:
             self._cpu_meter.configure(cursor="hand2")
-            ToolTip(self._cpu_meter, _('Click for per-CPU usage'))
+            ToolTip(self._cpu_meter, _("Click for per-CPU usage"))
 
     def _add_temp_meter(self, frame: ttk.Frame):
         self._temp_meter = Meter(
@@ -102,7 +102,7 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
             row=2, column=2, sticky=tk.NSEW, pady=(_common.INTERNAL_PAD, 0)
         )
         self._temp_meter.configure(cursor="hand2")
-        ToolTip(self._temp_meter, _('Click for detailed temperature readings'))
+        ToolTip(self._temp_meter, _("Click for detailed temperature readings"))
 
     def _add_ram_meter(self, frame: ttk.Frame):
         self._ram_meter = Meter(
@@ -112,7 +112,7 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
             row=2, column=3, sticky=tk.NSEW, pady=(_common.INTERNAL_PAD, 0)
         )
         self._ram_meter.configure(cursor="hand2")
-        ToolTip(self._ram_meter, _('Click for detailed memory statistics'))
+        ToolTip(self._ram_meter, _("Click for detailed memory statistics"))
 
     def _add_disk_meter(self, frame: ttk.Frame):
         self._disk_meter = Meter(
@@ -125,7 +125,7 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         )
         self._disk_meter.configure(cursor="hand2")
         ToolTip(
-            self._disk_meter, _('Click for usage details of each mount point')
+            self._disk_meter, _("Click for usage details of each mount point")
         )
 
     def _add_sizegrip(self, frame: ttk.Frame):
@@ -146,23 +146,23 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         file_menu = tk.Menu(menu_bar, font=font.nametofont("TkMenuFont"), relief=tk.SOLID)
 
         menu_bar.add_cascade(
-            label=_('File'), menu=file_menu, font=font.nametofont("TkMenuFont")
+            label=_("File"), menu=file_menu, font=font.nametofont("TkMenuFont")
         )
         file_menu.add_command(
-            label=_('About'), accelerator=_("Ctrl+A"), command=self._on_about
+            label=_("About"), accelerator=_("Ctrl+A"), command=self._on_about
         )
         file_menu.add_command(
-            label=_('Preferences'), accelerator=_("Ctrl+Shift+P"),
+            label=_("Preferences"), accelerator=_("Ctrl+Shift+P"),
             command=self._on_settings
         )
         file_menu.add_command(
-            label=_('Restart'), accelerator=_("Ctrl+R"), command=self._on_restart
+            label=_("Restart"), accelerator=_("Ctrl+R"), command=self._on_restart
         )
         file_menu.add_separator()
         file_menu.add_command(
-            label=_('Quit'), accelerator=_("Ctrl+Q"), command=lambda : sys.exit(0)
+            label=_("Quit"), accelerator=_("Ctrl+Q"), command=lambda : sys.exit(0)
         )
-        top['menu'] = menu_bar
+        top["menu"] = menu_bar
         # bind keypress events for menu here
         self.bind("<Control-KeyPress-a>", self._on_about)
         self.bind("<Control-Shift-KeyPress-P>", self._on_settings)
@@ -266,7 +266,7 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         self._cpu_meter.set_value(psutil.cpu_percent(interval=None))
         self._temp_meter.set_value(_common.cpu_temp())
         self._ram_meter.set_value(psutil.virtual_memory().percent)
-        self._disk_meter.set_value(psutil.disk_usage('/').percent)
+        self._disk_meter.set_value(psutil.disk_usage("/").percent)
         self._name.set(_("Hostname: {}").format(gethostname()))
         self._ip_addr.set(_("IP Address: {}").format(_common.net_addr()))
         self._processes.set(_("Processes: {}").format(len(psutil.pids())))

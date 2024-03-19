@@ -43,15 +43,15 @@ class FontDescription():
 
     family: str
     size: int
-    weight: Literal['bold', 'normal']
-    slant: Literal['italic', 'roman']
+    weight: Literal["bold", "normal"]
+    slant: Literal["italic", "roman"]
     underline: bool
     overstrike: bool
 
-    REGULAR = 'r'
-    BOLD = 'b'
-    ITALIC = 'i'
-    BOLD_ITALIC = 'bi'
+    REGULAR = "r"
+    BOLD = "b"
+    ITALIC = "i"
+    BOLD_ITALIC = "bi"
 
     def get_font(self) -> Font:
         """
@@ -81,12 +81,12 @@ class FontDescription():
         Get the font style, based on its slant and weight.
         """
         style = FontDescription.REGULAR
-        if self.weight == 'bold':
-            if self.slant == 'italic':
+        if self.weight == "bold":
+            if self.slant == "italic":
                 style = FontDescription.BOLD_ITALIC
             else:
                 style = FontDescription.BOLD
-        elif self.slant == 'italic':
+        elif self.slant == "italic":
             style = FontDescription.ITALIC
         return style
 
@@ -94,8 +94,8 @@ class FontDescription():
 def modify_named_font(  # pylint: disable=too-many-arguments
     font_name: str, *,
     size: Optional[int] = None,
-    weight: Optional[Literal['normal', 'bold']] = None,
-    slant: Optional[Literal['roman', 'italic']] = None,
+    weight: Optional[Literal["normal", "bold"]] = None,
+    slant: Optional[Literal["roman", "italic"]] = None,
     underline: Optional[bool] = None,
     overstrike: Optional[bool] = None
 ) -> Font:
@@ -135,12 +135,12 @@ def modify_named_font(  # pylint: disable=too-many-arguments
     if font_name in font.names():
         fnt = font.nametofont(font_name).actual()
         return Font(
-            family=fnt['family'],
-            size=get_with_fallback(size, fnt['size']),
-            weight=get_with_fallback(weight, fnt['weight']),
-            slant=get_with_fallback(slant, fnt['slant']),
-            underline=get_with_fallback(underline, fnt['underline']),
-            overstrike=get_with_fallback(overstrike, fnt['overstrike'])
+            family=fnt["family"],
+            size=get_with_fallback(size, fnt["size"]),
+            weight=get_with_fallback(weight, fnt["weight"]),
+            slant=get_with_fallback(slant, fnt["slant"]),
+            underline=get_with_fallback(underline, fnt["underline"]),
+            overstrike=get_with_fallback(overstrike, fnt["overstrike"])
         )
     return Font(name="TkDefaultFont")
 

@@ -27,7 +27,7 @@ class UrlLabel(ttk.Label):
 
     def __init__(
         self, parent: BaseWidget, text: str, url: str,
-        style: str = 'URL.TLabel', show_tooltip: bool = False, **kw
+        style: str = "URL.TLabel", show_tooltip: bool = False, **kw
     ) -> None:
         """
         Construct a Label with a clickable URL.
@@ -48,7 +48,7 @@ class UrlLabel(ttk.Label):
             Additional keyword arguments for a `Label`.
         """
         self.url = url
-        cursor = 'hand2' if self._has_web_protocol() else 'arrow'
+        cursor = "hand2" if self._has_web_protocol() else "arrow"
         super().__init__(parent, cursor=cursor, style=style, text=text, **kw)
         if show_tooltip and url:
             ToolTip(self, url)
@@ -65,14 +65,14 @@ class UrlLabel(ttk.Label):
         """
         Determine whether the string contains a web protocol (http or https).
         """
-        return self.url[0:7] == 'http://' or self.url[0:8] == 'https://'
+        return self.url[0:7] == "http://" or self.url[0:8] == "https://"
 
     @classmethod
     def has_web_protocol(cls, url: str) -> bool:
         """
         Determine whether the string contains a web protocol (http or https).
         """
-        return url[0:7] == 'http://' or url[0:8] == 'https://'
+        return url[0:7] == "http://" or url[0:8] == "https://"
 
     @classmethod
     def test_web_protocol(cls, url: str, trueval: Any, falseval: Any) -> Any:

@@ -32,15 +32,15 @@ def monitor_system():
     Monitor the system usage.
     """
     while True:
-        print('Name:', gethostname())
-        print('IP:', _common.net_addr())
-        print('Uptime:', _common.system_uptime())
-        print('')
+        print("Name:", gethostname())
+        print("IP:", _common.net_addr())
+        print("Uptime:", _common.system_uptime())
+        print("")
         time.sleep(REFRESH_SLEEP)
-        print('CPU:', _cpu_usage(), _common.cpu_temp(as_string=True))
-        print('Mem:', _mem_usage())
-        print('Disk:', _common.disk_usage('/'))
-        print('')
+        print("CPU:", _cpu_usage(), _common.cpu_temp(as_string=True))
+        print("Mem:", _mem_usage())
+        print("Disk:", _common.disk_usage("/"))
+        print("")
         time.sleep(REFRESH_SLEEP)
 
 

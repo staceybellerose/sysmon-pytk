@@ -52,7 +52,7 @@ class FontSettings():
         """
         self.config[self.section]["size"] = f"{fontsize}"
 
-    def get_weight(self) -> Literal['bold', 'normal']:
+    def get_weight(self) -> Literal["bold", "normal"]:
         """
         Get the font weight to use in the application.
         """
@@ -67,7 +67,7 @@ class FontSettings():
         """
         self.config[self.section]["weight"] = weight
 
-    def get_slant(self) -> Literal['italic', 'roman']:
+    def get_slant(self) -> Literal["italic", "roman"]:
         """
         Get the font slant to use in the application.
         """
@@ -183,7 +183,7 @@ class Settings():
         """
         Write the settings to the configuration file.
         """
-        with open(self.filename, 'w', encoding="utf-8") as file:
+        with open(self.filename, "w", encoding="utf-8") as file:
             self.config.write(file)
 
     def get_theme(self) -> str:

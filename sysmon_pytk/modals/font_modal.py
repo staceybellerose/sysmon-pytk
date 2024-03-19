@@ -186,11 +186,11 @@ class FontChooser(ModalDialog):
         )
         ttk.Checkbutton(
             effectsframe, text=_("Underline"), variable=self.underline,
-            style='Switch.TCheckbutton'
+            style="Switch.TCheckbutton"
         ).grid(row=0, column=0, padx=_common.INTERNAL_PAD, sticky=tk.W)
         ttk.Checkbutton(
             effectsframe, text=_("Overstrike"), variable=self.overstrike,
-            style='Switch.TCheckbutton'
+            style="Switch.TCheckbutton"
         ).grid(row=1, column=0, padx=_common.INTERNAL_PAD, sticky=tk.W)
 
     def _create_font_size_widgets(self):
@@ -225,8 +225,8 @@ class FontChooser(ModalDialog):
         self.preview_font.configure(
             family=self.fontname,
             size=self.fontsize.get(),
-            weight="bold" if self.fontstyle.get() in ['b', 'bi'] else "normal",
-            slant="italic" if self.fontstyle.get() in ['i', 'bi'] else "roman",
+            weight="bold" if self.fontstyle.get() in ["b", "bi"] else "normal",
+            slant="italic" if self.fontstyle.get() in ["i", "bi"] else "roman",
             underline=self.underline.get(),
             overstrike=self.overstrike.get()
         )
@@ -241,8 +241,8 @@ class FontChooser(ModalDialog):
         """
         Update `current_font` based on currently selected options.
         """
-        weight: Literal['bold', 'normal'] = "normal"
-        slant: Literal['italic', 'roman'] = "roman"
+        weight: Literal["bold", "normal"] = "normal"
+        slant: Literal["italic", "roman"] = "roman"
         if self.fontstyle.get() == FontDescription.BOLD:
             weight = "bold"
         elif self.fontstyle.get() == FontDescription.ITALIC:

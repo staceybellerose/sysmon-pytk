@@ -173,7 +173,7 @@ class AboutDialog(ModalDialog):
         )
         for language, translator_list in TRANSLATORS.items():
             self._add_translators(text, language, translator_list)
-        text.tag_configure('language', font=self.bold_font)
+        text.tag_configure("language", font=self.bold_font)
         text.config(state=tk.DISABLED, spacing1=4, spacing2=4, spacing3=4)
         text.grid(row=0, column=0, sticky=tk.NSEW)
         # FOR LATER IF SCROLLING IS NEEDED
@@ -186,7 +186,7 @@ class AboutDialog(ModalDialog):
     def _add_translators(
         self, text: tk.Text, language: str, translator_list: list[Translator]
     ):
-        text.insert(tk.END, f"{language}: ", ('language',))
+        text.insert(tk.END, f"{language}: ", ("language",))
         for idx, translator in enumerate(translator_list):
             text.insert(tk.END, translator.name)
             if translator.github_username != "":

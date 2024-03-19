@@ -19,7 +19,7 @@ DISK_WARN_LEVEL = 60
 REFRESH_INTERVAL = 750  # milliseconds
 INTERNAL_PAD = 12
 
-BYTE_SYMBOLS = ('B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB')
+BYTE_SYMBOLS = ("B", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB")
 
 # SPDX-SnippetBegin
 # SPDX-SnippetName bytes2human function
@@ -111,7 +111,7 @@ def digits(numstr: str) -> List[int]:
     >> digits("13. Notes vol. 22, pp. 585-588, 1996.")
     [13, 22, 585, 588, 1996]
     """
-    return [int(s) for s in re.findall(r'\d+', numstr)]
+    return [int(s) for s in re.findall(r"\d+", numstr)]
 
 
 def cpu_temp(as_string: bool = False) -> Union[float, str]:
@@ -136,7 +136,7 @@ def cpu_temp(as_string: bool = False) -> Union[float, str]:
     41.0
     """
     temps = psutil.sensors_temperatures()
-    key = 'coretemp' if 'coretemp' in temps else list(temps)[0]
+    key = "coretemp" if "coretemp" in temps else list(temps)[0]
     return f"{temps[key][0].current}°C" if as_string else temps[key][0].current
 
 

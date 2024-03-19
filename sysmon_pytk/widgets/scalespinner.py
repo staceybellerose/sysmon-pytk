@@ -68,13 +68,13 @@ class ScaleSpinner(ttk.Frame):
             ).grid(row=0, column=0, sticky=tk.NSEW)
         self.scale = ttk.Scale(
             self, orient=tk.HORIZONTAL, length=length, from_=from_, to=to,
-            style='Tick.TScale'
+            style="Tick.TScale"
         )
         self.scale.grid(row=0, column=1, pady=10, padx=10, sticky=tk.NSEW)
         self.scale.set(variable.get())
         self.spinbox = ttk.Spinbox(
             self, textvariable=variable, from_=from_, to=to,
-            width=len(f"{to}")+3, state='readonly', font=base_font,
+            width=len(f"{to}")+3, state="readonly", font=base_font,
             command=self.update_from_spinbox
         )
         self.spinbox.grid(row=0, column=2, sticky=tk.EW)

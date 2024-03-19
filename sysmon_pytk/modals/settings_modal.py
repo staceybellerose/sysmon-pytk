@@ -120,7 +120,7 @@ class SettingsDialog(ModalDialog):
         self.themebox.bind("<<ComboboxSelected>>", self.change_combobox)
         ttk.Checkbutton(
             self.internal_frame, text=_("Always on top"), variable=self.always_on_top,
-            style='Switch.TCheckbutton'
+            style="Switch.TCheckbutton"
         ).grid(
             row=3, column=2, sticky=tk.EW, padx=_common.INTERNAL_PAD,
             pady=_common.INTERNAL_PAD
