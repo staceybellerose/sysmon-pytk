@@ -5,15 +5,14 @@
 Application settings modal dialog.
 """
 
-from typing import Optional
 import tkinter as tk
-from tkinter import ttk, Misc
+from tkinter import Misc, ttk
+from typing import Optional
 
 from .. import _common
+from ..app_locale import LANGUAGES, get_translator
 from ..settings import Settings
 from ..widgets import DropDown
-from ..app_locale import get_translator, LANGUAGES
-
 from ._base_modal import ModalDialog
 from .font_modal import FontChooser
 

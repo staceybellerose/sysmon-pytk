@@ -6,8 +6,8 @@ Application settings.
 """
 
 from configparser import ConfigParser
-from typing import Literal
 from tkinter.font import Font
+from typing import Literal
 
 from .font_utils import MAIN_FONT_FAMILY, FontDescription
 

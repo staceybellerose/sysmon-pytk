@@ -12,8 +12,8 @@ import dataclasses
 import tkinter as tk
 from tkinter import ttk
 
-from ..style_manager import StyleManager
 from ..font_utils import modify_named_font
+from ..style_manager import StyleManager
 
 
 @dataclasses.dataclass

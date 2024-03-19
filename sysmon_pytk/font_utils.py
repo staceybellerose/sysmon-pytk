@@ -6,9 +6,9 @@ Font utilities.
 """
 
 import dataclasses
-from typing import Literal, Optional, TypeVar
 from tkinter import font
 from tkinter.font import Font
+from typing import Literal, Optional, TypeVar
 
 from .app_locale import get_translator
 

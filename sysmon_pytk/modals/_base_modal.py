@@ -5,14 +5,14 @@
 Modal dialogs base class.
 """
 
-from abc import abstractmethod
-from typing import Optional, final
 import tkinter as tk
-from tkinter import ttk, Misc
+from abc import abstractmethod
+from tkinter import Misc, ttk
+from typing import Optional, final
 
-from ..style_manager import StyleManager
 from .._common import INTERNAL_PAD
 from ..app_locale import get_translator
+from ..style_manager import StyleManager
 
 _ = get_translator()
 

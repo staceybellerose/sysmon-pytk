@@ -8,19 +8,18 @@ System monitor.
 import sys
 import tkinter as tk
 from socket import gethostname
-from tkinter import ttk, font
+from tkinter import font, ttk
 
 import psutil
 
-from . import _common
-from . import about
+from . import _common, about
+from .app_locale import get_translator, reload_translated_modules
+from .file_utils import get_full_path, settings_path
+from .modals import CpuDialog, DiskUsageDialog, MemUsageDialog, SettingsDialog, TempDetailsDialog
+from .modals.about_modal import AboutDialog, AboutMetadata, LicenseMetadata
 from .settings import Settings
 from .style_manager import StyleManager
-from .modals import CpuDialog, TempDetailsDialog, MemUsageDialog, DiskUsageDialog, SettingsDialog
-from .modals.about_modal import AboutMetadata, LicenseMetadata, AboutDialog
 from .widgets import Meter, ToolTip
-from .file_utils import get_full_path, settings_path
-from .app_locale import get_translator, reload_translated_modules
 
 _ = get_translator()
 

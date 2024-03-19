@@ -6,14 +6,13 @@ Shared functions used throughout the application.
 """
 
 import platform
-import subprocess  # nosec B404
 import re
+import subprocess  # nosec B404
 import time
 from socket import AF_INET
 from typing import List, Union
 
 import psutil
-
 
 DISK_ALERT_LEVEL = 80
 DISK_WARN_LEVEL = 60

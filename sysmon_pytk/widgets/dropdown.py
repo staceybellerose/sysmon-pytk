@@ -5,8 +5,8 @@
 Dropdown widget.
 """
 
+from tkinter import BaseWidget, ttk
 from typing import Dict
-from tkinter import ttk, BaseWidget
 
 # These lint errors don't make sense for GUI widgets, so are disabled here.
 # pragma pylint: disable=too-many-ancestors

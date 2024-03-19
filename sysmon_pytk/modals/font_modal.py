@@ -5,16 +5,15 @@
 Application font settings modal dialog.
 """
 
-from typing import Optional, Literal
 import tkinter as tk
-from tkinter import ttk, font, Event, Misc
+from tkinter import Event, Misc, font, ttk
+from typing import Literal, Optional
 
 from .. import _common
-from ..settings import FontDescription
-from ..widgets import ScaleSpinner
-from ..style_manager import StyleManager
 from ..app_locale import get_translator
-
+from ..settings import FontDescription
+from ..style_manager import StyleManager
+from ..widgets import ScaleSpinner
 from ._base_modal import ModalDialog
 
 _ = get_translator()

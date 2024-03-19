@@ -5,9 +5,9 @@
 Hovering tooltip.
 """
 
-from typing import Optional
 import tkinter as tk
-from tkinter import ttk, BaseWidget, Event
+from tkinter import BaseWidget, Event, ttk
+from typing import Optional
 
 from .._common import INTERNAL_PAD
 

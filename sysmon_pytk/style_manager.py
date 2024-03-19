@@ -6,10 +6,10 @@ Tk Style Manager.
 """
 
 import re
-from typing import Any
 import tkinter as tk
-from tkinter import ttk, font
+from tkinter import font, ttk
 from tkinter.font import Font
+from typing import Any
 
 import darkdetect
 

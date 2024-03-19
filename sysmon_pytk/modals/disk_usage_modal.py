@@ -5,15 +5,14 @@
 Disk usage details modal dialog.
 """
 
-from typing import List, Optional
 import tkinter as tk
-from tkinter import ttk, Misc
+from tkinter import Misc, ttk
+from typing import List, Optional
 
 import psutil
 
 from .. import _common
 from ..app_locale import get_translator
-
 from ._base_modal import ModalDialog
 
 _ = get_translator()

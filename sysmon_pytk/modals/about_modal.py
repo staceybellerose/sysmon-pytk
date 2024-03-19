@@ -6,17 +6,16 @@ Display metadata about the application in a modal dialog.
 """
 
 import dataclasses
-from typing import Optional
 import tkinter as tk
-from tkinter import ttk, BaseWidget
+from tkinter import BaseWidget, ttk
 from tkinter.font import Font
+from typing import Optional
 
-from ..widgets import UrlLabel
 from .._common import INTERNAL_PAD
+from ..app_locale import get_translator
 from ..file_utils import get_full_path
 from ..translator import TRANSLATORS, Translator
-from ..app_locale import get_translator
-
+from ..widgets import UrlLabel
 from ._base_modal import ModalDialog
 
 _ = get_translator()

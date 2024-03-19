@@ -5,10 +5,10 @@
 Locale management.
 """
 
-import os
 import gettext
-import inspect
 import importlib
+import inspect
+import os
 from configparser import ConfigParser, Error
 
 from .file_utils import settings_path

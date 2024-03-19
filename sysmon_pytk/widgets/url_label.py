@@ -5,9 +5,9 @@
 Label widget with clickable URL.
 """
 
-from typing import Any
-from tkinter import ttk, BaseWidget, Event
 import webbrowser
+from tkinter import BaseWidget, Event, ttk
+from typing import Any
 
 from .tooltip import ToolTip
 

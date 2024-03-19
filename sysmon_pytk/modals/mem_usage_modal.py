@@ -5,15 +5,14 @@
 Memory usage details modal dialog.
 """
 
-from typing import List
 import tkinter as tk
 from tkinter import ttk
+from typing import List
 
 import psutil
 
 from .. import _common
 from ..app_locale import get_translator
-
 from ._base_modal import ModalDialog
 
 _ = get_translator()

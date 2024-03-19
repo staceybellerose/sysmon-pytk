@@ -6,8 +6,8 @@ File utility functions.
 """
 
 import os
-from pathlib import Path
 from distutils.sysconfig import get_python_lib
+from pathlib import Path
 
 SETTINGS_FILE = "sysmon.ini"
 

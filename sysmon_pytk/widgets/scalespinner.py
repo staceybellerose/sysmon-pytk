@@ -5,9 +5,9 @@
 Combination of a Scale and Spinbox.
 """
 
-from typing import Optional
 import tkinter as tk
-from tkinter import ttk, BaseWidget, Variable
+from tkinter import BaseWidget, Variable, ttk
+from typing import Optional
 
 from ..style_manager import StyleManager
 
