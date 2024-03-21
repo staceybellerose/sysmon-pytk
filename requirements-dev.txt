@@ -11,6 +11,7 @@ pylint >= 3.0
 pyroma >= 4.2
 radon >= 6.0
 reuse >= 3.0
+ruff >= 0.3
 setuptools >= 64
 twine >= 5.0
 types-docutils >= 0.20

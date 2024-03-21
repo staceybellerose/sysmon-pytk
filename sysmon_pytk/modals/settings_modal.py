@@ -5,16 +5,22 @@
 Application settings modal dialog.
 """
 
+from __future__ import annotations
+
 import tkinter as tk
-from tkinter import Misc, ttk
-from typing import Optional
+from tkinter import ttk
+from typing import TYPE_CHECKING
 
 from .. import _common
 from ..app_locale import LANGUAGES, get_translator
-from ..settings import Settings
 from ..widgets import DropDown
 from ._base_modal import ModalDialog
 from .font_modal import FontChooser
+
+if TYPE_CHECKING:
+    from tkinter import Misc
+
+    from ..settings import Settings
 
 _ = get_translator()
 
@@ -49,9 +55,9 @@ class SettingsDialog(ModalDialog):
     """
 
     def __init__(
-        self, settings: Settings, parent: Optional[Misc] = None,
-        title: Optional[str] = None, iconpath: Optional[str] = None
-    ):
+        self, settings: Settings, parent: Misc | None = None,
+        title: str | None = None, iconpath: str | None = None
+    ) -> None:
         """
         Construct a Settings dialog.
 
@@ -75,7 +81,7 @@ class SettingsDialog(ModalDialog):
         }
         super().__init__(parent, title=title, iconpath=iconpath)
 
-    def update_screen(self):
+    def update_screen(self) -> None:
         """
         Update the modal dialog window.
 
@@ -101,7 +107,9 @@ class SettingsDialog(ModalDialog):
             row=1, column=2, sticky=tk.EW, pady=_common.INTERNAL_PAD,
             padx=(0, _common.INTERNAL_PAD)
         )
-        self.langbox.bind("<<ComboboxSelected>>", self.change_combobox)
+        self.langbox.bind(
+            "<<ComboboxSelected>>", lambda event: event.widget.selection_clear()
+        )
         ttk.Label(
             self.internal_frame, text=_("Theme"), font=self.base_font
         ).grid(row=2, column=1, sticky=tk.E, padx=_common.INTERNAL_PAD)
@@ -117,7 +125,9 @@ class SettingsDialog(ModalDialog):
             row=2, column=2, sticky=tk.EW, pady=_common.INTERNAL_PAD,
             padx=(0, _common.INTERNAL_PAD)
         )
-        self.themebox.bind("<<ComboboxSelected>>", self.change_combobox)
+        self.themebox.bind(
+            "<<ComboboxSelected>>", lambda event: event.widget.selection_clear()
+        )
         ttk.Checkbutton(
             self.internal_frame, text=_("Always on top"), variable=self.always_on_top,
             style="Switch.TCheckbutton"
@@ -148,13 +158,7 @@ class SettingsDialog(ModalDialog):
         self.add_ok_cancel_buttons()
         self.add_sizegrip()
 
-    def change_combobox(self, event: tk.Event):
-        """
-        Clear the selection when an item is selected in the combobox.
-        """
-        event.widget.selection_clear()
-
-    def show_font_chooser(self, *_args):
+    def show_font_chooser(self, *_args) -> None:
         """
         Show a font chooser dialog.
         """
@@ -162,12 +166,17 @@ class SettingsDialog(ModalDialog):
             self.parent, self.settings.regular_font.get_full_font(), self.iconpath
         )
         chosen_font = chooser.get_font()
-        self.settings.regular_font.set_full_font(chosen_font)
-        self.font_button.config(
-            text=self.settings.regular_font.get_full_font().get_string()
-        )
+        if chosen_font:
+            self.settings.regular_font.set_full_font(chosen_font)
+            self.font_button.config(
+                text=self.settings.regular_font.get_full_font().get_string()
+            )
+        else:
+            self.font_button.config(
+                text=_("Select a font")
+            )
 
-    def show_fixedfont_chooser(self, *_args):
+    def show_fixedfont_chooser(self, *_args) -> None:
         """
         Show a font chooser dialog.
         """
@@ -175,12 +184,17 @@ class SettingsDialog(ModalDialog):
             self.parent, self.settings.fixed_font.get_full_font(), self.iconpath
         )
         chosen_font = chooser.get_font()
-        self.settings.fixed_font.set_full_font(chosen_font)
-        self.fixed_font_button.config(
-            text=self.settings.fixed_font.get_full_font().get_string()
-        )
+        if chosen_font:
+            self.settings.fixed_font.set_full_font(chosen_font)
+            self.fixed_font_button.config(
+                text=self.settings.fixed_font.get_full_font().get_string()
+            )
+        else:
+            self.font_button.config(
+                text=_("Select a font")
+            )
 
-    def on_save(self, *_args):
+    def on_save(self, *_args) -> None:
         """
         Save the entered settings.
         """

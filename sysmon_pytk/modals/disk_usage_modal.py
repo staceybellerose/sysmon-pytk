@@ -5,15 +5,20 @@
 Disk usage details modal dialog.
 """
 
+from __future__ import annotations
+
 import tkinter as tk
-from tkinter import Misc, ttk
-from typing import List, Optional
+from tkinter import ttk
+from typing import TYPE_CHECKING
 
 import psutil
 
 from .. import _common
 from ..app_locale import get_translator
 from ._base_modal import ModalDialog
+
+if TYPE_CHECKING:
+    from tkinter import Misc
 
 _ = get_translator()
 
@@ -24,13 +29,13 @@ class DiskUsageDialog(ModalDialog):
     """
 
     def __init__(
-        self, parent: Optional[Misc] = None, title: Optional[str] = None,
-        iconpath: Optional[str] = None, class_: str = "ModalDialog"
-    ):
-        self._update_job = None
+        self, parent: Misc | None = None, title: str | None = None,
+        iconpath: str | None = None, class_: str = "ModalDialog"
+    ) -> None:
+        self._update_job: str | None = None
         super().__init__(parent, title, iconpath, class_)
 
-    def on_save(self):
+    def on_save(self) -> None:
         """
         Save what was entered in the modal dialog.
 
@@ -41,10 +46,10 @@ class DiskUsageDialog(ModalDialog):
         """
         Create the widgets to be displayed in the modal dialog.
         """
-        self._diskmounts: List[str] = []
-        self._diskusages: List[tk.IntVar] = []
-        self._diskusagefmts: List[tk.StringVar] = []
-        self._disklabels: List[ttk.Label] = []
+        self._diskmounts: list[str] = []
+        self._diskusages: list[tk.IntVar] = []
+        self._diskusagefmts: list[tk.StringVar] = []
+        self._disklabels: list[ttk.Label] = []
         for part in psutil.disk_partitions():
             self._diskmounts.append(part.mountpoint)
             self._diskusages.append(tk.IntVar())
@@ -80,7 +85,7 @@ class DiskUsageDialog(ModalDialog):
                 sticky=tk.NSEW
             )
 
-    def reset(self):
+    def reset(self) -> None:
         """
         Reset the dialog.
         """
@@ -95,13 +100,11 @@ class DiskUsageDialog(ModalDialog):
         """
         Check to see if any additional mount points have appeared.
         """
-        for part in psutil.disk_partitions():
-            if part.mountpoint not in self._diskmounts:
-                # newly mounted drive discovered
-                return True
-        return False
+        return any(
+            part.mountpoint not in self._diskmounts for part in psutil.disk_partitions()
+        )
 
-    def update_screen(self):
+    def update_screen(self) -> None:
         """
         Update the modal dialog window.
         """
@@ -109,19 +112,20 @@ class DiskUsageDialog(ModalDialog):
             self.reset()
             return
         # process the mount points
-        for col, mountpoint in enumerate(self._diskmounts):
-            try:
+        try:
+            for col, mountpoint in enumerate(self._diskmounts):
                 usage = psutil.disk_usage(mountpoint).percent
                 self._diskusages[col].set(round(usage))
                 self._diskusagefmts[col].set(_common.disk_usage(mountpoint))
                 self._disklabels[col].configure(style=self._get_alert_style(usage))
-            except FileNotFoundError:
-                # disk was unmounted, reset the widget
-                self.reset()
-                return
+        except FileNotFoundError:
+            # disk was unmounted, reset the widget
+            self.reset()
+            return
         self._update_job = self.after(_common.REFRESH_INTERVAL, self.update_screen)
 
-    def _get_alert_style(self, usage: int) -> str:
+    @classmethod
+    def _get_alert_style(cls, usage: float) -> str:
         if usage >= _common.DISK_ALERT_LEVEL:
             return "Alert.TLabel"
         if usage >= _common.DISK_WARN_LEVEL:

@@ -5,9 +5,11 @@
 Application font settings modal dialog.
 """
 
+from __future__ import annotations
+
 import tkinter as tk
-from tkinter import Event, Misc, font, ttk
-from typing import Literal, Optional
+from tkinter import font, ttk
+from typing import TYPE_CHECKING, Literal
 
 from .. import _common
 from ..app_locale import get_translator
@@ -15,6 +17,9 @@ from ..settings import FontDescription
 from ..style_manager import StyleManager
 from ..widgets import ScaleSpinner
 from ._base_modal import ModalDialog
+
+if TYPE_CHECKING:
+    from tkinter import Event, Misc
 
 _ = get_translator()
 
@@ -50,10 +55,10 @@ class FontChooser(ModalDialog):
     PREVIEW_TEXT = "AaÁáÅåCcÇçNnÑñSsẞßUuÜü 0123456789"
 
     def __init__(
-        self, parent: Optional[Misc] = None,
-        current_font: Optional[FontDescription] = None,
-        iconpath: Optional[str] = None
-    ):
+        self, parent: Misc | None = None,
+        current_font: FontDescription | None = None,
+        iconpath: str | None = None
+    ) -> None:
         """
         Construct a FontChooser dialog.
 
@@ -75,7 +80,7 @@ class FontChooser(ModalDialog):
         self.underline = tk.BooleanVar()
         self.overstrike = tk.BooleanVar()
         if self.current_font is not None:
-            self.fontname: Optional[str] = self.current_font.family
+            self.fontname: str | None = self.current_font.family
             self.fontstyle.set(self.current_font.get_style())
             self.fontsize.set(self.current_font.size)
             self.underline.set(self.current_font.underline)
@@ -95,7 +100,7 @@ class FontChooser(ModalDialog):
         self.overstrike.trace_add("write", self._update_preview)
         super().__init__(parent, title, iconpath, class_="FontChooser")
 
-    def update_screen(self):
+    def update_screen(self) -> None:
         """
         Update the modal dialog window.
 
@@ -115,7 +120,7 @@ class FontChooser(ModalDialog):
         self.add_ok_cancel_buttons()
         self.add_sizegrip()
 
-    def _create_font_family_widget_frame(self):
+    def _create_font_family_widget_frame(self) -> None:
         familyframe = ttk.Frame(self.internal_frame)
         familyframe.grid(
             row=0, rowspan=2, sticky=tk.NSEW,
@@ -126,7 +131,7 @@ class FontChooser(ModalDialog):
         ttk.Label(
             familyframe, text=_("Font"), font=self.base_font
         ).grid(row=0, sticky=tk.NSEW)
-        choicesvar = tk.StringVar(value=self.fontchoices)  # type: ignore
+        choicesvar = tk.StringVar(value=self.fontchoices)  # type: ignore[arg-type]
         lbox = tk.Listbox(
             familyframe, listvariable=choicesvar, height=10, width=30, bd=1,
             exportselection=0, relief=tk.FLAT, background="#555555",
@@ -147,7 +152,7 @@ class FontChooser(ModalDialog):
         scroll.config(command=lbox.yview)
         lbox.bind("<<ListboxSelect>>", self._on_select)
 
-    def _create_font_option_widgets(self):
+    def _create_font_option_widgets(self) -> None:
         styleframe = ttk.LabelFrame(
             self.internal_frame,
             labelwidget=ttk.Label(
@@ -193,7 +198,7 @@ class FontChooser(ModalDialog):
             style="Switch.TCheckbutton"
         ).grid(row=1, column=0, padx=_common.INTERNAL_PAD, sticky=tk.W)
 
-    def _create_font_size_widgets(self):
+    def _create_font_size_widgets(self) -> None:
         ScaleSpinner(
             self.internal_frame, self.fontsize, text=_("Size"), length=71*4,
             from_=1, to=72, as_int=True
@@ -202,7 +207,7 @@ class FontChooser(ModalDialog):
             pady=(_common.INTERNAL_PAD, 0)
         )
 
-    def _create_font_preview_widgets(self):
+    def _create_font_preview_widgets(self) -> None:
         previewframe = ttk.LabelFrame(
             self.internal_frame, height=150, width=500,
             labelwidget=ttk.Label(
@@ -215,23 +220,24 @@ class FontChooser(ModalDialog):
         )
         previewframe.columnconfigure(0, weight=1)
         previewframe.rowconfigure(0, weight=1)
-        previewframe.grid_propagate(0)
+        previewframe.grid_propagate(False)
         ttk.Label(
             previewframe, text=self.PREVIEW_TEXT, font=self.preview_font,
             anchor=tk.CENTER
         ).grid(sticky=tk.NSEW)
 
-    def _update_preview(self, *_args):
-        self.preview_font.configure(
-            family=self.fontname,
-            size=self.fontsize.get(),
-            weight="bold" if self.fontstyle.get() in ["b", "bi"] else "normal",
-            slant="italic" if self.fontstyle.get() in ["i", "bi"] else "roman",
-            underline=self.underline.get(),
-            overstrike=self.overstrike.get()
-        )
+    def _update_preview(self, *_args) -> None:
+        if self.fontname:
+            self.preview_font.configure(
+                family=self.fontname,
+                size=self.fontsize.get(),
+                weight="bold" if self.fontstyle.get() in {"b", "bi"} else "normal",
+                slant="italic" if self.fontstyle.get() in {"i", "bi"} else "roman",
+                underline=self.underline.get(),
+                overstrike=self.overstrike.get()
+            )
 
-    def _on_select(self, event: Event):
+    def _on_select(self, event: Event) -> None:
         widget: tk.Listbox = event.widget
         value = widget.get(widget.curselection()[0])
         self.fontname = value
@@ -259,7 +265,7 @@ class FontChooser(ModalDialog):
             overstrike=self.overstrike.get()
         ) if self.fontname is not None else None
 
-    def get_font(self) -> Optional[FontDescription]:
+    def get_font(self) -> FontDescription | None:
         """
         Get the full font specification based on user's choices.
         """

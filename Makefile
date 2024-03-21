@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: © 2024 Stacey Adams <stacey.belle.rose@gmail.com>
 # SPDX-License-Identifier: MIT
 
-SHELL := /bin/bash
+SHELL = /bin/bash
 MAKEFLAGS += --warn-undefined-variables
 MAKEFLAGS += --no-builtin-rules
 
@@ -12,30 +12,43 @@ ifeq ($(origin .RECIPEPREFIX), undefined)
 endif
 .RECIPEPREFIX = >
 
+# max lines of code allowed before "too complex"
+LOC_MAX = 250
+# directory to use for venv
 VENV := venv
-LOCALE := locale
+
+# required programs
+AWK = /usr/bin/awk
+SORT = /usr/bin/sort
+JQ = /usr/bin/jq
+# system-installed python, used to create venv
+BASE_PYTHON = /usr/bin/python3
+
+# tools installed by pip
 PYTHON := $(VENV)/bin/python
 PIP := $(VENV)/bin/pip
-PYLINT := $(VENV)/bin/pylint
+BANDIT := $(VENV)/bin/bandit
+ISORT := $(VENV)/bin/isort
 MYPY := $(VENV)/bin/mypy
 PYCODESTYLE := $(VENV)/bin/pycodestyle
 PYDOCSTYLE := $(VENV)/bin/pydocstyle
 PYFLAKES := $(VENV)/bin/pyflakes
-REUSE := $(VENV)/bin/reuse
-BANDIT := $(VENV)/bin/bandit
+PYLINT := $(VENV)/bin/pylint
 RADON := $(VENV)/bin/radon
+REUSE := $(VENV)/bin/reuse
+RUFF := $(VENV)/bin/ruff
 TWINE := $(VENV)/bin/twine
 
 # make sure all external programs are available
-EXECUTABLES = python3 awk sort
+EXECUTABLES = $(BASE_PYTHON) $(AWK) $(SORT) $(JQ)
 K := $(foreach exec,$(EXECUTABLES), $(if $(shell which $(exec)),some string,$(error "No $(exec) in PATH")))
 
 .DEFAULT_GOAL := help
 
-.PHONY: translations pylint mypy pycodestyle pydocstyle bandit reuse build sdist wheel clean help
+.PHONY: translations ruff ruff-fix isort isort-fix pylint mypy pycodestyle pydocstyle bandit reuse loc build sdist wheel clean help
 
 $(VENV)/bin/activate: requirements.txt requirements-dev.txt
-> python3 -m venv $(VENV)
+> $(BASE_PYTHON) -m venv $(VENV)
 > $(PIP) install -r requirements.txt
 > $(PIP) install -r requirements-dev.txt
 
@@ -58,7 +71,19 @@ run: $(VENV)/bin/activate translations  ## Run the GUI application
 
 ##@ Testing
 
-lint: pyflakes pylint mypy pycodestyle pydocstyle bandit reuse  ## All lint and static code checks
+lint: ruff isort pyflakes mypy pycodestyle pydocstyle bandit loc pylint reuse  ## All lint and static code checks
+
+ruff:  ## Code lint check
+> $(RUFF) check sysmon_pytk
+
+ruff-fix:  ## Code lint check, and apply safe fixes
+> $(RUFF) check --fix sysmon_pytk
+
+isort:  ## Check sortation of import definitions
+> $(ISORT) --check sysmon_pytk
+
+isort-fix:  ## Resort import definitions
+> $(ISORT) sysmon_pytk
 
 pylint:  ## Code lint check
 > $(PYLINT) --verbose sysmon_pytk
@@ -81,6 +106,9 @@ bandit:  ## Check for common security issues
 reuse:  ## Verify REUSE Specification for Copyrights
 > $(REUSE) lint
 
+loc:  ## Complexity check (lines of code)
+> $(RADON) raw --json sysmon_pytk | $(JQ) 'to_entries | map(.value |= .sloc+.multi | select(.value > $(LOC_MAX))) | sort_by('.value') | reverse | map(.value |= tostring) | reduce .[] as $$item (""; . + "\n" + $$item.key + " has " + $$item.value + " lines (max allowed = $(LOC_MAX))") | if (. | length) > 0 then error(.) else empty end'
+
 ##@ Metrics
 
 metrics: radon-raw radon-cc radon-mi  ## All code metric calculations
@@ -89,7 +117,7 @@ radon-cc:  ## Cyclomatic Complexity of codebase
 > $(RADON) cc sysmon_pytk
 
 radon-mi:  ## Maintainability Index of codebase
-> $(RADON) mi sysmon_pytk | sort -t "(" -k 2 -g -r
+> $(RADON) mi sysmon_pytk | $(SORT) -t "(" -k 2 -g -r
 
 radon-raw:  ## Raw metrics of codebase
 > $(RADON) raw sysmon_pytk --summary
@@ -125,4 +153,4 @@ clean:  ## Clean up the project folders
 ##@ Helpers
 
 help:  ## Display this help
-> @awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n"} /^[a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
+> @$(AWK) 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n"} /^[a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)

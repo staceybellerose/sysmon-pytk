@@ -5,14 +5,19 @@
 Application settings.
 """
 
+from __future__ import annotations
+
 from configparser import ConfigParser
-from tkinter.font import Font
-from typing import Literal
+from pathlib import Path
+from typing import TYPE_CHECKING, Literal
 
 from .font_utils import MAIN_FONT_FAMILY, FontDescription
 
+if TYPE_CHECKING:
+    from tkinter.font import Font
 
-class FontSettings():
+
+class FontSettings:
     """
     Manage the fonts used in the application.
 
@@ -24,7 +29,7 @@ class FontSettings():
         Which section of the configuration file to use.
     """
 
-    def __init__(self, config: ConfigParser, section: str):
+    def __init__(self, config: ConfigParser, section: str) -> None:
         self.config = config
         self.section = section
 
@@ -34,7 +39,7 @@ class FontSettings():
         """
         return self.config[self.section].get("name", fallback=MAIN_FONT_FAMILY)
 
-    def set_name(self, fontname: str):
+    def set_name(self, fontname: str) -> None:
         """
         Set the font name to use in the application.
         """
@@ -46,7 +51,7 @@ class FontSettings():
         """
         return self.config[self.section].getint("size", fallback=12)
 
-    def set_size(self, fontsize: int):
+    def set_size(self, fontsize: int) -> None:
         """
         Set the font size to use in the application.
         """
@@ -61,7 +66,7 @@ class FontSettings():
             return "bold"
         return "normal"
 
-    def set_weight(self, weight: str):
+    def set_weight(self, weight: str) -> None:
         """
         Set the font weight to use in the application.
         """
@@ -76,7 +81,7 @@ class FontSettings():
             return "italic"
         return "roman"
 
-    def set_slant(self, slant: str):
+    def set_slant(self, slant: str) -> None:
         """
         Set the font slant to use in the application.
         """
@@ -88,7 +93,7 @@ class FontSettings():
         """
         return self.config[self.section].getboolean("underline", fallback=False)
 
-    def set_underline(self, underline: bool):
+    def set_underline(self, underline: bool) -> None:  # noqa: FBT001
         """
         Set the font underline flag to use in the application.
         """
@@ -100,7 +105,7 @@ class FontSettings():
         """
         return self.config[self.section].getboolean("overstrike", fallback=False)
 
-    def set_overstrike(self, overstrike: bool):
+    def set_overstrike(self, overstrike: bool) -> None:  # noqa: FBT001
         """
         Set the font overstrike flag to use in the application.
         """
@@ -119,7 +124,7 @@ class FontSettings():
             overstrike=self.get_overstrike()
         )
 
-    def set_full_font(self, font: FontDescription):
+    def set_full_font(self, font: FontDescription) -> None:
         """
         Set the full font specification to use in the application.
         """
@@ -130,7 +135,7 @@ class FontSettings():
         self.set_underline(font.underline)
         self.set_overstrike(font.overstrike)
 
-    def configure_font(self, font: Font):
+    def configure_font(self, font: Font) -> None:
         """
         Configure an existing Font to use the current settings.
         """
@@ -144,7 +149,7 @@ class FontSettings():
         )
 
 
-class Settings():
+class Settings:
     """
     Manage the application settings.
 
@@ -160,14 +165,14 @@ class Settings():
         Font settings for the monospace font.
     """
 
-    def __init__(self, settings_file: str):
+    def __init__(self, settings_file: str) -> None:
         self.filename = settings_file
         self.config = ConfigParser()
         self.read_settings()
         self.regular_font = FontSettings(self.config, "font")
         self.fixed_font = FontSettings(self.config, "fixedfont")
 
-    def read_settings(self):
+    def read_settings(self) -> None:
         """
         Read the settings from the configuration file.
         """
@@ -179,11 +184,11 @@ class Settings():
         if not self.config.has_section("fixedfont"):
             self.config.add_section("fixedfont")
 
-    def write_settings(self):
+    def write_settings(self) -> None:
         """
         Write the settings to the configuration file.
         """
-        with open(self.filename, "w", encoding="utf-8") as file:
+        with Path(self.filename).open(mode="w", encoding="utf-8") as file:
             self.config.write(file)
 
     def get_theme(self) -> str:
@@ -192,7 +197,7 @@ class Settings():
         """
         return self.config["general"].get("theme", fallback="Light")
 
-    def set_theme(self, theme: str):
+    def set_theme(self, theme: str) -> None:
         """
         Set the application theme.
         """
@@ -204,7 +209,7 @@ class Settings():
         """
         return self.config["general"].getint("always_on_top", fallback=0)
 
-    def set_always_on_top(self, always_on_top: int):
+    def set_always_on_top(self, always_on_top: int) -> None:
         """
         Set the flag indicating whether the application should always be on top.
         """
@@ -216,7 +221,7 @@ class Settings():
         """
         return self.config["general"].get("language", fallback="en")
 
-    def set_language(self, language: str):
+    def set_language(self, language: str) -> None:
         """
         Set the language to use.
         """

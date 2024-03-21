@@ -5,6 +5,8 @@
 Information about the app translators.
 """
 
+from __future__ import annotations
+
 import dataclasses
 
 

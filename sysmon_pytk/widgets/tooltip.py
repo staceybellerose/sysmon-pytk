@@ -5,11 +5,16 @@
 Hovering tooltip.
 """
 
+from __future__ import annotations
+
 import tkinter as tk
-from tkinter import BaseWidget, Event, ttk
-from typing import Optional
+from tkinter import ttk
+from typing import TYPE_CHECKING
 
 from .._common import INTERNAL_PAD
+
+if TYPE_CHECKING:
+    from tkinter import BaseWidget, Event
 
 
 class ToolTip:
@@ -26,7 +31,7 @@ class ToolTip:
         The text to display in the tooltip.
     """
 
-    def __init__(self, parent: BaseWidget, text: str = ""):
+    def __init__(self, parent: BaseWidget, text: str = "") -> None:
         """
         Construct a tooltip.
 
@@ -37,14 +42,14 @@ class ToolTip:
         text : str
             The text to display in the tooltip.
         """
-        self.tooltip: Optional[tk.Toplevel] = None
+        self.tooltip: tk.Toplevel | None = None
         self.parent = parent
         self.text = text
         self.parent.bind("<Enter>", self.on_enter)
         self.parent.bind("<Motion>", self.on_move)
         self.parent.bind("<Leave>", self.on_leave)
 
-    def on_enter(self, event: Event):
+    def on_enter(self, event: Event) -> None:
         """
         Handle the event when pointer enters the widget.
         """
@@ -56,14 +61,14 @@ class ToolTip:
             background="#ffd", foreground="#000"
         ).grid(ipadx=INTERNAL_PAD)
 
-    def on_move(self, event: Event):
+    def on_move(self, event: Event) -> None:
         """
         Handle the event when the pointer moves within the widget.
         """
         if self.tooltip:
             self.tooltip.geometry(f"+{event.x_root+10}+{event.y_root+10}")
 
-    def on_leave(self, _event: Event):
+    def on_leave(self, _event: Event) -> None:
         """
         Handle the event when the pointer leaves the widget.
         """

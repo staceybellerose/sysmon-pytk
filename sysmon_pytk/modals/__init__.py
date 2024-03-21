@@ -14,7 +14,11 @@ from .settings_modal import SettingsDialog
 from .temperature_modal import TempDetailsDialog
 
 __all__ = [
-    "CpuDialog", "TempDetailsDialog", "MemUsageDialog",
-    "DiskUsageDialog", "SettingsDialog", "FontChooser",
-    "AboutDialog"
+    "AboutDialog",
+    "CpuDialog",
+    "DiskUsageDialog",
+    "FontChooser",
+    "MemUsageDialog",
+    "SettingsDialog",
+    "TempDetailsDialog"
 ]

@@ -5,9 +5,10 @@
 Memory usage details modal dialog.
 """
 
+from __future__ import annotations
+
 import tkinter as tk
 from tkinter import ttk
-from typing import List
 
 import psutil
 
@@ -23,7 +24,7 @@ class MemUsageDialog(ModalDialog):
     Display memory usage in a modal dialog.
     """
 
-    def on_save(self):
+    def on_save(self) -> None:
         """
         Save what was entered in the modal dialog.
 
@@ -36,14 +37,14 @@ class MemUsageDialog(ModalDialog):
         """
         mem = psutil.virtual_memory()
         swap = psutil.swap_memory()
-        self._names: List[str] = []
-        self._metrics: List[tk.StringVar] = []
-        self._swaps: List[str] = []
-        self._swap_metrics: List[tk.StringVar] = []
-        for item in mem._asdict().keys():
+        self._names: list[str] = []
+        self._metrics: list[tk.StringVar] = []
+        self._swaps: list[str] = []
+        self._swap_metrics: list[tk.StringVar] = []
+        for item in mem._asdict():
             self._names.append(item)
             self._metrics.append(tk.StringVar())
-        for item in swap._asdict().keys():
+        for item in swap._asdict():
             self._swaps.append(item)
             self._swap_metrics.append(tk.StringVar())
         self.internal_frame.columnconfigure(0, weight=1)
@@ -70,7 +71,7 @@ class MemUsageDialog(ModalDialog):
         self.add_close_button()
         self.add_sizegrip()
 
-    def _create_detail_widgets(self):
+    def _create_detail_widgets(self) -> None:
         for count, name in enumerate(self._names):
             ttk.Label(
                 self.internal_frame, text=name.capitalize(), anchor=tk.W,
@@ -90,7 +91,7 @@ class MemUsageDialog(ModalDialog):
                 font=self.fixed_font, anchor=tk.E
             ).grid(row=count+2, column=4, sticky=tk.NSEW, padx=_common.INTERNAL_PAD)
 
-    def update_screen(self):
+    def update_screen(self) -> None:
         """
         Update the modal dialog window.
         """

@@ -5,14 +5,19 @@
 Modal dialogs base class.
 """
 
+from __future__ import annotations
+
 import tkinter as tk
-from abc import abstractmethod
-from tkinter import Misc, ttk
-from typing import Optional, final
+from abc import ABCMeta, abstractmethod
+from tkinter import ttk
+from typing import TYPE_CHECKING, final
 
 from .._common import INTERNAL_PAD
 from ..app_locale import get_translator
 from ..style_manager import StyleManager
+
+if TYPE_CHECKING:
+    from tkinter import Misc
 
 _ = get_translator()
 
@@ -20,7 +25,7 @@ _ = get_translator()
 # pragma pylint: disable=too-many-instance-attributes
 
 
-class ModalDialog(tk.Toplevel):
+class ModalDialog(tk.Toplevel, metaclass=ABCMeta):
     """
     Base class for modal dialogs.
 
@@ -43,9 +48,9 @@ class ModalDialog(tk.Toplevel):
     """
 
     def __init__(
-        self, parent: Optional[Misc] = None, title: Optional[str] = None,
-        iconpath: Optional[str] = None, class_: str = "ModalDialog"
-    ):
+        self, parent: Misc | None = None, title: str | None = None,
+        iconpath: str | None = None, class_: str = "ModalDialog"
+    ) -> None:
         """
         Construct a modal dialog.
 
@@ -81,7 +86,7 @@ class ModalDialog(tk.Toplevel):
         self.wait_window()
 
     @final
-    def load_fonts(self):
+    def load_fonts(self) -> None:
         """
         Load the standard fonts from the StyleManager.
         """
@@ -91,7 +96,7 @@ class ModalDialog(tk.Toplevel):
         self.fixed_font = StyleManager.get_fixed_font()
 
     @final
-    def bind_events(self):
+    def bind_events(self) -> None:
         """
         Bind window events.
         """
@@ -101,17 +106,17 @@ class ModalDialog(tk.Toplevel):
         self.bind("<KeyPress-KP_Enter>", self.save_and_dismiss)
 
     @final
-    def make_modal(self):
+    def make_modal(self) -> None:
         """
         Make this behave like a modal window.
         """
-        self.transient(self.parent)  # type: ignore
+        self.transient(self.parent)  # type: ignore[arg-type]
         self.wait_visibility()
         self.grab_set()
         self.minsize(self.winfo_width(), self.winfo_height())
 
     @final
-    def dismiss(self, *_args):
+    def dismiss(self, *_args) -> None:
         """
         Dismiss the modal dialog.
 
@@ -121,7 +126,7 @@ class ModalDialog(tk.Toplevel):
         self.destroy()
 
     @final
-    def save_and_dismiss(self, *_args):
+    def save_and_dismiss(self, *_args) -> None:
         """
         Save what was entered in the modal dialog and dismiss it.
 
@@ -129,11 +134,12 @@ class ModalDialog(tk.Toplevel):
         """
         self.on_save()
         self.dismiss()
-        for event in self._events:
-            self.parent.event_generate(event)
+        if self.parent:
+            for event in self._events:
+                self.parent.event_generate(event)
 
     @final
-    def save_dismiss_event(self, event_str: str):
+    def save_dismiss_event(self, event_str: str) -> None:
         """
         Accumulate a list of events to trigger on dismissal when saving.
         """
@@ -141,7 +147,7 @@ class ModalDialog(tk.Toplevel):
             self._events.append(event_str)
 
     @final
-    def add_close_button(self):
+    def add_close_button(self) -> None:
         """
         Add a Close button to the bottom row of the modal dialog.
         """
@@ -155,7 +161,7 @@ class ModalDialog(tk.Toplevel):
         )
 
     @final
-    def add_ok_cancel_buttons(self):
+    def add_ok_cancel_buttons(self) -> None:
         """
         Add OK and Cancel buttons to the bottom row of the modal dialog.
         """
@@ -171,7 +177,7 @@ class ModalDialog(tk.Toplevel):
         buttonframe.grid(row=max_rows, column=0, sticky=tk.E, columnspan=max_columns)
 
     @final
-    def add_sizegrip(self):
+    def add_sizegrip(self) -> None:
         """
         Add a Sizegrip widget to the bottom row of the modal dialog.
         """
@@ -182,19 +188,19 @@ class ModalDialog(tk.Toplevel):
         )
 
     @abstractmethod
-    def on_save(self):
+    def on_save(self) -> None:
         """
         Save what was entered in the modal dialog.
         """
 
     @abstractmethod
-    def create_widgets(self):
+    def create_widgets(self) -> None:
         """
         Create the widgets to be displayed in the modal dialog.
         """
 
     @abstractmethod
-    def update_screen(self):
+    def update_screen(self) -> None:
         """
         Update the modal dialog window.
         """

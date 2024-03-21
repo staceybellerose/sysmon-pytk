@@ -10,13 +10,12 @@ GUI System monitor.
 from .application import Application
 
 
-def gui_monitor():
+def gui_monitor() -> None:
     """
     Entry point for GUI monitor.
     """
     app = Application()
     app.update()
-    app.minsize(app.winfo_width(), app.winfo_height())
     app.mainloop()
 
 

@@ -8,12 +8,18 @@ Meter widget.
 # These lint errors don't make sense for GUI widgets, so are disabled here.
 # pragma pylint: disable=too-many-instance-attributes, too-many-arguments, too-many-locals
 
+from __future__ import annotations
+
 import dataclasses
 import tkinter as tk
 from tkinter import ttk
+from typing import TYPE_CHECKING
 
 from ..font_utils import modify_named_font
 from ..style_manager import StyleManager
+
+if TYPE_CHECKING:
+    from tkinter import BaseWidget
 
 
 @dataclasses.dataclass
@@ -29,7 +35,7 @@ class CanvasObjects:
     meter: int = 0
     inset: int = 0
     inset_border: int = 0
-    wedges: list = dataclasses.field(default_factory=lambda: [])
+    wedges: list = dataclasses.field(default_factory=list)
 
 
 class Meter(tk.Frame):
@@ -47,7 +53,7 @@ class Meter(tk.Frame):
 
     def __init__(
             self,
-            parent, *,
+            parent: BaseWidget, *,
             width: int = 300,
             height: int = 225,
             min_value: float = 0.0,
@@ -58,7 +64,7 @@ class Meter(tk.Frame):
             yellow: float = 15,
             red: float = 15,
             blue: float = 0, **kw
-    ):
+    ) -> None:
         self._unit = unit
         self._min_value = min_value
         self._max_value = max_value
@@ -90,7 +96,7 @@ class Meter(tk.Frame):
         self.var.trace_add("write", self._update_meter)
         self.canvas.grid(sticky=tk.EW)
 
-    def _add_labels(self, label: str, unit: str):
+    def _add_labels(self, label: str, unit: str) -> None:
         font_size_lg = int(self._height / 15)
         font_size_sm = int(self._height / 20)
         text_font = modify_named_font("TkDefaultFont", size=font_size_lg)
@@ -117,7 +123,7 @@ class Meter(tk.Frame):
             fill=self._text_color, anchor=tk.N, justify=tk.CENTER
         )
 
-    def _add_gauge_lines(self, red: float, yellow: float, blue: float):
+    def _add_gauge_lines(self, red: float, yellow: float, blue: float) -> None:
         coord = (
             self._width / 30, self._height / 4,
             self._width * 29 / 30, self._height * 1.5
@@ -166,7 +172,7 @@ class Meter(tk.Frame):
             fill=self._meter_color, outline=self._meter_color, width=3
         )
 
-    def _add_inset(self):
+    def _add_inset(self) -> None:
         # Add the inset
         inset_coord = (
             self._width * 23 / 60, self._height * 23 / 32,
@@ -183,7 +189,7 @@ class Meter(tk.Frame):
             outline=self._meter_color, style="arc", width=1
         )
 
-    def check_dark_mode(self):
+    def check_dark_mode(self) -> None:
         """
         Detect whether using dark mode and adjust base colors.
         """
@@ -195,7 +201,7 @@ class Meter(tk.Frame):
         self._meter_yellow = StyleManager.test_dark_mode("#ffff22", "#cccc00")
         self._meter_blue = StyleManager.test_dark_mode("#2222ff", "#0000cc")
 
-    def update_for_dark_mode(self):
+    def update_for_dark_mode(self) -> None:
         """
         Update the meter colors based on detected dark mode.
         """
@@ -213,14 +219,14 @@ class Meter(tk.Frame):
         for wedge in self.canvas_objects.wedges:
             self.canvas.itemconfig(wedge, outline=self._text_color)
 
-    def _update_meter_line(self, angle):
+    def _update_meter_line(self, angle: float) -> None:
         """
         Update the meter line indicator.
         """
         self.canvas.itemconfig(self.canvas_objects.meter, start=angle)
         self.canvas.itemconfig(self.canvas_objects.current, text=f"{self.var.get()}{self._unit}")
 
-    def _update_meter(self, _name1, _name2, _op):
+    def _update_meter(self, _name1, _name2, _op) -> None:
         """
         Update the meter display based on the updated variable.
         """
@@ -240,16 +246,17 @@ class Meter(tk.Frame):
         angle = (1 - pct) * Meter.EXTENT_ANGLE + Meter.START_ANGLE
         self._update_meter_line(angle)
 
-    def _percent_to_degrees(self, pct: float) -> float:
+    @classmethod
+    def _percent_to_degrees(cls, pct: float) -> float:
         return float(Meter.EXTENT_ANGLE) * pct / 100
 
-    def set_value(self, value: float):
+    def set_value(self, value: float) -> None:
         """
         Set the value to display on the meter.
         """
         self.var.set(value)
 
-    def bind(self, sequence=None, func=None, add=None):
+    def bind(self, sequence=None, func=None, add=None):  # noqa: ANN001,ANN201
         """
         Pass events through to the canvas, since frames don't normally respond to them.
         """

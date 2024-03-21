@@ -1,4 +1,4 @@
-# System Monitor for python/Tk
+# System Monitor for Python/Tk
 
 <!--
 SPDX-FileCopyrightText: © 2024 Stacey Adams <stacey.belle.rose@gmail.com>
@@ -17,17 +17,14 @@ temperature, RAM usage, and disk usage of the primary disk (containing the
 root partition). It also displays the system's hostname, IP address, uptime,
 and current process count.
 
-## Installation
+![Main Window](images/main_window.png)
 
-Note when cloning this repo that it has a submodule
-[Azure ttk theme](https://github.com/rdbende/Azure-ttk-theme)
-which must be copied over:
+## Pre-installation
 
-```bash
-git clone --recurse-submodules https://github.com/staceybellerose/sysmon-pytk.git
-```
+### Make sure the Python interface to Tcl/Tk (tkinter) is installed
 
-### Install the Python interface to Tcl/Tk (tkinter)
+Since this is a GUI application using tkinter, tkinter must be installed
+separately.
 
 * Debian, Ubuntu, and derivatives
 
@@ -47,6 +44,40 @@ git clone --recurse-submodules https://github.com/staceybellerose/sysmon-pytk.gi
     brew install python-tk
     ```
 
+## Install Using pip
+
+Download the wheel file from the latest release, then install it. Once a PyPI
+account can be set up, the program will be downloadable from there.
+
+```bash
+pip install sysmon_pytk-0.3.2-py3-none-any.whl
+```
+
+Two versions of the program will be installed, a GUI program and a command line
+program.
+
+To run the GUI program:
+
+```bash
+sysmon
+```
+
+To run the command line program:
+
+```bash
+cli_sysmon
+```
+
+## Install Manually, for local development
+
+Note when cloning this repo that it has a submodule
+[Azure ttk theme](https://github.com/rdbende/Azure-ttk-theme)
+which must be copied over:
+
+```bash
+git clone --recurse-submodules https://github.com/staceybellerose/sysmon-pytk.git
+```
+
 ### Install the required python packages
 
 ```bash
@@ -62,26 +93,17 @@ To build the translation files, run the following bash commands:
 make translations
 ```
 
-## Running
+| Run the GUI program | |
+|-|-|
+| While the venv is activated | `python -m sysmon_pytk.gui_monitor &` |
+| Explicitly using the venv | `venv/bin/python -m sysmon_pytk.gui_monitor &` |
+| Let make handle everything automatically | `make run` |
 
-```bash
-# While the venv is activated
-python -m sysmon_pytk.gui_monitor &
-```
-
-OR
-
-```bash
-# Explicitly using the venv
-venv/bin/python -m sysmon_pytk.gui_monitor &
-```
-
-OR
-
-```bash
-# Let make handle everything automatically
-make run
-```
+| Run the command line program | |
+|-|-|
+| While the venv is activated | `python -m sysmon_pytk.cli_monitor &` |
+| Explicitly using the venv | `venv/bin/python -m sysmon_pytk.cli_monitor &` |
+| Let make handle everything automatically | `make cli` |
 
 ## Translations
 

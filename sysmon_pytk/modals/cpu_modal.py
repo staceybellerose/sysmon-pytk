@@ -5,9 +5,11 @@
 CPU usage details modal dialog.
 """
 
+from __future__ import annotations
+
 import tkinter as tk
-from tkinter import Misc, ttk
-from typing import List, Optional
+from tkinter import ttk
+from typing import TYPE_CHECKING
 
 import psutil
 
@@ -15,6 +17,9 @@ from .. import _common
 from ..app_locale import get_translator
 from ..widgets import Meter
 from ._base_modal import ModalDialog
+
+if TYPE_CHECKING:
+    from tkinter import Misc
 
 _ = get_translator()
 
@@ -32,13 +37,13 @@ class CpuDialog(ModalDialog):
     MAX_COLUMNS = 4
 
     def __init__(
-        self, parent: Optional[Misc] = None, title: Optional[str] = None,
-        iconpath: Optional[str] = None, class_: str = "ModalDialog"
-    ):
+        self, parent: Misc | None = None, title: str | None = None,
+        iconpath: str | None = None, class_: str = "ModalDialog"
+    ) -> None:
         self._max_used_column = 0
         super().__init__(parent, title, iconpath, class_)
 
-    def on_save(self):
+    def on_save(self) -> None:
         """
         Save what was entered in the modal dialog.
 
@@ -55,8 +60,8 @@ class CpuDialog(ModalDialog):
         self.internal_frame.columnconfigure(2, weight=1)
         self.internal_frame.columnconfigure(3, weight=1)
         self._meter_rows: list[int] = []
-        self._meters: List[Meter] = []
-        self._freqmeters: List[Meter] = []
+        self._meters: list[Meter] = []
+        self._freqmeters: list[Meter] = []
         ttk.Label(
             self.internal_frame, text=_common.get_processor_name(),
             font=self.large_font, anchor=tk.CENTER
@@ -104,7 +109,7 @@ class CpuDialog(ModalDialog):
             meter = Meter(
                 self.internal_frame, width=220, height=165, unit="",
                 label=_("CPU #{}").format(core),
-                min_value=freqs[core].min, max_value=freqs[core].max  # type: ignore
+                min_value=freqs[core].min, max_value=freqs[core].max  # type: ignore[attr-defined]
             )
             meter.grid(row=row, column=col, sticky=tk.NSEW, ipady=_common.INTERNAL_PAD)
             if row not in self._meter_rows:
@@ -117,7 +122,7 @@ class CpuDialog(ModalDialog):
                 row += 1
         return row
 
-    def update_screen(self):
+    def update_screen(self) -> None:
         """
         Update the modal dialog window.
         """
@@ -126,5 +131,5 @@ class CpuDialog(ModalDialog):
             self._meters[core].set_value(usage[core])
         freqs = psutil.cpu_freq(percpu=True)
         for core in range(self.cpu_count):
-            self._freqmeters[core].set_value(freqs[core].current)
+            self._freqmeters[core].set_value(freqs[core].current)  # type: ignore[attr-defined]
         self.after(_common.REFRESH_INTERVAL, self.update_screen)

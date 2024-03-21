@@ -5,8 +5,13 @@
 Dropdown widget.
 """
 
-from tkinter import BaseWidget, ttk
-from typing import Dict
+from __future__ import annotations
+
+from tkinter import ttk
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from tkinter import BaseWidget
 
 # These lint errors don't make sense for GUI widgets, so are disabled here.
 # pragma pylint: disable=too-many-ancestors
@@ -25,7 +30,7 @@ class DropDown(ttk.Combobox):
         The dictionary to use in the dropdown.
     """
 
-    def __init__(self, parent: BaseWidget, dictionary: Dict, *args, **kwargs):
+    def __init__(self, parent: BaseWidget, dictionary: dict, **kwargs) -> None:
         """
         Construct a dropdown widget.
 
@@ -41,7 +46,7 @@ class DropDown(ttk.Combobox):
             Additional keyword arguments for a `Combobox`.
         """
         super().__init__(
-            parent, values=sorted(list(dictionary.keys())), *args, **kwargs
+            parent, values=sorted(dictionary.keys()), **kwargs
         )
         self.dictionary = dictionary
 
@@ -50,9 +55,9 @@ class DropDown(ttk.Combobox):
         Get the selected value.
         """
         key = super().get()
-        return self.dictionary[key] if key != "" else ""
+        return self.dictionary[key] if key else ""
 
-    def set(self, value: str):
+    def set(self, value: str) -> None:
         """
         Set the value of the dropdown, if value is found in the dictionary.
         """

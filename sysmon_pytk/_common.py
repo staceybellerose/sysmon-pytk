@@ -5,12 +5,13 @@
 Shared functions used throughout the application.
 """
 
+from __future__ import annotations
+
 import platform
 import re
 import subprocess  # nosec B404
 import time
 from socket import AF_INET
-from typing import List, Union
 
 import psutil
 
@@ -64,7 +65,7 @@ def bytes2human(num: int, precision: int = 1) -> str:
 # SPDX-SnippetEnd
 
 
-def bytes2whole(num: int):
+def bytes2whole(num: int) -> str:
     """
     Convert a byte count to a human-readable format, with no decimal.
 
@@ -88,7 +89,7 @@ def bytes2whole(num: int):
     return bytes2human(num, precision=0)
 
 
-def digits(numstr: str) -> List[int]:
+def digits(numstr: str) -> list[int]:
     """
     Return a list of numbers in a string.
 
@@ -114,30 +115,23 @@ def digits(numstr: str) -> List[int]:
     return [int(s) for s in re.findall(r"\d+", numstr)]
 
 
-def cpu_temp(as_string: bool = False) -> Union[float, str]:
+def cpu_temp() -> float:
     """
-    Return the CPU temperature, either formatted as a string, or as a float.
-
-    Parameters
-    ----------
-    as_string: bool
-        a flag indicating whether to return a string or a float.
+    Return the CPU temperature, as a float.
 
     Returns
     -------
-    float | str
-        The current CPU temperature, possibly formatted as a string.
+    float
+        The current CPU temperature.
 
     Examples
     --------
-    >>> cpu_temp(as_string: True)
-    "41.0°C"
-    >>> cpu_temp(False)
+    >>> cpu_temp()
     41.0
     """
     temps = psutil.sensors_temperatures()
-    key = "coretemp" if "coretemp" in temps else list(temps)[0]
-    return f"{temps[key][0].current}°C" if as_string else temps[key][0].current
+    key = "coretemp" if "coretemp" in temps else next(iter(temps))
+    return temps[key][0].current
 
 
 def net_addr() -> str:
@@ -213,9 +207,9 @@ def disk_usage(mountpoint: str) -> str:
     used_fmt = bytes2whole(diskinfo.used)
     total_fmt = bytes2whole(diskinfo.total)
     # if formatted numbers are less then 10, use single decimal place rather than zero decimals
-    if digits(used_fmt)[0] < 10:
+    if digits(used_fmt)[0] < 10:  # noqa: PLR2004
         used_fmt = bytes2human(diskinfo.used)
-    if digits(total_fmt)[0] < 10:
+    if digits(total_fmt)[0] < 10:  # noqa: PLR2004
         total_fmt = bytes2human(diskinfo.total)
     return f"{used_fmt}/{total_fmt} {round(diskinfo.percent)}%"
 
@@ -249,5 +243,5 @@ def _get_processor_name_linux() -> str:
     ).decode().strip()
     for line in all_info.split("\n"):
         if "model name" in line:
-            return re.sub(r".*model name.*:", "", line, 1)
+            return re.sub(r".*model name.*:", "", line, count=1)
     return ""

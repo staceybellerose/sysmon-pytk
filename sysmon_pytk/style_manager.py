@@ -5,17 +5,27 @@
 Tk Style Manager.
 """
 
+from __future__ import annotations
+
 import re
 import tkinter as tk
 from tkinter import font, ttk
-from tkinter.font import Font
-from typing import Any
+from typing import TYPE_CHECKING, TypeVar
 
 import darkdetect
 
 from . import font_utils
 from .file_utils import get_full_path
-from .settings import Settings
+
+if TYPE_CHECKING:
+    from tkinter.font import Font
+
+    from .settings import Settings
+
+T = TypeVar("T")
+
+_DARK_CUTOFF_SQR = 127.5 * 127.5
+_LEN_HEXCOLOR = len("#FFFFFF")
 
 
 def is_dark(hexcolor: str) -> bool:
@@ -43,17 +53,18 @@ def is_dark(hexcolor: str) -> bool:
     >>> is_dark("#449F55")
     False
     """
-    assert len(hexcolor) == 7  # nosec B101
+    assert len(hexcolor) == _LEN_HEXCOLOR  # nosec B101
     assert hexcolor[:1] == "#"  # nosec B101
     if re.search(r"^#[\dA-Fa-f]{6}$", hexcolor) is None:
-        raise ValueError("hexcolor must start with '#' and have 6 hexadecimal digits")
+        msg = "hexcolor must start with '#' and have 6 hexadecimal digits"
+        raise ValueError(msg)
     r = int(hexcolor[1:3], 16)
     g = int(hexcolor[3:5], 16)
     b = int(hexcolor[5:7], 16)
     # calculate the square of the luminance and compare it to a cutoff value of 127.5²
     # this way, sqrt() doesn't need to be called
     hsp = 0.299 * (r * r) + 0.587 * (g * g) + 0.114 * (b * b)
-    return hsp < 16256.25
+    return hsp < _DARK_CUTOFF_SQR
 
 
 class StyleManager:
@@ -91,7 +102,7 @@ class StyleManager:
         text_font = font.nametofont("TkTextFont")
         menu_font = font.nametofont("TkMenuFont")
         fixed_font = font.nametofont("TkFixedFont")
-        if settings.regular_font.get_name() != "":
+        if settings.regular_font.get_name():
             settings.regular_font.configure_font(base_font)
             settings.regular_font.configure_font(text_font)
             settings.regular_font.configure_font(menu_font)
@@ -99,7 +110,7 @@ class StyleManager:
             base_font.configure(family=font_utils.MAIN_FONT_FAMILY, size=12)
             text_font.configure(family=font_utils.MAIN_FONT_FAMILY, size=12)
             menu_font.configure(family=font_utils.MAIN_FONT_FAMILY, size=12)
-        if settings.fixed_font.get_name() != "":
+        if settings.fixed_font.get_name():
             settings.fixed_font.configure_font(fixed_font)
         else:
             fixed_font.configure(family=font_utils.FIXED_FONT_FAMILY, size=12)
@@ -132,7 +143,7 @@ class StyleManager:
         style.configure("ComboboxPopdownFrame", relief=tk.SOLID)
 
     @classmethod
-    def test_dark_mode(cls, trueval: Any, falseval: Any) -> Any:
+    def test_dark_mode(cls, trueval: T, falseval: T) -> T:
         """
         If currently in dark mode, return trueval; otherwise return falseval.
         """

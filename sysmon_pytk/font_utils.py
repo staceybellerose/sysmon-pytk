@@ -5,10 +5,12 @@
 Font utilities.
 """
 
+from __future__ import annotations
+
 import dataclasses
 from tkinter import font
 from tkinter.font import Font
-from typing import Literal, Optional, TypeVar
+from typing import Literal, TypeVar
 
 from .app_locale import get_translator
 
@@ -21,7 +23,7 @@ T = TypeVar("T")
 
 
 @dataclasses.dataclass
-class FontDescription():
+class FontDescription:
     """
     Font data, like what is returned by the `actual` method of a `Font` object.
 
@@ -82,7 +84,7 @@ class FontDescription():
         """
         style = FontDescription.REGULAR
         if self.weight == "bold":
-            if self.slant == "italic":
+            if self.slant == "italic":  # noqa: SIM108 (line becomes too long)
                 style = FontDescription.BOLD_ITALIC
             else:
                 style = FontDescription.BOLD
@@ -93,11 +95,11 @@ class FontDescription():
 
 def modify_named_font(  # pylint: disable=too-many-arguments
     font_name: str, *,
-    size: Optional[int] = None,
-    weight: Optional[Literal["normal", "bold"]] = None,
-    slant: Optional[Literal["roman", "italic"]] = None,
-    underline: Optional[bool] = None,
-    overstrike: Optional[bool] = None
+    size: int | None = None,
+    weight: Literal["normal", "bold"] | None = None,
+    slant: Literal["roman", "italic"] | None = None,
+    underline: bool | None = None,
+    overstrike: bool | None = None
 ) -> Font:
     """
     Modify a named font by optionally changing weight, size, slant, etc.
@@ -145,7 +147,7 @@ def modify_named_font(  # pylint: disable=too-many-arguments
     return Font(name="TkDefaultFont")
 
 
-def get_with_fallback(value: Optional[T], fallback: T) -> T:
+def get_with_fallback(value: T | None, fallback: T) -> T:
     """
     Return the value provided unless it is None. In that case, return the fallback.
 

@@ -37,6 +37,7 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
     "bandit >= 1.7.7",
+    "build >= 1.1.1",
     "mypy >= 1.5",
     "pycodestyle >= 2.11",
     "pydocstyle >= 6.2",
@@ -45,6 +46,8 @@ dev = [
     "pyroma >= 4.2",
     "radon >= 6.0",
     "reuse >= 3.0",
+    "ruff >= 0.3",
+    "twine >= 5.0",
     "types-docutils >= 0.20",
     "types-psutil >= 5.8.0, < 6.0",
     "types-setuptools >= 64",
@@ -74,3 +77,31 @@ include = ["sysmon_pytk*", "azure*"]
 
 [tool.setuptools.dynamic]
 version = {attr = "sysmon_pytk.about.__version__"}
+
+[tool.ruff]
+line-length = 99
+
+[tool.ruff.lint]
+select = ["ALL"]
+extend-select = ["ANN401"]
+ignore = [
+    "ANN002", "ANN003", "ANN101", "ANN102", # annotations for *args, **kwargs, self, cls
+    "D200",  # one-line docstring should fit on one line
+    "FIX002",  # don't warn on TODO comments
+    "S101", "S603", # flake8-bandit
+    "FBT003", # boolean positional value in function call (they're used in tkinter)
+    "PLR0913", # too many arguments in function definition (they're used in tkinter-derived classes)
+    "COM", # flake8-commas (trailing commas)
+    "TID", # flake8-tidy-imports (relative imports)
+    "ERA", # eradicate (commented-out code)
+]
+
+[tool.ruff.lint.flake8-annotations]
+allow-star-arg-any = true
+suppress-dummy-args = true
+
+[tool.ruff.lint.mccabe]
+max-complexity = 5
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"

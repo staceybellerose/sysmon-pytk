@@ -5,11 +5,18 @@
 Label widget with clickable URL.
 """
 
+from __future__ import annotations
+
 import webbrowser
-from tkinter import BaseWidget, Event, ttk
-from typing import Any
+from tkinter import ttk
+from typing import TYPE_CHECKING, TypeVar
 
 from .tooltip import ToolTip
+
+if TYPE_CHECKING:
+    from tkinter import BaseWidget, Event
+
+T = TypeVar("T")
 
 # These lint errors don't make sense for GUI widgets, so are disabled here.
 # pragma pylint: disable=too-many-arguments, too-many-ancestors
@@ -26,8 +33,8 @@ class UrlLabel(ttk.Label):
     """
 
     def __init__(
-        self, parent: BaseWidget, text: str, url: str,
-        style: str = "URL.TLabel", show_tooltip: bool = False, **kw
+        self, parent: BaseWidget, text: str, url: str, *,
+        style: str = "URL.TLabel", show_tooltip: bool = False, **kwargs
     ) -> None:
         """
         Construct a Label with a clickable URL.
@@ -49,12 +56,12 @@ class UrlLabel(ttk.Label):
         """
         self.url = url
         cursor = "hand2" if self._has_web_protocol() else "arrow"
-        super().__init__(parent, cursor=cursor, style=style, text=text, **kw)
+        super().__init__(parent, cursor=cursor, style=style, text=text, **kwargs)
         if show_tooltip and url:
             ToolTip(self, url)
         self.bind("<Button-1>", self.open_url)
 
-    def open_url(self, _event: Event):
+    def open_url(self, _event: Event) -> None:
         """
         Open the widget's URL in a web browser.
         """
@@ -75,7 +82,7 @@ class UrlLabel(ttk.Label):
         return url[0:7] == "http://" or url[0:8] == "https://"
 
     @classmethod
-    def test_web_protocol(cls, url: str, trueval: Any, falseval: Any) -> Any:
+    def test_web_protocol(cls, url: str, trueval: T, falseval: T) -> T:
         """
         If url uses a web protocol, return trueval; otherwise return falseval.
         """

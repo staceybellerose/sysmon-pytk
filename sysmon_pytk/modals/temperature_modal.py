@@ -5,16 +5,20 @@
 CPU usage details modal dialog.
 """
 
+from __future__ import annotations
+
 import tkinter as tk
 from tkinter import ttk
-from typing import List
+from typing import TYPE_CHECKING
 
 import psutil
-from psutil._common import shwtemp
 
 from .. import _common
 from ..app_locale import get_translator
 from ._base_modal import ModalDialog
+
+if TYPE_CHECKING:
+    from psutil._common import shwtemp
 
 _ = get_translator()
 
@@ -24,7 +28,7 @@ class TempDetailsDialog(ModalDialog):
     Display detailed temperature readings in a modal dialog.
     """
 
-    def on_save(self):
+    def on_save(self) -> None:
         """
         Save what was entered in the modal dialog.
 
@@ -36,7 +40,7 @@ class TempDetailsDialog(ModalDialog):
         Create the widgets to be displayed in the modal dialog.
         """
         self.internal_frame.columnconfigure(0, weight=1)
-        self._readings: List[List[tk.StringVar]] = []
+        self._readings: list[list[tk.StringVar]] = []
         ttk.Label(
             self.internal_frame, text=_("Temperature Sensors"), font=self.large_font,
             anchor=tk.CENTER
@@ -49,7 +53,7 @@ class TempDetailsDialog(ModalDialog):
         self.add_sizegrip()
 
     def _create_detail_widgets(
-        self, temps: dict[str, list[shwtemp]], start_row
+        self, temps: dict[str, list[shwtemp]], start_row: int
     ) -> list[int]:
         row = start_row
         stretchy_rows: list[int] = []
@@ -62,7 +66,7 @@ class TempDetailsDialog(ModalDialog):
             )
             stretchy_rows.append(row)
             row += 1
-            entryreadings: List[tk.StringVar] = []
+            entryreadings: list[tk.StringVar] = []
             for count, entry in enumerate(entries):
                 entryreadings.append(tk.StringVar())
                 entryreadings[count].set(self._format_entry(entry))
@@ -84,19 +88,18 @@ class TempDetailsDialog(ModalDialog):
             row += 1
         return stretchy_rows
 
-    def update_screen(self):
+    def update_screen(self) -> None:
         """
         Update the modal dialog window.
         """
         temps = psutil.sensors_temperatures()
-        row = 0
-        for _name, entries in temps.items():
+        for row, entries in enumerate(temps.values()):
             for count, entry in enumerate(entries):
                 self._readings[row][count].set(self._format_entry(entry))
-            row += 1
         self.after(_common.REFRESH_INTERVAL, self.update_screen)
 
-    def _format_entry(self, entry: shwtemp):
+    @classmethod
+    def _format_entry(cls, entry: shwtemp) -> str:
         return _("{current}°C (high = {high}°C, critical = {critical}°C)").format(
             current=entry.current, high=entry.high, critical=entry.critical
         )

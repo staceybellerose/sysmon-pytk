@@ -5,11 +5,12 @@
 Display metadata about the application in a modal dialog.
 """
 
+from __future__ import annotations
+
 import dataclasses
 import tkinter as tk
-from tkinter import BaseWidget, ttk
-from tkinter.font import Font
-from typing import Optional
+from tkinter import ttk
+from typing import TYPE_CHECKING
 
 from .._common import INTERNAL_PAD
 from ..app_locale import get_translator
@@ -17,6 +18,10 @@ from ..file_utils import get_full_path
 from ..translator import TRANSLATORS, Translator
 from ..widgets import UrlLabel
 from ._base_modal import ModalDialog
+
+if TYPE_CHECKING:
+    from tkinter import BaseWidget, Misc
+    from tkinter.font import Font
 
 _ = get_translator()
 
@@ -44,14 +49,14 @@ class AboutMetadata:
     copyright_year: str
     description: str
     url: str
-    license: Optional[LicenseMetadata] = None
+    license: LicenseMetadata | None = None
 
     def get_copyright_text(self) -> str:
         """
         Build the copyright text based on year and author.
         """
-        if self.author != "":
-            if self.copyright_year != "":
+        if self.author:
+            if self.copyright_year:
                 return f"© {self.copyright_year} {self.author}"
             return f"© {self.author}"
         return ""
@@ -69,28 +74,30 @@ class AboutDialog(ModalDialog):
         A logo to be displayed.
     """
 
-    def __init__(self, parent, about: AboutMetadata, iconpath=None):
+    def __init__(
+        self, parent: Misc | None, about: AboutMetadata, iconpath: str | None = None
+    ) -> None:
         self.about = about
         title = _("About {}").format(about.app_name).strip()
         self.logo = tk.PhotoImage(file=get_full_path("images/icon-lg.png"))
-        self._about_description: Optional[tk.Text] = None
+        self._about_description: tk.Text | None = None
         super().__init__(parent, title=title, iconpath=iconpath, class_="AboutBox")
 
-    def update_screen(self):
+    def update_screen(self) -> None:
         """
         Update the modal dialog window.
 
         This dialog does not require screen updates.
         """
 
-    def on_save(self):
+    def on_save(self) -> None:
         """
         Save what was entered in the modal dialog.
 
         This dialog does not need a save feature.
         """
 
-    def create_widgets(self):
+    def create_widgets(self) -> None:
         """
         Create the widgets to be displayed in the modal dialog.
         """
@@ -135,7 +142,7 @@ class AboutDialog(ModalDialog):
         row = self._add_label_if_string(
             tab, self.about.get_copyright_text(), self.base_font, row
         )
-        if self.about.url != "":
+        if self.about.url:
             link1style = UrlLabel.test_web_protocol(
                 self.about.url, "URL.TLabel", "System.TLabel"
             )
@@ -146,7 +153,7 @@ class AboutDialog(ModalDialog):
             ).grid(row=row, sticky=tk.NSEW, pady=(0, INTERNAL_PAD))
             tab.rowconfigure(row, weight=1)
             row += 1
-        if self.about.description != "":
+        if self.about.description:
             self._about_description = tk.Text(
                 tab, font=self.base_font, height=5, width=50, wrap=tk.WORD,
                 undo=False, relief=tk.FLAT
@@ -176,7 +183,7 @@ class AboutDialog(ModalDialog):
         text.tag_configure("language", font=self.bold_font)
         text.config(state=tk.DISABLED, spacing1=4, spacing2=4, spacing3=4)
         text.grid(row=0, column=0, sticky=tk.NSEW)
-        # FOR LATER IF SCROLLING IS NEEDED
+        # TODO FOR LATER IF SCROLLING IS NEEDED
         # text_scroller = ttk.Scrollbar(tab, orient=tk.VERTICAL)
         # text_scroller.grid(row=0, column=1, sticky=tk.N+tk.S)
         # text.config(yscrollcommand=text_scroller.set)
@@ -185,11 +192,11 @@ class AboutDialog(ModalDialog):
 
     def _add_translators(
         self, text: tk.Text, language: str, translator_list: list[Translator]
-    ):
+    ) -> None:
         text.insert(tk.END, f"{language}: ", ("language",))
         for idx, translator in enumerate(translator_list):
             text.insert(tk.END, translator.name)
-            if translator.github_username != "":
+            if translator.github_username:
                 linkstyle = UrlLabel.test_web_protocol(
                     self.about.url, "URL.TLabel", "System.TLabel"
                 )
@@ -216,7 +223,7 @@ class AboutDialog(ModalDialog):
         tab = ttk.Frame(notebook)
         tab.rowconfigure(0, weight=1)
         tab.columnconfigure(0, weight=1)
-        if license_data.full_license != "":
+        if license_data.full_license:
             license_text = [
                 line.replace(
                     "\n", " "
@@ -233,11 +240,11 @@ class AboutDialog(ModalDialog):
             text_scroller.grid(row=0, column=1, sticky=tk.NSEW)
             text.config(yscrollcommand=text_scroller.set)
             text_scroller.config(command=text.yview)
-        elif license_data.license_name != "":
+        elif license_data.license_name:
             tk.Label(
                 tab, font=self.base_font, text=license_data.license_name
             ).grid(row=0, pady=INTERNAL_PAD)
-            if license_data.license_url != "":
+            if license_data.license_url:
                 link2style = UrlLabel.test_web_protocol(
                     license_data.license_url, "URL.TLabel", "System.TLabel"
                 )
@@ -248,10 +255,11 @@ class AboutDialog(ModalDialog):
                 ).grid(row=1, pady=INTERNAL_PAD)
         return tab
 
+    @classmethod
     def _add_label_if_string(
-        self, parent: BaseWidget, text: str, font: Font, row: int
+        cls, parent: BaseWidget, text: str, font: Font, row: int
     ) -> int:
-        if text != "":
+        if text:
             ttk.Label(
                 parent, text=text, font=font, anchor=tk.CENTER
             ).grid(row=row, sticky=tk.NSEW, pady=(0, INTERNAL_PAD))
