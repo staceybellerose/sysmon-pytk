@@ -98,11 +98,10 @@ class MemUsageDialog(ModalDialog):
         mem = psutil.virtual_memory()
         swap = psutil.swap_memory()
         for count, item in enumerate(mem._asdict().items()):
-            self._metrics[count].set(
-                _common.bytes2human(item[1]) if item[0] != "percent" else f"{item[1]}%"
-            )
+            self._metrics[count].set(self._format_mem_item(item))
         for count, item in enumerate(swap._asdict().items()):
-            self._swap_metrics[count].set(
-                _common.bytes2human(item[1]) if item[0] != "percent" else f"{item[1]}%"
-            )
+            self._swap_metrics[count].set(self._format_mem_item(item))
         self.after(_common.REFRESH_INTERVAL, self.update_screen)
+
+    def _format_mem_item(self, item: tuple) -> str:
+        return _common.bytes2human(item[1]) if item[0] != "percent" else f"{item[1]}%"

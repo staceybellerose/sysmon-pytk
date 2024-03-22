@@ -179,7 +179,9 @@ class AboutDialog(ModalDialog):
             undo=False, relief=tk.FLAT
         )
         for language, translator_list in TRANSLATORS.items():
-            self._add_translators(text, language, translator_list)
+            text.insert(tk.END, f"{language}: ", ("language",))
+            for idx, translator in enumerate(translator_list):
+                self._add_translator(text, translator, idx, len(translator_list))
         text.tag_configure("language", font=self.bold_font)
         text.config(state=tk.DISABLED, spacing1=4, spacing2=4, spacing3=4)
         text.grid(row=0, column=0, sticky=tk.NSEW)
@@ -190,29 +192,27 @@ class AboutDialog(ModalDialog):
         # text_scroller.config(command=text.yview)
         return tab
 
-    def _add_translators(
-        self, text: tk.Text, language: str, translator_list: list[Translator]
+    def _add_translator(
+        self, text: tk.Text, translator: Translator, idx: int, max_items: int
     ) -> None:
-        text.insert(tk.END, f"{language}: ", ("language",))
-        for idx, translator in enumerate(translator_list):
-            text.insert(tk.END, translator.name)
-            if translator.github_username:
-                linkstyle = UrlLabel.test_web_protocol(
-                    self.about.url, "URL.TLabel", "System.TLabel"
-                )
-                link = UrlLabel(
-                    text,
-                    text=f"{translator.github_username} @ GitHub",
-                    url=translator.github_url(), style=linkstyle,
-                    font=self.base_font, show_tooltip=True
-                )
-                text.insert(tk.END, " (")
-                text.window_create(tk.END, window=link)
-                text.insert(tk.END, ")")
-            if idx < len(translator_list)-1:
-                text.insert(tk.END, ",")
-            else:
-                text.insert(tk.END, "\n")
+        text.insert(tk.END, translator.name)
+        if translator.github_username:
+            linkstyle = UrlLabel.test_web_protocol(
+                self.about.url, "URL.TLabel", "System.TLabel"
+            )
+            link = UrlLabel(
+                text,
+                text=f"{translator.github_username} @ GitHub",
+                url=translator.github_url(), style=linkstyle,
+                font=self.base_font, show_tooltip=True
+            )
+            text.insert(tk.END, " (")
+            text.window_create(tk.END, window=link)
+            text.insert(tk.END, ")")
+        if idx < max_items-1:
+            text.insert(tk.END, ", ")
+        else:
+            text.insert(tk.END, "\n")
 
     def create_license_tab(
         self, notebook: ttk.Notebook, license_data: LicenseMetadata
