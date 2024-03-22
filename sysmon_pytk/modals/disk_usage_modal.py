@@ -29,11 +29,11 @@ class DiskUsageDialog(ModalDialog):
     """
 
     def __init__(
-        self, parent: Misc | None = None, title: str | None = None,
+        self, parent: Misc | None = None, *, title: str | None = None,
         iconpath: str | None = None, class_: str = "ModalDialog"
     ) -> None:
         self._update_job: str | None = None
-        super().__init__(parent, title, iconpath, class_)
+        super().__init__(parent, title=title, iconpath=iconpath, class_=class_)
 
     def on_save(self) -> None:
         """

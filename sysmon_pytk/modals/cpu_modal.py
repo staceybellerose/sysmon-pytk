@@ -37,11 +37,11 @@ class CpuDialog(ModalDialog):
     MAX_COLUMNS = 4
 
     def __init__(
-        self, parent: Misc | None = None, title: str | None = None,
+        self, parent: Misc | None = None, *, title: str | None = None,
         iconpath: str | None = None, class_: str = "ModalDialog"
     ) -> None:
         self._max_used_column = 0
-        super().__init__(parent, title, iconpath, class_)
+        super().__init__(parent, title=title, iconpath=iconpath, class_=class_)
 
     def on_save(self) -> None:
         """

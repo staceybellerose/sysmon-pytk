@@ -131,6 +131,7 @@ class StyleManager:
         """
         dark_mode = cls.get_dark_mode(settings)
         root.tk.call("set_theme", "dark" if dark_mode else "light")
+        root.event_generate("<<ThemeChanged>>")
         style = ttk.Style()
         if dark_mode:
             style.configure("Safe.TLabel", foreground="#00aa00")

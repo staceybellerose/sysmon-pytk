@@ -8,7 +8,7 @@ MSGFMT = msgfmt
 XGETTEXT = xgettext
 WIDTH = 79
 
-srcs := $(wildcard ../*.py ../modals/*.py)
+srcs := $(wildcard ../*.py ../modals/*.py ../widgets/*.py)
 
 # make sure all external programs are available
 EXECUTABLES = xgettext msgfmt msgmerge awk touch

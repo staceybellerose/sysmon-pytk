@@ -17,7 +17,7 @@ if TYPE_CHECKING:
     from tkinter.font import Font
 
 
-class FontSettings:
+class FontSettings:  # pylint: disable=too-many-instance-attributes
     """
     Manage the fonts used in the application.
 

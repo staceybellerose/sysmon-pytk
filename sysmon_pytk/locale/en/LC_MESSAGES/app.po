@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sysmon-pytk 0.4.0\n"
 "Report-Msgid-Bugs-To: stacey.belle.rose@gmail.com\n"
-"POT-Creation-Date: 2024-03-21 21:56-0500\n"
-"PO-Revision-Date: 2024-03-21 21:56-0500\n"
+"POT-Creation-Date: 2024-03-22 02:55-0500\n"
+"PO-Revision-Date: 2024-03-22 02:55-0500\n"
 "Last-Translator: Stacey Adams <stacey.belle.rose@gmail.com>\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
@@ -30,123 +30,87 @@ msgstr ""
 "It also displays the system's hostname, IP address, uptime, and current "
 "process count."
 
-#: ../application.py:28 ../cli_monitor.py:197
+#: ../application.py:32 ../cli_monitor.py:203
 msgid "System Monitor"
 msgstr "System Monitor"
 
-#: ../application.py:94 ../cli_monitor.py:50
-msgid "CPU Usage"
-msgstr "CPU Usage"
-
-#: ../application.py:101
-msgid "Click for per-CPU usage"
-msgstr "Click for per-CPU usage"
-
-#: ../application.py:105 ../cli_monitor.py:58
-msgid "Temperature"
-msgstr "Temperature"
-
-#: ../application.py:111
-msgid "Click for detailed temperature readings"
-msgstr "Click for detailed temperature readings"
-
-#: ../application.py:115 ../cli_monitor.py:68
-msgid "RAM Usage"
-msgstr "RAM Usage"
-
-#: ../application.py:121
-msgid "Click for detailed memory statistics"
-msgstr "Click for detailed memory statistics"
-
-#: ../application.py:125
-msgid "Disk Usage: /"
-msgstr "Disk Usage: /"
-
-#: ../application.py:134
-msgid "Click for usage details of each mount point"
-msgstr "Click for usage details of each mount point"
-
-#: ../application.py:156
+#: ../application.py:126
 msgid "File"
 msgstr "File"
 
-#: ../application.py:159
+#: ../application.py:129
 msgid "About"
 msgstr "About"
 
-#: ../application.py:159
+#: ../application.py:129
 msgid "Ctrl+A"
 msgstr "Ctrl+A"
 
-#: ../application.py:162
+#: ../application.py:132
 msgid "Preferences"
 msgstr "Preferences"
 
-#: ../application.py:162
+#: ../application.py:132
 msgid "Ctrl+Shift+P"
 msgstr "Ctrl+Shift+P"
 
-#: ../application.py:165
+#: ../application.py:135
 msgid "Restart"
 msgstr "Restart"
 
-#: ../application.py:165
+#: ../application.py:135
 msgid "Ctrl+R"
 msgstr "Ctrl+R"
 
-#: ../application.py:169
+#: ../application.py:139
 msgid "Quit"
 msgstr "Quit"
 
-#: ../application.py:169
+#: ../application.py:139
 msgid "Ctrl+Q"
 msgstr "Ctrl+Q"
 
-#: ../application.py:224
-msgid "{} :: CPU Details"
-msgstr "{} :: CPU Details"
-
-#: ../application.py:233
-msgid "{} :: Temperature Details"
-msgstr "{} :: Temperature Details"
-
-#: ../application.py:242
-msgid "{} :: Memory Usage"
-msgstr "{} :: Memory Usage"
-
-#: ../application.py:251
-msgid "{} :: Disk Usage"
-msgstr "{} :: Disk Usage"
-
-#: ../application.py:260
+#: ../application.py:188
 msgid "{} Preferences"
 msgstr "{} Preferences"
 
-#: ../application.py:277 ../cli_monitor.py:200
+#: ../application.py:197 ../cli_monitor.py:206
 msgid "Hostname: {}"
 msgstr "Hostname: {}"
 
-#: ../application.py:278 ../cli_monitor.py:201
+#: ../application.py:198 ../cli_monitor.py:207
 msgid "IP Address: {}"
 msgstr "IP Address: {}"
 
-#: ../application.py:279 ../cli_monitor.py:202
+#: ../application.py:199 ../cli_monitor.py:208
 msgid "Processes: {}"
 msgstr "Processes: {}"
 
-#: ../application.py:280 ../cli_monitor.py:203
+#: ../application.py:200 ../cli_monitor.py:209
 msgid "Uptime: {}"
 msgstr "Uptime: {}"
+
+#: ../cli_monitor.py:50 ../widgets/meters.py:95
+msgid "CPU Usage"
+msgstr "CPU Usage"
+
+#: ../cli_monitor.py:58 ../widgets/meters.py:132
+msgid "Temperature"
+msgstr "Temperature"
+
+#: ../cli_monitor.py:68 ../widgets/meters.py:164
+msgid "RAM Usage"
+msgstr "RAM Usage"
 
 #: ../cli_monitor.py:78 ../modals/mem_usage_modal.py:63
 msgid "Swap Memory"
 msgstr "Swap Memory"
 
-#: ../cli_monitor.py:114 ../cli_monitor.py:154 ../modals/disk_usage_modal.py:59
+#: ../cli_monitor.py:114 ../cli_monitor.py:162 ../modals/disk_usage_modal.py:59
 msgid "Disk Usage"
 msgstr "Disk Usage"
 
-#: ../cli_monitor.py:131 ../cli_monitor.py:172
+#: ../cli_monitor.py:131 ../cli_monitor.py:179
 #: ../modals/temperature_modal.py:45
 msgid "Temperature Sensors"
 msgstr "Temperature Sensors"
@@ -156,16 +120,16 @@ msgstr "Temperature Sensors"
 msgid "{current}°C (high = {high}°C, critical = {critical}°C)"
 msgstr "{current}°C (high = {high}°C, critical = {critical}°C)"
 
-#: ../cli_monitor.py:216
+#: ../cli_monitor.py:222
 msgid "<Ctrl-C> to quit"
 msgstr "<Ctrl-C> to quit"
 
-#: ../cli_monitor.py:226
+#: ../cli_monitor.py:232
 msgid "System monitor: display CPU usage/temperature, memory usage, disk usage"
 msgstr ""
 "System monitor: display CPU usage/temperature, memory usage, disk usage"
 
-#: ../cli_monitor.py:229
+#: ../cli_monitor.py:235
 msgid ""
 "By default, this program will use the same language as that selected for the "
 "GUI application. To override it, use the '-l' option. To quit, press <Ctrl-"
@@ -175,44 +139,44 @@ msgstr ""
 "GUI application. To override it, use the '-l' option. To quit, press <Ctrl-"
 "C>."
 
-#: ../cli_monitor.py:236
+#: ../cli_monitor.py:242
 msgid "Options"
 msgstr "Options"
 
-#: ../cli_monitor.py:239
+#: ../cli_monitor.py:245
 msgid "show this help message and exit"
 msgstr "show this help message and exit"
 
-#: ../cli_monitor.py:244
+#: ../cli_monitor.py:250
 msgid "show program's version number and exit"
 msgstr "show program's version number and exit"
 
-#: ../cli_monitor.py:248
+#: ../cli_monitor.py:254
 #, python-format
 msgid "time between screen refreshes (in seconds, default=%(default)s)"
 msgstr "time between screen refreshes (in seconds, default=%(default)s)"
 
-#: ../cli_monitor.py:252
+#: ../cli_monitor.py:258
 msgid "the language to use for display"
 msgstr "the language to use for display"
 
-#: ../cli_monitor.py:254
+#: ../cli_monitor.py:260
 msgid "Display Details"
 msgstr "Display Details"
 
-#: ../cli_monitor.py:258
+#: ../cli_monitor.py:264
 msgid "show disk details (default)"
 msgstr "show disk details (default)"
 
-#: ../cli_monitor.py:262
+#: ../cli_monitor.py:268
 msgid "show temperature details"
 msgstr "show temperature details"
 
-#: ../cli_monitor.py:266
+#: ../cli_monitor.py:272
 msgid "show both disk and temperature details"
 msgstr "show both disk and temperature details"
 
-#: ../cli_monitor.py:270
+#: ../cli_monitor.py:276
 msgid "show no details, only the header"
 msgstr "show no details, only the header"
 
@@ -352,6 +316,39 @@ msgstr "Regular Font"
 msgid "Monospace Font"
 msgstr "Monospace Font"
 
-#: ../modals/settings_modal.py:176 ../modals/settings_modal.py:194
+#: ../modals/settings_modal.py:177 ../modals/settings_modal.py:196
 msgid "Select a font"
 msgstr "Select a font"
+
+#: ../widgets/meters.py:46
+msgid "Click for per-CPU usage"
+msgstr "Click for per-CPU usage"
+
+#: ../widgets/meters.py:117
+msgid "{} :: CPU Details"
+msgstr "{} :: CPU Details"
+
+#: ../widgets/meters.py:149
+msgid "{} :: Temperature Details"
+msgstr "{} :: Temperature Details"
+
+#: ../widgets/meters.py:180
+msgid "{} :: Memory Usage"
+msgstr "{} :: Memory Usage"
+
+#: ../widgets/meters.py:195
+msgid "Disk Usage: /"
+msgstr "Disk Usage: /"
+
+#: ../widgets/meters.py:211
+msgid "{} :: Disk Usage"
+msgstr "{} :: Disk Usage"
+
+#~ msgid "Click for detailed temperature readings"
+#~ msgstr "Click for detailed temperature readings"
+
+#~ msgid "Click for detailed memory statistics"
+#~ msgstr "Click for detailed memory statistics"
+
+#~ msgid "Click for usage details of each mount point"
+#~ msgstr "Click for usage details of each mount point"

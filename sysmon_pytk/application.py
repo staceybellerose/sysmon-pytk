@@ -10,25 +10,29 @@ from __future__ import annotations
 import sys
 import tkinter as tk
 from socket import gethostname
-from tkinter import Variable, font, ttk
+from tkinter import font, ttk
+from typing import TYPE_CHECKING
 
 import psutil
 
 from . import _common, about
 from .app_locale import get_translator, reload_translated_modules
 from .file_utils import get_full_path, settings_path
-from .modals import CpuDialog, DiskUsageDialog, MemUsageDialog, SettingsDialog, TempDetailsDialog
+from .modals import SettingsDialog
 from .modals.about_modal import AboutDialog, AboutMetadata, LicenseMetadata
 from .settings import Settings
 from .style_manager import StyleManager
-from .widgets import Meter, ToolTip
+from .widgets.meters import CpuMeter, DiskMeter, RamMeter, TempMeter
+
+if TYPE_CHECKING:
+    from tkinter import Variable
 
 _ = get_translator()
 
 APP_TITLE = _("System Monitor")
 
 
-class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
+class Application(tk.Tk):
     """
     System monitor application.
     """
@@ -44,16 +48,7 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         self._processes = tk.StringVar()
         self._update_job: str | None = None
         StyleManager.init_theme(self, self.settings)
-        frame = self._init_frame()
-        self._add_variable_label(frame, self._name, 1, 1)
-        self._add_variable_label(frame, self._ip_addr, 1, 2)
-        self._add_variable_label(frame, self._processes, 1, 3)
-        self._add_variable_label(frame, self._uptime, 1, 4)
-        self._add_cpu_meter(frame)
-        self._add_temp_meter(frame)
-        self._add_ram_meter(frame)
-        self._add_disk_meter(frame)
-        self._add_sizegrip(frame)
+        self.create_widgets()
         self.build_menu()
         self.bind_events()
         self.update()
@@ -67,16 +62,22 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         self.settings = Settings(settings_path())
         self.call("wm", "attributes", ".", "-topmost", f"{self.settings.always_on_top}")
 
-    def _init_frame(self) -> ttk.Frame:
+    def create_widgets(self) -> None:
+        """
+        Create the widgets to be displayed in the main application window.
+        """
         frame = ttk.Frame(self)
         frame.grid(sticky=tk.NSEW)
-        frame.rowconfigure(1, weight=1)
-        frame.rowconfigure(2, weight=1)
-        frame.columnconfigure(1, weight=1)
-        frame.columnconfigure(2, weight=1)
-        frame.columnconfigure(3, weight=1)
-        frame.columnconfigure(4, weight=1)
-        return frame
+        for row in [1, 2]:
+            frame.rowconfigure(row, weight=1)
+        for column in [1, 2, 3, 4]:
+            frame.columnconfigure(column, weight=1)
+        self._add_variable_label(frame, self._name, 1, 1)
+        self._add_variable_label(frame, self._ip_addr, 1, 2)
+        self._add_variable_label(frame, self._processes, 1, 3)
+        self._add_variable_label(frame, self._uptime, 1, 4)
+        self._add_meters(frame)
+        self._add_sizegrip(frame)
 
     @classmethod
     def _add_variable_label(
@@ -89,49 +90,18 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
             row=row, column=column, sticky=tk.NSEW, pady=(_common.INTERNAL_PAD, 0)
         )
 
-    def _add_cpu_meter(self, frame: ttk.Frame) -> None:
-        self._cpu_meter = Meter(
-            frame, width=220, height=165, unit="%", label=_("CPU Usage")
-        )
-        self._cpu_meter.grid(
+    def _add_meters(self, frame: ttk.Frame) -> None:
+        CpuMeter(frame, width=220, height=165).grid(
             row=2, column=1, sticky=tk.NSEW, pady=(_common.INTERNAL_PAD, 0)
         )
-        if psutil.cpu_count() > 1:
-            self._cpu_meter.configure(cursor="hand2")
-            ToolTip(self._cpu_meter, _("Click for per-CPU usage"))
-
-    def _add_temp_meter(self, frame: ttk.Frame) -> None:
-        self._temp_meter = Meter(
-            frame, width=220, height=165, unit="°C", blue=15, label=_("Temperature")
-        )
-        self._temp_meter.grid(
+        TempMeter(frame, width=220, height=165).grid(
             row=2, column=2, sticky=tk.NSEW, pady=(_common.INTERNAL_PAD, 0)
         )
-        self._temp_meter.configure(cursor="hand2")
-        ToolTip(self._temp_meter, _("Click for detailed temperature readings"))
-
-    def _add_ram_meter(self, frame: ttk.Frame) -> None:
-        self._ram_meter = Meter(
-            frame, width=220, height=165, unit="%", label=_("RAM Usage")
-        )
-        self._ram_meter.grid(
+        RamMeter(frame, width=220, height=165).grid(
             row=2, column=3, sticky=tk.NSEW, pady=(_common.INTERNAL_PAD, 0)
         )
-        self._ram_meter.configure(cursor="hand2")
-        ToolTip(self._ram_meter, _("Click for detailed memory statistics"))
-
-    def _add_disk_meter(self, frame: ttk.Frame) -> None:
-        self._disk_meter = Meter(
-            frame, width=220, height=165, unit="%", label=_("Disk Usage: /"),
-            red=100 - _common.DISK_ALERT_LEVEL,
-            yellow=_common.DISK_ALERT_LEVEL - _common.DISK_WARN_LEVEL
-        )
-        self._disk_meter.grid(
+        DiskMeter(frame, width=220, height=165).grid(
             row=2, column=4, sticky=tk.NSEW, pady=(_common.INTERNAL_PAD, 0)
-        )
-        self._disk_meter.configure(cursor="hand2")
-        ToolTip(
-            self._disk_meter, _("Click for usage details of each mount point")
         )
 
     @classmethod
@@ -166,15 +136,14 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         )
         file_menu.add_separator()
         file_menu.add_command(
-            label=_("Quit"), accelerator=_("Ctrl+Q"),
-            command=lambda: sys.exit(0)  # type: ignore[arg-type, misc]
+            label=_("Quit"), accelerator=_("Ctrl+Q"), command=lambda: sys.exit(0)
         )
         top["menu"] = menu_bar
         # bind keypress events for menu here
         self.bind("<Control-KeyPress-a>", self._on_about)
         self.bind("<Control-Shift-KeyPress-P>", self._on_settings)
         self.bind("<Control-KeyPress-r>", self._on_restart)
-        self.bind("<Control-KeyPress-q>", lambda _x: sys.exit(0))  # type: ignore[arg-type, misc]
+        self.bind("<Control-KeyPress-q>", lambda _x: sys.exit(0))
 
     def bind_events(self) -> None:
         """
@@ -183,11 +152,6 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         self.bind("<<SettingsChanged>>", self.read_settings)
         self.bind("<<LanguageChanged>>", self._on_language)
         self.bind("<<FontChanged>>", self._on_restart)
-        if psutil.cpu_count() > 1:
-            self._cpu_meter.bind("<Button-1>", self._on_cpu_details)
-        self._temp_meter.bind("<Button-1>", self._on_temp_details)
-        self._ram_meter.bind("<Button-1>", self._on_mem_details)
-        self._disk_meter.bind("<Button-1>", self._on_disk_usage)
 
     def _on_language(self, *_args) -> None:
         """
@@ -216,42 +180,6 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         self.destroy()
         self.__init__()  # type: ignore[misc] # pylint: disable=unnecessary-dunder-call
 
-    def _on_cpu_details(self, *_args) -> None:
-        """
-        Open CPU Details.
-        """
-        CpuDialog(
-            self, title=_("{} :: CPU Details").format(APP_TITLE),
-            iconpath=get_full_path("images/icon.png")
-        )
-
-    def _on_temp_details(self, *_args) -> None:
-        """
-        Open Temperature Details.
-        """
-        TempDetailsDialog(
-            self, title=_("{} :: Temperature Details").format(APP_TITLE),
-            iconpath=get_full_path("images/icon.png")
-        )
-
-    def _on_mem_details(self, *_args) -> None:
-        """
-        Open Memory Usage.
-        """
-        MemUsageDialog(
-            self, title=_("{} :: Memory Usage").format(APP_TITLE),
-            iconpath=get_full_path("images/icon.png")
-        )
-
-    def _on_disk_usage(self, *_args) -> None:
-        """
-        Open Disk Usage.
-        """
-        DiskUsageDialog(
-            self, title=_("{} :: Disk Usage").format(APP_TITLE),
-            iconpath=get_full_path("images/icon.png")
-        )
-
     def _on_settings(self, *_args) -> None:
         """
         Open Settings and process any changes afterward.
@@ -261,19 +189,11 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
             iconpath=get_full_path("images/icon.png")
         )
         StyleManager.update_by_dark_mode(self, self.settings)
-        self._cpu_meter.update_for_dark_mode()
-        self._temp_meter.update_for_dark_mode()
-        self._ram_meter.update_for_dark_mode()
-        self._disk_meter.update_for_dark_mode()
 
     def update_screen(self) -> None:
         """
         Update the screen.
         """
-        self._cpu_meter.set_value(psutil.cpu_percent(interval=None))
-        self._temp_meter.set_value(_common.cpu_temp())
-        self._ram_meter.set_value(psutil.virtual_memory().percent)
-        self._disk_meter.set_value(psutil.disk_usage("/").percent)
         self._name.set(_("Hostname: {}").format(gethostname()))
         self._ip_addr.set(_("IP Address: {}").format(_common.net_addr()))
         self._processes.set(_("Processes: {}").format(len(psutil.pids())))

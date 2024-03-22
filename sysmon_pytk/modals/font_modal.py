@@ -55,7 +55,7 @@ class FontChooser(ModalDialog):
     PREVIEW_TEXT = "AaÁáÅåCcÇçNnÑñSsẞßUuÜü 0123456789"
 
     def __init__(
-        self, parent: Misc | None = None,
+        self, parent: Misc | None = None, *,
         current_font: FontDescription | None = None,
         iconpath: str | None = None
     ) -> None:
@@ -98,7 +98,7 @@ class FontChooser(ModalDialog):
         self.fontstyle.trace_add("write", self._update_preview)
         self.underline.trace_add("write", self._update_preview)
         self.overstrike.trace_add("write", self._update_preview)
-        super().__init__(parent, title, iconpath, class_="FontChooser")
+        super().__init__(parent, title=title, iconpath=iconpath, class_="FontChooser")
 
     def update_screen(self) -> None:
         """

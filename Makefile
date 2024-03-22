@@ -148,7 +148,7 @@ clean:  ## Clean up the project folders
 > rm -rf __pycache__
 > rm -rf dist
 > rm -rf sysmon_pytk.egg-info
-> $(MAKE) -C locale clean
+> $(MAKE) -C sysmon_pytk/locale clean
 
 ##@ Helpers
 

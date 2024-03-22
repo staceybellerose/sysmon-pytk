@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sysmon-pytk 0.4.0\n"
 "Report-Msgid-Bugs-To: stacey.belle.rose@gmail.com\n"
-"POT-Creation-Date: 2024-03-21 21:56-0500\n"
-"PO-Revision-Date: 2024-03-21 21:56-0500\n"
+"POT-Creation-Date: 2024-03-22 02:55-0500\n"
+"PO-Revision-Date: 2024-03-22 02:55-0500\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/sysmon-"
 "pytk/sysmon-pytk/nb_NO/>\n"
@@ -34,123 +34,87 @@ msgstr ""
 "partisjonen). Verktøyet viser også systemets vertsnavn, IP-adresse, oppetid, "
 "og nåværende prosessantall."
 
-#: ../application.py:28 ../cli_monitor.py:197
+#: ../application.py:32 ../cli_monitor.py:203
 msgid "System Monitor"
 msgstr "Systemmonitor"
 
-#: ../application.py:94 ../cli_monitor.py:50
-msgid "CPU Usage"
-msgstr "Prosessorbruk"
-
-#: ../application.py:101
-msgid "Click for per-CPU usage"
-msgstr "Klikk for bruk per prosessor"
-
-#: ../application.py:105 ../cli_monitor.py:58
-msgid "Temperature"
-msgstr "Temperatur"
-
-#: ../application.py:111
-msgid "Click for detailed temperature readings"
-msgstr "Klikk for detaljerte temperaturavlesninger"
-
-#: ../application.py:115 ../cli_monitor.py:68
-msgid "RAM Usage"
-msgstr "Minnebruk"
-
-#: ../application.py:121
-msgid "Click for detailed memory statistics"
-msgstr "Klikk for detaljert minnestatistikk"
-
-#: ../application.py:125
-msgid "Disk Usage: /"
-msgstr "Diskbruk: /"
-
-#: ../application.py:134
-msgid "Click for usage details of each mount point"
-msgstr "Klikk for detaljert for hvert monteringspunkt"
-
-#: ../application.py:156
+#: ../application.py:126
 msgid "File"
 msgstr "Fil"
 
-#: ../application.py:159
+#: ../application.py:129
 msgid "About"
 msgstr "Om"
 
-#: ../application.py:159
+#: ../application.py:129
 msgid "Ctrl+A"
 msgstr "Ctrl+A"
 
-#: ../application.py:162
+#: ../application.py:132
 msgid "Preferences"
 msgstr "Innstillinger"
 
-#: ../application.py:162
+#: ../application.py:132
 msgid "Ctrl+Shift+P"
 msgstr "Ctrl+Shift+P"
 
-#: ../application.py:165
+#: ../application.py:135
 msgid "Restart"
 msgstr "Omstart"
 
-#: ../application.py:165
+#: ../application.py:135
 msgid "Ctrl+R"
 msgstr "Ctrl+R"
 
-#: ../application.py:169
+#: ../application.py:139
 msgid "Quit"
 msgstr "Avslutt"
 
-#: ../application.py:169
+#: ../application.py:139
 msgid "Ctrl+Q"
 msgstr "Ctrl+Q"
 
-#: ../application.py:224
-msgid "{} :: CPU Details"
-msgstr "{} :: Prosessordetaljer"
-
-#: ../application.py:233
-msgid "{} :: Temperature Details"
-msgstr "{} :: Temperaturdetaljer"
-
-#: ../application.py:242
-msgid "{} :: Memory Usage"
-msgstr "{} :: Minnebruk"
-
-#: ../application.py:251
-msgid "{} :: Disk Usage"
-msgstr "{} :: Diskbruk"
-
-#: ../application.py:260
+#: ../application.py:188
 msgid "{} Preferences"
 msgstr "{} Innstillinger"
 
-#: ../application.py:277 ../cli_monitor.py:200
+#: ../application.py:197 ../cli_monitor.py:206
 msgid "Hostname: {}"
 msgstr "Vertsnavn: {}"
 
-#: ../application.py:278 ../cli_monitor.py:201
+#: ../application.py:198 ../cli_monitor.py:207
 msgid "IP Address: {}"
 msgstr "IP-adresse: {}"
 
-#: ../application.py:279 ../cli_monitor.py:202
+#: ../application.py:199 ../cli_monitor.py:208
 msgid "Processes: {}"
 msgstr "Prosesser: {}"
 
-#: ../application.py:280 ../cli_monitor.py:203
+#: ../application.py:200 ../cli_monitor.py:209
 msgid "Uptime: {}"
 msgstr "Oppetid: {}"
+
+#: ../cli_monitor.py:50 ../widgets/meters.py:95
+msgid "CPU Usage"
+msgstr "Prosessorbruk"
+
+#: ../cli_monitor.py:58 ../widgets/meters.py:132
+msgid "Temperature"
+msgstr "Temperatur"
+
+#: ../cli_monitor.py:68 ../widgets/meters.py:164
+msgid "RAM Usage"
+msgstr "Minnebruk"
 
 #: ../cli_monitor.py:78 ../modals/mem_usage_modal.py:63
 msgid "Swap Memory"
 msgstr "Sidevekslingsfil"
 
-#: ../cli_monitor.py:114 ../cli_monitor.py:154 ../modals/disk_usage_modal.py:59
+#: ../cli_monitor.py:114 ../cli_monitor.py:162 ../modals/disk_usage_modal.py:59
 msgid "Disk Usage"
 msgstr "Diskbruk"
 
-#: ../cli_monitor.py:131 ../cli_monitor.py:172
+#: ../cli_monitor.py:131 ../cli_monitor.py:179
 #: ../modals/temperature_modal.py:45
 msgid "Temperature Sensors"
 msgstr "Temperatursensorer"
@@ -160,15 +124,15 @@ msgstr "Temperatursensorer"
 msgid "{current}°C (high = {high}°C, critical = {critical}°C)"
 msgstr "{current}°C (høy = {high}°C, kritisk = {critical}°C)"
 
-#: ../cli_monitor.py:216
+#: ../cli_monitor.py:222
 msgid "<Ctrl-C> to quit"
 msgstr "<Ctrl-C> for å avslutte"
 
-#: ../cli_monitor.py:226
+#: ../cli_monitor.py:232
 msgid "System monitor: display CPU usage/temperature, memory usage, disk usage"
 msgstr "Systemmonitor: Vis CPU-bruk/temperatur, minnebruk, diskbruk"
 
-#: ../cli_monitor.py:229
+#: ../cli_monitor.py:235
 msgid ""
 "By default, this program will use the same language as that selected for the "
 "GUI application. To override it, use the '-l' option. To quit, press <Ctrl-"
@@ -178,44 +142,44 @@ msgstr ""
 "GUI-applikasjonen. For å overstyre det, bruk alternativet '-l'. For å "
 "avslutte, trykk <Ctrl-C>."
 
-#: ../cli_monitor.py:236
+#: ../cli_monitor.py:242
 msgid "Options"
 msgstr "Valg"
 
-#: ../cli_monitor.py:239
+#: ../cli_monitor.py:245
 msgid "show this help message and exit"
 msgstr "vis denne hjelpemeldingen og avslutt"
 
-#: ../cli_monitor.py:244
+#: ../cli_monitor.py:250
 msgid "show program's version number and exit"
 msgstr "vis programmets versjonsnummer og avslutt"
 
-#: ../cli_monitor.py:248
+#: ../cli_monitor.py:254
 #, python-format
 msgid "time between screen refreshes (in seconds, default=%(default)s)"
 msgstr "tid mellom skjermoppdateringer (i sekunder, standard=%(default)s)"
 
-#: ../cli_monitor.py:252
+#: ../cli_monitor.py:258
 msgid "the language to use for display"
 msgstr "språket som skal brukes for visning"
 
-#: ../cli_monitor.py:254
+#: ../cli_monitor.py:260
 msgid "Display Details"
 msgstr "Skjermdetaljene"
 
-#: ../cli_monitor.py:258
+#: ../cli_monitor.py:264
 msgid "show disk details (default)"
 msgstr "vis diskdetaljer (standard)"
 
-#: ../cli_monitor.py:262
+#: ../cli_monitor.py:268
 msgid "show temperature details"
 msgstr "vis temperaturdetaljer"
 
-#: ../cli_monitor.py:266
+#: ../cli_monitor.py:272
 msgid "show both disk and temperature details"
 msgstr "vis både disk- og temperaturdetaljer"
 
-#: ../cli_monitor.py:270
+#: ../cli_monitor.py:276
 msgid "show no details, only the header"
 msgstr "vis ingen detaljer, bare overskriften"
 
@@ -355,6 +319,39 @@ msgstr "Vanlig skrift"
 msgid "Monospace Font"
 msgstr "Fastbreddeskrift"
 
-#: ../modals/settings_modal.py:176 ../modals/settings_modal.py:194
+#: ../modals/settings_modal.py:177 ../modals/settings_modal.py:196
 msgid "Select a font"
 msgstr "Velg en skrift"
+
+#: ../widgets/meters.py:46
+msgid "Click for per-CPU usage"
+msgstr "Klikk for bruk per prosessor"
+
+#: ../widgets/meters.py:117
+msgid "{} :: CPU Details"
+msgstr "{} :: Prosessordetaljer"
+
+#: ../widgets/meters.py:149
+msgid "{} :: Temperature Details"
+msgstr "{} :: Temperaturdetaljer"
+
+#: ../widgets/meters.py:180
+msgid "{} :: Memory Usage"
+msgstr "{} :: Minnebruk"
+
+#: ../widgets/meters.py:195
+msgid "Disk Usage: /"
+msgstr "Diskbruk: /"
+
+#: ../widgets/meters.py:211
+msgid "{} :: Disk Usage"
+msgstr "{} :: Diskbruk"
+
+#~ msgid "Click for detailed temperature readings"
+#~ msgstr "Klikk for detaljerte temperaturavlesninger"
+
+#~ msgid "Click for detailed memory statistics"
+#~ msgstr "Klikk for detaljert minnestatistikk"
+
+#~ msgid "Click for usage details of each mount point"
+#~ msgstr "Klikk for detaljert for hvert monteringspunkt"

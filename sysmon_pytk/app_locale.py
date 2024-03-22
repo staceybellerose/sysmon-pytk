@@ -37,18 +37,7 @@ def get_translator(
     """
     Load the selected translation.
     """
-    if forced_lang:
-        current_lang = forced_lang
-    else:
-        current_lang = "en"
-        try:
-            _filename = settings_path()
-            _config = ConfigParser()
-            _config.read(_filename)
-            if "general" in _config.sections():
-                current_lang = _config["general"].get("language", fallback="en")
-        except Error:
-            pass
+    current_lang = forced_lang if forced_lang else _get_lang_from_config()
     frm = inspect.stack()[1]  # get caller
     mod = inspect.getmodule(frm.frame)
     if mod not in TRANSLATED_MODULES:
@@ -67,3 +56,16 @@ def reload_translated_modules() -> None:
     """
     for mod in TRANSLATED_MODULES:
         importlib.reload(mod)
+
+
+def _get_lang_from_config() -> str:
+    current_lang = "en"
+    try:
+        _filename = settings_path()
+        _config = ConfigParser()
+        _config.read(_filename)
+        if "general" in _config.sections():
+            current_lang = _config["general"].get("language", fallback="en")
+    except Error:
+        pass
+    return current_lang

@@ -163,7 +163,8 @@ class SettingsDialog(ModalDialog):
         Show a font chooser dialog.
         """
         chooser = FontChooser(
-            self.parent, self.settings.regular_font.get_full_font(), self.iconpath
+            self.parent, current_font=self.settings.regular_font.get_full_font(),
+            iconpath=self.iconpath
         )
         chosen_font = chooser.get_font()
         if chosen_font:
@@ -181,7 +182,8 @@ class SettingsDialog(ModalDialog):
         Show a font chooser dialog.
         """
         chooser = FontChooser(
-            self.parent, self.settings.fixed_font.get_full_font(), self.iconpath
+            self.parent, current_font=self.settings.fixed_font.get_full_font(),
+            iconpath=self.iconpath
         )
         chosen_font = chooser.get_font()
         if chosen_font:

@@ -133,11 +133,11 @@ def _temp_details(*, starting_line: int) -> None:
     temps = psutil.sensors_temperatures()
     line = starting_line + 1
     for name, entries in temps.items():
+        if line + len(entries) + 1 > term.height:
+            break
         print(term.move(line, 0) + " " + term.magenta + name + term.normal + term.el)
         line += 1
         for entry in entries:
-            if line > term.height:
-                break
             tag = (entry.label or name).ljust(20) + " "
             display = _("{current}°C (high = {high}°C, critical = {critical}°C)").format(
                 current=entry.current, high=entry.high, critical=entry.critical
@@ -145,6 +145,14 @@ def _temp_details(*, starting_line: int) -> None:
             print(term.move(line, 0) + " "*10 + tag + display + term.el)
             line += 1
     print(term.clear_eos)
+
+
+def blank_below_line(line: int, start_col: int, width: int) -> None:
+    """
+    Blank a rectangular section of the screen with spaces.
+    """
+    for row in range(line, term.height-1):
+        print(term.move(row, start_col) + " "*width)
 
 
 def _disk_details_half(*, starting_line: int) -> None:
@@ -161,8 +169,7 @@ def _disk_details_half(*, starting_line: int) -> None:
         mountpoint = part.mountpoint
         print(term.move(line, 1) + mountpoint.ljust(allowed_width))
         print(term.move(line + 1, 1) + _disk_usage_rjust(mountpoint, allowed_width))
-    for row in range(2*len(partitions) + starting_line + 1, term.height-1):
-        print(term.move(row, 1) + " "*(allowed_width))
+    blank_below_line(2*len(partitions) + starting_line + 1, 1, allowed_width)
 
 
 def _temp_details_half(*, starting_line: int) -> None:
@@ -174,11 +181,11 @@ def _temp_details_half(*, starting_line: int) -> None:
     temps = psutil.sensors_temperatures()
     line = starting_line + 1
     for name, entries in temps.items():
+        if line + len(entries) + 1 > term.height:
+            break
         print(term.move(line, start_col) + term.magenta + name + term.normal + term.el)
         line += 1
         for entry in entries:
-            if line > term.height:
-                break
             label_width = term.width//2 - 7
             print(
                 term.move(line, start_col) + " "*5
@@ -186,8 +193,7 @@ def _temp_details_half(*, starting_line: int) -> None:
             )
             print(term.move(line, term.width-11) + f"{entry.current}°C".rjust(10))
             line += 1
-    for row in range(line, term.height-1):
-        print(term.move(row, start_col) + " "*(term.width-start_col))
+    blank_below_line(line, start_col, term.width-start_col)
 
 
 def monitor_system(args: argparse.Namespace) -> NoReturn:

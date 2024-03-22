@@ -48,7 +48,7 @@ class ModalDialog(tk.Toplevel, metaclass=ABCMeta):
     """
 
     def __init__(
-        self, parent: Misc | None = None, title: str | None = None,
+        self, parent: Misc | None = None, *, title: str | None = None,
         iconpath: str | None = None, class_: str = "ModalDialog"
     ) -> None:
         """
