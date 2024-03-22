@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: sysmon-pytk 0.3.2\n"
+"Project-Id-Version: sysmon-pytk 0.4.0\n"
 "Report-Msgid-Bugs-To: stacey.belle.rose@gmail.com\n"
-"POT-Creation-Date: 2024-03-20 19:30-0500\n"
-"PO-Revision-Date: 2024-03-20 19:30-0500\n"
+"POT-Creation-Date: 2024-03-21 15:13-0500\n"
+"PO-Revision-Date: 2024-03-21 15:13-0500\n"
 "Last-Translator: Alisyn Arness\n"
 "Language-Team: German <https://hosted.weblate.org/projects/sysmon-pytk/"
 "sysmon-pytk/de/>\n"
@@ -35,11 +35,11 @@ msgstr ""
 "die IP-Adresse, die Betriebszeit und die aktuelle Prozessanzahl des Systems "
 "angezeigt."
 
-#: ../application.py:28
+#: ../application.py:28 ../cli_monitor.py:194
 msgid "System Monitor"
 msgstr "Systemmonitor"
 
-#: ../application.py:94
+#: ../application.py:94 ../cli_monitor.py:47
 msgid "CPU Usage"
 msgstr "CPU-Auslastung"
 
@@ -47,7 +47,7 @@ msgstr "CPU-Auslastung"
 msgid "Click for per-CPU usage"
 msgstr "Klicken Sie hier, um die Nutzung pro CPU anzuzeigen"
 
-#: ../application.py:105
+#: ../application.py:105 ../cli_monitor.py:55
 msgid "Temperature"
 msgstr "Temperatur"
 
@@ -55,7 +55,7 @@ msgstr "Temperatur"
 msgid "Click for detailed temperature readings"
 msgstr "Klicken Sie hier, um detaillierte Temperaturmessungen anzuzeigen"
 
-#: ../application.py:115
+#: ../application.py:115 ../cli_monitor.py:65
 msgid "RAM Usage"
 msgstr "RAM-Auslastung"
 
@@ -128,21 +128,101 @@ msgstr "{} :: Plattenauslastung"
 msgid "{} Preferences"
 msgstr "{} Einstellungen"
 
-#: ../application.py:277
+#: ../application.py:277 ../cli_monitor.py:197
 msgid "Hostname: {}"
 msgstr "Hostname : {}"
 
-#: ../application.py:278
+#: ../application.py:278 ../cli_monitor.py:198
 msgid "IP Address: {}"
 msgstr "IP-Adresse: {}"
 
-#: ../application.py:279
+#: ../application.py:279 ../cli_monitor.py:199
 msgid "Processes: {}"
 msgstr "Prozesse: {}"
 
-#: ../application.py:280
+#: ../application.py:280 ../cli_monitor.py:200
 msgid "Uptime: {}"
 msgstr "Betriebszeit: {}"
+
+#: ../cli_monitor.py:75 ../modals/mem_usage_modal.py:63
+msgid "Swap Memory"
+msgstr "Speicher Austauschen"
+
+#: ../cli_monitor.py:111 ../cli_monitor.py:151 ../modals/disk_usage_modal.py:59
+msgid "Disk Usage"
+msgstr "Plattenauslastung"
+
+#: ../cli_monitor.py:128 ../cli_monitor.py:169
+#: ../modals/temperature_modal.py:45
+msgid "Temperature Sensors"
+msgstr "Wärmesensoren"
+
+#: ../cli_monitor.py:139 ../modals/temperature_modal.py:103
+#, python-brace-format
+msgid "{current}°C (high = {high}°C, critical = {critical}°C)"
+msgstr "{current}°C (höchste = {high}°C, kritischer = {critical}°C)"
+
+#: ../cli_monitor.py:213
+msgid "<Ctrl-C> to quit"
+msgstr "<Strg-C> zum Beenden"
+
+#: ../cli_monitor.py:223
+msgid "System monitor: display CPU usage/temperature, memory usage, disk usage"
+msgstr ""
+"Systemmonitor: Zeigt CPU-Auslastung/-Temperatur, Speichernutzung und "
+"Festplattennutzung an"
+
+#: ../cli_monitor.py:226
+msgid ""
+"By default, this program will use the same language as that selected for the "
+"GUI application. To override it, use the '-l' option. To quit, press <Ctrl-"
+"C>."
+msgstr ""
+"Standardmäßig verwendet dieses Programm dieselbe Sprache wie die für die "
+"GUI-Anwendung ausgewählte Sprache. Um es zu überschreiben, verwenden Sie die "
+"Option „-l“. Zum Beenden drücken Sie <Strg-C>."
+
+#: ../cli_monitor.py:233
+msgid "Options"
+msgstr "Optionen"
+
+#: ../cli_monitor.py:236
+msgid "show this help message and exit"
+msgstr "diese Meldung anzeigen und beenden"
+
+#: ../cli_monitor.py:241
+msgid "show program's version number and exit"
+msgstr "Versionsnummer der Anwendung anzeigen und beenden"
+
+#: ../cli_monitor.py:245
+#, python-format
+msgid "time between screen refreshes (in seconds, default=%(default)s)"
+msgstr ""
+"Zeit zwischen Bildschirmaktualisierungen (in Sekunden, Standard=%(default)s)"
+
+#: ../cli_monitor.py:249
+msgid "the language to use for display"
+msgstr "die Sprache, die für die Anzeige verwendet werden soll"
+
+#: ../cli_monitor.py:251
+msgid "Display Details"
+msgstr "Anzeigedetails"
+
+#: ../cli_monitor.py:255
+msgid "show disk details (default)"
+msgstr "Festplattendetails anzeigen (Standard)"
+
+#: ../cli_monitor.py:259
+msgid "show temperature details"
+msgstr "Temperaturdetails anzeigen"
+
+#: ../cli_monitor.py:263
+msgid "show both disk and temperature details"
+msgstr "Zeigt sowohl Festplattendetails als auch Temperaturdetails an"
+
+#: ../cli_monitor.py:267
+msgid "show no details, only the header"
+msgstr "Keine Details anzeigen, nur die Kopfzeile"
 
 #: ../font_utils.py:74 ../modals/font_modal.py:171
 msgid "Bold"
@@ -204,10 +284,6 @@ msgstr "CPU-Frequenz pro Kern (in MHz)"
 msgid "CPU #{}"
 msgstr "CPU #{}"
 
-#: ../modals/disk_usage_modal.py:59
-msgid "Disk Usage"
-msgstr "Plattenauslastung"
-
 #: ../modals/font_modal.py:74
 msgid "Choose Font"
 msgstr "Schriftart wählen"
@@ -252,10 +328,6 @@ msgstr "Speicherstatistik"
 msgid "Virtual Memory"
 msgstr "Virtueller Speicher"
 
-#: ../modals/mem_usage_modal.py:63
-msgid "Swap Memory"
-msgstr "Speicher Austauschen"
-
 #: ../modals/settings_modal.py:28
 msgid "Light"
 msgstr "Licht"
@@ -291,12 +363,3 @@ msgstr "Dicktengleiche Schrift"
 #: ../modals/settings_modal.py:176 ../modals/settings_modal.py:194
 msgid "Select a font"
 msgstr "Schriftart auswählen"
-
-#: ../modals/temperature_modal.py:45
-msgid "Temperature Sensors"
-msgstr "Wärmesensoren"
-
-#: ../modals/temperature_modal.py:103
-#, python-brace-format
-msgid "{current}°C (high = {high}°C, critical = {critical}°C)"
-msgstr "{current}°C (höchste = {high}°C, kritischer = {critical}°C)"

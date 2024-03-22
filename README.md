@@ -50,7 +50,7 @@ Download the wheel file from the latest release, then install it. Once a PyPI
 account can be set up, the program will be downloadable from there.
 
 ```bash
-pip install sysmon_pytk-0.3.2-py3-none-any.whl
+pip install sysmon_pytk-0.4.0-py3-none-any.whl
 ```
 
 Two versions of the program will be installed, a GUI program and a command line
@@ -76,6 +76,12 @@ which must be copied over:
 
 ```bash
 git clone --recurse-submodules https://github.com/staceybellerose/sysmon-pytk.git
+```
+
+If you didn't clone the submodule when cloning this repo, run this to update:
+
+```bash
+git submodule update --init --recursive
 ```
 
 ### Install the required python packages

@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: sysmon-pytk 0.3.2\n"
+"Project-Id-Version: sysmon-pytk 0.4.0\n"
 "Report-Msgid-Bugs-To: stacey.belle.rose@gmail.com\n"
-"POT-Creation-Date: 2024-03-20 19:30-0500\n"
+"POT-Creation-Date: 2024-03-21 15:13-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,11 +29,11 @@ msgid ""
 "process count."
 msgstr ""
 
-#: ../application.py:28
+#: ../application.py:28 ../cli_monitor.py:194
 msgid "System Monitor"
 msgstr ""
 
-#: ../application.py:94
+#: ../application.py:94 ../cli_monitor.py:47
 msgid "CPU Usage"
 msgstr ""
 
@@ -41,7 +41,7 @@ msgstr ""
 msgid "Click for per-CPU usage"
 msgstr ""
 
-#: ../application.py:105
+#: ../application.py:105 ../cli_monitor.py:55
 msgid "Temperature"
 msgstr ""
 
@@ -49,7 +49,7 @@ msgstr ""
 msgid "Click for detailed temperature readings"
 msgstr ""
 
-#: ../application.py:115
+#: ../application.py:115 ../cli_monitor.py:65
 msgid "RAM Usage"
 msgstr ""
 
@@ -121,20 +121,94 @@ msgstr ""
 msgid "{} Preferences"
 msgstr ""
 
-#: ../application.py:277
+#: ../application.py:277 ../cli_monitor.py:197
 msgid "Hostname: {}"
 msgstr ""
 
-#: ../application.py:278
+#: ../application.py:278 ../cli_monitor.py:198
 msgid "IP Address: {}"
 msgstr ""
 
-#: ../application.py:279
+#: ../application.py:279 ../cli_monitor.py:199
 msgid "Processes: {}"
 msgstr ""
 
-#: ../application.py:280
+#: ../application.py:280 ../cli_monitor.py:200
 msgid "Uptime: {}"
+msgstr ""
+
+#: ../cli_monitor.py:75 ../modals/mem_usage_modal.py:63
+msgid "Swap Memory"
+msgstr ""
+
+#: ../cli_monitor.py:111 ../cli_monitor.py:151 ../modals/disk_usage_modal.py:59
+msgid "Disk Usage"
+msgstr ""
+
+#: ../cli_monitor.py:128 ../cli_monitor.py:169
+#: ../modals/temperature_modal.py:45
+msgid "Temperature Sensors"
+msgstr ""
+
+#: ../cli_monitor.py:139 ../modals/temperature_modal.py:103
+#, python-brace-format
+msgid "{current}°C (high = {high}°C, critical = {critical}°C)"
+msgstr ""
+
+#: ../cli_monitor.py:213
+msgid "<Ctrl-C> to quit"
+msgstr ""
+
+#: ../cli_monitor.py:223
+msgid "System monitor: display CPU usage/temperature, memory usage, disk usage"
+msgstr ""
+
+#: ../cli_monitor.py:226
+msgid ""
+"By default, this program will use the same language as that selected for the "
+"GUI application. To override it, use the '-l' option. To quit, press <Ctrl-"
+"C>."
+msgstr ""
+
+#: ../cli_monitor.py:233
+msgid "Options"
+msgstr ""
+
+#: ../cli_monitor.py:236
+msgid "show this help message and exit"
+msgstr ""
+
+#: ../cli_monitor.py:241
+msgid "show program's version number and exit"
+msgstr ""
+
+#: ../cli_monitor.py:245
+#, python-format
+msgid "time between screen refreshes (in seconds, default=%(default)s)"
+msgstr ""
+
+#: ../cli_monitor.py:249
+msgid "the language to use for display"
+msgstr ""
+
+#: ../cli_monitor.py:251
+msgid "Display Details"
+msgstr ""
+
+#: ../cli_monitor.py:255
+msgid "show disk details (default)"
+msgstr ""
+
+#: ../cli_monitor.py:259
+msgid "show temperature details"
+msgstr ""
+
+#: ../cli_monitor.py:263
+msgid "show both disk and temperature details"
+msgstr ""
+
+#: ../cli_monitor.py:267
+msgid "show no details, only the header"
 msgstr ""
 
 #: ../font_utils.py:74 ../modals/font_modal.py:171
@@ -197,10 +271,6 @@ msgstr ""
 msgid "CPU #{}"
 msgstr ""
 
-#: ../modals/disk_usage_modal.py:59
-msgid "Disk Usage"
-msgstr ""
-
 #: ../modals/font_modal.py:74
 msgid "Choose Font"
 msgstr ""
@@ -245,10 +315,6 @@ msgstr ""
 msgid "Virtual Memory"
 msgstr ""
 
-#: ../modals/mem_usage_modal.py:63
-msgid "Swap Memory"
-msgstr ""
-
 #: ../modals/settings_modal.py:28
 msgid "Light"
 msgstr ""
@@ -283,13 +349,4 @@ msgstr ""
 
 #: ../modals/settings_modal.py:176 ../modals/settings_modal.py:194
 msgid "Select a font"
-msgstr ""
-
-#: ../modals/temperature_modal.py:45
-msgid "Temperature Sensors"
-msgstr ""
-
-#: ../modals/temperature_modal.py:103
-#, python-brace-format
-msgid "{current}°C (high = {high}°C, critical = {critical}°C)"
 msgstr ""

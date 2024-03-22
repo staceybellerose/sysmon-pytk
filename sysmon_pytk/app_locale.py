@@ -12,9 +12,12 @@ import importlib
 import inspect
 from configparser import ConfigParser, Error
 from pathlib import Path
-from typing import Callable
+from typing import TYPE_CHECKING
 
 from .file_utils import settings_path
+
+if TYPE_CHECKING:
+    from .callables import GettextCallable
 
 LANGUAGES = {
     "English": "en",
@@ -28,7 +31,9 @@ __i18n_domain__ = "app"
 TRANSLATED_MODULES: list = []
 
 
-def get_translator(forced_lang: str | None = None) -> Callable[[str], str]:
+def get_translator(
+    *, forced_lang: str | None = None, domain: str = __i18n_domain__
+) -> GettextCallable:
     """
     Load the selected translation.
     """
@@ -51,7 +56,7 @@ def get_translator(forced_lang: str | None = None) -> Callable[[str], str]:
         TRANSLATED_MODULES.sort(key=lambda x: x.__name__)
     _localedir = Path.resolve(Path(__file__).parent) / "locale"
     translation = gettext.translation(
-        __i18n_domain__, _localedir, fallback=True, languages=[current_lang]
+        domain, _localedir, fallback=True, languages=[current_lang]
     )
     return translation.gettext
 

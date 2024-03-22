@@ -30,6 +30,7 @@ classifiers = [
 ]
 keywords = ["system monitor"]
 dependencies = [
+    "blessings >= 1.7",
     "darkdetect==0.8.0",
     "psutil >= 5.8.0, < 6.0",
 ]
@@ -93,6 +94,7 @@ ignore = [
     "PLR0913", # too many arguments in function definition (they're used in tkinter-derived classes)
     "COM", # flake8-commas (trailing commas)
     "TID", # flake8-tidy-imports (relative imports)
+    "TD", # flake8-todos (structured todo messages)
     "ERA", # eradicate (commented-out code)
 ]
 

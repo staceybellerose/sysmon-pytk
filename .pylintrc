@@ -3,6 +3,7 @@
 
 [MASTER]
 ignore-paths=^venv/.*$,^azure/.*$,^mypy/.*$
+ignore-patterns=.*.pyi
 recursive=y
 
 [FORMAT]

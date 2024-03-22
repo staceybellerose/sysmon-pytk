@@ -23,6 +23,9 @@ AUTHOR_EMAIL = $(shell awk '$$0 ~ "^__author_email__" { gsub(/"/, ""); print $$2
 COPYRIGHT_HOLDER = $(AUTHOR) <$(AUTHOR_EMAIL)>
 MSGID_BUGS_ADDRESS = $(AUTHOR_EMAIL)
 
+PYTHON = ../../venv/bin/python
+PYTHONLIB = $(shell $(PYTHON) -c "from distutils.sysconfig import get_python_lib; print(get_python_lib(0, 1))")
+
 SUBDIRS := $(wildcard */LC_MESSAGES/.)
 
 .DEFAULT_GOAL := help
@@ -31,17 +34,22 @@ SUBDIRS := $(wildcard */LC_MESSAGES/.)
 
 all: pot po mo  ## Regenerate all translation files
 
-pot: $(DOMAIN).pot  ## Regenerate POT file
+pot: $(DOMAIN).pot argparse.pot  ## Regenerate POT file
 
-po: $(SUBDIRS:.=$(DOMAIN).po)  ## Update PO files
+po: $(SUBDIRS:.=$(DOMAIN).po) $(SUBDIRS:.=argparse.po)  ## Update PO files
 
-mo: $(SUBDIRS:.=$(DOMAIN).mo)  ## Compile MO files
+mo: $(SUBDIRS:.=$(DOMAIN).mo) $(SUBDIRS:.=argparse.mo)  ## Compile MO files
 
 $(DOMAIN).pot: $(srcs)
 	xgettext --default-domain="$(DOMAIN)" --output="$(DOMAIN).pot" --verbose \
 	--add-location=full --width=$(WIDTH) --copyright-holder="$(COPYRIGHT_HOLDER)" \
 	--package-name="$(PACKAGE)" --package-version="$(VERSION)" \
 	--msgid-bugs-address="$(MSGID_BUGS_ADDRESS)" $^
+
+argparse.pot: $(PYTHONLIB)/argparse.py
+	xgettext --default-domain="argparse" --output="argparse.pot" --verbose \
+	--add-location=full --width=$(WIDTH) --copyright-holder="$(COPYRIGHT_HOLDER)" \
+	--package-name="i18nparse" --msgid-bugs-address="$(MSGID_BUGS_ADDRESS)" $^
 
 define gen-po =
 if [ -f "$@" ] \
@@ -58,6 +66,12 @@ endef
 	$(gen-po)
 
 %/LC_MESSAGES/$(DOMAIN).mo: %/LC_MESSAGES/$(DOMAIN).po
+	msgfmt --verbose --output-file=$@ $<
+
+%/LC_MESSAGES/argparse.po: argparse.pot
+	$(gen-po)
+
+%/LC_MESSAGES/argparse.mo: %/LC_MESSAGES/argparse.po
 	msgfmt --verbose --output-file=$@ $<
 
 clean:  ## Clean up
