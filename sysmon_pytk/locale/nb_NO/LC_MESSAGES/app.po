@@ -184,7 +184,7 @@ msgstr "Valg"
 
 #: ../cli_monitor.py:239
 msgid "show this help message and exit"
-msgstr "Vis denne hjelpemeldingen og avslutt"
+msgstr "vis denne hjelpemeldingen og avslutt"
 
 #: ../cli_monitor.py:244
 msgid "show program's version number and exit"

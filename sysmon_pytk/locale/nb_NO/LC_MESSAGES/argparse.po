@@ -55,7 +55,7 @@ msgstr "'required' er et Ugyldig argument for posisjonelle"
 msgid ""
 "invalid option string %(option)r: must start with a character "
 "%(prefix_chars)r"
-msgstr " Ugyldig valgstreng %(option)r: Må starte med et tegn %(prefix_chars)r"
+msgstr "ugyldig valgstreng %(option)r: Må starte med et tegn %(prefix_chars)r"
 
 #: /usr/lib/python3.9/argparse.py:1565
 #, python-format
@@ -88,7 +88,7 @@ msgstr "valgfrie argumenter"
 
 #: /usr/lib/python3.9/argparse.py:1749
 msgid "show this help message and exit"
-msgstr "Vis denne hjelpemeldingen og avslutt"
+msgstr "vis denne hjelpemeldingen og avslutt"
 
 #: /usr/lib/python3.9/argparse.py:1780
 msgid "cannot have multiple subparser arguments"
@@ -141,7 +141,7 @@ msgstr[1] "forventet %s argumenter"
 #: /usr/lib/python3.9/argparse.py:2222
 #, python-format
 msgid "ambiguous option: %(option)s could match %(matches)s"
-msgstr "tvetydig valg: %(option)s kan matche %s"
+msgstr "tvetydig valg: %(option)s kan matche %(matches)s"
 
 #: /usr/lib/python3.9/argparse.py:2286
 #, python-format

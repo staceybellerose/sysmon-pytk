@@ -277,7 +277,7 @@ msgstr "uso del CPU por núcleo"
 
 #: ../modals/cpu_modal.py:76
 msgid "per-core CPU Frequency (in MHz)"
-msgstr "Frecuencia de CPU pro núcleo (en MHz)"
+msgstr "frecuencia de CPU pro núcleo (en MHz)"
 
 #: ../modals/cpu_modal.py:91 ../modals/cpu_modal.py:111
 msgid "CPU #{}"
