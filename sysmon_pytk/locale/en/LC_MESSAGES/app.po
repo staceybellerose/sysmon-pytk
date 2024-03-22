@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sysmon-pytk 0.4.0\n"
 "Report-Msgid-Bugs-To: stacey.belle.rose@gmail.com\n"
-"POT-Creation-Date: 2024-03-21 15:13-0500\n"
-"PO-Revision-Date: 2024-03-21 15:13-0500\n"
+"POT-Creation-Date: 2024-03-21 21:56-0500\n"
+"PO-Revision-Date: 2024-03-21 21:56-0500\n"
 "Last-Translator: Stacey Adams <stacey.belle.rose@gmail.com>\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
@@ -30,11 +30,11 @@ msgstr ""
 "It also displays the system's hostname, IP address, uptime, and current "
 "process count."
 
-#: ../application.py:28 ../cli_monitor.py:194
+#: ../application.py:28 ../cli_monitor.py:197
 msgid "System Monitor"
 msgstr "System Monitor"
 
-#: ../application.py:94 ../cli_monitor.py:47
+#: ../application.py:94 ../cli_monitor.py:50
 msgid "CPU Usage"
 msgstr "CPU Usage"
 
@@ -42,7 +42,7 @@ msgstr "CPU Usage"
 msgid "Click for per-CPU usage"
 msgstr "Click for per-CPU usage"
 
-#: ../application.py:105 ../cli_monitor.py:55
+#: ../application.py:105 ../cli_monitor.py:58
 msgid "Temperature"
 msgstr "Temperature"
 
@@ -50,7 +50,7 @@ msgstr "Temperature"
 msgid "Click for detailed temperature readings"
 msgstr "Click for detailed temperature readings"
 
-#: ../application.py:115 ../cli_monitor.py:65
+#: ../application.py:115 ../cli_monitor.py:68
 msgid "RAM Usage"
 msgstr "RAM Usage"
 
@@ -122,49 +122,50 @@ msgstr "{} :: Disk Usage"
 msgid "{} Preferences"
 msgstr "{} Preferences"
 
-#: ../application.py:277 ../cli_monitor.py:197
+#: ../application.py:277 ../cli_monitor.py:200
 msgid "Hostname: {}"
 msgstr "Hostname: {}"
 
-#: ../application.py:278 ../cli_monitor.py:198
+#: ../application.py:278 ../cli_monitor.py:201
 msgid "IP Address: {}"
 msgstr "IP Address: {}"
 
-#: ../application.py:279 ../cli_monitor.py:199
+#: ../application.py:279 ../cli_monitor.py:202
 msgid "Processes: {}"
 msgstr "Processes: {}"
 
-#: ../application.py:280 ../cli_monitor.py:200
+#: ../application.py:280 ../cli_monitor.py:203
 msgid "Uptime: {}"
 msgstr "Uptime: {}"
 
-#: ../cli_monitor.py:75 ../modals/mem_usage_modal.py:63
+#: ../cli_monitor.py:78 ../modals/mem_usage_modal.py:63
 msgid "Swap Memory"
 msgstr "Swap Memory"
 
-#: ../cli_monitor.py:111 ../cli_monitor.py:151 ../modals/disk_usage_modal.py:59
+#: ../cli_monitor.py:114 ../cli_monitor.py:154 ../modals/disk_usage_modal.py:59
 msgid "Disk Usage"
 msgstr "Disk Usage"
 
-#: ../cli_monitor.py:128 ../cli_monitor.py:169
+#: ../cli_monitor.py:131 ../cli_monitor.py:172
 #: ../modals/temperature_modal.py:45
 msgid "Temperature Sensors"
 msgstr "Temperature Sensors"
 
-#: ../cli_monitor.py:139 ../modals/temperature_modal.py:103
+#: ../cli_monitor.py:142 ../modals/temperature_modal.py:103
 #, python-brace-format
 msgid "{current}°C (high = {high}°C, critical = {critical}°C)"
 msgstr "{current}°C (high = {high}°C, critical = {critical}°C)"
 
-#: ../cli_monitor.py:213
+#: ../cli_monitor.py:216
 msgid "<Ctrl-C> to quit"
 msgstr "<Ctrl-C> to quit"
 
-#: ../cli_monitor.py:223
-msgid "System monitor: display CPU usage/temperature, memory usage, disk usage"
-msgstr "System monitor: display CPU usage/temperature, memory usage, disk usage"
-
 #: ../cli_monitor.py:226
+msgid "System monitor: display CPU usage/temperature, memory usage, disk usage"
+msgstr ""
+"System monitor: display CPU usage/temperature, memory usage, disk usage"
+
+#: ../cli_monitor.py:229
 msgid ""
 "By default, this program will use the same language as that selected for the "
 "GUI application. To override it, use the '-l' option. To quit, press <Ctrl-"
@@ -174,44 +175,44 @@ msgstr ""
 "GUI application. To override it, use the '-l' option. To quit, press <Ctrl-"
 "C>."
 
-#: ../cli_monitor.py:233
+#: ../cli_monitor.py:236
 msgid "Options"
 msgstr "Options"
 
-#: ../cli_monitor.py:236
+#: ../cli_monitor.py:239
 msgid "show this help message and exit"
 msgstr "show this help message and exit"
 
-#: ../cli_monitor.py:241
+#: ../cli_monitor.py:244
 msgid "show program's version number and exit"
 msgstr "show program's version number and exit"
 
-#: ../cli_monitor.py:245
+#: ../cli_monitor.py:248
 #, python-format
 msgid "time between screen refreshes (in seconds, default=%(default)s)"
 msgstr "time between screen refreshes (in seconds, default=%(default)s)"
 
-#: ../cli_monitor.py:249
+#: ../cli_monitor.py:252
 msgid "the language to use for display"
 msgstr "the language to use for display"
 
-#: ../cli_monitor.py:251
+#: ../cli_monitor.py:254
 msgid "Display Details"
 msgstr "Display Details"
 
-#: ../cli_monitor.py:255
+#: ../cli_monitor.py:258
 msgid "show disk details (default)"
 msgstr "show disk details (default)"
 
-#: ../cli_monitor.py:259
+#: ../cli_monitor.py:262
 msgid "show temperature details"
 msgstr "show temperature details"
 
-#: ../cli_monitor.py:263
+#: ../cli_monitor.py:266
 msgid "show both disk and temperature details"
 msgstr "show both disk and temperature details"
 
-#: ../cli_monitor.py:267
+#: ../cli_monitor.py:270
 msgid "show no details, only the header"
 msgstr "show no details, only the header"
 

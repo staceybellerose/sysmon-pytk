@@ -65,7 +65,7 @@ class Application(tk.Tk):  # pylint: disable=too-many-instance-attributes
         Read application settings from configuration file.
         """
         self.settings = Settings(settings_path())
-        self.call("wm", "attributes", ".", "-topmost", f"{self.settings.get_always_on_top()}")
+        self.call("wm", "attributes", ".", "-topmost", f"{self.settings.always_on_top}")
 
     def _init_frame(self) -> ttk.Frame:
         frame = ttk.Frame(self)

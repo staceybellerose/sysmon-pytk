@@ -74,7 +74,7 @@ class SettingsDialog(ModalDialog):
         """
         self.settings = settings
         self.always_on_top = tk.IntVar()
-        self.always_on_top.set(self.settings.get_always_on_top())
+        self.always_on_top.set(self.settings.always_on_top)
         self.fonts = {
             "regular": self.settings.regular_font.get_full_font().get_string(),
             "fixed": self.settings.fixed_font.get_full_font().get_string()
@@ -102,7 +102,7 @@ class SettingsDialog(ModalDialog):
             self.internal_frame, dictionary=LANGUAGES, state=["readonly"],
             exportselection=0, font=self.base_font
         )
-        self.langbox.set(self.settings.get_language())
+        self.langbox.set(self.settings.language)
         self.langbox.grid(
             row=1, column=2, sticky=tk.EW, pady=_common.INTERNAL_PAD,
             padx=(0, _common.INTERNAL_PAD)
@@ -120,7 +120,7 @@ class SettingsDialog(ModalDialog):
             self.internal_frame, dictionary=THEMES, state=["readonly"],
             exportselection=0, font=self.base_font
         )
-        self.themebox.set(self.settings.get_theme())
+        self.themebox.set(self.settings.theme)
         self.themebox.grid(
             row=2, column=2, sticky=tk.EW, pady=_common.INTERNAL_PAD,
             padx=(0, _common.INTERNAL_PAD)
@@ -198,10 +198,10 @@ class SettingsDialog(ModalDialog):
         """
         Save the entered settings.
         """
-        old_language = self.settings.get_language()
-        self.settings.set_language(self.langbox.get())
-        self.settings.set_theme(self.themebox.get())
-        self.settings.set_always_on_top(self.always_on_top.get())
+        old_language = self.settings.language
+        self.settings.language = self.langbox.get()
+        self.settings.theme = self.themebox.get()
+        self.settings.always_on_top = self.always_on_top.get()
         self.settings.write_settings()
         if old_language != self.langbox.get():
             self.save_dismiss_event("<<LanguageChanged>>")

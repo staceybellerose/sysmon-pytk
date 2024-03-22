@@ -77,9 +77,9 @@ class StyleManager:
         """
         Determine dark mode by checking settings or detecting the system theme.
         """
-        if settings.get_theme() == "Dark":
+        if settings.theme == "Dark":
             return True
-        if settings.get_theme() == "Light":
+        if settings.theme == "Light":
             return False
         return darkdetect.isDark()
 
@@ -102,7 +102,7 @@ class StyleManager:
         text_font = font.nametofont("TkTextFont")
         menu_font = font.nametofont("TkMenuFont")
         fixed_font = font.nametofont("TkFixedFont")
-        if settings.regular_font.get_name():
+        if settings.regular_font.name:
             settings.regular_font.configure_font(base_font)
             settings.regular_font.configure_font(text_font)
             settings.regular_font.configure_font(menu_font)
@@ -110,7 +110,7 @@ class StyleManager:
             base_font.configure(family=font_utils.MAIN_FONT_FAMILY, size=12)
             text_font.configure(family=font_utils.MAIN_FONT_FAMILY, size=12)
             menu_font.configure(family=font_utils.MAIN_FONT_FAMILY, size=12)
-        if settings.fixed_font.get_name():
+        if settings.fixed_font.name:
             settings.fixed_font.configure_font(fixed_font)
         else:
             fixed_font.configure(family=font_utils.FIXED_FONT_FAMILY, size=12)
