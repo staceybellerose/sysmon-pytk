@@ -39,6 +39,7 @@ dependencies = [
 dev = [
     "bandit >= 1.7.7",
     "build >= 1.1.1",
+    "liccheck >= 0.9.2",
     "mypy >= 1.5",
     "pycodestyle >= 2.11",
     "pydocstyle >= 6.2",
@@ -107,3 +108,23 @@ max-complexity = 5
 
 [tool.ruff.lint.pydocstyle]
 convention = "numpy"
+
+[tool.liccheck]
+authorized_licenses = [
+    "bsd",
+    "bsd license",
+    "apache",
+    "apache 2.0",
+    "apache software license",
+    "lgplv2",
+    "mit",
+    "mit license",
+    "mpl",
+    "mozilla public license",
+    "python software foundation",
+    "python software foundation license",
+]
+unauthorized_licenses = [
+    "gnu general public license",
+]
+as_regex = true

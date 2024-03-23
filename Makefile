@@ -29,6 +29,7 @@ PYTHON := $(VENV)/bin/python
 PIP := $(VENV)/bin/pip
 BANDIT := $(VENV)/bin/bandit
 ISORT := $(VENV)/bin/isort
+LICCHECK := $(VENV)/bin/liccheck
 MYPY := $(VENV)/bin/mypy
 PYCODESTYLE := $(VENV)/bin/pycodestyle
 PYDOCSTYLE := $(VENV)/bin/pydocstyle
@@ -45,7 +46,7 @@ K := $(foreach exec,$(EXECUTABLES), $(if $(shell which $(exec)),some string,$(er
 
 .DEFAULT_GOAL := help
 
-.PHONY: translations ruff ruff-fix isort isort-fix pylint mypy pycodestyle pydocstyle bandit reuse loc build sdist wheel clean help
+.PHONY: translations ruff ruff-fix isort isort-fix pylint mypy pycodestyle pydocstyle bandit reuse liccheck loc build sdist wheel clean help
 
 $(VENV)/bin/activate: requirements.txt requirements-dev.txt
 > $(BASE_PYTHON) -m venv $(VENV)
@@ -71,7 +72,7 @@ run: $(VENV)/bin/activate translations  ## Run the GUI application
 
 ##@ Testing
 
-lint: ruff isort pyflakes mypy pycodestyle pydocstyle bandit loc pylint reuse  ## All lint and static code checks
+lint: ruff isort pyflakes mypy pycodestyle pydocstyle bandit loc pylint reuse liccheck  ## All lint and static code checks
 
 ruff:  ## Code lint check
 > $(RUFF) check sysmon_pytk
@@ -105,6 +106,9 @@ bandit:  ## Check for common security issues
 
 reuse:  ## Verify REUSE Specification for Copyrights
 > $(REUSE) lint
+
+liccheck:  ## Validate licenses of dependencies
+> $(LICCHECK) -l PARANOID
 
 loc:  ## Complexity check (lines of code)
 > $(RADON) raw --json sysmon_pytk | $(JQ) 'to_entries | map(.value |= .sloc+.multi | select(.value > $(LOC_MAX))) | sort_by('.value') | reverse | map(.value |= tostring) | reduce .[] as $$item (""; . + "\n" + $$item.key + " has " + $$item.value + " lines (max allowed = $(LOC_MAX))") | if (. | length) > 0 then error(.) else empty end'
