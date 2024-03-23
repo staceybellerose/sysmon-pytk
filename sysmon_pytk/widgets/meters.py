@@ -23,7 +23,7 @@ from .meter import Meter
 from .tooltip import ToolTip
 
 if TYPE_CHECKING:
-    from tkinter import BaseWidget
+    from tkinter import BaseWidget, Event
 
 _ = get_translator()
 
@@ -39,7 +39,9 @@ class UpdatingMeter(Meter):
         super().__init__(
             parent, width=width, height=height, **kw
         )
+        self._update_job: str | None = None
         self.bind("<<ThemeChanged>>", self._update_theme)
+        self.bind("<Destroy>", self.on_destroy)
         if self.is_clickable():
             self.bind("<Button-1>", self.on_click)
             self.configure(cursor="hand2")
@@ -61,6 +63,14 @@ class UpdatingMeter(Meter):
         """
         return self.winfo_toplevel().title()
 
+    def on_destroy(self, _event: Event) -> None:
+        """
+        Cancel the update job when widget is destroyed.
+        """
+        if self._update_job is not None:
+            self.after_cancel(self._update_job)
+            self._update_job = None
+
     @abstractmethod
     def on_click(self, *args) -> None:
         """
@@ -79,7 +89,7 @@ class UpdatingMeter(Meter):
         Update the Meter.
         """
         self.set_value(self.get_value())
-        self.after(REFRESH_INTERVAL, self.update_widget)
+        self._update_job = self.after(REFRESH_INTERVAL, self.update_widget)
 
 
 class CpuMeter(UpdatingMeter):

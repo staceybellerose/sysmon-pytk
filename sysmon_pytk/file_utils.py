@@ -5,7 +5,9 @@
 File utility functions.
 """
 
+import inspect
 import os
+import sys
 from distutils.sysconfig import get_python_lib
 from pathlib import Path
 
@@ -37,3 +39,16 @@ def settings_path() -> str:
     if not base_dir.exists():
         base_dir.mkdir()
     return f"{base_dir / SETTINGS_FILE}"
+
+
+def get_main_script() -> str:
+    """
+    Get the name of the top level running script.
+    """
+    for frame in reversed(inspect.stack()):
+        if frame.filename.startswith(sys.exec_prefix):
+            continue
+        if frame.filename.startswith(sys.base_exec_prefix):
+            continue
+        return Path(frame.filename).name
+    return ""

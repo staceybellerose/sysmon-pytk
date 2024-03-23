@@ -45,6 +45,8 @@ class ModalDialog(tk.Toplevel, metaclass=ABCMeta):
         Bold font to use for widgets.
     fixed_font : Font
         Fixed font to use for widgets.
+    _events : list[str]
+        A list of event sequences to trigger after save and dismiss.
     """
 
     def __init__(

@@ -14,14 +14,13 @@ from typing import TYPE_CHECKING
 
 from .._common import INTERNAL_PAD
 from ..app_locale import get_translator
-from ..file_utils import get_full_path
+from ..file_utils import get_full_path, get_main_script
 from ..translator import TRANSLATORS, Translator
-from ..widgets import UrlLabel
+from ..widgets import AutoScrollbar, UrlLabel
 from ._base_modal import ModalDialog
 
 if TYPE_CHECKING:
-    from tkinter import BaseWidget, Misc
-    from tkinter.font import Font
+    from tkinter import Misc
 
 _ = get_translator()
 
@@ -61,6 +60,18 @@ class AboutMetadata:
             return f"© {self.author}"
         return ""
 
+    def get_name(self) -> str:
+        """
+        Return the app name meta data if available; otherwise, main script name.
+        """
+        return self.app_name if self.app_name else get_main_script()
+
+    def get_version_string(self) -> str:
+        """
+        Return a string containing the version if available; otherwise, 0.0.1.
+        """
+        return self.version if self.version else "0.0.1"
+
 
 class AboutDialog(ModalDialog):
     """
@@ -80,7 +91,6 @@ class AboutDialog(ModalDialog):
         self.about = about
         title = _("About {}").format(about.app_name).strip()
         self.logo = tk.PhotoImage(file=get_full_path("images/icon-lg.png"))
-        self._about_description: tk.Text | None = None
         super().__init__(parent, title=title, iconpath=iconpath, class_="AboutBox")
 
     def update_screen(self) -> None:
@@ -130,41 +140,37 @@ class AboutDialog(ModalDialog):
         tab = ttk.Frame(notebook)
         tab.rowconfigure(0, weight=1)
         tab.columnconfigure(0, weight=1)
-        row = 0
-        ttk.Label(tab, image=self.logo).grid(row=row)
-        row += 1
-        row = self._add_label_if_string(
-            tab, self.about.app_name, self.large_font, row
+        text = tk.Text(
+            tab, font=self.base_font, height=11, width=50, wrap=tk.WORD,
+            undo=False, relief=tk.FLAT, spacing1=INTERNAL_PAD
         )
-        row = self._add_label_if_string(
-            tab, _("Version {}").format(self.about.version), self.base_font, row
-        )
-        row = self._add_label_if_string(
-            tab, self.about.get_copyright_text(), self.base_font, row
-        )
+        text.tag_configure("center", justify="center")
+        text.tag_configure("large", font=self.large_font)
+        text.image_create(tk.END, image=self.logo)
+        text.insert(tk.END, "\n")
+        text.insert(tk.END, self.about.get_name() + "\n", "large")
+        text.insert(tk.END, _("Version {}").format(self.about.get_version_string()) + "\n")
+        copyright_text = self.about.get_copyright_text()
+        if copyright_text:
+            text.insert(tk.END, copyright_text + "\n")
         if self.about.url:
             link1style = UrlLabel.test_web_protocol(
                 self.about.url, "URL.TLabel", "System.TLabel"
             )
-            UrlLabel(
+            link = UrlLabel(
                 tab, text=_("Source Code"), url=self.about.url,
                 style=link1style, font=self.base_font, show_tooltip=True,
                 anchor=tk.CENTER
-            ).grid(row=row, sticky=tk.NSEW, pady=(0, INTERNAL_PAD))
-            tab.rowconfigure(row, weight=1)
-            row += 1
-        if self.about.description:
-            self._about_description = tk.Text(
-                tab, font=self.base_font, height=5, width=50, wrap=tk.WORD,
-                undo=False, relief=tk.FLAT
             )
-            self._about_description.insert(tk.END, self.about.description)
-            self._about_description.config(state=tk.DISABLED)
-            self._about_description.grid(
-                row=row, sticky=tk.NSEW, padx=(INTERNAL_PAD, 0)
-            )
-            tab.rowconfigure(row, weight=1)
-            row += 1
+            text.window_create(tk.END, window=link)
+            text.insert(tk.END, "\n")
+        text.tag_add("center", "1.0", "end-1c")
+        text.insert(tk.END, self.about.description)
+        text.config(state=tk.DISABLED)
+        text.grid(row=0, column=0, sticky=tk.NSEW, padx=(INTERNAL_PAD, 0))
+        AutoScrollbar.add_to_widget(text, orient=tk.VERTICAL).grid(
+            row=0, column=1, sticky=tk.NS
+        )
         return tab
 
     def create_translators_tab(self, notebook: ttk.Notebook) -> ttk.Frame:
@@ -175,21 +181,20 @@ class AboutDialog(ModalDialog):
         tab.rowconfigure(0, weight=1)
         tab.columnconfigure(0, weight=1)
         text = tk.Text(
-            tab, font=self.base_font, height=4, width=50, wrap=tk.WORD,
+            tab, font=self.base_font, height=10, width=50, wrap=tk.WORD,
             undo=False, relief=tk.FLAT
         )
         for language, translator_list in TRANSLATORS.items():
-            text.insert(tk.END, f"{language}: ", ("language",))
+            text.insert(tk.END, f"{language}: ", "language")
             for idx, translator in enumerate(translator_list):
                 self._add_translator(text, translator, idx, len(translator_list))
+        text.delete("end-1c")  # remove the final "\n"
         text.tag_configure("language", font=self.bold_font)
         text.config(state=tk.DISABLED, spacing1=4, spacing2=4, spacing3=4)
         text.grid(row=0, column=0, sticky=tk.NSEW)
-        # TODO FOR LATER IF SCROLLING IS NEEDED
-        # text_scroller = ttk.Scrollbar(tab, orient=tk.VERTICAL)
-        # text_scroller.grid(row=0, column=1, sticky=tk.N+tk.S)
-        # text.config(yscrollcommand=text_scroller.set)
-        # text_scroller.config(command=text.yview)
+        AutoScrollbar.add_to_widget(text, orient=tk.VERTICAL).grid(
+            row=0, column=1, sticky=tk.NS
+        )
         return tab
 
     def _add_translator(
@@ -230,16 +235,15 @@ class AboutDialog(ModalDialog):
                 ) for line in license_data.full_license.split("\n\n")
             ]
             text = tk.Text(
-                tab, font=self.base_font, height=16, width=50, wrap=tk.WORD,
+                tab, font=self.base_font, height=15, width=50, wrap=tk.WORD,
                 undo=False, relief=tk.FLAT
             )
             text.insert(tk.END, "\n\n".join(license_text))
             text.config(state=tk.DISABLED)
             text.grid(row=0, column=0, sticky=tk.NSEW)
-            text_scroller = ttk.Scrollbar(tab, orient=tk.VERTICAL)
-            text_scroller.grid(row=0, column=1, sticky=tk.NSEW)
-            text.config(yscrollcommand=text_scroller.set)
-            text_scroller.config(command=text.yview)
+            AutoScrollbar.add_to_widget(text, orient=tk.VERTICAL).grid(
+                row=0, column=1, sticky=tk.NS
+            )
         elif license_data.license_name:
             tk.Label(
                 tab, font=self.base_font, text=license_data.license_name
@@ -254,15 +258,3 @@ class AboutDialog(ModalDialog):
                     show_tooltip=True
                 ).grid(row=1, pady=INTERNAL_PAD)
         return tab
-
-    @classmethod
-    def _add_label_if_string(
-        cls, parent: BaseWidget, text: str, font: Font, row: int
-    ) -> int:
-        if text:
-            ttk.Label(
-                parent, text=text, font=font, anchor=tk.CENTER
-            ).grid(row=row, sticky=tk.NSEW, pady=(0, INTERNAL_PAD))
-            parent.rowconfigure(row, weight=1)
-            row += 1
-        return row

@@ -94,15 +94,15 @@ msgstr "Recuento de procesos: {}"
 msgid "Uptime: {}"
 msgstr "Tiempo de actividad: {}"
 
-#: ../cli_monitor.py:50 ../widgets/meters.py:95
+#: ../cli_monitor.py:50 ../widgets/meters.py:105
 msgid "CPU Usage"
 msgstr "Uso de CPU"
 
-#: ../cli_monitor.py:58 ../widgets/meters.py:132
+#: ../cli_monitor.py:58 ../widgets/meters.py:142
 msgid "Temperature"
 msgstr "Temperatura"
 
-#: ../cli_monitor.py:68 ../widgets/meters.py:164
+#: ../cli_monitor.py:68 ../widgets/meters.py:174
 msgid "RAM Usage"
 msgstr "Uso de RAM"
 
@@ -199,39 +199,39 @@ msgstr "Cursiva"
 msgid "Bold Italic"
 msgstr "Cursiva negrita"
 
-#: ../modals/about_modal.py:81
+#: ../modals/about_modal.py:92
 msgid "About {}"
 msgstr "Acerca del {}"
 
-#: ../modals/about_modal.py:114
+#: ../modals/about_modal.py:124
 msgid "Translators"
 msgstr "Traductores"
 
-#: ../modals/about_modal.py:120
+#: ../modals/about_modal.py:130
 msgid "License"
 msgstr "Licencia"
 
-#: ../modals/about_modal.py:140
+#: ../modals/about_modal.py:153
 msgid "Version {}"
 msgstr "Versión {}"
 
-#: ../modals/about_modal.py:150
+#: ../modals/about_modal.py:162
 msgid "Source Code"
 msgstr "Código fuente"
 
-#: ../modals/about_modal.py:252
+#: ../modals/about_modal.py:251
 msgid "Full license text available here"
 msgstr "Texto completo de la licencia disponible aquí"
 
-#: ../modals/_base_modal.py:156
+#: ../modals/_base_modal.py:158
 msgid "Close"
 msgstr "Cerrar"
 
-#: ../modals/_base_modal.py:171
+#: ../modals/_base_modal.py:173
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: ../modals/_base_modal.py:174
+#: ../modals/_base_modal.py:176
 msgid "OK"
 msgstr "Aceptar"
 
@@ -327,27 +327,27 @@ msgstr "Fuente monoespaciada"
 msgid "Select a font"
 msgstr "Seleccione una fuente"
 
-#: ../widgets/meters.py:46
+#: ../widgets/meters.py:48
 msgid "Click for per-CPU usage"
 msgstr "Clic para ver el uso por CPU"
 
-#: ../widgets/meters.py:117
+#: ../widgets/meters.py:127
 msgid "{} :: CPU Details"
 msgstr "{} :: Detalles de la CPU"
 
-#: ../widgets/meters.py:149
+#: ../widgets/meters.py:159
 msgid "{} :: Temperature Details"
 msgstr "{} :: Detalles de temperatura"
 
-#: ../widgets/meters.py:180
+#: ../widgets/meters.py:190
 msgid "{} :: Memory Usage"
 msgstr "{} :: Uso de memoria"
 
-#: ../widgets/meters.py:195
+#: ../widgets/meters.py:205
 msgid "Disk Usage: /"
 msgstr "Uso del disco: /"
 
-#: ../widgets/meters.py:211
+#: ../widgets/meters.py:221
 msgid "{} :: Disk Usage"
 msgstr "{} :: Uso del disco"
 
