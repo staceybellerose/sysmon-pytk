@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: sysmon-pytk 0.4.0\n"
+"Project-Id-Version: sysmon-pytk 0.4.1\n"
 "Report-Msgid-Bugs-To: stacey.belle.rose@gmail.com\n"
-"POT-Creation-Date: 2024-03-22 02:55-0500\n"
+"POT-Creation-Date: 2024-03-22 23:14-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -199,15 +199,15 @@ msgstr ""
 msgid "License"
 msgstr ""
 
-#: ../modals/about_modal.py:153
+#: ../modals/about_modal.py:152
 msgid "Version {}"
 msgstr ""
 
-#: ../modals/about_modal.py:162
+#: ../modals/about_modal.py:161
 msgid "Source Code"
 msgstr ""
 
-#: ../modals/about_modal.py:251
+#: ../modals/about_modal.py:256
 msgid "Full license text available here"
 msgstr ""
 

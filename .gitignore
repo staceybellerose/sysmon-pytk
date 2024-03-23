@@ -9,6 +9,7 @@ sysmon.ini
 
 .vscode/*
 !.vscode/tasks.json
+!.vscode/launch.json
 !.vscode/*.code-snippets
 .history/
 *.vsix

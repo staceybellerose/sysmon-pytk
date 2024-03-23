@@ -1,0 +1,22 @@
+{
+  // SPDX-FileCopyrightText: © 2024 Stacey Adams <stacey.belle.rose@gmail.com>
+  // SPDX-License-Identifier: Unlicense
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "PY: GUI Module",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "sysmon_pytk.gui_monitor"
+    },
+    {
+      "name": "PY: CLI Module",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "sysmon_pytk.cli_monitor"
+    }
+  ]
+}

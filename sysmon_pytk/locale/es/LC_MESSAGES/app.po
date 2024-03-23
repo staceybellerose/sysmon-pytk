@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: sysmon-pytk 0.4.0\n"
+"Project-Id-Version: sysmon-pytk 0.4.1\n"
 "Report-Msgid-Bugs-To: stacey.belle.rose@gmail.com\n"
-"POT-Creation-Date: 2024-03-22 02:55-0500\n"
-"PO-Revision-Date: 2024-03-22 02:55-0500\n"
+"POT-Creation-Date: 2024-03-22 23:14-0500\n"
+"PO-Revision-Date: 2024-03-22 23:14-0500\n"
 "Last-Translator: Stacey Adams <stacey.belle.rose@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/sysmon-pytk/"
 "sysmon-pytk/es/>\n"
@@ -211,15 +211,15 @@ msgstr "Traductores"
 msgid "License"
 msgstr "Licencia"
 
-#: ../modals/about_modal.py:153
+#: ../modals/about_modal.py:152
 msgid "Version {}"
 msgstr "Versión {}"
 
-#: ../modals/about_modal.py:162
+#: ../modals/about_modal.py:161
 msgid "Source Code"
 msgstr "Código fuente"
 
-#: ../modals/about_modal.py:251
+#: ../modals/about_modal.py:256
 msgid "Full license text available here"
 msgstr "Texto completo de la licencia disponible aquí"
 
