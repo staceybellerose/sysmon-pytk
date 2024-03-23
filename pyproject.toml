@@ -70,9 +70,9 @@ Issues = "https://github.com/staceybellerose/sysmon-pytk/issues"
 include = ["sysmon_pytk*", "azure*"]
 
 [tool.setuptools.package-data]
-"azure" = ["*.tcl", "*.png", "LICENSE"]
+"azure" = ["**/*.tcl", "**/*.png", "LICENSE"]
 "sysmon_pytk.images" = ["*.png", "*.png.license"]
-#"sysmon_pytk.locale" = ["*.mo", "*.po", "*.pot"]
+"sysmon_pytk.locale" = ["**/*.mo"]
 
 [tool.setuptools.exclude-package-data]
 "sysmon_pytk.azure" = ["*screenshot.png"]
