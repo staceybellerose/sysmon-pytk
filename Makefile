@@ -34,11 +34,14 @@ MYPY := $(VENV)/bin/mypy
 PYCODESTYLE := $(VENV)/bin/pycodestyle
 PYDOCSTYLE := $(VENV)/bin/pydocstyle
 PYFLAKES := $(VENV)/bin/pyflakes
+PYROMA := $(VENV)/bin/pyroma
 PYLINT := $(VENV)/bin/pylint
 RADON := $(VENV)/bin/radon
 REUSE := $(VENV)/bin/reuse
 RUFF := $(VENV)/bin/ruff
 TWINE := $(VENV)/bin/twine
+
+srcs := $(wildcard ../*.py ../modals/*.py ../widgets/*.py)
 
 # make sure all external programs are available
 EXECUTABLES = $(BASE_PYTHON) $(AWK) $(SORT) $(JQ)
@@ -128,14 +131,23 @@ radon-raw:  ## Raw metrics of codebase
 
 ##@ Publishing
 
-build:  ## Build both source and binary distribution files
+build: dist  ## Build both source and binary distribution files
+
+dist: $(srcs)
+> mkdir dist
 > $(PYTHON) -m build
+
+dist/*.tar.gz: build
+dist/*.whl: build
 
 sdist:  ## Build only a source distribution
 > $(PYTHON) -m build --sdist
 
 wheel:  ## Build only a binary distribution (wheel)
 > $(PYTHON) -m build --wheel
+
+pyroma: dist/*.tar.gz  ## Check package for best practices
+> $(PYROMA) dist/*.tar.gz
 
 upload-check: dist/*.tar.gz dist/*.whl  ## Check the dist files before uploading
 > $(TWINE) check dist/*
