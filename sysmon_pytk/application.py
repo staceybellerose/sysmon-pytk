@@ -22,6 +22,7 @@ from .modals import SettingsDialog
 from .modals.about_modal import AboutDialog, AboutMetadata, LicenseMetadata
 from .settings import Settings
 from .style_manager import StyleManager
+from .widgets import ToolTip
 from .widgets.meters import CpuMeter, DiskMeter, RamMeter, TempMeter
 
 if TYPE_CHECKING:
@@ -73,7 +74,9 @@ class Application(tk.Tk):
         for column in [1, 2, 3, 4]:
             frame.columnconfigure(column, weight=1)
         self._add_variable_label(frame, self._name, 1, 1)
-        self._add_variable_label(frame, self._ip_addr, 1, 2)
+        ip_label = self._add_variable_label(frame, self._ip_addr, 1, 2)
+        ToolTip(ip_label, _("Click to copy IP Address to clipboard"))
+        ip_label.bind("<Button-1>", self._on_click_ip_address)
         self._add_variable_label(frame, self._processes, 1, 3)
         self._add_variable_label(frame, self._uptime, 1, 4)
         self._add_meters(frame)
@@ -82,13 +85,15 @@ class Application(tk.Tk):
     @classmethod
     def _add_variable_label(
         cls, frame: ttk.Frame, textvariable: Variable, row: int, column: int
-    ) -> None:
+    ) -> ttk.Label:
         base_font = StyleManager.get_base_font()
-        ttk.Label(
+        label = ttk.Label(
             frame, textvariable=textvariable, font=base_font, anchor=tk.CENTER
-        ).grid(
+        )
+        label.grid(
             row=row, column=column, sticky=tk.NSEW, pady=(_common.INTERNAL_PAD, 0)
         )
+        return label
 
     def _add_meters(self, frame: ttk.Frame) -> None:
         CpuMeter(frame, width=220, height=165).grid(
@@ -115,7 +120,6 @@ class Application(tk.Tk):
         """
         Build the application menu.
         """
-        self.option_add("*tearOff", False)  # Fix menus
         top = self.winfo_toplevel()
         top.rowconfigure(0, weight=1)
         top.columnconfigure(0, weight=1)
@@ -152,6 +156,12 @@ class Application(tk.Tk):
         self.bind("<<SettingsChanged>>", self.read_settings)
         self.bind("<<LanguageChanged>>", self._on_language)
         self.bind("<<FontChanged>>", self._on_restart)
+
+    def _on_click_ip_address(self, _event: tk.Event) -> None:
+        self.clipboard_clear()
+        self.clipboard_append(_common.net_addr())
+        # TODO Add user-visible notification that copy happened.
+        print(_("Copied!"))
 
     def _on_language(self, *_args) -> None:
         """

@@ -92,6 +92,7 @@ class StyleManager:
         cls.update_by_dark_mode(root, settings)
         cls.init_fonts(settings)
         root.option_add("*TCombobox*Listbox.font", "TkDefaultFont")
+        root.option_add("*tearOff", False)  # Fix menus
 
     @classmethod
     def init_fonts(cls, settings: Settings) -> None:

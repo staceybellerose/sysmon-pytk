@@ -38,7 +38,11 @@ msgstr ""
 msgid "System Monitor"
 msgstr "Systemmonitor"
 
-#: ../application.py:126
+#: ../application.py:78
+msgid "Click to copy IP Address to clipboard"
+msgstr "Klikk for å kopiere IP-adressen til utklippstavlen"
+
+#: ../application.py:140
 msgid "File"
 msgstr "Fil"
 
@@ -74,7 +78,11 @@ msgstr "Avslutt"
 msgid "Ctrl+Q"
 msgstr "Ctrl+Q"
 
-#: ../application.py:188
+#: ../application.py:174
+msgid "Copied!"
+msgstr "Kopiert!"
+
+#: ../application.py:208
 msgid "{} Preferences"
 msgstr "{} Innstillinger"
 
