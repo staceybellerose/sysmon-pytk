@@ -45,7 +45,6 @@ class UpdatingMeter(Meter):
         if self.is_clickable():
             self.bind("<Button-1>", self.on_click)
             self.configure(cursor="hand2")
-            ToolTip(self, _("Click for per-CPU usage"))
         self.update_widget()
 
     def _update_theme(self, *_args) -> None:
@@ -84,6 +83,18 @@ class UpdatingMeter(Meter):
         """
 
     @final
+    def add_tooltip(self, text: str) -> None:
+        """
+        Add a ToolTip to the Meter.
+
+        This method should be called by subclasses which wish to display
+        a ToolTip when the mouse is hovering over the widget. It should be
+        called at the end of `__init__`.
+        """
+        if self.is_clickable():
+            ToolTip(self, text)
+
+    @final
     def update_widget(self) -> None:
         """
         Update the Meter.
@@ -105,6 +116,7 @@ class CpuMeter(UpdatingMeter):
             label=_("CPU Usage"), unit="%", divisions=10, yellow=15, red=15,
             blue=0
         )
+        self.add_tooltip(_("Click for per-CPU usage"))
 
     def is_clickable(self) -> bool:
         """
@@ -142,6 +154,7 @@ class TempMeter(UpdatingMeter):
             label=_("Temperature"), unit="°C", divisions=10, yellow=15, red=15,
             blue=15
         )
+        self.add_tooltip(_("Click for detailed temperature readings"))
 
     def get_value(self) -> float:
         """
@@ -174,6 +187,7 @@ class RamMeter(UpdatingMeter):
             label=_("RAM Usage"), unit="%", divisions=10, yellow=15, red=15,
             blue=0
         )
+        self.add_tooltip(_("Click for detailed memory statistics"))
 
     def get_value(self) -> float:
         """
@@ -205,6 +219,7 @@ class DiskMeter(UpdatingMeter):
             label=_("Disk Usage: /"), unit="%", divisions=10, blue=0,
             red=100 - DISK_ALERT_LEVEL, yellow=DISK_ALERT_LEVEL - DISK_WARN_LEVEL
         )
+        self.add_tooltip(_("Click for usage details of each mount point"))
 
     def get_value(self) -> float:
         """

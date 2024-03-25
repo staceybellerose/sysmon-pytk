@@ -89,15 +89,15 @@ msgstr ""
 msgid "Uptime: {}"
 msgstr ""
 
-#: ../cli_monitor.py:50 ../widgets/meters.py:105
+#: ../cli_monitor.py:50 ../widgets/meters.py:116
 msgid "CPU Usage"
 msgstr ""
 
-#: ../cli_monitor.py:58 ../widgets/meters.py:142
+#: ../cli_monitor.py:58 ../widgets/meters.py:154
 msgid "Temperature"
 msgstr ""
 
-#: ../cli_monitor.py:68 ../widgets/meters.py:174
+#: ../cli_monitor.py:68 ../widgets/meters.py:187
 msgid "RAM Usage"
 msgstr ""
 
@@ -315,26 +315,38 @@ msgstr ""
 msgid "Select a font"
 msgstr ""
 
-#: ../widgets/meters.py:48
+#: ../widgets/meters.py:119
 msgid "Click for per-CPU usage"
 msgstr ""
 
-#: ../widgets/meters.py:127
+#: ../widgets/meters.py:139
 msgid "{} :: CPU Details"
 msgstr ""
 
-#: ../widgets/meters.py:159
+#: ../widgets/meters.py:157
+msgid "Click for detailed temperature readings"
+msgstr ""
+
+#: ../widgets/meters.py:172
 msgid "{} :: Temperature Details"
 msgstr ""
 
 #: ../widgets/meters.py:190
+msgid "Click for detailed memory statistics"
+msgstr ""
+
+#: ../widgets/meters.py:204
 msgid "{} :: Memory Usage"
 msgstr ""
 
-#: ../widgets/meters.py:205
+#: ../widgets/meters.py:219
 msgid "Disk Usage: /"
 msgstr ""
 
-#: ../widgets/meters.py:221
+#: ../widgets/meters.py:222
+msgid "Click for usage details of each mount point"
+msgstr ""
+
+#: ../widgets/meters.py:236
 msgid "{} :: Disk Usage"
 msgstr ""
