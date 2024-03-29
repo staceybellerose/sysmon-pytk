@@ -3,6 +3,7 @@
 
 bandit >= 1.7.7
 build >= 1.1.1
+coloredlogs >= 15
 liccheck >= 0.9.2
 mypy >= 1.5
 pycodestyle >= 2.11
@@ -11,6 +12,7 @@ pyflakes >= 3.1
 pylint >= 3.0
 pyroma >= 4.2
 radon >= 6.0
+redbaron >= 0.9.2
 reuse >= 3.0
 ruff >= 0.3
 setuptools >= 64
