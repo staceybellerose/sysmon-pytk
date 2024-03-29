@@ -34,6 +34,7 @@ work_category_icons := work/preferences-system.png
 app_icons = icon.png icon-lg.png
 context_icons = edit-copy.png edit-cut.png edit-paste.png edit-select-all.png
 main_menu_icons = blank.png preferences-system.png view-refresh.png internet-group-chat.png
+custom_icons = custom/dialog-error.png custom/dialog-information.png custom/dialog-warning.png custom/dialog-question.png
 
 define add-border =
 $(CONVERT) -compose Copy -border 2x1 -bordercolor none $@ $@
@@ -45,13 +46,20 @@ endef
 
 ##@ Processing
 
-all: $(app_icons) $(context_icons) $(main_menu_icons)  ## Extract and process all images
+all: $(app_icons) $(context_icons) $(main_menu_icons) $(custom_icons)  ## Extract and process all images
 
 work:
 > mkdir work
 
+custom: $(custom_icons)
+
 %.png : work/%.png
 > cp $< $@
+> $(optimize)
+
+custom/%.png : custom/%.svg
+> convert -background none -density 1200 -resize 96x96 $< $<.png
+> mv $<.png $@
 > $(optimize)
 
 blank.png:
@@ -93,6 +101,7 @@ clean:  ## Clean up the folder
 
 clean-all: clean  ## Deep clean the image folder (remove images)
 > rm -f *.png
+> rm -f custom/*.png
 
 ##@ Helpers
 

@@ -15,6 +15,7 @@ from typing import TYPE_CHECKING, final
 from .._common import INTERNAL_PAD
 from ..app_locale import get_translator
 from ..style_manager import StyleManager
+from ..widgets.button_mixin import ButtonDefinition, ButtonMixin
 
 if TYPE_CHECKING:
     from tkinter import Misc
@@ -25,7 +26,7 @@ _ = get_translator()
 # pragma pylint: disable=too-many-instance-attributes
 
 
-class ModalDialog(tk.Toplevel, metaclass=ABCMeta):
+class ModalDialog(ButtonMixin, tk.Toplevel, metaclass=ABCMeta):
     """
     Base class for modal dialogs.
 
@@ -153,30 +154,21 @@ class ModalDialog(tk.Toplevel, metaclass=ABCMeta):
         """
         Add a Close button to the bottom row of the modal dialog.
         """
-        max_columns, max_rows = self.internal_frame.grid_size()
-        ttk.Button(
-            self.internal_frame, text=_("Close"), command=self.dismiss,
-            style="Accent.TButton"
-        ).grid(
-            row=max_rows, column=0, sticky=tk.E, columnspan=max_columns,
-            padx=INTERNAL_PAD/2, pady=INTERNAL_PAD/2
-        )
+        buttons = [
+            ButtonDefinition(text=_("Close"), command=self.dismiss),
+        ]
+        self.add_buttons(self.internal_frame, buttons=buttons, default=0)
 
     @final
     def add_ok_cancel_buttons(self) -> None:
         """
         Add OK and Cancel buttons to the bottom row of the modal dialog.
         """
-        max_columns, max_rows = self.internal_frame.grid_size()
-        buttonframe = ttk.Frame(self.internal_frame)
-        ttk.Button(
-            buttonframe, text=_("Cancel"), command=self.dismiss
-        ).grid(row=0, column=0, padx=INTERNAL_PAD/2)
-        ttk.Button(
-            buttonframe, text=_("OK"), command=self.save_and_dismiss,
-            style="Accent.TButton"
-        ).grid(row=0, column=1, padx=INTERNAL_PAD/2)
-        buttonframe.grid(row=max_rows, column=0, sticky=tk.E, columnspan=max_columns)
+        buttons = [
+            ButtonDefinition(text=_("Cancel"), command=self.dismiss),
+            ButtonDefinition(text=_("OK"), command=self.save_and_dismiss),
+        ]
+        self.add_buttons(self.internal_frame, buttons=buttons, default=1)
 
     @final
     def add_sizegrip(self) -> None:

@@ -71,12 +71,12 @@ images:  ## Make images
 
 ##@ Running
 
-cli: $(VENV)/bin/activate translations  ## Run the command line application
+cli: $(VENV)/bin/activate translations images  ## Run the command line application
 > $(PYTHON) -m sysmon_pytk.cli_monitor
 
 gui: run
 
-run: $(VENV)/bin/activate translations  ## Run the GUI application
+run: $(VENV)/bin/activate translations images  ## Run the GUI application
 > $(PYTHON) -m sysmon_pytk.gui_monitor &
 
 ##@ Testing
