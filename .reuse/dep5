@@ -12,3 +12,11 @@ Source: https://github.com/staceybellerose/sysmon-pytk
 Files: mypy/stubs/*
 Copyright: 2024 Stacey Adams <stacey.belle.rose@gmail.com>
 License: Unlicense
+
+Files: sysmon_pytk/images/*.png
+Copyright: 2009 Tango Desktop Project
+License: CC0-1.0
+
+Files: sysmon_pytk/images/*.tar.gz
+Copyright: 2009 Tango Desktop Project
+License: CC0-1.0

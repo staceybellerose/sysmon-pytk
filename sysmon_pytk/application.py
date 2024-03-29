@@ -36,6 +36,21 @@ APP_TITLE = _("System Monitor")
 class Application(tk.Tk):
     """
     System monitor application.
+
+    Attributes
+    ----------
+    _name : StringVar
+        The hostname of the system.
+    _ip_addr : StringVar
+        The IP Address of the system.
+    _uptime : StringVar
+        The current uptime of the system.
+    _processes : StringVar
+        The current process count of the system.
+    _update_job : str
+        The ID of the scheduled job to update the screen.
+    _menu_icons : dict[str, PhotoImage]
+        The icons used in the menu.
     """
 
     def __init__(self) -> None:
@@ -50,6 +65,7 @@ class Application(tk.Tk):
         self._update_job: str | None = None
         StyleManager.init_theme(self, self.settings)
         self.create_widgets()
+        self._load_menu_images()
         self.build_menu()
         self.bind_events()
         self.update()
@@ -116,6 +132,14 @@ class Application(tk.Tk):
             pady=(0, _common.INTERNAL_PAD/2)
         )
 
+    def _load_menu_images(self) -> None:
+        self._menu_icons = {
+            "about": tk.PhotoImage(file=get_full_path("images/internet-group-chat.png")),
+            "preferences": tk.PhotoImage(file=get_full_path("images/preferences-system.png")),
+            "restart": tk.PhotoImage(file=get_full_path("images/view-refresh.png")),
+            "quit": tk.PhotoImage(file=get_full_path("images/blank.png"))
+        }
+
     def build_menu(self) -> None:
         """
         Build the application menu.
@@ -123,24 +147,38 @@ class Application(tk.Tk):
         top = self.winfo_toplevel()
         top.rowconfigure(0, weight=1)
         top.columnconfigure(0, weight=1)
-        menu_bar = tk.Menu(top, relief=tk.FLAT)
-        file_menu = tk.Menu(menu_bar, font=font.nametofont("TkMenuFont"), relief=tk.SOLID)
+        menu_bar = tk.Menu(
+            top, relief=tk.FLAT, activeborderwidth=0,
+            font=font.nametofont("TkMenuFont"),
+            background=StyleManager.get_menu_background(),
+            foreground=StyleManager.get_menu_foreground()
+        )
+        file_menu = tk.Menu(
+            menu_bar, relief=tk.FLAT, activeborderwidth=0,
+            font=font.nametofont("TkMenuFont"),
+            background=StyleManager.get_menu_background(),
+            foreground=StyleManager.get_menu_foreground()
+        )
 
         menu_bar.add_cascade(
-            label=_("File"), menu=file_menu, font=font.nametofont("TkMenuFont")
+            label=_("File"), menu=file_menu,
         )
         file_menu.add_command(
-            label=_("About"), accelerator=_("Ctrl+A"), command=self._on_about
+            label=_("About"), accelerator=_("Ctrl+A"), command=self._on_about,
+            compound=tk.LEFT, image=self._menu_icons["about"]
         )
         file_menu.add_command(
-            label=_("Preferences"), accelerator=_("Ctrl+Shift+P"), command=self._on_settings
+            label=_("Preferences"), accelerator=_("Ctrl+Shift+P"), command=self._on_settings,
+            compound=tk.LEFT, image=self._menu_icons["preferences"]
         )
         file_menu.add_command(
-            label=_("Restart"), accelerator=_("Ctrl+R"), command=self._on_restart
+            label=_("Restart"), accelerator=_("Ctrl+R"), command=self._on_restart,
+            compound=tk.LEFT, image=self._menu_icons["restart"]
         )
         file_menu.add_separator()
         file_menu.add_command(
-            label=_("Quit"), accelerator=_("Ctrl+Q"), command=lambda: sys.exit(0)
+            label=_("Quit"), accelerator=_("Ctrl+Q"), command=lambda: sys.exit(0),
+            compound=tk.LEFT, image=self._menu_icons["quit"]
         )
         top["menu"] = menu_bar
         # bind keypress events for menu here

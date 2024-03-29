@@ -93,6 +93,7 @@ class StyleManager:
         cls.init_fonts(settings)
         root.option_add("*TCombobox*Listbox.font", "TkDefaultFont")
         root.option_add("*tearOff", False)  # Fix menus
+        root.bind_class("Menu", "<<ThemeChanged>>", cls.update_menu)
 
     @classmethod
     def init_fonts(cls, settings: Settings) -> None:
@@ -123,7 +124,7 @@ class StyleManager:
         style.configure("TNotebook.Tab", font="TkDefaultFont")
         style.configure("Switch.TCheckbutton", font="TkDefaultFont")
         style.configure("System.TLabel", font="TkDefaultFont")
-        style.configure("URL.TLabel", foreground="#007fff")
+        style.configure("URL.TLabel", foreground="#0066cc")
 
     @classmethod
     def update_by_dark_mode(cls, root: tk.Tk, settings: Settings) -> None:
@@ -138,11 +139,13 @@ class StyleManager:
             style.configure("Safe.TLabel", foreground="#00aa00")
             style.configure("Warn.TLabel", foreground="#ffff22")
             style.configure("Alert.TLabel", foreground="#ff2222")
+            root.option_add("*TCombobox*Listbox.background", "#444444")
         else:
             style.configure("Safe.TLabel", foreground="#009900")
             style.configure("Warn.TLabel", foreground="#aaaa00")
             style.configure("Alert.TLabel", foreground="#cc0000")
-        style.configure("ComboboxPopdownFrame", relief=tk.SOLID)
+            root.option_add("*TCombobox*Listbox.background", "#dddddd")
+        style.configure("ComboboxPopdownFrame", relief=tk.FLAT)
 
     @classmethod
     def test_dark_mode(cls, trueval: T, falseval: T) -> T:
@@ -154,6 +157,31 @@ class StyleManager:
         if is_dark(f"{background}"):
             return trueval
         return falseval
+
+    @classmethod
+    def update_menu(cls, event: tk.Event) -> None:
+        """
+        Update the foreground and background colors of a menu, based on dark mode.
+        """
+        if isinstance(event.widget, tk.Menu):
+            event.widget.configure(
+                background=cls.get_menu_background(),
+                foreground=cls.get_menu_foreground()
+            )
+
+    @classmethod
+    def get_menu_background(cls) -> str:
+        """
+        Get the background color for menus, based on dark mode.
+        """
+        return cls.test_dark_mode("#444444", "#dddddd")
+
+    @classmethod
+    def get_menu_foreground(cls) -> str:
+        """
+        Get the foreground color for menus, based on dark mode.
+        """
+        return cls.test_dark_mode("#ffffff", "#000000")
 
     @classmethod
     def get_base_font(cls) -> Font:
@@ -169,6 +197,15 @@ class StyleManager:
         """
         return font_utils.modify_named_font(
             "TkDefaultFont", size=cls.get_base_font().actual()["size"]+4
+        )
+
+    @classmethod
+    def get_small_font(cls) -> Font:
+        """
+        Get the small font for use in the application.
+        """
+        return font_utils.modify_named_font(
+            "TkDefaultFont", size=cls.get_base_font().actual()["size"]-2
         )
 
     @classmethod

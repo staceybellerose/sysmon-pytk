@@ -8,7 +8,7 @@ MAKEFLAGS += --no-builtin-rules
 # Don't use Tab to indent recipes: some editors aggressively replace tabs with spaces,
 # which would break everything.
 ifeq ($(origin .RECIPEPREFIX), undefined)
-  $(error This Make does not support .RECIPEPREFIX. Please use GNU Make 4.0 or later)
+$(error This Make does not support .RECIPEPREFIX. Please use GNU Make 4.0 or later)
 endif
 .RECIPEPREFIX = >
 
@@ -45,11 +45,14 @@ srcs := $(wildcard ../*.py ../modals/*.py ../widgets/*.py)
 
 # make sure all external programs are available
 EXECUTABLES = $(BASE_PYTHON) $(AWK) $(SORT) $(JQ)
-K := $(foreach exec,$(EXECUTABLES), $(if $(shell which $(exec)),some string,$(error "No $(exec) in PATH")))
+K := $(foreach exec,$(EXECUTABLES), \
+$(if $(shell which $(exec)),some string,$(error "No $(exec) in PATH")))
 
 .DEFAULT_GOAL := help
 
-.PHONY: translations ruff ruff-fix isort isort-fix pylint mypy pycodestyle pydocstyle bandit reuse liccheck loc build sdist wheel clean help
+.PHONY: translations images ruff ruff-fix isort isort-fix pylint
+.PHONY: mypy pycodestyle pydocstyle bandit reuse liccheck loc
+.PHONY: build sdist wheel clean help
 
 $(VENV)/bin/activate: requirements.txt requirements-dev.txt
 > $(BASE_PYTHON) -m venv $(VENV)
@@ -62,6 +65,9 @@ venv: $(VENV)/bin/activate  ## Build Python virtual environment
 
 translations:  ## Make translations
 > $(MAKE) -C sysmon_pytk/locale all
+
+images:  ## Make images
+> $(MAKE) -C sysmon_pytk/images all
 
 ##@ Running
 

@@ -11,12 +11,13 @@ import dataclasses
 import tkinter as tk
 from tkinter import ttk
 from typing import TYPE_CHECKING
+from uuid import uuid4
 
 from .._common import INTERNAL_PAD
 from ..app_locale import get_translator
 from ..file_utils import get_full_path, get_main_script
 from ..translator import TRANSLATORS, Translator
-from ..widgets import AutoScrollbar, UrlLabel
+from ..widgets import ScrollingText, TextToolTip
 from ._base_modal import ModalDialog
 
 if TYPE_CHECKING:
@@ -137,15 +138,11 @@ class AboutDialog(ModalDialog):
         """
         Create the About page of the Notebook widget.
         """
-        tab = ttk.Frame(notebook)
-        tab.rowconfigure(0, weight=1)
-        tab.columnconfigure(0, weight=1)
-        text = tk.Text(
-            tab, font=self.base_font, height=11, width=50, wrap=tk.WORD,
+        text = ScrollingText(
+            notebook, font=self.base_font, height=11, width=50, wrap=tk.WORD,
             undo=False, relief=tk.FLAT, spacing1=INTERNAL_PAD
         )
-        text.tag_configure("center", justify="center")
-        text.tag_configure("large", font=self.large_font)
+        tab = text.get_frame()
         text.image_create(tk.END, image=self.logo)
         text.insert(tk.END, "\n")
         text.insert(tk.END, self.about.get_name() + "\n", "large")
@@ -154,47 +151,31 @@ class AboutDialog(ModalDialog):
         if copyright_text:
             text.insert(tk.END, copyright_text + "\n")
         if self.about.url:
-            link1style = UrlLabel.test_web_protocol(
-                self.about.url, "URL.TLabel", "System.TLabel"
-            )
-            link = UrlLabel(
-                tab, text=_("Source Code"), url=self.about.url,
-                style=link1style, font=self.base_font, show_tooltip=True,
-                anchor=tk.CENTER
-            )
-            text.window_create(tk.END, window=link)
+            token = uuid4().hex
+            text.insert(tk.END, _("Source Code"), ("link", token))
+            text.insert(tk.END, self.about.url, "linkurl")
             text.insert(tk.END, "\n")
+            TextToolTip(text, self.about.url, token)
         text.tag_add("center", "1.0", "end-1c")
         text.insert(tk.END, self.about.description)
-        text.config(state=tk.DISABLED)
-        text.grid(row=0, column=0, sticky=tk.NSEW, padx=(INTERNAL_PAD, 0))
-        AutoScrollbar.add_to_widget(text, orient=tk.VERTICAL).grid(
-            row=0, column=1, sticky=tk.NS
-        )
+        text.config(state=tk.DISABLED, padx=INTERNAL_PAD)
         return tab
 
     def create_translators_tab(self, notebook: ttk.Notebook) -> ttk.Frame:
         """
         Create the Translators page of the Notebook widget.
         """
-        tab = ttk.Frame(notebook)
-        tab.rowconfigure(0, weight=1)
-        tab.columnconfigure(0, weight=1)
-        text = tk.Text(
-            tab, font=self.base_font, height=10, width=50, wrap=tk.WORD,
+        text = ScrollingText(
+            notebook, font=self.base_font, height=10, width=50, wrap=tk.WORD,
             undo=False, relief=tk.FLAT
         )
+        tab = text.get_frame()
         for language, translator_list in TRANSLATORS.items():
-            text.insert(tk.END, f"{language}: ", "language")
+            text.insert(tk.END, f"{language}: ", "bold")
             for idx, translator in enumerate(translator_list):
                 self._add_translator(text, translator, idx, len(translator_list))
         text.delete("end-1c")  # remove the final "\n"
-        text.tag_configure("language", font=self.bold_font)
         text.config(state=tk.DISABLED, spacing1=4, spacing2=4, spacing3=4)
-        text.grid(row=0, column=0, sticky=tk.NSEW)
-        AutoScrollbar.add_to_widget(text, orient=tk.VERTICAL).grid(
-            row=0, column=1, sticky=tk.NS
-        )
         return tab
 
     def _add_translator(
@@ -202,18 +183,12 @@ class AboutDialog(ModalDialog):
     ) -> None:
         text.insert(tk.END, translator.name)
         if translator.github_username:
-            linkstyle = UrlLabel.test_web_protocol(
-                self.about.url, "URL.TLabel", "System.TLabel"
-            )
-            link = UrlLabel(
-                text,
-                text=f"{translator.github_username} @ GitHub",
-                url=translator.github_url(), style=linkstyle,
-                font=self.base_font, show_tooltip=True
-            )
+            token = uuid4().hex
             text.insert(tk.END, " (")
-            text.window_create(tk.END, window=link)
+            text.insert(tk.END, f"{translator.github_username} @ GitHub", ("link", token))
+            text.insert(tk.END, translator.github_url(), "linkurl")
             text.insert(tk.END, ")")
+            TextToolTip(text, translator.github_url(), token)
         if idx < max_items-1:
             text.insert(tk.END, ", ")
         else:
@@ -225,36 +200,26 @@ class AboutDialog(ModalDialog):
         """
         Create the License details page of the Notebook widget.
         """
-        tab = ttk.Frame(notebook)
-        tab.rowconfigure(0, weight=1)
-        tab.columnconfigure(0, weight=1)
+        text = ScrollingText(
+            notebook, font=self.base_font, height=15, width=50, wrap=tk.WORD,
+            undo=False, relief=tk.FLAT
+        )
+        tab = text.get_frame()
         if license_data.full_license:
             license_text = [
-                line.replace(
+                paragraph.replace(
                     "\n", " "
-                ) for line in license_data.full_license.split("\n\n")
+                ) for paragraph in license_data.full_license.split("\n\n")
             ]
-            text = tk.Text(
-                tab, font=self.base_font, height=15, width=50, wrap=tk.WORD,
-                undo=False, relief=tk.FLAT
-            )
             text.insert(tk.END, "\n\n".join(license_text))
-            text.config(state=tk.DISABLED)
-            text.grid(row=0, column=0, sticky=tk.NSEW)
-            AutoScrollbar.add_to_widget(text, orient=tk.VERTICAL).grid(
-                row=0, column=1, sticky=tk.NS
-            )
         elif license_data.license_name:
-            tk.Label(
-                tab, font=self.base_font, text=license_data.license_name
-            ).grid(row=0, pady=INTERNAL_PAD)
+            text.config(spacing1=4, spacing2=4, spacing3=4, height=5)
+            text.insert(tk.END, license_data.license_name + "\n")
             if license_data.license_url:
-                link2style = UrlLabel.test_web_protocol(
-                    license_data.license_url, "URL.TLabel", "System.TLabel"
-                )
-                UrlLabel(
-                    tab, text=_("Full license text available here"),
-                    url=license_data.license_url, style=link2style,
-                    show_tooltip=True
-                ).grid(row=1, pady=INTERNAL_PAD)
+                token = uuid4().hex
+                text.insert(tk.END, _("Full license text available here"), ("link", token))
+                text.insert(tk.END, license_data.license_url, "linkurl")
+                TextToolTip(text, license_data.license_url, token)
+            text.tag_add("center", "1.0", "end-1c")
+        text.config(state=tk.DISABLED)
         return tab
