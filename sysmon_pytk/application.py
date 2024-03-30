@@ -22,7 +22,7 @@ from .modals import SettingsDialog
 from .modals.about_modal import AboutDialog, AboutMetadata, LicenseMetadata
 from .settings import Settings
 from .style_manager import StyleManager
-from .widgets import ToolTip
+from .widgets import TempToolTip, ToolTip
 from .widgets.meters import CpuMeter, DiskMeter, RamMeter, TempMeter
 
 if TYPE_CHECKING:
@@ -195,11 +195,10 @@ class Application(tk.Tk):
         self.bind("<<LanguageChanged>>", self._on_language)
         self.bind("<<FontChanged>>", self._on_restart)
 
-    def _on_click_ip_address(self, _event: tk.Event) -> None:
+    def _on_click_ip_address(self, event: tk.Event) -> None:
         self.clipboard_clear()
         self.clipboard_append(_common.net_addr())
-        # TODO Add user-visible notification that copy happened.
-        print(_("Copied!"))
+        TempToolTip(self, _("Copied!"), (event.x_root, event.y_root), 5000)
 
     def _on_language(self, *_args) -> None:
         """

@@ -11,10 +11,10 @@ from .edit_menu import EditMenu
 from .meter import Meter
 from .scalespinner import ScaleSpinner
 from .scrolling_text import ScrollingText
-from .tooltip import TextToolTip, ToolTip
+from .tooltip import TempToolTip, TextToolTip, ToolTip
 from .url_label import UrlLabel
 
 __all__ = [
     "AutoScrollbar", "DropDown", "EditMenu", "Meter", "ScaleSpinner",
-    "ScrollingText", "TextToolTip", "ToolTip", "UrlLabel"
+    "ScrollingText", "TempToolTip", "TextToolTip", "ToolTip", "UrlLabel"
 ]

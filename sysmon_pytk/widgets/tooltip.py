@@ -15,7 +15,7 @@ from .._common import INTERNAL_PAD
 from ..style_manager import StyleManager
 
 if TYPE_CHECKING:
-    from tkinter import BaseWidget, Event
+    from tkinter import Event, Misc, Text
 
 
 class ToolTip:
@@ -26,19 +26,19 @@ class ToolTip:
     ----------
     tooltip : tk.Toplevel
         The actual tooltip popup.
-    parent : BaseWidget
+    parent : Misc
         The parent widget, which will host the tooltip.
     text : str
         The text to display in the tooltip.
     """
 
-    def __init__(self, parent: BaseWidget, text: str = "") -> None:
+    def __init__(self, parent: Misc, text: str = "") -> None:
         """
         Construct a tooltip.
 
         Parameters
         ----------
-        parent : BaseWidget
+        parent : Misc
             The parent widget, which will host the tooltip.
         text : str
             The text to display in the tooltip.
@@ -60,7 +60,7 @@ class ToolTip:
         """
         Handle the event when pointer enters the widget.
         """
-        self.tooltip = tk.Toplevel()
+        self.tooltip = tk.Toplevel(class_="ToolTip")
         self.tooltip.overrideredirect(True)
         self.tooltip.geometry(f"+{event.x_root+10}+{event.y_root+10}")
         ttk.Label(
@@ -94,7 +94,7 @@ class TextToolTip(ToolTip):
         A tag used in the Text widget with which to link this tooltip.
     """
 
-    def __init__(self, parent: tk.Text, text: str = "", tag: str = "") -> None:
+    def __init__(self, parent: Text, text: str = "", tag: str = "") -> None:
         self.tag = tag
         super().__init__(parent, text)
 
@@ -102,7 +102,54 @@ class TextToolTip(ToolTip):
         """
         Bind the Enter, Leave, Motion events to the tag on the parent Text widget.
         """
-        parent: tk.Text = self.parent  # type: ignore[assignment]
+        parent: Text = self.parent  # type: ignore[assignment]
         parent.tag_bind(self.tag, "<Enter>", self.on_enter, "+")
         parent.tag_bind(self.tag, "<Motion>", self.on_move, "+")
         parent.tag_bind(self.tag, "<Leave>", self.on_leave, "+")
+
+
+class TempToolTip(ToolTip):
+    """
+    A Temporary tooltip that times out after a few seconds.
+    """
+
+    def __init__(
+        self, parent: Misc, text: str = "",
+        position: tuple[int, int] = (0, 0), timer_ms: int = 2000
+    ) -> None:
+        """
+        Construct a tooltip.
+
+        Parameters
+        ----------
+        parent : Misc
+            The parent widget, which will host the tooltip.
+        text : str
+            The text to display in the tooltip.
+        position : tuple[int, int]
+            The (X, Y) position of the tooltip.
+        timer_ms : int
+            The number of milliseconds to display the tooltip.
+        """
+        super().__init__(parent, text)
+        self.tooltip = tk.Toplevel(class_="ToolTip")
+        self.tooltip.overrideredirect(True)
+        self.tooltip.geometry(f"+{position[0]}+{position[1]}")
+        ttk.Label(
+            self.tooltip, text=self.text, font=StyleManager.get_small_font(),
+            background="#ffffdd", foreground="#000000", anchor=tk.CENTER
+        ).grid(ipadx=INTERNAL_PAD)
+        self.tooltip.after(timer_ms, self.dismiss)
+
+    def bind_events(self) -> None:
+        """
+        Don't handle any events.
+        """
+
+    def dismiss(self) -> None:
+        """
+        Dismiss the tooltip.
+        """
+        if self.tooltip:
+            self.tooltip.destroy()
+            self.tooltip = None
