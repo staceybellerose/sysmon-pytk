@@ -6,13 +6,13 @@ SPDX-FileCopyrightText: © 2024 Stacey Adams <stacey.belle.rose@gmail.com>
 SPDX-License-Identifier: MIT
 -->
 
-![GitHub License](https://img.shields.io/github/license/staceybellerose/sysmon-pytk?color=7C4DFF)
-![GitHub Release](https://img.shields.io/github/v/release/staceybellerose/sysmon-pytk)
-![AppVeyor Build](https://img.shields.io/appveyor/build/staceybellerose/sysmon-pytk)
+[![GitHub License](https://img.shields.io/github/license/staceybellerose/sysmon-pytk?color=7C4DFF)](https://github.com/staceybellerose/sysmon-pytk)
+[![GitHub Release](https://img.shields.io/github/v/release/staceybellerose/sysmon-pytk)](https://github.com/staceybellerose/sysmon-pytk/releases)
+[![AppVeyor Build](https://img.shields.io/appveyor/build/staceybellerose/sysmon-pytk)](https://ci.appveyor.com/project/staceybellerose/sysmon-pytk/)
 
-![PyPI - Status](https://img.shields.io/pypi/status/sysmon-pytk)
-![PyPI - Version](https://img.shields.io/pypi/v/sysmon-pytk)
-![PyPI - Python Version](https://img.shields.io/pypi/pyversions/sysmon-pytk)
+[![PyPI - Status](https://img.shields.io/pypi/status/sysmon-pytk)](https://pypi.org/project/sysmon-pytk/)
+[![PyPI - Version](https://img.shields.io/pypi/v/sysmon-pytk)](https://pypi.org/project/sysmon-pytk/)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/sysmon-pytk)](https://pypi.org/project/sysmon-pytk/)
 
 [![REUSE status](https://api.reuse.software/badge/github.com/staceybellerose/sysmon-pytk)](https://api.reuse.software/info/github.com/staceybellerose/sysmon-pytk)
 [![CodeFactor Grade](https://img.shields.io/codefactor/grade/github/staceybellerose/sysmon-pytk?logo=codefactor)](https://www.codefactor.io/repository/github/staceybellerose/sysmon-pytk)
