@@ -21,6 +21,7 @@ VENV := venv
 AWK = /usr/bin/awk
 SORT = /usr/bin/sort
 JQ = /usr/bin/jq
+MSGCMP = /usr/bin/msgcmp
 # system-installed python, used to create venv
 BASE_PYTHON = /usr/bin/python3
 
@@ -41,12 +42,15 @@ REUSE := $(VENV)/bin/reuse
 RUFF := $(VENV)/bin/ruff
 TWINE := $(VENV)/bin/twine
 
-srcs := $(wildcard ../*.py ../modals/*.py ../widgets/*.py)
+srcs := $(wildcard sysmon_pytk/*.py sysmon_pytk/modals/*.py sysmon_pytk/widgets/*.py)
 
 # make sure all external programs are available
-EXECUTABLES = $(BASE_PYTHON) $(AWK) $(SORT) $(JQ)
+EXECUTABLES = $(BASE_PYTHON) $(AWK) $(SORT) $(JQ) $(MSGCMP)
 K := $(foreach exec,$(EXECUTABLES), \
 $(if $(shell which $(exec)),some string,$(error "No $(exec) in PATH")))
+
+DOMAIN = $(shell $(AWK) '$$0 ~ "^__i18n_domain__" { gsub(/"/, ""); print $$2 }' FS=" = " sysmon_pytk/app_locale.py)
+I18N_SUBDIRS := $(wildcard sysmon_pytk/locale/*/LC_MESSAGES/.)
 
 .DEFAULT_GOAL := help
 
@@ -81,7 +85,18 @@ run: $(VENV)/bin/activate translations images  ## Run the GUI application
 
 ##@ Testing
 
-lint: ruff isort pyflakes mypy pycodestyle pydocstyle bandit loc pylint reuse liccheck  ## All lint and static code checks
+lint: ruff isort pyflakes mypy pycodestyle pydocstyle bandit loc xlate-lint pylint reuse liccheck  ## All lint and static code checks
+
+xlate-lint:  $(I18N_SUBDIRS:.=$(DOMAIN).po) $(I18N_SUBDIRS:.=argparse.po)  ## Check for missing translations
+> @for file in $^ \
+; do \
+echo $(MSGCMP) "$$file" "$$file" \
+; $(MSGCMP) "$$file" "$$file" \
+; if [ $$? -ne 0 ] \
+; then \
+exit 1 \
+; fi \
+; done
 
 ruff:  ## Code lint check
 > $(RUFF) check sysmon_pytk
@@ -139,8 +154,8 @@ radon-raw:  ## Raw metrics of codebase
 
 build: dist  ## Build both source and binary distribution files
 
-dist: $(srcs)
-> mkdir dist
+dist: $(srcs) pyproject.toml
+> mkdir -p dist
 > $(PYTHON) -m build
 
 dist/*.tar.gz: build
@@ -168,9 +183,11 @@ upload: dist/*.tar.gz dist/*.whl  ## Upload the package to PyPI
 
 clean:  ## Clean up the project folders
 > rm -rf __pycache__
+> rm -rf .mypy_cache
 > rm -rf dist
 > rm -rf sysmon_pytk.egg-info
 > $(MAKE) -C sysmon_pytk/locale clean
+> $(MAKE) -C sysmon_pytk/images clean
 
 ##@ Helpers
 

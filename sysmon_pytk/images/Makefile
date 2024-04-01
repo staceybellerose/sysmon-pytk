@@ -8,7 +8,7 @@ MAKEFLAGS += --no-builtin-rules
 # Don't use Tab to indent recipes: some editors aggressively replace tabs with spaces,
 # which would break everything.
 ifeq ($(origin .RECIPEPREFIX), undefined)
-  $(error This Make does not support .RECIPEPREFIX. Please use GNU Make 4.0 or later)
+$(error This Make does not support .RECIPEPREFIX. Please use GNU Make 4.0 or later)
 endif
 .RECIPEPREFIX = >
 

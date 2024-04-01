@@ -6,10 +6,11 @@ File utility functions.
 """
 
 import inspect
-import os
 import sys
 from distutils.sysconfig import get_python_lib
 from pathlib import Path
+
+import platformdirs
 
 SETTINGS_FILE = "sysmon.ini"
 
@@ -31,13 +32,9 @@ def settings_path() -> str:
     Get the full path for the settings file.
     """
     package = __package__ if __package__ else Path(__file__).parts[-2]
-    xdg_config_home = os.environ.get("XDG_CONFIG_HOME")
-    if xdg_config_home is not None:
-        base_dir = Path(xdg_config_home) / package
-    else:
-        base_dir = Path.home() / package
+    base_dir = platformdirs.user_config_path(package)
     if not base_dir.exists():
-        base_dir.mkdir()
+        base_dir.mkdir(parents=True)
     return f"{base_dir / SETTINGS_FILE}"
 
 

@@ -208,6 +208,17 @@ class Settings:
         self.config["general"]["always_on_top"] = f"{always_on_top}"
 
     @property
+    def add_menu_icon(self) -> int:
+        """
+        The flag indicating whether the application should add a menu icon.
+        """
+        return self.config["general"].getint("add_menu_icon", fallback=0)
+
+    @add_menu_icon.setter
+    def add_menu_icon(self, add_menu_icon: int) -> None:
+        self.config["general"]["add_menu_icon"] = f"{add_menu_icon}"
+
+    @property
     def language(self) -> str:
         """
         The language to use.

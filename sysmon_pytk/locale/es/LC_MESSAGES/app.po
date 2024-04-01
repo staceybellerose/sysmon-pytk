@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: sysmon-pytk 0.4.1\n"
+"Project-Id-Version: sysmon-pytk 0.5.0\n"
 "Report-Msgid-Bugs-To: stacey.belle.rose@gmail.com\n"
-"POT-Creation-Date: 2024-03-22 23:14-0500\n"
-"PO-Revision-Date: 2024-03-22 23:14-0500\n"
+"POT-Creation-Date: 2024-03-31 04:00-0500\n"
+"PO-Revision-Date: 2024-03-31 04:00-0500\n"
 "Last-Translator: Stacey Adams <stacey.belle.rose@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/sysmon-pytk/"
 "sysmon-pytk/es/>\n"
@@ -34,71 +34,71 @@ msgstr ""
 "raíz). También muestra el nombre de host del sistema, la dirección IP, el "
 "tiempo de actividad y el recuento de procesos actuales."
 
-#: ../application.py:32 ../cli_monitor.py:203
+#: ../application.py:33 ../cli_monitor.py:203 ../desktop_menu.py:72
 msgid "System Monitor"
 msgstr "Monitoreo del sistema"
 
-#: ../application.py:78
+#: ../application.py:94
 msgid "Click to copy IP Address to clipboard"
 msgstr "Clic para copiar la dirección IP al portapapeles"
 
-#: ../application.py:140
+#: ../application.py:164
 msgid "File"
 msgstr "Archivo"
 
-#: ../application.py:129
+#: ../application.py:167
 msgid "About"
 msgstr "Acerca de"
 
-#: ../application.py:129
+#: ../application.py:167 ../widgets/edit_menu.py:65
 msgid "Ctrl+A"
 msgstr "Ctrl+A"
 
-#: ../application.py:132
+#: ../application.py:171
 msgid "Preferences"
 msgstr "Preferencias"
 
-#: ../application.py:132
+#: ../application.py:171
 msgid "Ctrl+Shift+P"
 msgstr "Ctrl+Mayús+P"
 
-#: ../application.py:135
+#: ../application.py:175
 msgid "Restart"
 msgstr "Reiniciar"
 
-#: ../application.py:135
+#: ../application.py:175
 msgid "Ctrl+R"
 msgstr "Ctrl+R"
 
-#: ../application.py:139
+#: ../application.py:180
 msgid "Quit"
 msgstr "Salir"
 
-#: ../application.py:139
+#: ../application.py:180
 msgid "Ctrl+Q"
 msgstr "Ctrl+Q"
 
-#: ../application.py:174
+#: ../application.py:201
 msgid "Copied!"
 msgstr "¡Copiado!"
 
-#: ../application.py:208
+#: ../application.py:235
 msgid "{} Preferences"
 msgstr "{} Preferencias"
 
-#: ../application.py:197 ../cli_monitor.py:206
+#: ../application.py:244 ../cli_monitor.py:206
 msgid "Hostname: {}"
 msgstr "Nombre del host: {}"
 
-#: ../application.py:198 ../cli_monitor.py:207
+#: ../application.py:245 ../cli_monitor.py:207
 msgid "IP Address: {}"
 msgstr "Dirección IP: {}"
 
-#: ../application.py:199 ../cli_monitor.py:208
+#: ../application.py:246 ../cli_monitor.py:208
 msgid "Processes: {}"
 msgstr "Recuento de procesos: {}"
 
-#: ../application.py:200 ../cli_monitor.py:209
+#: ../application.py:247 ../cli_monitor.py:209
 msgid "Uptime: {}"
 msgstr "Tiempo de actividad: {}"
 
@@ -195,6 +195,18 @@ msgstr "mostrar detalles del disco y de la temperatura"
 msgid "show no details, only the header"
 msgstr "no mostrar detalles, solo el encabezado"
 
+#: ../desktop_menu.py:48
+msgid "Error creating desktop menu item"
+msgstr "Error al crear el elemento del menú del escritorio"
+
+#: ../desktop_menu.py:49
+msgid ""
+"System Monitor (sysmon) must be installed in a virtual environment in order "
+"to create a desktop menu entry."
+msgstr ""
+"System Monitor (sysmon) debe instalarse en un entorno virtual para poder "
+"crear una entrada de menú en el escritorio."
+
 #: ../font_utils.py:74 ../modals/font_modal.py:171
 msgid "Bold"
 msgstr "Negrita"
@@ -207,39 +219,39 @@ msgstr "Cursiva"
 msgid "Bold Italic"
 msgstr "Cursiva negrita"
 
-#: ../modals/about_modal.py:92
+#: ../modals/about_modal.py:93
 msgid "About {}"
 msgstr "Acerca del {}"
 
-#: ../modals/about_modal.py:124
+#: ../modals/about_modal.py:125
 msgid "Translators"
 msgstr "Traductores"
 
-#: ../modals/about_modal.py:130
+#: ../modals/about_modal.py:131
 msgid "License"
 msgstr "Licencia"
 
-#: ../modals/about_modal.py:152
+#: ../modals/about_modal.py:149
 msgid "Version {}"
 msgstr "Versión {}"
 
-#: ../modals/about_modal.py:161
+#: ../modals/about_modal.py:155
 msgid "Source Code"
 msgstr "Código fuente"
 
-#: ../modals/about_modal.py:256
+#: ../modals/about_modal.py:220
 msgid "Full license text available here"
 msgstr "Texto completo de la licencia disponible aquí"
 
-#: ../modals/_base_modal.py:158
+#: ../modals/_base_modal.py:158 ../widgets/button_mixin.py:113
 msgid "Close"
 msgstr "Cerrar"
 
-#: ../modals/_base_modal.py:173
+#: ../modals/_base_modal.py:168 ../widgets/button_mixin.py:110
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: ../modals/_base_modal.py:176
+#: ../modals/_base_modal.py:169 ../widgets/button_mixin.py:107
 msgid "OK"
 msgstr "Aceptar"
 
@@ -299,41 +311,69 @@ msgstr "Estadísticas de memoria"
 msgid "Virtual Memory"
 msgstr "memoria virtual"
 
-#: ../modals/settings_modal.py:28
+#: ../modals/settings_modal.py:31
 msgid "Light"
 msgstr "Claro"
 
-#: ../modals/settings_modal.py:29
+#: ../modals/settings_modal.py:32
 msgid "Dark"
 msgstr "Oscuro"
 
-#: ../modals/settings_modal.py:30
+#: ../modals/settings_modal.py:33
 msgid "Same as System"
 msgstr "Igual que en el sistema"
 
-#: ../modals/settings_modal.py:99
+#: ../modals/settings_modal.py:106
 msgid "Language"
 msgstr "Idioma"
 
-#: ../modals/settings_modal.py:114
+#: ../modals/settings_modal.py:121
 msgid "Theme"
 msgstr "Tema"
 
-#: ../modals/settings_modal.py:132
+#: ../modals/settings_modal.py:139
 msgid "Always on top"
 msgstr "Siempre encima"
 
-#: ../modals/settings_modal.py:139
+#: ../modals/settings_modal.py:146
 msgid "Regular Font"
 msgstr "Fuente normal"
 
-#: ../modals/settings_modal.py:149
+#: ../modals/settings_modal.py:156
 msgid "Monospace Font"
 msgstr "Fuente monoespaciada"
 
-#: ../modals/settings_modal.py:177 ../modals/settings_modal.py:196
+#: ../modals/settings_modal.py:166
+msgid "Add to desktop menu system"
+msgstr "Agregar al sistema de menú del escritorio"
+
+#: ../modals/settings_modal.py:191 ../modals/settings_modal.py:210
 msgid "Select a font"
 msgstr "Seleccione una fuente"
+
+#: ../widgets/button_mixin.py:116
+msgid "Yes"
+msgstr "Sí"
+
+#: ../widgets/button_mixin.py:119
+msgid "No"
+msgstr "No"
+
+#: ../widgets/button_mixin.py:122
+msgid "Retry"
+msgstr "Reintentar"
+
+#: ../widgets/edit_menu.py:51
+msgid "Ctrl+X"
+msgstr "Ctrl+X"
+
+#: ../widgets/edit_menu.py:55
+msgid "Ctrl+C"
+msgstr "Ctrl+C"
+
+#: ../widgets/edit_menu.py:59
+msgid "Ctrl+V"
+msgstr "Ctrl+V"
 
 #: ../widgets/meters.py:119
 msgid "Click for per-CPU usage"
@@ -370,3 +410,15 @@ msgstr "Clic para obtener detalles de uso de cada punto de montaje"
 #: ../widgets/meters.py:236
 msgid "{} :: Disk Usage"
 msgstr "{} :: Uso del disco"
+
+#~ msgid "Cut"
+#~ msgstr "Cortar"
+
+#~ msgid "Copy"
+#~ msgstr "Copiar"
+
+#~ msgid "Paste"
+#~ msgstr "Pegar"
+
+#~ msgid "Select All"
+#~ msgstr "Seleccionar todo"

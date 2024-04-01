@@ -23,7 +23,7 @@ from .meter import Meter
 from .tooltip import ToolTip
 
 if TYPE_CHECKING:
-    from tkinter import BaseWidget, Event
+    from tkinter import BaseWidget
 
 _ = get_translator()
 
@@ -62,7 +62,7 @@ class UpdatingMeter(Meter):
         """
         return self.winfo_toplevel().title()
 
-    def on_destroy(self, _event: Event) -> None:
+    def on_destroy(self, *_args) -> None:
         """
         Cancel the update job when widget is destroyed.
         """

@@ -3,5 +3,6 @@
 
 blessings >= 1.7
 darkdetect==0.8.0
+platformdirs >= 4.2
 psutil >= 5.8.0, < 6.0
 typing-extensions >= 4.10

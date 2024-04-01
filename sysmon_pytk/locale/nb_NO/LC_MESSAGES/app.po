@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: sysmon-pytk 0.4.1\n"
+"Project-Id-Version: sysmon-pytk 0.5.0\n"
 "Report-Msgid-Bugs-To: stacey.belle.rose@gmail.com\n"
-"POT-Creation-Date: 2024-03-22 23:14-0500\n"
-"PO-Revision-Date: 2024-03-22 23:14-0500\n"
+"POT-Creation-Date: 2024-03-31 04:00-0500\n"
+"PO-Revision-Date: 2024-03-31 04:00-0500\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/sysmon-"
 "pytk/sysmon-pytk/nb_NO/>\n"
@@ -34,71 +34,71 @@ msgstr ""
 "partisjonen). Verktøyet viser også systemets vertsnavn, IP-adresse, oppetid, "
 "og nåværende prosessantall."
 
-#: ../application.py:32 ../cli_monitor.py:203
+#: ../application.py:33 ../cli_monitor.py:203 ../desktop_menu.py:72
 msgid "System Monitor"
 msgstr "Systemmonitor"
 
-#: ../application.py:78
+#: ../application.py:94
 msgid "Click to copy IP Address to clipboard"
 msgstr "Klikk for å kopiere IP-adressen til utklippstavlen"
 
-#: ../application.py:140
+#: ../application.py:164
 msgid "File"
 msgstr "Fil"
 
-#: ../application.py:129
+#: ../application.py:167
 msgid "About"
 msgstr "Om"
 
-#: ../application.py:129
+#: ../application.py:167 ../widgets/edit_menu.py:65
 msgid "Ctrl+A"
 msgstr "Ctrl+A"
 
-#: ../application.py:132
+#: ../application.py:171
 msgid "Preferences"
 msgstr "Innstillinger"
 
-#: ../application.py:132
+#: ../application.py:171
 msgid "Ctrl+Shift+P"
 msgstr "Ctrl+Shift+P"
 
-#: ../application.py:135
+#: ../application.py:175
 msgid "Restart"
 msgstr "Omstart"
 
-#: ../application.py:135
+#: ../application.py:175
 msgid "Ctrl+R"
 msgstr "Ctrl+R"
 
-#: ../application.py:139
+#: ../application.py:180
 msgid "Quit"
 msgstr "Avslutt"
 
-#: ../application.py:139
+#: ../application.py:180
 msgid "Ctrl+Q"
 msgstr "Ctrl+Q"
 
-#: ../application.py:174
+#: ../application.py:201
 msgid "Copied!"
 msgstr "Kopiert!"
 
-#: ../application.py:208
+#: ../application.py:235
 msgid "{} Preferences"
 msgstr "{} Innstillinger"
 
-#: ../application.py:197 ../cli_monitor.py:206
+#: ../application.py:244 ../cli_monitor.py:206
 msgid "Hostname: {}"
 msgstr "Vertsnavn: {}"
 
-#: ../application.py:198 ../cli_monitor.py:207
+#: ../application.py:245 ../cli_monitor.py:207
 msgid "IP Address: {}"
 msgstr "IP-adresse: {}"
 
-#: ../application.py:199 ../cli_monitor.py:208
+#: ../application.py:246 ../cli_monitor.py:208
 msgid "Processes: {}"
 msgstr "Prosesser: {}"
 
-#: ../application.py:200 ../cli_monitor.py:209
+#: ../application.py:247 ../cli_monitor.py:209
 msgid "Uptime: {}"
 msgstr "Oppetid: {}"
 
@@ -191,6 +191,18 @@ msgstr "vis både disk- og temperaturdetaljer"
 msgid "show no details, only the header"
 msgstr "vis ingen detaljer, bare overskriften"
 
+#: ../desktop_menu.py:48
+msgid "Error creating desktop menu item"
+msgstr "Feil under oppretting av skrivebordsmenyelement"
+
+#: ../desktop_menu.py:49
+msgid ""
+"System Monitor (sysmon) must be installed in a virtual environment in order "
+"to create a desktop menu entry."
+msgstr ""
+"Systemmonitor (sysmon) må installeres i et virtuelt miljø for å opprette en "
+"skrivebordsmenyoppføring."
+
 #: ../font_utils.py:74 ../modals/font_modal.py:171
 msgid "Bold"
 msgstr "Fet"
@@ -203,39 +215,39 @@ msgstr "Kursiv"
 msgid "Bold Italic"
 msgstr "Fet kursiv"
 
-#: ../modals/about_modal.py:92
+#: ../modals/about_modal.py:93
 msgid "About {}"
 msgstr "Om {}"
 
-#: ../modals/about_modal.py:124
+#: ../modals/about_modal.py:125
 msgid "Translators"
 msgstr "Oversettere"
 
-#: ../modals/about_modal.py:130
+#: ../modals/about_modal.py:131
 msgid "License"
 msgstr "Lisens"
 
-#: ../modals/about_modal.py:152
+#: ../modals/about_modal.py:149
 msgid "Version {}"
 msgstr "Versjon {}"
 
-#: ../modals/about_modal.py:161
+#: ../modals/about_modal.py:155
 msgid "Source Code"
 msgstr "Kildekode"
 
-#: ../modals/about_modal.py:256
+#: ../modals/about_modal.py:220
 msgid "Full license text available here"
 msgstr "Full lisenstekst tilgjengelig her"
 
-#: ../modals/_base_modal.py:158
+#: ../modals/_base_modal.py:158 ../widgets/button_mixin.py:113
 msgid "Close"
 msgstr "Lukk"
 
-#: ../modals/_base_modal.py:173
+#: ../modals/_base_modal.py:168 ../widgets/button_mixin.py:110
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: ../modals/_base_modal.py:176
+#: ../modals/_base_modal.py:169 ../widgets/button_mixin.py:107
 msgid "OK"
 msgstr "OK"
 
@@ -295,41 +307,69 @@ msgstr "Minnestatistikk"
 msgid "Virtual Memory"
 msgstr "Virtuelt minne"
 
-#: ../modals/settings_modal.py:28
+#: ../modals/settings_modal.py:31
 msgid "Light"
 msgstr "Lys"
 
-#: ../modals/settings_modal.py:29
+#: ../modals/settings_modal.py:32
 msgid "Dark"
 msgstr "Mørk"
 
-#: ../modals/settings_modal.py:30
+#: ../modals/settings_modal.py:33
 msgid "Same as System"
 msgstr "Samme som systemet"
 
-#: ../modals/settings_modal.py:99
+#: ../modals/settings_modal.py:106
 msgid "Language"
 msgstr "Språk"
 
-#: ../modals/settings_modal.py:114
+#: ../modals/settings_modal.py:121
 msgid "Theme"
 msgstr "Drakt"
 
-#: ../modals/settings_modal.py:132
+#: ../modals/settings_modal.py:139
 msgid "Always on top"
 msgstr "Alltid på topp"
 
-#: ../modals/settings_modal.py:139
+#: ../modals/settings_modal.py:146
 msgid "Regular Font"
 msgstr "Vanlig skrift"
 
-#: ../modals/settings_modal.py:149
+#: ../modals/settings_modal.py:156
 msgid "Monospace Font"
 msgstr "Fastbreddeskrift"
 
-#: ../modals/settings_modal.py:177 ../modals/settings_modal.py:196
+#: ../modals/settings_modal.py:166
+msgid "Add to desktop menu system"
+msgstr "Legg til skrivebordets menysystem"
+
+#: ../modals/settings_modal.py:191 ../modals/settings_modal.py:210
 msgid "Select a font"
 msgstr "Velg en skrift"
+
+#: ../widgets/button_mixin.py:116
+msgid "Yes"
+msgstr "Ja"
+
+#: ../widgets/button_mixin.py:119
+msgid "No"
+msgstr "Nei"
+
+#: ../widgets/button_mixin.py:122
+msgid "Retry"
+msgstr "Prøv igjen"
+
+#: ../widgets/edit_menu.py:51
+msgid "Ctrl+X"
+msgstr "Ctrl+X"
+
+#: ../widgets/edit_menu.py:55
+msgid "Ctrl+C"
+msgstr "Ctrl+C"
+
+#: ../widgets/edit_menu.py:59
+msgid "Ctrl+V"
+msgstr "Ctrl+V"
 
 #: ../widgets/meters.py:119
 msgid "Click for per-CPU usage"
@@ -366,3 +406,15 @@ msgstr "Klikk for detaljert for hvert monteringspunkt"
 #: ../widgets/meters.py:236
 msgid "{} :: Disk Usage"
 msgstr "{} :: Diskbruk"
+
+#~ msgid "Cut"
+#~ msgstr "Klipp ut"
+
+#~ msgid "Copy"
+#~ msgstr "Kopier"
+
+#~ msgid "Paste"
+#~ msgstr "Lim inn"
+
+#~ msgid "Select All"
+#~ msgstr "Velg alt"

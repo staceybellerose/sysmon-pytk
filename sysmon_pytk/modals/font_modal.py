@@ -19,7 +19,7 @@ from ..widgets import ScaleSpinner
 from ._base_modal import ModalDialog
 
 if TYPE_CHECKING:
-    from tkinter import Event, Misc
+    from tkinter import Event, Listbox, Misc
 
 _ = get_translator()
 
@@ -237,9 +237,8 @@ class FontChooser(ModalDialog):
                 overstrike=self.overstrike.get()
             )
 
-    def _on_select(self, event: Event) -> None:
-        widget: tk.Listbox = event.widget
-        value = widget.get(widget.curselection()[0])
+    def _on_select(self, event: Event[Listbox]) -> None:
+        value = event.widget.get(event.widget.curselection()[0])
         self.fontname = value
         self._update_preview()
 

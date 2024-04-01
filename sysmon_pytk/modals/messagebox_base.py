@@ -148,7 +148,9 @@ class MessageBox(ButtonMixin, tk.Toplevel):
         Create the widgets to be displayed in the message box.
         """
         message = self.message if self.message else ""
-        label = tk.Label(self.internal_frame, text=message, compound=tk.LEFT)
+        label = ttk.Label(
+            self.internal_frame, text=message, compound=tk.LEFT, wraplength=320
+        )
         if self.custom_icon is not None:
             label.configure(image=self.custom_icon)
         label.grid(row=0, column=0, sticky=tk.NSEW, padx=INTERNAL_PAD, pady=INTERNAL_PAD)

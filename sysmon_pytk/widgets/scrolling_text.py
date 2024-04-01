@@ -8,8 +8,8 @@ Scrollable Text Widget with standard Edit popup menu.
 from __future__ import annotations
 
 import tkinter as tk
+import webbrowser
 from tkinter import font, ttk
-from webbrowser import open_new_tab
 
 from ..app_locale import get_translator
 from ..style_manager import StyleManager
@@ -89,19 +89,27 @@ class ScrollingText(tk.Text):
             selectbackground="#cccccc"
         )
         self.tag_configure("linkurl", elide=True)  # hide the urls from display
-        self.tag_bind("link", "<Enter>", self._show_hand_cursor)
-        self.tag_bind("link", "<Leave>", self._hide_hand_cursor)
-        self.tag_bind("link", "<Button-1>", self._click_link)
+        self.tag_bind("link", "<Enter>", self.show_hand_cursor)
+        self.tag_bind("link", "<Leave>", self.hide_hand_cursor)
+        self.tag_bind("link", "<Button-1>", self.open_link)
         # TODO add "Open in Browser" edit menu item when hovering over link
 
-    def _show_hand_cursor(self, event: tk.Event) -> None:
+    def show_hand_cursor(self, event: tk.Event[tk.Text]) -> None:
+        """
+        Change the mouse cursor to a "hand", indicating a clickable link.
+        """
         event.widget.configure(cursor="hand2")
 
-    def _hide_hand_cursor(self, event: tk.Event) -> None:
+    def hide_hand_cursor(self, event: tk.Event[tk.Text]) -> None:
+        """
+        Change the mouse cursor to its standard form, no longer indicating a link.
+        """
         event.widget.configure(cursor="")
 
-    def _click_link(self, event: tk.Event) -> None:
-        text: tk.Text = event.widget
+    def open_link(self, event: tk.Event[tk.Text]) -> None:
+        """
+        Open the clicked link in a web browser.
+        """
         click_position = f"@{event.x},{event.y}"
-        tag_range = text.tag_nextrange("linkurl", click_position)
-        open_new_tab(text.get(*tag_range))
+        tag_range = event.widget.tag_nextrange("linkurl", click_position)
+        webbrowser.open_new_tab(event.widget.get(*tag_range))

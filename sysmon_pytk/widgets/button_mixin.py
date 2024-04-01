@@ -61,7 +61,7 @@ class ButtonMixin:  # pylint: disable=too-few-public-methods
         super().__init__(*args, **kwargs)
         self.result = ButtonName.NONE
         self.init_standard_buttons()
-        self.toplevel: tk.Tk | tk.Toplevel = args[0]
+        self.toplevel: tk.Tk | tk.Toplevel | None = None
 
     def add_buttons(
         self, frame: WidgetFrame, *, buttons: list[ButtonDefinition],
@@ -79,19 +79,23 @@ class ButtonMixin:  # pylint: disable=too-few-public-methods
         default : int
             The default button, displayed with style="Accent.TButton"
         """
-        toplevel = frame.winfo_toplevel()
+        self.toplevel = frame.winfo_toplevel()
         max_columns, max_rows = frame.grid_size()
         buttonframe = ttk.Frame(frame)
         buttonframe.grid(
             row=max_rows, column=0, sticky=tk.E, columnspan=max_columns,
-            pady=(INTERNAL_PAD, 0)
+            pady=(0, INTERNAL_PAD)
         )
         for num, button in enumerate(buttons):
             btn = ttk.Button(buttonframe, text=button.text, command=button.command)
             if num == default:
                 btn.configure(style="Accent.TButton")
-                toplevel.bind("<KeyPress-Return>", button.command)  # type: ignore[arg-type]
-                toplevel.bind("<KeyPress-KP_Enter>", button.command)  # type: ignore[arg-type]
+                self.toplevel.bind(
+                    "<KeyPress-Return>", button.command  # type: ignore[arg-type]
+                )
+                self.toplevel.bind(
+                    "<KeyPress-KP_Enter>", button.command  # type: ignore[arg-type]
+                )
             btn.grid(row=0, column=num, padx=INTERNAL_PAD/2)
 
     def init_standard_buttons(self) -> None:
@@ -135,5 +139,6 @@ class ButtonMixin:  # pylint: disable=too-few-public-methods
         """
         Dismiss the window.
         """
-        self.toplevel.grab_release()
-        self.toplevel.destroy()
+        if self.toplevel is not None:
+            self.toplevel.grab_release()
+            self.toplevel.destroy()

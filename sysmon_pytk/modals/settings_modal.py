@@ -11,7 +11,7 @@ import tkinter as tk
 from tkinter import ttk
 from typing import TYPE_CHECKING
 
-from .. import _common
+from .. import _common, desktop_menu
 from ..app_locale import LANGUAGES, get_translator
 from ..widgets import DropDown
 from ._base_modal import ModalDialog
@@ -23,6 +23,9 @@ if TYPE_CHECKING:
     from ..settings import Settings
 
 _ = get_translator()
+
+# These lint errors don't make sense for GUI widgets, so are disabled here.
+# pragma pylint: disable=too-many-instance-attributes
 
 THEMES = {
     _("Light"): "Light",
@@ -42,6 +45,8 @@ class SettingsDialog(ModalDialog):
     always_on_top : IntVar
         A flag to indicate whether the application should always float on top
         of other windows.
+    add_menu_icon : IntVar
+        A flag to indicate whether the application should add a menu icon.
     fonts : dict[str, str]
         A dictionary containing the currently-selected fonts, regular and monospace.
     langbox : DropDown
@@ -75,6 +80,8 @@ class SettingsDialog(ModalDialog):
         self.settings = settings
         self.always_on_top = tk.IntVar()
         self.always_on_top.set(self.settings.always_on_top)
+        self.add_menu_icon = tk.IntVar()
+        self.add_menu_icon.set(self.settings.add_menu_icon)
         self.fonts = {
             "regular": self.settings.regular_font.get_full_font().get_string(),
             "fixed": self.settings.fixed_font.get_full_font().get_string()
@@ -92,7 +99,7 @@ class SettingsDialog(ModalDialog):
         """
         Create the widgets to be displayed in the modal dialog.
         """
-        for row in range(1, 6):
+        for row in range(1, 7):
             self.internal_frame.rowconfigure(row, weight=1)
         self.internal_frame.columnconfigure(2, weight=1)
         ttk.Label(
@@ -155,6 +162,13 @@ class SettingsDialog(ModalDialog):
             row=5, column=2, sticky=tk.EW, padx=_common.INTERNAL_PAD,
             pady=_common.INTERNAL_PAD
         )
+        ttk.Checkbutton(
+            self.internal_frame, text=_("Add to desktop menu system"),
+            variable=self.add_menu_icon, style="Switch.TCheckbutton",
+        ).grid(
+            row=6, column=1, columnspan=2, sticky=tk.NS+tk.E, padx=_common.INTERNAL_PAD,
+            pady=_common.INTERNAL_PAD
+        )
         self.add_ok_cancel_buttons()
         self.add_sizegrip()
 
@@ -201,16 +215,34 @@ class SettingsDialog(ModalDialog):
         Save the entered settings.
         """
         old_language = self.settings.language
+        self.update_settings()
+        self.generate_change_events(old_language)
+
+    def update_settings(self) -> None:
+        """
+        Update the app settings.
+        """
         self.settings.language = self.langbox.get()
         self.settings.theme = self.themebox.get()
         self.settings.always_on_top = self.always_on_top.get()
+        if self.add_menu_icon.get():
+            result = desktop_menu.install_desktop_file(self)
+            self.settings.add_menu_icon = 1 if result else 0
+        else:
+            desktop_menu.uninstall_desktop_file()
+            self.settings.add_menu_icon = 0
         self.settings.write_settings()
+
+    def generate_change_events(self, old_language: str) -> None:
+        """
+        Generate change events based on the new settings.
+        """
         if old_language != self.langbox.get():
             self.save_dismiss_event("<<LanguageChanged>>")
-        if self.fonts["regular"] != self.settings.regular_font.get_full_font(
-        ).get_string():
+        new_regular_font = self.settings.regular_font.get_full_font().get_string()
+        new_fixed_font = self.settings.fixed_font.get_full_font().get_string()
+        if self.fonts["regular"] != new_regular_font:
             self.save_dismiss_event("<<FontChanged>>")
-        if self.fonts["fixed"] != self.settings.fixed_font.get_full_font(
-        ).get_string():
+        if self.fonts["fixed"] != new_fixed_font:
             self.save_dismiss_event("<<FontChanged>>")
         self.save_dismiss_event("<<SettingsChanged>>")
