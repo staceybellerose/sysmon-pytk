@@ -8,6 +8,12 @@ SPDX-License-Identifier: MIT
 
 ![GitHub License](https://img.shields.io/github/license/staceybellerose/sysmon-pytk?color=7C4DFF)
 ![GitHub Release](https://img.shields.io/github/v/release/staceybellerose/sysmon-pytk)
+![AppVeyor Build](https://img.shields.io/appveyor/build/staceybellerose/sysmon-pytk)
+
+![PyPI - Status](https://img.shields.io/pypi/status/sysmon-pytk)
+![PyPI - Version](https://img.shields.io/pypi/v/sysmon-pytk)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/sysmon-pytk)
+
 [![REUSE status](https://api.reuse.software/badge/github.com/staceybellerose/sysmon-pytk)](https://api.reuse.software/info/github.com/staceybellerose/sysmon-pytk)
 [![CodeFactor Grade](https://img.shields.io/codefactor/grade/github/staceybellerose/sysmon-pytk?logo=codefactor)](https://www.codefactor.io/repository/github/staceybellerose/sysmon-pytk)
 [![Maintainability](https://api.codeclimate.com/v1/badges/556c93bf800d0d58e7e4/maintainability)](https://codeclimate.com/github/staceybellerose/sysmon-pytk/maintainability)
@@ -46,11 +52,8 @@ separately.
 
 ## Install Using pip
 
-Download the wheel file from the latest release, then install it. Once a PyPI
-account can be set up, the program will be downloadable from there.
-
 ```bash
-pip install ./sysmon_pytk-0.4.1-py3-none-any.whl
+pip install sysmon-pytk
 ```
 
 Two versions of the program will be installed, a GUI program and a command line

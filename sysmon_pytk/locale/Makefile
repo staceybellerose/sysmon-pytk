@@ -67,8 +67,8 @@ argparse.pot: $(PYTHONLIB)/argparse.py
 define gen-po =
 @if [ -f "$@" ] \
 ; then \
-echo $(MSGMERGE) --add-location=full --width=$(WIDTH) --update $@ $< \
-; $(MSGMERGE) --add-location=full --width=$(WIDTH) --update $@ $< \
+echo $(MSGMERGE) --add-location=full --width=$(WIDTH) --previous --update $@ $< \
+; $(MSGMERGE) --add-location=full --width=$(WIDTH) --previous --update $@ $< \
 ; else \
 echo cp -v $< $@ \
 ; cp -v $< $@ \
