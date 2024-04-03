@@ -1,22 +1,25 @@
-# System monitor written in Python using Tk.
-# SPDX-FileCopyrightText: © 2024 Allan Nordhøy <epost@anotheragency.no>
-# SPDX-License-Identifier: MIT
-#
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR  <stacey.belle.rose@gmail.com>
+# This file is distributed under the same license as the sysmon-pytk package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Stacey Adams, 2024
+# 
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: sysmon-pytk 0.5.0\n"
 "Report-Msgid-Bugs-To: stacey.belle.rose@gmail.com\n"
 "POT-Creation-Date: 2024-03-31 04:00-0500\n"
-"PO-Revision-Date: 2024-03-31 04:00-0500\n"
-"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
-"Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/sysmon-"
-"pytk/sysmon-pytk/nb_NO/>\n"
-"Language: nb_NO\n"
+"PO-Revision-Date: 2024-04-03 11:49+0000\n"
+"Last-Translator: Stacey Adams, 2024\n"
+"Language-Team: Norwegian Bokmål (Norway) (https://app.transifex.com/stacey-adams/teams/190492/nb_NO/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"Language: nb_NO\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../about.py:14
 msgid "MIT License"
@@ -29,10 +32,10 @@ msgid ""
 "It also displays the system's hostname, IP address, uptime, and current "
 "process count."
 msgstr ""
-"sysmon-pytk er en systemmonitor. Den holder øye med prosessor-, disk-, minne-"
-"bruk og temperatur, samt bruk av hovedpartisjon (som inneholder rot-"
-"partisjonen). Verktøyet viser også systemets vertsnavn, IP-adresse, oppetid, "
-"og nåværende prosessantall."
+"sysmon-pytk er en systemmonitor. Den holder øye med prosessor-, disk-, "
+"minne-bruk og temperatur, samt bruk av hovedpartisjon (som inneholder rot-"
+"partisjonen). Verktøyet viser også systemets vertsnavn, IP-adresse, oppetid,"
+" og nåværende prosessantall."
 
 #: ../application.py:33 ../cli_monitor.py:203 ../desktop_menu.py:72
 msgid "System Monitor"
@@ -118,7 +121,8 @@ msgstr "Minnebruk"
 msgid "Swap Memory"
 msgstr "Sidevekslingsfil"
 
-#: ../cli_monitor.py:114 ../cli_monitor.py:162 ../modals/disk_usage_modal.py:59
+#: ../cli_monitor.py:114 ../cli_monitor.py:162
+#: ../modals/disk_usage_modal.py:59
 msgid "Disk Usage"
 msgstr "Diskbruk"
 
@@ -137,17 +141,18 @@ msgid "<Ctrl-C> to quit"
 msgstr "<Ctrl-C> for å avslutte"
 
 #: ../cli_monitor.py:232
-msgid "System monitor: display CPU usage/temperature, memory usage, disk usage"
+msgid ""
+"System monitor: display CPU usage/temperature, memory usage, disk usage"
 msgstr "Systemmonitor: Vis CPU-bruk/temperatur, minnebruk, diskbruk"
 
 #: ../cli_monitor.py:235
 msgid ""
-"By default, this program will use the same language as that selected for the "
-"GUI application. To override it, use the '-l' option. To quit, press <Ctrl-"
-"C>."
+"By default, this program will use the same language as that selected for the"
+" GUI application. To override it, use the '-l' option. To quit, press "
+"<Ctrl-C>."
 msgstr ""
-"Som standard vil dette programmet bruke samme språk som det som er valgt for "
-"GUI-applikasjonen. For å overstyre det, bruk alternativet '-l'. For å "
+"Som standard vil dette programmet bruke samme språk som det som er valgt for"
+" GUI-applikasjonen. For å overstyre det, bruk alternativet '-l'. For å "
 "avslutte, trykk <Ctrl-C>."
 
 #: ../cli_monitor.py:242
@@ -406,15 +411,3 @@ msgstr "Klikk for detaljert for hvert monteringspunkt"
 #: ../widgets/meters.py:236
 msgid "{} :: Disk Usage"
 msgstr "{} :: Diskbruk"
-
-#~ msgid "Cut"
-#~ msgstr "Klipp ut"
-
-#~ msgid "Copy"
-#~ msgstr "Kopier"
-
-#~ msgid "Paste"
-#~ msgstr "Lim inn"
-
-#~ msgid "Select All"
-#~ msgstr "Velg alt"
