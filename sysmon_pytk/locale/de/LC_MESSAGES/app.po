@@ -1,22 +1,25 @@
-# System monitor written in Python using Tk.
-# SPDX-FileCopyrightText: © 2024 Stacey Adams <stacey.belle.rose@gmail.com>
-# SPDX-License-Identifier: MIT
-#
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR  <stacey.belle.rose@gmail.com>
+# This file is distributed under the same license as the sysmon-pytk package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Stacey Adams, 2024
+# 
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: sysmon-pytk 0.5.0\n"
 "Report-Msgid-Bugs-To: stacey.belle.rose@gmail.com\n"
 "POT-Creation-Date: 2024-03-31 04:00-0500\n"
-"PO-Revision-Date: 2024-03-31 04:00-0500\n"
-"Last-Translator: Alisyn Arness\n"
-"Language-Team: German <https://hosted.weblate.org/projects/sysmon-pytk/"
-"sysmon-pytk/de/>\n"
-"Language: de\n"
+"PO-Revision-Date: 2024-04-03 11:49+0000\n"
+"Last-Translator: Stacey Adams, 2024\n"
+"Language-Team: German (https://app.transifex.com/stacey-adams/teams/190492/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../about.py:14
 msgid "MIT License"
@@ -29,8 +32,8 @@ msgid ""
 "It also displays the system's hostname, IP address, uptime, and current "
 "process count."
 msgstr ""
-"sysmon-pytk ist ein Systemmonitor. Es überwacht die CPU-Nutzung und -"
-"Temperatur, die RAM-Nutzung und die Festplattennutzung der primären "
+"sysmon-pytk ist ein Systemmonitor. Es überwacht die CPU-Nutzung und "
+"-Temperatur, die RAM-Nutzung und die Festplattennutzung der primären "
 "Festplatte (die die Root-Partition enthält). Außerdem werden der Hostname, "
 "die IP-Adresse, die Betriebszeit und die aktuelle Prozessanzahl des Systems "
 "angezeigt."
@@ -119,7 +122,8 @@ msgstr "RAM-Auslastung"
 msgid "Swap Memory"
 msgstr "Speicher Austauschen"
 
-#: ../cli_monitor.py:114 ../cli_monitor.py:162 ../modals/disk_usage_modal.py:59
+#: ../cli_monitor.py:114 ../cli_monitor.py:162
+#: ../modals/disk_usage_modal.py:59
 msgid "Disk Usage"
 msgstr "Plattenauslastung"
 
@@ -138,20 +142,21 @@ msgid "<Ctrl-C> to quit"
 msgstr "<Strg-C> zum Beenden"
 
 #: ../cli_monitor.py:232
-msgid "System monitor: display CPU usage/temperature, memory usage, disk usage"
+msgid ""
+"System monitor: display CPU usage/temperature, memory usage, disk usage"
 msgstr ""
 "Systemmonitor: Zeigt CPU-Auslastung/-Temperatur, Speichernutzung und "
 "Festplattennutzung an"
 
 #: ../cli_monitor.py:235
 msgid ""
-"By default, this program will use the same language as that selected for the "
-"GUI application. To override it, use the '-l' option. To quit, press <Ctrl-"
-"C>."
+"By default, this program will use the same language as that selected for the"
+" GUI application. To override it, use the '-l' option. To quit, press "
+"<Ctrl-C>."
 msgstr ""
-"Standardmäßig verwendet dieses Programm dieselbe Sprache wie die für die GUI-"
-"Anwendung ausgewählte Sprache. Um es zu überschreiben, verwenden Sie die "
-"Option „-l“. Zum Beenden drücken Sie <Strg-C>."
+"Standardmäßig verwendet dieses Programm dieselbe Sprache wie die für die "
+"GUI-Anwendung ausgewählte Sprache. Um es zu überschreiben, verwenden Sie die"
+" Option „-l“. Zum Beenden drücken Sie <Strg-C>."
 
 #: ../cli_monitor.py:242
 msgid "Options"
@@ -411,15 +416,3 @@ msgstr ""
 #: ../widgets/meters.py:236
 msgid "{} :: Disk Usage"
 msgstr "{} :: Plattenauslastung"
-
-#~ msgid "Cut"
-#~ msgstr "Ausschneiden"
-
-#~ msgid "Copy"
-#~ msgstr "Kopieren"
-
-#~ msgid "Paste"
-#~ msgstr "Einfügen"
-
-#~ msgid "Select All"
-#~ msgstr "Alles auswählen"
