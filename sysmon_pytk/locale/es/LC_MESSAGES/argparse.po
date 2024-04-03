@@ -1,22 +1,25 @@
-# Spanish translations for argparse module.
-# Copyright (C) 2023 Félix Medrano
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR  <stacey.belle.rose@gmail.com>
 # This file is distributed under the same license as the i18nparse package.
-# Félix Medrano, 2023.
-# SPDX-License-Identifier: MIT
-#
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Stacey Adams, 2024
+# 
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: i18nparse\n"
 "Report-Msgid-Bugs-To: stacey.belle.rose@gmail.com\n"
 "POT-Creation-Date: 2024-03-21 15:13-0500\n"
-"PO-Revision-Date: 2024-03-21 15:13-0500\n"
-"Last-Translator: Félix Medrano\n"
-"Language-Team: Spanish\n"
-"Language: es\n"
+"PO-Revision-Date: 2024-04-03 11:49+0000\n"
+"Last-Translator: Stacey Adams, 2024\n"
+"Language-Team: Spanish (https://app.transifex.com/stacey-adams/teams/190492/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: es\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 #: /usr/lib/python3.9/argparse.py:308
 msgid "usage: "
@@ -75,6 +78,7 @@ msgid "conflicting option string: %s"
 msgid_plural "conflicting option strings: %s"
 msgstr[0] "literal de opción en conflicto: %s"
 msgstr[1] "literales de opción en conflicto: %s"
+msgstr[2] "literales de opción en conflicto: %s"
 
 #: /usr/lib/python3.9/argparse.py:1666
 msgid "mutually exclusive arguments must be optional"
@@ -139,6 +143,7 @@ msgid "expected %s argument"
 msgid_plural "expected %s arguments"
 msgstr[0] "se espera el argumento %s"
 msgstr[1] "se esperan los argumentos %s"
+msgstr[2] "se esperan los argumentos %s"
 
 #: /usr/lib/python3.9/argparse.py:2222
 #, python-format
@@ -169,18 +174,3 @@ msgstr "opción inválida: %(value)r (elegir entre %(choices)s)"
 #, python-format
 msgid "%(prog)s: error: %(message)s\n"
 msgstr "%(prog)s: error: %(message)s\n"
-
-#, python-format
-#~ msgid "argument %(argument_name)s: %(message)s"
-#~ msgstr "argumento %(argument_name)s: %(message)s"
-
-#, python-format
-#~ msgid "conflicting subparser: %s"
-#~ msgstr "subanalizador en conflicto: %s"
-
-#, python-format
-#~ msgid "conflicting subparser alias: %s"
-#~ msgstr "alias de subanalizador en conflicto: %s"
-
-#~ msgid "options"
-#~ msgstr "opciones"
