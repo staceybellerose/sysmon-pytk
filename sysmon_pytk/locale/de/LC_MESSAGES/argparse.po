@@ -1,23 +1,25 @@
-# German translations for argparse module.
-# Copyright (C) 2018 s-ball
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR  <stacey.belle.rose@gmail.com>
 # This file is distributed under the same license as the i18nparse package.
-# s-ball <s-ball@laposte.net>, 2018.
-# SPDX-License-Identifier: MIT
-#
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Stacey Adams, 2024
+# 
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: i18nparse\n"
 "Report-Msgid-Bugs-To: stacey.belle.rose@gmail.com\n"
 "POT-Creation-Date: 2024-03-21 15:13-0500\n"
-"PO-Revision-Date: 2024-03-21 15:13-0500\n"
-"Last-Translator: blackstream-x <rz498sc@gmx.net>\n"
-"Language-Team: German\n"
-"Language: de\n"
+"PO-Revision-Date: 2024-04-03 11:49+0000\n"
+"Last-Translator: Stacey Adams, 2024\n"
+"Language-Team: German (https://app.transifex.com/stacey-adams/teams/190492/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
 
 #: /usr/lib/python3.9/argparse.py:308
 msgid "usage: "
@@ -46,7 +48,8 @@ msgstr "kann '%(filename)s' nicht öffnen: %(error)s"
 #, python-format
 msgid "cannot merge actions - two groups are named %r"
 msgstr ""
-"kann Aktionen nicht zusammenführen - zwei Gruppen haben den gleichen Namen %r"
+"kann Aktionen nicht zusammenführen - zwei Gruppen haben den gleichen Namen "
+"%r"
 
 #: /usr/lib/python3.9/argparse.py:1525
 msgid "'required' is an invalid argument for positionals"
@@ -170,18 +173,3 @@ msgstr "ungültige Wahl: %(value)r (Auswahl aus %(choices)s)"
 #, python-format
 msgid "%(prog)s: error: %(message)s\n"
 msgstr "%(prog)s: Fehler: %(message)s\n"
-
-#, python-format
-#~ msgid "argument %(argument_name)s: %(message)s"
-#~ msgstr "Parameter %(argument_name)s: %(message)s"
-
-#, python-format
-#~ msgid "conflicting subparser: %s"
-#~ msgstr "Subparser im Konflikt: %s"
-
-#, python-format
-#~ msgid "conflicting subparser alias: %s"
-#~ msgstr "Subparser-Alias im Konflikt: %s"
-
-#~ msgid "options"
-#~ msgstr "Optionen"
