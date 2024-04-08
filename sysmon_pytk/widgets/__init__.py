@@ -8,7 +8,7 @@ Various Tk widgets.
 from . import buttons, meters
 from .autoscrollbar import AutoScrollbar
 from .dropdown import DropDown
-from .edit_menu import EditMenu
+from .edit_menu import EditMenu, EditMenuImages
 from .meter import Meter
 from .scalespinner import ScaleSpinner
 from .scrolling_text import ScrollingText
@@ -16,7 +16,17 @@ from .tooltip import TempToolTip, TextToolTip, ToolTip
 from .url_label import UrlLabel
 
 __all__ = [
-    "AutoScrollbar", "DropDown", "EditMenu", "Meter", "ScaleSpinner",
-    "ScrollingText", "TempToolTip", "TextToolTip", "ToolTip", "UrlLabel",
-    "buttons", "meters"
+    "AutoScrollbar",
+    "DropDown",
+    "EditMenuImages",
+    "EditMenu",
+    "Meter",
+    "ScaleSpinner",
+    "ScrollingText",
+    "ToolTip",
+    "TempToolTip",
+    "TextToolTip",
+    "UrlLabel",
+    "buttons",
+    "meters",
 ]

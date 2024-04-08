@@ -45,7 +45,7 @@ msgstr ""
 msgid "About"
 msgstr ""
 
-#: ../application.py:173 ../widgets/edit_menu.py:65
+#: ../application.py:173 ../widgets/edit_menu.py:79
 msgid "Ctrl+A"
 msgstr ""
 
@@ -256,7 +256,7 @@ msgstr ""
 msgid "per-core CPU Frequency (in MHz)"
 msgstr ""
 
-#: ../modals/cpu_modal.py:104 ../modals/cpu_modal.py:125
+#: ../modals/cpu_modal.py:103 ../modals/cpu_modal.py:123
 msgid "CPU #{}"
 msgstr ""
 
@@ -336,32 +336,32 @@ msgstr ""
 msgid "Select a font"
 msgstr ""
 
-#: ../widgets/edit_menu.py:51 ../widgets/edit_menu.py:80
-#: ../widgets/edit_menu.py:83
+#: ../widgets/edit_menu.py:65 ../widgets/edit_menu.py:94
+#: ../widgets/edit_menu.py:97
 msgid "Cut"
 msgstr ""
 
-#: ../widgets/edit_menu.py:51
+#: ../widgets/edit_menu.py:65
 msgid "Ctrl+X"
 msgstr ""
 
-#: ../widgets/edit_menu.py:55
+#: ../widgets/edit_menu.py:69
 msgid "Copy"
 msgstr ""
 
-#: ../widgets/edit_menu.py:55
+#: ../widgets/edit_menu.py:69
 msgid "Ctrl+C"
 msgstr ""
 
-#: ../widgets/edit_menu.py:59 ../widgets/edit_menu.py:81
-#: ../widgets/edit_menu.py:84
+#: ../widgets/edit_menu.py:73 ../widgets/edit_menu.py:95
+#: ../widgets/edit_menu.py:98
 msgid "Paste"
 msgstr ""
 
-#: ../widgets/edit_menu.py:59
+#: ../widgets/edit_menu.py:73
 msgid "Ctrl+V"
 msgstr ""
 
-#: ../widgets/edit_menu.py:64
+#: ../widgets/edit_menu.py:78
 msgid "Select All"
 msgstr ""

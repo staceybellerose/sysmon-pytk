@@ -52,14 +52,16 @@ class ScaleSpinner(ttk.Frame):
             The control variable which maintains the selected value.
         text : str, optional
             The text to display as a `Label`.
-        length : int, default: 100
+        length : int, default = 100
             The length of the `Scale` widget.
-        from_ : float, default: 0.0
+        from_ : float, default = 0.0
             The smallest value allowed for the `Scale` and `Spinbox`.
-        to : float, default: 100.0
+        to : float, default = 100.0
             The largest value allowed for the `Scale` and `Spinbox`.
-        as_int : bool, default: False
+        as_int : bool, default = False
             A flag indicating whether to round the values from the `Scale`.
+        **kwargs : dict, optional
+            Arguments to pass to parent `Frame` class.
         """
         super().__init__(parent, **kwargs)
         self.variable = variable

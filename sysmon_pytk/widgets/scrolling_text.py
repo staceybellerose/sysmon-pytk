@@ -53,6 +53,16 @@ class ScrollingText(tk.Text):
     """
 
     def __init__(self, master: tk.Misc | None = None, **kwargs) -> None:
+        """
+        Construct a scrolling text widget.
+
+        Parameters
+        ----------
+        master : Misc, optional
+            The parent widget.
+        **kwargs : dict, optional
+            Arguments to pass to parent `Text` class.
+        """
         self.frame = ttk.Frame(master)
         self.frame.rowconfigure(0, weight=1)
         self.frame.columnconfigure(0, weight=1)

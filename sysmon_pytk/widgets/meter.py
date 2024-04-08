@@ -19,13 +19,13 @@ from ..font_utils import modify_named_font
 from ..style_manager import StyleManager
 
 if TYPE_CHECKING:
-    from tkinter import BaseWidget
+    from tkinter import Misc
 
 
 @dataclasses.dataclass
 class CanvasObjects:
     """
-    Various canvas objects that need to be tracked.
+    Various canvas objects that need to be tracked within a `Meter` widget.
     """
 
     label1: int = 0
@@ -52,19 +52,43 @@ class Meter(tk.Frame):
     EXTENT_ANGLE = 180 - 2*START_ANGLE
 
     def __init__(
-            self,
-            parent: BaseWidget, *,
-            width: int = 300,
-            height: int = 225,
-            min_value: float = 0.0,
-            max_value: float = 100.0,
-            label: str = "",
-            unit: str = "",
-            divisions: int = 10,
-            yellow: float = 15,
-            red: float = 15,
-            blue: float = 0, **kw
+            self, parent: Misc, *,
+            width: int = 300, height: int = 225,
+            min_value: float = 0.0, max_value: float = 100.0,
+            label: str = "", unit: str = "",
+            divisions: int = 10, yellow: float = 15,
+            red: float = 15, blue: float = 0, **kw
     ) -> None:
+        """
+        Construct a meter widget.
+
+        Parameters
+        ----------
+        parent : Misc
+            The parent widget.
+        width : int, default = 300
+            The width of the meter widget.
+        height : int, default = 225
+            The height of the meter widget.
+        min_value : float, default = 0.0
+            The minimum value to display on the meter.
+        max_value : float, default = 100.0
+            The maximum value to display on the meter.
+        label : str, default = ""
+            The label to display above the meter.
+        unit : str, default = ""
+            The units, used when displaying numbers on the meter.
+        divisions : int, default = 10
+            The number of divisions between the start and end of the meter.
+        yellow : float, default = 15
+            The percent of the meter to show in yellow. Appears just before red.
+        red : float, default = 15
+            The percent of the meter to show in red. Appears at the max values.
+        blue : float, default = 0
+            The percent of the meter to show in blue. Appears at the min values.
+        **kw : dict, optional
+            Arguments to pass to parent `Frame` class.
+        """
         self._unit = unit
         self._min_value = min_value
         self._max_value = max_value
@@ -132,43 +156,37 @@ class Meter(tk.Frame):
         self.canvas_objects.wedges = []
         for i in range(self._divisions):
             self.canvas_objects.wedges.append(self.canvas.create_arc(
-                coord,
+                coord, width=1, outline=self._text_color,
                 start=(i * (Meter.EXTENT_ANGLE / self._divisions) + Meter.START_ANGLE),
-                extent=(Meter.EXTENT_ANGLE / self._divisions),
-                width=1, outline=self._text_color
+                extent=(Meter.EXTENT_ANGLE / self._divisions)
             ))
 
         # Add the color scale arcs
         self.canvas.create_arc(
-            coord,
-            extent=Meter.EXTENT_ANGLE, start=Meter.START_ANGLE,
+            coord, extent=Meter.EXTENT_ANGLE, start=Meter.START_ANGLE,
             style="arc", outline=self.GREEN, width=self._width / 12
         )
         if red > 0:
             self.canvas.create_arc(
-                coord,
-                extent=self._percent_to_degrees(red), start=Meter.START_ANGLE,
+                coord, extent=self._percent_to_degrees(red), start=Meter.START_ANGLE,
                 style="arc", outline=self.RED, width=self._width / 12
             )
         if yellow > 0:
             self.canvas.create_arc(
-                coord,
-                extent=self._percent_to_degrees(yellow),
+                coord, extent=self._percent_to_degrees(yellow),
                 start=self._percent_to_degrees(red) + Meter.START_ANGLE,
                 style="arc", outline=self.YELLOW, width=self._width / 12
             )
         if blue > 0:
             self.canvas.create_arc(
-                coord,
-                start=Meter.EXTENT_ANGLE + Meter.START_ANGLE,
+                coord, start=Meter.EXTENT_ANGLE + Meter.START_ANGLE,
                 extent=-self._percent_to_degrees(blue),
                 style="arc", outline=self.BLUE, width=self._width / 12
             )
 
         # Add the moving indicator line
         self.canvas_objects.meter = self.canvas.create_arc(
-            coord,
-            start=Meter.EXTENT_ANGLE + Meter.START_ANGLE, extent=1,
+            coord, start=Meter.EXTENT_ANGLE + Meter.START_ANGLE, extent=1,
             fill=self._meter_color, outline=self._meter_color, width=3
         )
 
@@ -179,13 +197,11 @@ class Meter(tk.Frame):
             self._width * 37 / 60, self._height * 33 / 32
         )
         self.canvas_objects.inset = self.canvas.create_arc(
-            inset_coord,
-            start=Meter.START_ANGLE, extent=Meter.EXTENT_ANGLE,
+            inset_coord, start=Meter.START_ANGLE, extent=Meter.EXTENT_ANGLE,
             fill=self._text_color, outline=self._text_color, width=2
         )
         self.canvas_objects.inset_border = self.canvas.create_arc(
-            inset_coord,
-            start=Meter.START_ANGLE, extent=Meter.EXTENT_ANGLE,
+            inset_coord, start=Meter.START_ANGLE, extent=Meter.EXTENT_ANGLE,
             outline=self._meter_color, style="arc", width=1
         )
 

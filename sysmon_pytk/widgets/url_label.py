@@ -51,7 +51,7 @@ class UrlLabel(ttk.Label):
             A Tcl/Tk style to use for display.
         show_tooltip : bool
             A flag to indicate whether to show a tooltip containing the URL.
-        **kw : dict, optional
+        **kwargs : dict, optional
             Additional keyword arguments for a `Label`.
         """
         self.url = url

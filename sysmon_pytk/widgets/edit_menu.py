@@ -23,9 +23,13 @@ class EditMenuImages:
     """
 
     cut: tk.PhotoImage
+    """Image for Cut."""
     copy: tk.PhotoImage
+    """Image for Copy."""
     paste: tk.PhotoImage
+    """Image for Paste."""
     select_all: tk.PhotoImage
+    """Image for Select All."""
 
 
 class EditMenu(tk.Menu):
@@ -34,11 +38,21 @@ class EditMenu(tk.Menu):
 
     Attributes
     ----------
-    images : EditMenuImages
+    images : `EditMenuImages`
         A collection of images needed for the menu.
     """
 
     def __init__(self, master: tk.Text, **kwarg) -> None:
+        """
+        Construct an edit menu for a Text widget.
+
+        Parameters
+        ----------
+        master : tk.Text
+            The parent Text widget.
+        **kwarg : dict, optional
+            Additional keyword arguments for a `Menu`.
+        """
         self.master: tk.Text = master
         super().__init__(master, **kwarg)
         self.images = EditMenuImages(

@@ -95,6 +95,18 @@ class TextToolTip(ToolTip):
     """
 
     def __init__(self, parent: Text, text: str = "", tag: str = "") -> None:
+        """
+        Construct a tooltip.
+
+        Parameters
+        ----------
+        parent : Text
+            The parent widget, which will host the tooltip.
+        text : str
+            The text to display in the tooltip.
+        tag : str
+            A tag from the parent Text widget that will be bound for the tooltip.
+        """
         self.tag = tag
         super().__init__(parent, text)
 
@@ -118,7 +130,7 @@ class TempToolTip(ToolTip):
         position: tuple[int, int] = (0, 0), timer_ms: int = 2000
     ) -> None:
         """
-        Construct a tooltip.
+        Construct a temporary tooltip.
 
         Parameters
         ----------

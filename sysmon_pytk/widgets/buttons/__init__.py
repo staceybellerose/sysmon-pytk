@@ -18,6 +18,8 @@ from ...app_locale import get_translator
 
 _ = get_translator()
 
+__all__ = ["ButtonName", "ButtonDefinition", "ButtonMixin"]
+
 WidgetFrame = TypeVar("WidgetFrame", bound=Union[ttk.Frame, tk.Frame])
 
 
@@ -83,7 +85,7 @@ class ButtonMixin:  # pylint: disable=too-few-public-methods
         ----------
         frame : WidgetFrame (tk.Frame or ttk.Frame)
             The frame to which the buttons will be added
-        buttons : list[ButtonDefinition]
+        buttons : list[`ButtonDefinition`]
             The list of buttons to add
         default : int
             The default button, displayed with style="Accent.TButton"

@@ -34,15 +34,6 @@ class DropDown(ttk.Combobox):
         """
         Construct a dropdown widget.
 
-        STANDARD OPTIONS
-
-            class, cursor, style, takefocus
-
-        WIDGET-SPECIFIC OPTIONS
-
-            exportselection, justify, height, postcommand, state, textvariable,
-            values, width
-
         Parameters
         ----------
         parent : BaseWidget
@@ -59,7 +50,7 @@ class DropDown(ttk.Combobox):
 
     def get(self) -> str:
         """
-        Get the selected value.
+        Get the selected value of the dropdown.
         """
         key = super().get()
         return self.dictionary[key] if key else ""

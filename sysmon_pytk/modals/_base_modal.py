@@ -65,7 +65,7 @@ class ModalDialog(ButtonMixin, tk.Toplevel, metaclass=ABCMeta):
             The title to display in the window title bar.
         iconpath : str, optional
             The path to the icon to display in the window title bar.
-        class_ : str, default: "ModalDialog"
+        class_ : str, default = "ModalDialog"
             The class name of this modal dialog, used with the option database
             for styling.
         """

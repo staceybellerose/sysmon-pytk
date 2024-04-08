@@ -98,7 +98,6 @@ class CpuDialog(ModalDialog):
         row = start_row
         col = 0
         for core in range(self.cpu_count):
-            # TODO refactor to use CpuMeter here instead of Meter.
             meter = Meter(
                 self.internal_frame, width=220, height=165, unit="%",
                 label=_("CPU #{}").format(core)
@@ -119,7 +118,6 @@ class CpuDialog(ModalDialog):
         col = 0
         freqs = psutil.cpu_freq(percpu=True)
         for core in range(self.cpu_count):
-            # TODO create CpuFreqMeter (like CpuMeter) and use it here.
             meter = Meter(
                 self.internal_frame, width=220, height=165, unit="",
                 label=_("CPU #{}").format(core),

@@ -9,12 +9,13 @@ from __future__ import annotations
 
 import tkinter as tk
 from tkinter import TclError, ttk
-from typing import Any, Literal, TypeVar
+from typing import Any, Literal, TypeVar, Union
 
 from typing_extensions import Self
 
+# Tk widgets that allow scrollbars
 ScrollableWidget = TypeVar(
-    "ScrollableWidget", tk.Canvas, tk.Listbox, tk.Text, ttk.Treeview
+    "ScrollableWidget", bound=Union[tk.Canvas, tk.Listbox, tk.Text, ttk.Treeview]
 )
 
 
@@ -27,7 +28,12 @@ class AutoScrollbar(ttk.Scrollbar):  # pylint: disable=too-many-ancestors
         """
         Set the fractional values of the slider position.
 
-        Upper and lower ends are values between 0 and 1.
+        Parameters
+        ----------
+        first : Any
+            A string representation of a float, between 0 and 1.
+        last : Any
+            A string representation of a float, between 0 and 1.
         """
         if float(first) <= 0 and float(last) >= 1:
             self.grid_remove()
@@ -56,6 +62,15 @@ class AutoScrollbar(ttk.Scrollbar):  # pylint: disable=too-many-ancestors
     ) -> Self:
         """
         Add a scrollbar to a scrollable widget.
+
+        Parameters
+        ----------
+        widget : ScrollableWidget
+            The parent widget that will be linked to this scrollbar.
+        orient : Literal["horizontal", "vertical"]
+            The scrollbar orientation: horizontal or vertical.
+        **kwargs : dict, optional
+            Arguments to pass to parent `Scrollbar` class.
         """
         scroller = cls(widget.master, orient=orient, **kwargs)
         if orient == "horizontal":
