@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: © 2024 Stacey Adams <stacey.belle.rose@gmail.com>
+# SPDX-License-Identifier: Unlicense
+
 name: website
 
 # build the documentation whenever there are new commits on main
