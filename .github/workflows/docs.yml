@@ -28,8 +28,8 @@ jobs:
 
       - run: pip install -r requirements.txt
       - run: pip install -r requirements-dev.txt
+      - run: git submodule update --remote
       - run: pip install -e .
-      # We use a custom build script for pdoc itself, ideally you just run `pdoc -o docs/ ...` here.
       - run: python apidocs/make.py
 
       - uses: actions/upload-pages-artifact@v3
