@@ -1,0 +1,75 @@
+{% extends "default/module.html.jinja2" %}
+
+{% block nav_footer %}
+    {% if module.modulename.split(".")[0] == "azure" %}
+        <footer>
+        Copyright 2021&ndash;2023 Benedek Dévényi, 2024 Stacey Adams.
+        <a href="https://github.com/staceybellerose/Azure-ttk-theme">Azure-ttk-theme</a>
+        API Documentation licensed under
+        <a href='https://opensource.org/licenses/MIT'>MIT License</a>.
+        </footer>
+    {% else %}
+        <footer>
+        Copyright 2024 Stacey Adams.
+        <a href='https://github.com/staceybellerose/sysmon-pytk'>sysmon_pytk</a>
+        API Documentation licensed under
+        <a href='https://opensource.org/licenses/MIT'>MIT License</a>.
+        </footer>
+    {% endif %}
+{% endblock %}
+
+{% block module_list_link %}
+    {% set parentmodule = ".".join(module.modulename.split(".")[:-1]) %}
+    {% if parentmodule and parentmodule in all_modules %}
+        <a class="pdoc-button module-list-button" href="../{{ parentmodule.split('.')[-1] }}.html">
+            {% include "resources/box-arrow-in-left.svg" %}
+            &nbsp;
+            {{- parentmodule -}}
+        </a>
+        <a class="pdoc-button module-index-button" href="{{ '../' * module.modulename.count('.') }}index.html">
+            {% include "resources/box-arrow-in-left.svg" %}
+            &nbsp;
+            Index
+        </a>
+    {% elif not root_module_name %}
+        <a class="pdoc-button module-list-button" href="{{ '../' * module.modulename.count('.') }}index.html">
+            {% include "resources/box-arrow-in-left.svg" %}
+            &nbsp;
+            Module Index
+        </a>
+    {% endif %}
+{% endblock %}
+
+{% block nav_title %}
+    {% if module.modulename.split(".")[0] == "azure" %}
+        <a href="https://github.com/syaceybellerose/Azure-ttk-theme">
+        <img src="https://github.com/staceybellerose/Azure-ttk-theme/blob/main/icon.png?raw=true" class="logo" alt="project logo"/>
+        </a>
+    {% else %}
+        <a href="https://github.com/syaceybellerose/sysmon-pytk">
+        <img src="https://github.com/staceybellerose/sysmon-pytk/blob/main/sysmon_pytk/images/icon-lg.png?raw=true" class="logo" alt="project logo"/>
+        </a>
+    {% endif %}
+{% endblock %}
+
+{% macro default_value(var) -%}
+    {% if var.name == "TRANSLATED_MODULES" %}
+        = []
+    {% elif var.name == "FontWeight" %}
+        {# undo the type substitution so the definition can be seen #}
+        = Literal["normal", "bold"]
+    {% elif var.name == "FontSlant" %}
+        {# undo the type substitution so the definition can be seen #}
+        = Literal["roman", "italic"]
+    {% else %}
+        {{ default_default_value(var) }}
+    {% endif %}
+{% endmacro %}
+
+{% macro is_public(doc) %}
+    {% if doc.name == "_common" %}
+        true
+    {% else %}
+        {{ default_is_public(doc) }}
+    {% endif %}
+{% endmacro %}

@@ -5,6 +5,8 @@
 
 """
 Command line system monitor.
+
+.. include:: ../docs/CLI_USAGE.md
 """
 
 import gettext
@@ -147,7 +149,7 @@ def _temp_details(*, starting_line: int) -> None:
     print(term.clear_eos)
 
 
-def blank_below_line(line: int, start_col: int, width: int) -> None:
+def _blank_below_line(line: int, start_col: int, width: int) -> None:
     """
     Blank a rectangular section of the screen with spaces.
     """
@@ -169,7 +171,7 @@ def _disk_details_half(*, starting_line: int) -> None:
         mountpoint = part.mountpoint
         print(term.move(line, 1) + mountpoint.ljust(allowed_width))
         print(term.move(line + 1, 1) + _disk_usage_rjust(mountpoint, allowed_width))
-    blank_below_line(2*len(partitions) + starting_line + 1, 1, allowed_width)
+    _blank_below_line(2*len(partitions) + starting_line + 1, 1, allowed_width)
 
 
 def _temp_details_half(*, starting_line: int) -> None:
@@ -193,10 +195,10 @@ def _temp_details_half(*, starting_line: int) -> None:
             )
             print(term.move(line, term.width-11) + f"{entry.current}°C".rjust(10))
             line += 1
-    blank_below_line(line, start_col, term.width-start_col)
+    _blank_below_line(line, start_col, term.width-start_col)
 
 
-def monitor_system(args: argparse.Namespace) -> NoReturn:
+def _monitor_system(args: argparse.Namespace) -> NoReturn:
     """
     Monitor the system usage.
     """
@@ -279,7 +281,7 @@ def _get_parser() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def cli_monitor() -> NoReturn:
+def monitor() -> NoReturn:
     """
     Entry point for CLI monitor.
     """
@@ -288,11 +290,11 @@ def cli_monitor() -> NoReturn:
     _ = get_translator(forced_lang=args.language)
     print(term.enter_fullscreen() + term.clear + term.civis)
     try:
-        monitor_system(args)
+        _monitor_system(args)
     except KeyboardInterrupt:
         print(term.cnorm + term.clear + term.exit_fullscreen())
         sys.exit(0)
 
 
 if __name__ == "__main__":
-    cli_monitor()
+    monitor()

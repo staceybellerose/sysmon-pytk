@@ -14,8 +14,9 @@ from typing import TYPE_CHECKING, TypeVar
 
 import darkdetect
 
+import azure
+
 from . import font_utils
-from .file_utils import get_full_path
 
 if TYPE_CHECKING:
     from tkinter.font import Font
@@ -88,7 +89,7 @@ class StyleManager:
         """
         Initialize theme and styles for the application.
         """
-        root.tk.call("source", get_full_path("../azure/azure.tcl"))
+        azure.init_theme(root)  # pylint: disable=W0212
         cls.update_by_dark_mode(root, settings)
         cls.init_fonts(settings)
         root.option_add("*TCombobox*Listbox.font", "TkDefaultFont")
@@ -99,6 +100,15 @@ class StyleManager:
     def init_fonts(cls, settings: Settings) -> None:
         """
         Initialize the fonts to be used.
+
+        The following tk named fonts are updated based on Settings:
+
+        * TkDefaultFont - set to Regular Font from Settings
+        * TkTextFont - set to Regular Font from Settings
+        * TkMenuFont - set to Regular Font from Settings
+        * TkFixedFont - set to Fixed Font from Settings
+
+        In addition, widgets are configured to use TkDefaultFont.
         """
         base_font = font.nametofont("TkDefaultFont")
         text_font = font.nametofont("TkTextFont")
@@ -130,9 +140,16 @@ class StyleManager:
     def update_by_dark_mode(cls, root: tk.Tk, settings: Settings) -> None:
         """
         Update styles based on dark mode.
+
+        Colors are updated for various styles and widgets:
+
+        * Safe.TLabel style (green)
+        * Warn.TLabel style (yellow)
+        * Alert.TLabel style (red)
+        * Combobox Listbox background (grey)
         """
         dark_mode = cls.get_dark_mode(settings)
-        root.tk.call("set_theme", "dark" if dark_mode else "light")
+        azure.set_theme("dark" if dark_mode else "light", root)
         root.event_generate("<<ThemeChanged>>")
         style = ttk.Style()
         if dark_mode:
@@ -145,12 +162,13 @@ class StyleManager:
             style.configure("Warn.TLabel", foreground="#aaaa00")
             style.configure("Alert.TLabel", foreground="#cc0000")
             root.option_add("*TCombobox*Listbox.background", "#dddddd")
+        # ComboboxPopdownFrame must be reset every time the theme changes
         style.configure("ComboboxPopdownFrame", relief=tk.FLAT)
 
     @classmethod
     def test_dark_mode(cls, trueval: T, falseval: T) -> T:
         """
-        If currently in dark mode, return trueval; otherwise return falseval.
+        If currently in dark mode, return `trueval`; otherwise return `falseval`.
         """
         style = ttk.Style()
         background = style.lookup("TLabel", "background")
@@ -186,7 +204,7 @@ class StyleManager:
     @classmethod
     def get_base_font(cls) -> Font:
         """
-        Get the base font for use in the application.
+        Get the base font for use in the application. Returns `TkDefaultFont`.
         """
         return font.nametofont("TkDefaultFont")
 
@@ -194,6 +212,8 @@ class StyleManager:
     def get_large_font(cls) -> Font:
         """
         Get the large font for use in the application.
+
+        Returns a modified `TkDefaultFont` with font size increased by 4.
         """
         return font_utils.modify_named_font(
             "TkDefaultFont", size=cls.get_base_font().actual()["size"]+4
@@ -203,6 +223,8 @@ class StyleManager:
     def get_small_font(cls) -> Font:
         """
         Get the small font for use in the application.
+
+        Returns a modified `TkDefaultFont` with font size decreased by 2.
         """
         return font_utils.modify_named_font(
             "TkDefaultFont", size=cls.get_base_font().actual()["size"]-2
@@ -212,12 +234,14 @@ class StyleManager:
     def get_bold_font(cls) -> Font:
         """
         Get the bold font for use in the application.
+
+        Returns a modified `TkDefaultFont` with font weight set to bold.
         """
         return font_utils.modify_named_font("TkDefaultFont", weight="bold")
 
     @classmethod
     def get_fixed_font(cls) -> Font:
         """
-        Get the monospace font for use in the application.
+        Get the monospace font for use in the application. Returns `TkFixedFont`.
         """
         return font.nametofont("TkFixedFont")

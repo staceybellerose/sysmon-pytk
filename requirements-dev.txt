@@ -20,3 +20,4 @@ twine >= 5.0
 types-docutils >= 0.20
 types-psutil >= 5.8.0, < 6.0
 types-setuptools >= 64
+pdoc @ git+https://github.com/staceybellerose/pdoc@main

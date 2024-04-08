@@ -10,7 +10,7 @@ GUI System monitor.
 from .application import Application
 
 
-def gui_monitor() -> None:
+def monitor() -> None:
     """
     Entry point for GUI monitor.
     """
@@ -20,4 +20,4 @@ def gui_monitor() -> None:
 
 
 if __name__ == "__main__":
-    gui_monitor()
+    monitor()

@@ -16,9 +16,16 @@ from socket import AF_INET
 import psutil
 
 DISK_ALERT_LEVEL = 80
+"""Percent of disk usage at which the meter shows red."""
+
 DISK_WARN_LEVEL = 60
-REFRESH_INTERVAL = 750  # milliseconds
+"""Percent of disk usage at which the meter shows yellow."""
+
+REFRESH_INTERVAL = 750
+"""Number of milliseconds between widget refreshes."""
+
 INTERNAL_PAD = 12
+"""Standard widget padding, in pixels."""
 
 BYTE_SYMBOLS = ("B", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB")
 
@@ -117,7 +124,7 @@ def digits(numstr: str) -> list[int]:
 
 def cpu_temp() -> float:
     """
-    Return the CPU temperature, as a float.
+    Return the CPU temperature in degrees Celsius.
 
     Returns
     -------
@@ -136,7 +143,7 @@ def cpu_temp() -> float:
 
 def net_addr() -> str:
     """
-    Get the first non-loopback network address.
+    Get the first non-loopback network address (IPv4).
 
     Returns
     -------
@@ -216,7 +223,7 @@ def disk_usage(mountpoint: str) -> str:
 
 def get_processor_name() -> str:
     """
-    Get the full processor name of the computer running.
+    Get the full processor name of the computer.
     """
     if platform.system() == "Windows":
         return _get_processor_name_windows()

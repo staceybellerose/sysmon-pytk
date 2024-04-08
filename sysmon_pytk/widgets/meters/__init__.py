@@ -15,17 +15,19 @@ from typing import TYPE_CHECKING, final
 
 import psutil
 
-from .._common import DISK_ALERT_LEVEL, DISK_WARN_LEVEL, REFRESH_INTERVAL, cpu_temp
-from ..app_locale import get_translator
-from ..file_utils import get_full_path
-from ..modals import CpuDialog, DiskUsageDialog, MemUsageDialog, TempDetailsDialog
-from .meter import Meter
-from .tooltip import ToolTip
+from ... import modals
+from ..._common import DISK_ALERT_LEVEL, DISK_WARN_LEVEL, REFRESH_INTERVAL, cpu_temp
+from ...app_locale import get_translator
+from ...file_utils import get_full_path
+from ..meter import Meter
+from ..tooltip import ToolTip
 
 if TYPE_CHECKING:
     from tkinter import BaseWidget
 
 _ = get_translator()
+
+__all__ = ["UpdatingMeter", "CpuMeter", "DiskMeter", "RamMeter", "TempMeter"]
 
 
 class UpdatingMeter(Meter):
@@ -120,7 +122,7 @@ class CpuMeter(UpdatingMeter):
 
     def is_clickable(self) -> bool:
         """
-        CPU Meter is only clicksble if more than one CPU/core is present.
+        CPU Meter is only clickable if more than one CPU/core is present.
         """
         return psutil.cpu_count() > 1
 
@@ -135,7 +137,7 @@ class CpuMeter(UpdatingMeter):
         Open CPU Details.
         """
         app_title = self.get_app_title()
-        CpuDialog(
+        modals.CpuDialog(
             self, title=_("{} :: CPU Details").format(app_title),
             iconpath=get_full_path("images/icon.png")
         )
@@ -167,7 +169,7 @@ class TempMeter(UpdatingMeter):
         Open Temperature Details.
         """
         app_title = self.get_app_title()
-        TempDetailsDialog(
+        modals.TempDetailsDialog(
             self,
             title=_("{} :: Temperature Details").format(app_title),
             iconpath=get_full_path("images/icon.png")
@@ -200,7 +202,7 @@ class RamMeter(UpdatingMeter):
         Open Memory Usage.
         """
         app_title = self.get_app_title()
-        MemUsageDialog(
+        modals.MemUsageDialog(
             self, title=_("{} :: Memory Usage").format(app_title),
             iconpath=get_full_path("images/icon.png")
         )
@@ -232,7 +234,7 @@ class DiskMeter(UpdatingMeter):
         Open Disk Usage.
         """
         app_title = self.get_app_title()
-        DiskUsageDialog(
+        modals.DiskUsageDialog(
             self, title=_("{} :: Disk Usage").format(app_title),
             iconpath=get_full_path("images/icon.png")
         )

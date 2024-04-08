@@ -1,0 +1,22 @@
+nav.pdoc footer a {
+    display: inline;
+    color: var(--link);
+}
+nav.pdoc a:hover {
+    color: var(--link-hover);
+}
+nav.pdoc .module-index-button {
+    display: inline-flex;
+    align-items: center;
+    color: var(--text);
+    border-color: var(--muted);
+    margin-bottom: 1rem;
+}
+
+kbd {
+    padding: 2px 8px;
+    font-size: 85%;
+    color: var(--text);
+    background-color: var(--accent2);
+    border-radius: 8px;
+}

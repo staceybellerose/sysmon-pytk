@@ -33,8 +33,11 @@ class LicenseMetadata:
     """
 
     full_license: str
+    """The full license text for the application. Can be an empty string."""
     license_name: str
+    """The name of the license used by the application."""
     license_url: str
+    """A URL pointing to an online copy of the license text."""
 
 
 @dataclasses.dataclass
@@ -44,12 +47,19 @@ class AboutMetadata:
     """
 
     app_name: str
+    """The application name."""
     version: str
+    """The current version of the application."""
     author: str
+    """The author of the application."""
     copyright_year: str
+    """The copyright year of the application."""
     description: str
+    """A description of the application."""
     url: str
+    """A URL that points to the source code repository for the application."""
     license: LicenseMetadata | None = None
+    """License metadata about the application."""
 
     def get_copyright_text(self) -> str:
         """
@@ -89,6 +99,18 @@ class AboutDialog(ModalDialog):
     def __init__(
         self, parent: Misc | None, about: AboutMetadata, iconpath: str | None = None
     ) -> None:
+        """
+        Construct a modal dialog containing metadata about the application.
+
+        Parameters
+        ----------
+        parent : Misc, optional
+            The parent widget.
+        about : AboutMetadata
+            The metadata about the application.
+        iconpath : str, optional
+            The path to the icon to display in the window title bar.
+        """
         self.about = about
         title = _("About {}").format(about.app_name).strip()
         self.logo = tk.PhotoImage(file=get_full_path("images/icon-lg.png"))

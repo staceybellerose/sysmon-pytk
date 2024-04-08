@@ -30,10 +30,22 @@ class DiskUsageDialog(ModalDialog):
 
     def __init__(
         self, parent: Misc | None = None, *, title: str | None = None,
-        iconpath: str | None = None, class_: str = "ModalDialog"
+        iconpath: str | None = None
     ) -> None:
+        """
+        Construct a modal dialog containing information about disk usage.
+
+        Parameters
+        ----------
+        parent : Misc, optional
+            The parent widget.
+        title : str, optional
+            The title to display in the window title bar.
+        iconpath : str, optional
+            The path to the icon to display in the window title bar.
+        """
         self._update_job: str | None = None
-        super().__init__(parent, title=title, iconpath=iconpath, class_=class_)
+        super().__init__(parent, title=title, iconpath=iconpath)
 
     def on_save(self) -> None:
         """

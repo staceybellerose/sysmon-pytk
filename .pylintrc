@@ -11,4 +11,4 @@ good-names=r,g,b,n,i,j,x,y,z
 ignore-long-lines=^\s*(#\s*)?<?https?://\S+>?$|^\s*(\w*\s*=\s*)?(return\s*)?(f)?(\"|\').*(\"|\'),?\s*$
 
 [MESSAGES CONTROL]
-disable=fixme
+disable=fixme,cyclic-import

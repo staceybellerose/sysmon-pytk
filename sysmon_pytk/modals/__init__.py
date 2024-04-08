@@ -5,7 +5,9 @@
 Modal dialogs.
 """
 
-from .about_modal import AboutDialog
+from . import messagebox
+from ._base_modal import ModalDialog
+from .about_modal import AboutDialog, AboutMetadata, LicenseMetadata
 from .cpu_modal import CpuDialog
 from .disk_usage_modal import DiskUsageDialog
 from .font_modal import FontChooser
@@ -14,11 +16,15 @@ from .settings_modal import SettingsDialog
 from .temperature_modal import TempDetailsDialog
 
 __all__ = [
+    "ModalDialog",
     "AboutDialog",
+    "AboutMetadata",
+    "LicenseMetadata",
     "CpuDialog",
     "DiskUsageDialog",
     "FontChooser",
     "MemUsageDialog",
     "SettingsDialog",
-    "TempDetailsDialog"
+    "TempDetailsDialog",
+    "messagebox"
 ]

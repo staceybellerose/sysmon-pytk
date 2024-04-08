@@ -48,20 +48,20 @@ class EditMenu(tk.Menu):
             select_all=tk.PhotoImage(file=get_full_path("images/edit-select-all.png"))
         )
         self.add_command(
-            label=("Cut"), command=self.cut, accelerator=_("Ctrl+X"),
+            label=_("Cut"), command=self.cut, accelerator=_("Ctrl+X"),
             compound=tk.LEFT, image=self.images.cut
         )
         self.add_command(
-            label=("Copy"), command=self.copy, accelerator=_("Ctrl+C"),
+            label=_("Copy"), command=self.copy, accelerator=_("Ctrl+C"),
             compound=tk.LEFT, image=self.images.copy
         )
         self.add_command(
-            label=("Paste"), command=self.paste, accelerator=_("Ctrl+V"),
+            label=_("Paste"), command=self.paste, accelerator=_("Ctrl+V"),
             compound=tk.LEFT, image=self.images.paste
         )
         self.add_separator()
         self.add_command(
-            label=("Select All"), command=self.select_all,
+            label=_("Select All"), command=self.select_all,
             accelerator=_("Ctrl+A"), compound=tk.LEFT, image=self.images.select_all
         )
         self.master.bind("<Button-3>", self.show_popup)
@@ -77,11 +77,11 @@ class EditMenu(tk.Menu):
         if self.focus_get() != self:
             self.focus_set()
         if self.master.cget("state") == tk.DISABLED:
-            self.entryconfigure(("Cut"), state=tk.DISABLED)
-            self.entryconfigure(("Paste"), state=tk.DISABLED)
+            self.entryconfigure(_("Cut"), state=tk.DISABLED)
+            self.entryconfigure(_("Paste"), state=tk.DISABLED)
         else:
-            self.entryconfigure(("Cut"), state=tk.NORMAL)
-            self.entryconfigure(("Paste"), state=tk.NORMAL)
+            self.entryconfigure(_("Cut"), state=tk.NORMAL)
+            self.entryconfigure(_("Paste"), state=tk.NORMAL)
         self.tk_popup(event.x_root, event.y_root, 0)
 
     def cut(self, *_args) -> None:

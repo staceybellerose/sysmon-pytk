@@ -5,10 +5,11 @@ SPDX-FileCopyrightText: © 2024 Stacey Adams <stacey.belle.rose@gmail.com>
 
 SPDX-License-Identifier: MIT
 -->
+<!-- markdownlint-disable MD033 -->
 
 [![GitHub License](https://img.shields.io/github/license/staceybellerose/sysmon-pytk?color=7C4DFF)](https://github.com/staceybellerose/sysmon-pytk)
 [![GitHub Release](https://img.shields.io/github/v/release/staceybellerose/sysmon-pytk)](https://github.com/staceybellerose/sysmon-pytk/releases)
-[![AppVeyor Build](https://img.shields.io/appveyor/build/staceybellerose/sysmon-pytk)](https://ci.appveyor.com/project/staceybellerose/sysmon-pytk/)
+[![AppVeyor Build](https://img.shields.io/appveyor/build/staceybellerose/sysmon-pytk/main)](https://ci.appveyor.com/project/staceybellerose/sysmon-pytk/)
 
 [![PyPI - Status](https://img.shields.io/pypi/status/sysmon-pytk)](https://pypi.org/project/sysmon-pytk/)
 [![PyPI - Version](https://img.shields.io/pypi/v/sysmon-pytk)](https://pypi.org/project/sysmon-pytk/)
@@ -27,28 +28,9 @@ and current process count.
 
 ## Pre-installation
 
-### Make sure the Python interface to Tcl/Tk (tkinter) is installed
+Make sure the Python interface to Tcl/Tk (tkinter) is installed.
 
-Since this is a GUI application using tkinter, tkinter must be installed
-separately.
-
-* Debian, Ubuntu, and derivatives
-
-    ```bash
-    sudo apt install python3-tk
-    ```
-
-* Fedora and derivatives
-
-    ```bash
-    sudo dnf install python3-tkinter
-    ```
-
-* MacOS
-
-    ```bash
-    brew install python-tk
-    ```
+[tkinter Installation Instructions](https://github.com/staceybellerose/sysmon-pytk/blob/main/docs/PRE-INSTALLATION.md)
 
 ## Install Using pip
 
@@ -59,60 +41,25 @@ pip install sysmon-pytk
 Two versions of the program will be installed, a GUI program and a command line
 program.
 
-To run the GUI program:
+## Run the GUI program
 
 ```bash
 sysmon
 ```
 
-To run the command line program:
+or
+
+```bash
+gui_sysmon
+```
+
+## Run the command line program
 
 ```bash
 cli_sysmon
 ```
 
-## Install Manually, for local development
-
-Note when cloning this repo that it has a submodule
-[Azure ttk theme](https://github.com/rdbende/Azure-ttk-theme)
-which must be copied over:
-
-```bash
-git clone --recurse-submodules https://github.com/staceybellerose/sysmon-pytk.git
-```
-
-If you didn't clone the submodule when cloning this repo, run this to update:
-
-```bash
-git submodule update --init --recursive
-```
-
-### Install the required python packages
-
-```bash
-make venv
-```
-
-### Generate translation files
-
-Translations are available in English, Spanish, German, and Norwegian Bokmål.
-To build the translation files, run the following bash commands:
-
-```bash
-make translations
-```
-
-| Run the GUI program | |
-|-|-|
-| While the venv is activated | `python -m sysmon_pytk.gui_monitor &` |
-| Explicitly using the venv | `venv/bin/python -m sysmon_pytk.gui_monitor &` |
-| Let make handle everything automatically | `make run` |
-
-| Run the command line program | |
-|-|-|
-| While the venv is activated | `python -m sysmon_pytk.cli_monitor &` |
-| Explicitly using the venv | `venv/bin/python -m sysmon_pytk.cli_monitor &` |
-| Let make handle everything automatically | `make cli` |
+To get available options for the command line program, use `cli_sysmon -h`.
 
 ## Translations
 
@@ -123,3 +70,19 @@ Special thanks to our translators!
 | German           | de    | Alisyn Arness |
 | Spanish          | es    | Stacey Adams (author) |
 | Norwegian Bokmål | nb_NO | [Allan Nordhøy](https://github.com/comradekingu) |
+
+## Contributing
+
+Translations are always welcome! The strings to be translated are located in
+[app.pot](https://github.com/staceybellerose/sysmon-pytk/blob/main/sysmon_pytk/locale/app.pot)
+and
+[argparse.pot](https://github.com/staceybellerose/sysmon-pytk/blob/main/sysmon_pytk/locale/argparse.pot).
+
+`argparse.pot` contains standard strings from the Python Standard Library file
+`argparse.py` (Python versions 3.9–3.12).
+
+If you want to work on the code, read the
+[Development Guide](https://github.com/staceybellerose/sysmon-pytk/blob/main/docs/DEVELOPING.md).
+
+Contributers are expected to follow our
+[Code of Conduct](https://github.com/staceybellerose/sysmon-pytk/blob/main/CODE_OF_CONDUCT.md).

@@ -34,10 +34,11 @@ classifiers = [
 keywords = ["system monitor"]
 
 [project.scripts]
-cli_sysmon = "sysmon_pytk.cli_monitor:cli_monitor"
+cli_sysmon = "sysmon_pytk.cli_sysmon:monitor"
 
 [project.gui-scripts]
-sysmon = "sysmon_pytk.gui_monitor:gui_monitor"
+gui_sysmon = "sysmon_pytk.gui_sysmon:monitor"
+sysmon = "sysmon_pytk.gui_sysmon:monitor"
 
 [project.urls]
 Homepage = "https://github.com/staceybellerose/sysmon-pytk"

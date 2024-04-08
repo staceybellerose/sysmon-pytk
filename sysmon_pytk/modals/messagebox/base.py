@@ -16,10 +16,10 @@ from enum import IntEnum
 from tkinter import ttk
 from typing import Callable
 
-from .._common import INTERNAL_PAD
-from ..app_locale import get_translator
-from ..file_utils import get_full_path
-from ..widgets.button_mixin import ButtonMixin, ButtonName
+from ..._common import INTERNAL_PAD
+from ...app_locale import get_translator
+from ...file_utils import get_full_path
+from ...widgets.buttons import ButtonMixin, ButtonName
 
 _ = get_translator()
 
@@ -30,9 +30,13 @@ class MessageBoxIcon(IntEnum):
     """
 
     INFO = 1
+    """Message box displays the INFO icon."""
     QUESTION = 2
+    """Message box displays the QUESTION icon."""
     WARNING = 3
+    """Message box displays the WARNING icon."""
     ERROR = 4
+    """Message box displays the ERROR icon."""
 
 
 class MessageBoxButtonSet(IntEnum):
@@ -41,11 +45,17 @@ class MessageBoxButtonSet(IntEnum):
     """
 
     OK = 1
+    """Message box contains OK button."""
     OKCANCEL = 2
+    """Message box contains OK and Cancel buttons."""
     CLOSE = 3
+    """Message box contains Close button."""
     YESNO = 4
+    """Message box contains Yes and No buttons."""
     YESNOCANCEL = 5
+    """Message box contains Yes, No, and Cancel buttons."""
     RETRYCANCEL = 6
+    """Message box contains Retry and Cancel buttons."""
 
 
 MESSAGE_BOX_ICON_PATHS = {

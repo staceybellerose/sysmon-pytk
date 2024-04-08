@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 """
-Metadata about the application.
+Metadata about the application (name, version, author, license, etc.).
 """
 
 from .app_locale import get_translator
@@ -10,9 +10,9 @@ from .app_locale import get_translator
 _ = get_translator()
 
 __app_name__ = "sysmon-pytk"
-__version__ = "0.5.0"
+__version__ = "0.5.1.dev1"
 __license__ = _("MIT License")
-__author__ = "Stacey Adams"
+__author_name__ = "Stacey Adams"
 __author_email__ = "stacey.belle.rose@gmail.com"
 __url__ = "https://github.com/staceybellerose/sysmon-pytk"
 __summary__ = _("""\

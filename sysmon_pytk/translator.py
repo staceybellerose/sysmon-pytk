@@ -17,7 +17,9 @@ class Translator:
     """
 
     name: str
+    """The translator's name (or pseudonym)."""
     github_username: str = ""
+    """The translator's GitHub username, if available. Can be an empty string."""
 
     def github_url(self) -> str:
         """
@@ -39,3 +41,4 @@ TRANSLATORS: dict[str, list[Translator]] = {
         Translator("Allan Nordhøy", "comradekingu")
     ]
 }
+"""The translator team, for use in credits."""

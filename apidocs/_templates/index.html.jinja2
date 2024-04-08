@@ -1,0 +1,60 @@
+{% extends "default/index.html.jinja2" %}
+
+{% block title %}System Monitor Module List{% endblock %}
+
+{% block nav %}
+    <h2>Available Modules</h2>
+    <ul>
+        {% for submodule in all_modules %}
+            <li><a href="{{ submodule.replace('.','/') }}.html">{{ submodule }}</a></li>
+        {% endfor %}
+    </ul>
+    {% block nav_footer %}
+        <footer>
+        Copyright 2024 Stacey Adams.
+        <a href='https://github.com/staceybellerose/sysmon-pytk'>sysmon_pytk</a>
+        API Documentation licensed under
+        <a href='https://opensource.org/licenses/MIT'>MIT License</a>.
+        </footer>
+    {% endblock %}
+    {% block attribution %}
+        <a class="attribution" title="pdoc: Python API documentation generator" href="https://pdoc.dev" target="_blank">
+            built with <span class="visually-hidden">pdoc</span><img
+                alt="pdoc logo"
+                src="data:image/svg+xml,
+                    {%- filter urlencode %}{% include 'resources/pdoc-logo.svg' %}{% endfilter %}"/>
+        </a>
+    {% endblock %}
+{% endblock %}
+{% block content %}
+    <header class="pdoc">
+        <h1 style="flex-grow:1">System Monitor Module List</h1>
+        {% block logo %}
+            <a href="https://github.com/syaceybellerose/sysmon-pytk">
+            <img src="https://github.com/staceybellerose/sysmon-pytk/blob/main/sysmon_pytk/images/icon-lg.png?raw=true" class="logo" alt="project logo"/>
+            </a>
+        {% endblock %}
+        {% if search %}
+            <input type="search" placeholder="Search API Documentation..." aria-label="search box">
+        {% endif %}
+    </header>
+    <main class="pdoc">
+        <img
+            src="https://github.com/staceybellerose/sysmon-pytk/blob/main/images/main_window.png?raw=true"
+            title="main window of sysmon application" />
+    {% block submodules %}
+        <h2>Modules</h2>
+        <div style="column-count: 2">
+        <dl>
+            {% for modulename in all_modules %}
+            <dt><a href="{{ modulename.replace('.','/') }}.html">{{ modulename }}</a></dt>
+            <dd>{{ all_modules[modulename].docstring.split("\n")[0] }}</dd>
+            {% endfor %}
+        </dl>
+        </div>
+    {% endblock %}
+    </main>
+    {% if search %}
+        {% include "search.html.jinja2" %}
+    {% endif %}
+{% endblock %}

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sysmon-pytk 0.5.0\n"
 "Report-Msgid-Bugs-To: stacey.belle.rose@gmail.com\n"
-"POT-Creation-Date: 2024-03-31 04:00-0500\n"
-"PO-Revision-Date: 2024-03-31 04:00-0500\n"
+"POT-Creation-Date: 2024-04-08 03:09-0500\n"
+"PO-Revision-Date: 2024-04-08 03:09-0500\n"
 "Last-Translator: Alisyn Arness\n"
 "Language-Team: German <https://hosted.weblate.org/projects/sysmon-pytk/"
 "sysmon-pytk/de/>\n"
@@ -35,115 +35,114 @@ msgstr ""
 "die IP-Adresse, die Betriebszeit und die aktuelle Prozessanzahl des Systems "
 "angezeigt."
 
-#: ../application.py:33 ../cli_monitor.py:203 ../desktop_menu.py:72
+#: ../application.py:32 ../cli_sysmon.py:205 ../desktop_menu.py:81
 msgid "System Monitor"
 msgstr "Systemmonitor"
 
-#: ../application.py:94
+#: ../application.py:100
 msgid "Click to copy IP Address to clipboard"
 msgstr "Klicken Sie hier, um die IP-Adresse in die Zwischenablage zu kopieren"
 
-#: ../application.py:164
+#: ../application.py:170
 msgid "File"
 msgstr "Datei"
 
-#: ../application.py:167
+#: ../application.py:173
 msgid "About"
 msgstr "Über"
 
-#: ../application.py:167 ../widgets/edit_menu.py:65
+#: ../application.py:173 ../widgets/edit_menu.py:65
 msgid "Ctrl+A"
 msgstr "Strg+A"
 
-#: ../application.py:171
+#: ../application.py:177
 msgid "Preferences"
 msgstr "Einstellungen"
 
-#: ../application.py:171
+#: ../application.py:177
 msgid "Ctrl+Shift+P"
 msgstr "Strg+Umschalt+P"
 
-#: ../application.py:175
+#: ../application.py:181
 msgid "Restart"
 msgstr "Neustart"
 
-#: ../application.py:175
+#: ../application.py:181
 msgid "Ctrl+R"
 msgstr "Strg+R"
 
-#: ../application.py:180
+#: ../application.py:186
 msgid "Quit"
 msgstr "Beenden"
 
-#: ../application.py:180
+#: ../application.py:186
 msgid "Ctrl+Q"
 msgstr "Strg-Q"
 
-#: ../application.py:201
+#: ../application.py:210
 msgid "Copied!"
 msgstr "Kopiert!"
 
-#: ../application.py:235
+#: ../application.py:252
 msgid "{} Preferences"
 msgstr "{} Einstellungen"
 
-#: ../application.py:244 ../cli_monitor.py:206
+#: ../application.py:264 ../cli_sysmon.py:208
 msgid "Hostname: {}"
 msgstr "Hostname : {}"
 
-#: ../application.py:245 ../cli_monitor.py:207
+#: ../application.py:265 ../cli_sysmon.py:209
 msgid "IP Address: {}"
 msgstr "IP-Adresse: {}"
 
-#: ../application.py:246 ../cli_monitor.py:208
+#: ../application.py:266 ../cli_sysmon.py:210
 msgid "Processes: {}"
 msgstr "Prozesse: {}"
 
-#: ../application.py:247 ../cli_monitor.py:209
+#: ../application.py:267 ../cli_sysmon.py:211
 msgid "Uptime: {}"
 msgstr "Betriebszeit: {}"
 
-#: ../cli_monitor.py:50 ../widgets/meters.py:116
+#: ../cli_sysmon.py:52
 msgid "CPU Usage"
 msgstr "CPU-Auslastung"
 
-#: ../cli_monitor.py:58 ../widgets/meters.py:154
+#: ../cli_sysmon.py:60
 msgid "Temperature"
 msgstr "Temperatur"
 
-#: ../cli_monitor.py:68 ../widgets/meters.py:187
+#: ../cli_sysmon.py:70
 msgid "RAM Usage"
 msgstr "RAM-Auslastung"
 
-#: ../cli_monitor.py:78 ../modals/mem_usage_modal.py:63
+#: ../cli_sysmon.py:80 ../modals/mem_usage_modal.py:63
 msgid "Swap Memory"
 msgstr "Speicher Austauschen"
 
-#: ../cli_monitor.py:114 ../cli_monitor.py:162 ../modals/disk_usage_modal.py:59
+#: ../cli_sysmon.py:116 ../cli_sysmon.py:164 ../modals/disk_usage_modal.py:71
 msgid "Disk Usage"
 msgstr "Plattenauslastung"
 
-#: ../cli_monitor.py:131 ../cli_monitor.py:179
-#: ../modals/temperature_modal.py:45
+#: ../cli_sysmon.py:133 ../cli_sysmon.py:181 ../modals/temperature_modal.py:45
 msgid "Temperature Sensors"
 msgstr "Wärmesensoren"
 
-#: ../cli_monitor.py:142 ../modals/temperature_modal.py:103
+#: ../cli_sysmon.py:144 ../modals/temperature_modal.py:103
 #, python-brace-format
 msgid "{current}°C (high = {high}°C, critical = {critical}°C)"
 msgstr "{current}°C (höchste = {high}°C, kritischer = {critical}°C)"
 
-#: ../cli_monitor.py:222
+#: ../cli_sysmon.py:224
 msgid "<Ctrl-C> to quit"
 msgstr "<Strg-C> zum Beenden"
 
-#: ../cli_monitor.py:232
+#: ../cli_sysmon.py:234
 msgid "System monitor: display CPU usage/temperature, memory usage, disk usage"
 msgstr ""
 "Systemmonitor: Zeigt CPU-Auslastung/-Temperatur, Speichernutzung und "
 "Festplattennutzung an"
 
-#: ../cli_monitor.py:235
+#: ../cli_sysmon.py:237
 msgid ""
 "By default, this program will use the same language as that selected for the "
 "GUI application. To override it, use the '-l' option. To quit, press <Ctrl-"
@@ -153,53 +152,53 @@ msgstr ""
 "Anwendung ausgewählte Sprache. Um es zu überschreiben, verwenden Sie die "
 "Option „-l“. Zum Beenden drücken Sie <Strg-C>."
 
-#: ../cli_monitor.py:242
+#: ../cli_sysmon.py:244
 msgid "Options"
 msgstr "Optionen"
 
-#: ../cli_monitor.py:245
+#: ../cli_sysmon.py:247
 msgid "show this help message and exit"
 msgstr "diese Meldung anzeigen und beenden"
 
-#: ../cli_monitor.py:250
+#: ../cli_sysmon.py:252
 msgid "show program's version number and exit"
 msgstr "Versionsnummer der Anwendung anzeigen und beenden"
 
-#: ../cli_monitor.py:254
+#: ../cli_sysmon.py:256
 #, python-format
 msgid "time between screen refreshes (in seconds, default=%(default)s)"
 msgstr ""
 "Zeit zwischen Bildschirmaktualisierungen (in Sekunden, Standard=%(default)s)"
 
-#: ../cli_monitor.py:258
+#: ../cli_sysmon.py:260
 msgid "the language to use for display"
 msgstr "die Sprache, die für die Anzeige verwendet werden soll"
 
-#: ../cli_monitor.py:260
+#: ../cli_sysmon.py:262
 msgid "Display Details"
 msgstr "Anzeigedetails"
 
-#: ../cli_monitor.py:264
+#: ../cli_sysmon.py:266
 msgid "show disk details (default)"
 msgstr "Festplattendetails anzeigen (Standard)"
 
-#: ../cli_monitor.py:268
+#: ../cli_sysmon.py:270
 msgid "show temperature details"
 msgstr "Temperaturdetails anzeigen"
 
-#: ../cli_monitor.py:272
+#: ../cli_sysmon.py:274
 msgid "show both disk and temperature details"
 msgstr "Zeigt sowohl Festplattendetails als auch Temperaturdetails an"
 
-#: ../cli_monitor.py:276
+#: ../cli_sysmon.py:278
 msgid "show no details, only the header"
 msgstr "Keine Details anzeigen, nur die Kopfzeile"
 
-#: ../desktop_menu.py:48
+#: ../desktop_menu.py:57
 msgid "Error creating desktop menu item"
 msgstr "Fehler beim Erstellen des Desktop-Menüeinträg"
 
-#: ../desktop_menu.py:49
+#: ../desktop_menu.py:58
 msgid ""
 "System Monitor (sysmon) must be installed in a virtual environment in order "
 "to create a desktop menu entry."
@@ -207,63 +206,71 @@ msgstr ""
 "System Monitor (sysmon) muss in einer virtuellen Umgebung installiert "
 "werden, um einen Desktop-Menüeintrag zu erstellen."
 
-#: ../font_utils.py:74 ../modals/font_modal.py:171
+#: ../font_utils.py:153 ../modals/font_modal.py:171
 msgid "Bold"
 msgstr "Fett"
 
-#: ../font_utils.py:76 ../modals/font_modal.py:175
+#: ../font_utils.py:155 ../modals/font_modal.py:175
 msgid "Italic"
 msgstr "Kursiv"
 
-#: ../font_utils.py:78 ../modals/font_modal.py:179
+#: ../font_utils.py:157 ../modals/font_modal.py:179
 msgid "Bold Italic"
 msgstr "Fett Kursiv"
 
-#: ../modals/about_modal.py:93
+#: ../font_utils.py:171 ../modals/font_modal.py:193
+msgid "Underline"
+msgstr "Unterstrichen"
+
+#: ../font_utils.py:172 ../modals/font_modal.py:197
+msgid "Overstrike"
+msgstr "Durchgestrichen"
+
+#: ../modals/about_modal.py:115
 msgid "About {}"
 msgstr "Über {}"
 
-#: ../modals/about_modal.py:125
+#: ../modals/about_modal.py:147
 msgid "Translators"
 msgstr "Übersetzer"
 
-#: ../modals/about_modal.py:131
+#: ../modals/about_modal.py:153
 msgid "License"
 msgstr "Lizenz"
 
-#: ../modals/about_modal.py:149
+#: ../modals/about_modal.py:171
 msgid "Version {}"
 msgstr "Version {}"
 
-#: ../modals/about_modal.py:155
+#: ../modals/about_modal.py:177
 msgid "Source Code"
 msgstr "Quellcode"
 
-#: ../modals/about_modal.py:220
+#: ../modals/about_modal.py:242
 msgid "Full license text available here"
 msgstr "Den vollständigen Lizenztext finden Sie hier"
 
-#: ../modals/_base_modal.py:158 ../widgets/button_mixin.py:113
+#: ../modals/_base_modal.py:158
 msgid "Close"
 msgstr "Schließen"
 
-#: ../modals/_base_modal.py:168 ../widgets/button_mixin.py:110
+#: ../modals/_base_modal.py:168
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: ../modals/_base_modal.py:169 ../widgets/button_mixin.py:107
+#: ../modals/_base_modal.py:169
 msgid "OK"
 msgstr "Verstanden"
 
-#: ../modals/cpu_modal.py:70
+#: ../modals/cpu_modal.py:82
 msgid "per-core CPU Usage"
 msgstr "CPU-Auslastung pro Kern"
 
-#: ../modals/cpu_modal.py:76
+#: ../modals/cpu_modal.py:88
 msgid "per-core CPU Frequency (in MHz)"
 msgstr "CPU-Frequenz pro Kern (in MHz)"
 
-#: ../modals/cpu_modal.py:91 ../modals/cpu_modal.py:111
+#: ../modals/cpu_modal.py:104 ../modals/cpu_modal.py:125
 msgid "CPU #{}"
 msgstr "CPU #{}"
 
@@ -286,14 +293,6 @@ msgstr "Normal"
 #: ../modals/font_modal.py:186
 msgid "Effects"
 msgstr "Effekte"
-
-#: ../modals/font_modal.py:193
-msgid "Underline"
-msgstr "Unterstrichen"
-
-#: ../modals/font_modal.py:197
-msgid "Overstrike"
-msgstr "Durchgestrichen"
 
 #: ../modals/font_modal.py:203
 msgid "Size"
@@ -323,103 +322,97 @@ msgstr "Dunkel"
 msgid "Same as System"
 msgstr "Gleiches wie System"
 
-#: ../modals/settings_modal.py:106
+#: ../modals/settings_modal.py:107
 msgid "Language"
 msgstr "Sprache"
 
-#: ../modals/settings_modal.py:121
+#: ../modals/settings_modal.py:122
 msgid "Theme"
 msgstr "Thema"
 
-#: ../modals/settings_modal.py:139
+#: ../modals/settings_modal.py:140
 msgid "Always on top"
 msgstr "Immer im Vordergrund"
 
-#: ../modals/settings_modal.py:146
+#: ../modals/settings_modal.py:147
 msgid "Regular Font"
 msgstr "Normal Schriftart"
 
-#: ../modals/settings_modal.py:156
+#: ../modals/settings_modal.py:157
 msgid "Monospace Font"
 msgstr "Dicktengleiche Schrift"
 
-#: ../modals/settings_modal.py:166
+#: ../modals/settings_modal.py:167
 msgid "Add to desktop menu system"
 msgstr "Zum Desktop-Menüsystem hinzufügen"
 
-#: ../modals/settings_modal.py:191 ../modals/settings_modal.py:210
+#: ../modals/settings_modal.py:192 ../modals/settings_modal.py:211
 msgid "Select a font"
 msgstr "Schriftart auswählen"
 
-#: ../widgets/button_mixin.py:116
-msgid "Yes"
-msgstr "Ja"
-
-#: ../widgets/button_mixin.py:119
-msgid "No"
-msgstr "Nein"
-
-#: ../widgets/button_mixin.py:122
-msgid "Retry"
-msgstr "Wiederholen"
+#: ../widgets/edit_menu.py:51 ../widgets/edit_menu.py:80
+#: ../widgets/edit_menu.py:83
+msgid "Cut"
+msgstr "Ausschneiden"
 
 #: ../widgets/edit_menu.py:51
 msgid "Ctrl+X"
 msgstr "Strg+X"
 
 #: ../widgets/edit_menu.py:55
+msgid "Copy"
+msgstr "Kopieren"
+
+#: ../widgets/edit_menu.py:55
 msgid "Ctrl+C"
 msgstr "Strg+C"
+
+#: ../widgets/edit_menu.py:59 ../widgets/edit_menu.py:81
+#: ../widgets/edit_menu.py:84
+msgid "Paste"
+msgstr "Einfügen"
 
 #: ../widgets/edit_menu.py:59
 msgid "Ctrl+V"
 msgstr "Strg+V"
 
-#: ../widgets/meters.py:119
-msgid "Click for per-CPU usage"
-msgstr "Klicken Sie hier, um die Nutzung pro CPU anzuzeigen"
+#: ../widgets/edit_menu.py:64
+msgid "Select All"
+msgstr "Alles auswählen"
 
-#: ../widgets/meters.py:139
-msgid "{} :: CPU Details"
-msgstr "{} :: CPU-Details"
+#~ msgid "Yes"
+#~ msgstr "Ja"
 
-#: ../widgets/meters.py:157
-msgid "Click for detailed temperature readings"
-msgstr "Klicken Sie hier, um detaillierte Temperaturmessungen anzuzeigen"
+#~ msgid "No"
+#~ msgstr "Nein"
 
-#: ../widgets/meters.py:172
-msgid "{} :: Temperature Details"
-msgstr "{} :: Temperaturdetails"
+#~ msgid "Retry"
+#~ msgstr "Wiederholen"
 
-#: ../widgets/meters.py:190
-msgid "Click for detailed memory statistics"
-msgstr "Klicken Sie hier, um detaillierte RAM-Statistiken anzuzeigen"
+#~ msgid "Click for per-CPU usage"
+#~ msgstr "Klicken Sie hier, um die Nutzung pro CPU anzuzeigen"
 
-#: ../widgets/meters.py:204
-msgid "{} :: Memory Usage"
-msgstr "{} :: RAM-Auslastung"
+#~ msgid "{} :: CPU Details"
+#~ msgstr "{} :: CPU-Details"
 
-#: ../widgets/meters.py:219
-msgid "Disk Usage: /"
-msgstr "Plattenauslastung: /"
+#~ msgid "Click for detailed temperature readings"
+#~ msgstr "Klicken Sie hier, um detaillierte Temperaturmessungen anzuzeigen"
 
-#: ../widgets/meters.py:222
-msgid "Click for usage details of each mount point"
-msgstr ""
-"Klicken Sie hier, um Nutzungsinformationen für jeden Mountpunkt anzuzeigen"
+#~ msgid "{} :: Temperature Details"
+#~ msgstr "{} :: Temperaturdetails"
 
-#: ../widgets/meters.py:236
-msgid "{} :: Disk Usage"
-msgstr "{} :: Plattenauslastung"
+#~ msgid "Click for detailed memory statistics"
+#~ msgstr "Klicken Sie hier, um detaillierte RAM-Statistiken anzuzeigen"
 
-#~ msgid "Cut"
-#~ msgstr "Ausschneiden"
+#~ msgid "{} :: Memory Usage"
+#~ msgstr "{} :: RAM-Auslastung"
 
-#~ msgid "Copy"
-#~ msgstr "Kopieren"
+#~ msgid "Disk Usage: /"
+#~ msgstr "Plattenauslastung: /"
 
-#~ msgid "Paste"
-#~ msgstr "Einfügen"
+#~ msgid "Click for usage details of each mount point"
+#~ msgstr ""
+#~ "Klicken Sie hier, um Nutzungsinformationen für jeden Mountpunkt anzuzeigen"
 
-#~ msgid "Select All"
-#~ msgstr "Alles auswählen"
+#~ msgid "{} :: Disk Usage"
+#~ msgstr "{} :: Plattenauslastung"

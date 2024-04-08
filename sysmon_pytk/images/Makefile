@@ -49,7 +49,7 @@ endef
 all: $(app_icons) $(context_icons) $(main_menu_icons) $(custom_icons)  ## Extract and process all images
 
 work:
-> mkdir work
+> mkdir -p work
 
 custom: $(custom_icons)
 

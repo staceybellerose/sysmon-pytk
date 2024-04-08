@@ -23,7 +23,7 @@ SORT = /usr/bin/sort
 JQ = /usr/bin/jq
 MSGCMP = /usr/bin/msgcmp
 # system-installed python, used to create venv
-BASE_PYTHON = /usr/bin/python3
+BASE_PYTHON = /usr/bin/python3.10
 
 # tools installed by pip
 PYTHON := $(VENV)/bin/python
@@ -56,7 +56,7 @@ I18N_SUBDIRS := $(wildcard sysmon_pytk/locale/*/LC_MESSAGES/.)
 
 .PHONY: translations images ruff ruff-fix isort isort-fix pylint
 .PHONY: mypy pycodestyle pydocstyle bandit reuse liccheck loc
-.PHONY: build sdist wheel clean help
+.PHONY: build sdist wheel apidocs clean help
 
 $(VENV)/bin/activate: requirements.txt requirements-dev.txt
 > $(BASE_PYTHON) -m venv $(VENV)
@@ -65,7 +65,7 @@ $(VENV)/bin/activate: requirements.txt requirements-dev.txt
 
 ##@ Dependencies
 
-venv: $(VENV)/bin/activate  ## Build Python virtual environment
+venv: $(VENV)/bin/activate  ## Build Python virtual environment and install dependencies
 
 translations:  ## Make translations
 > $(MAKE) -C sysmon_pytk/locale all
@@ -119,7 +119,7 @@ mypy:  ## Validate type hinting
 pycodestyle:  ## Check code style against PEP8
 > $(PYCODESTYLE) --benchmark --verbose sysmon_pytk
 
-pydocstyle:  ## Check dotstrings
+pydocstyle:  ## Check docstrings
 > $(PYDOCSTYLE) --verbose sysmon_pytk
 
 pyflakes:  ## Code error linter
@@ -151,6 +151,9 @@ radon-raw:  ## Raw metrics of codebase
 > $(RADON) raw sysmon_pytk --summary
 
 ##@ Publishing
+
+apidocs:  ## Build API documentation
+> cd apidocs && ./make.py
 
 build: dist  ## Build both source and binary distribution files
 
@@ -185,6 +188,7 @@ clean:  ## Clean up the project folders
 > rm -rf __pycache__
 > rm -rf .mypy_cache
 > rm -rf dist
+> rm -rf apidocs/build
 > rm -rf sysmon_pytk.egg-info
 > $(MAKE) -C sysmon_pytk/locale clean
 > $(MAKE) -C sysmon_pytk/images clean

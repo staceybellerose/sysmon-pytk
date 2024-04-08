@@ -9,9 +9,9 @@ from __future__ import annotations
 
 from configparser import ConfigParser
 from pathlib import Path
-from typing import TYPE_CHECKING, Literal
+from typing import TYPE_CHECKING
 
-from .font_utils import MAIN_FONT_FAMILY, FontDescription
+from .font_utils import MAIN_FONT_FAMILY, FontDescription, FontSlant, FontWeight
 
 if TYPE_CHECKING:
     from tkinter.font import Font
@@ -30,6 +30,16 @@ class FontSettings:  # pylint: disable=too-many-instance-attributes
     """
 
     def __init__(self, config: ConfigParser, section: str) -> None:
+        """
+        Construct a Font Settings manager.
+
+        Parameters
+        ----------
+        config : ConfigParser
+            A configuration file parser.
+        section : str
+            Which section of the configuration file to use.
+        """
         self.config = config
         self.section = section
 
@@ -56,7 +66,7 @@ class FontSettings:  # pylint: disable=too-many-instance-attributes
         self.config[self.section]["size"] = f"{fontsize}"
 
     @property
-    def weight(self) -> Literal["bold", "normal"]:
+    def weight(self) -> FontWeight:
         """
         The font weight to use in the application.
         """
@@ -70,7 +80,7 @@ class FontSettings:  # pylint: disable=too-many-instance-attributes
         self.config[self.section]["weight"] = weight
 
     @property
-    def slant(self) -> Literal["italic", "roman"]:
+    def slant(self) -> FontSlant:
         """
         The font slant to use in the application.
         """
@@ -159,8 +169,16 @@ class Settings:
         Font settings for the monospace font.
     """
 
-    def __init__(self, settings_file: str) -> None:
-        self.filename = settings_file
+    def __init__(self, filename: str) -> None:
+        """
+        Construct a Settings manager.
+
+        Parameters
+        ----------
+        filename : str
+            The full path to the configuration file.
+        """
+        self.filename = filename
         self.config = ConfigParser()
         self.read_settings()
         self.regular_font = FontSettings(self.config, "font")

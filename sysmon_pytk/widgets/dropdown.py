@@ -34,14 +34,21 @@ class DropDown(ttk.Combobox):
         """
         Construct a dropdown widget.
 
+        STANDARD OPTIONS
+
+            class, cursor, style, takefocus
+
+        WIDGET-SPECIFIC OPTIONS
+
+            exportselection, justify, height, postcommand, state, textvariable,
+            values, width
+
         Parameters
         ----------
         parent : BaseWidget
             The parent widget.
         dictionary : dict
             The dictionary to use in the dropdown.
-        *args : tuple, optional
-            Additional arguments for initializing a `Combobox`.
         **kwargs : dict, optional
             Additional keyword arguments for a `Combobox`.
         """

@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 """
-System monitor.
+System monitor application.
 """
 
 from __future__ import annotations
@@ -18,24 +18,26 @@ import psutil
 from . import _common, about
 from .app_locale import get_translator, reload_translated_modules
 from .file_utils import get_full_path, settings_path
-from .modals import SettingsDialog
-from .modals.about_modal import AboutDialog, AboutMetadata, LicenseMetadata
+from .modals import AboutDialog, AboutMetadata, LicenseMetadata, SettingsDialog
 from .settings import Settings
 from .style_manager import StyleManager
 from .widgets import TempToolTip, ToolTip
 from .widgets.meters import CpuMeter, DiskMeter, RamMeter, TempMeter
 
 if TYPE_CHECKING:
-    from tkinter import Variable
+    from tkinter import Event, Variable
 
 _ = get_translator()
 
 APP_TITLE = _("System Monitor")
+"""Application title, which appears in window title bars."""
 
 
 class Application(tk.Tk):
     """
     System monitor application.
+
+    Toplevel widget of Tk which represents the main window of the application.
 
     Attributes
     ----------
@@ -54,6 +56,7 @@ class Application(tk.Tk):
     """
 
     def __init__(self) -> None:
+        """Return a new Toplevel Tk widget."""
         super().__init__()
         self.title(APP_TITLE)
         self.iconphoto(False, tk.PhotoImage(file=get_full_path("images/icon.png")))
@@ -74,7 +77,10 @@ class Application(tk.Tk):
 
     def read_settings(self, *_args) -> None:
         """
-        Read application settings from configuration file.
+        Read and process application settings from configuration file.
+
+        This method is triggered on a `<<SettingsChanged>>` event, and is part
+        of the application startup program flow.
         """
         self.settings = Settings(settings_path())
         self.call("wm", "attributes", ".", "-topmost", f"{self.settings.always_on_top}")
@@ -92,7 +98,7 @@ class Application(tk.Tk):
         self._add_variable_label(frame, self._name, 1, 1)
         ip_label = self._add_variable_label(frame, self._ip_addr, 1, 2)
         ToolTip(ip_label, _("Click to copy IP Address to clipboard"))
-        ip_label.bind("<Button-1>", self._on_click_ip_address)
+        ip_label.bind("<Button-1>", self.on_click_ip_address)
         self._add_variable_label(frame, self._processes, 1, 3)
         self._add_variable_label(frame, self._uptime, 1, 4)
         self._add_meters(frame)
@@ -142,7 +148,7 @@ class Application(tk.Tk):
 
     def build_menu(self) -> None:
         """
-        Build the application menu.
+        Build the application menu and bind associated keypress events to functions.
         """
         top = self.winfo_toplevel()
         top.rowconfigure(0, weight=1)
@@ -164,15 +170,15 @@ class Application(tk.Tk):
             label=_("File"), menu=file_menu,
         )
         file_menu.add_command(
-            label=_("About"), accelerator=_("Ctrl+A"), command=self._on_about,
+            label=_("About"), accelerator=_("Ctrl+A"), command=self.on_about,
             compound=tk.LEFT, image=self._menu_icons["about"]
         )
         file_menu.add_command(
-            label=_("Preferences"), accelerator=_("Ctrl+Shift+P"), command=self._on_settings,
+            label=_("Preferences"), accelerator=_("Ctrl+Shift+P"), command=self.on_settings,
             compound=tk.LEFT, image=self._menu_icons["preferences"]
         )
         file_menu.add_command(
-            label=_("Restart"), accelerator=_("Ctrl+R"), command=self._on_restart,
+            label=_("Restart"), accelerator=_("Ctrl+R"), command=self.on_restart,
             compound=tk.LEFT, image=self._menu_icons["restart"]
         )
         file_menu.add_separator()
@@ -182,37 +188,42 @@ class Application(tk.Tk):
         )
         top["menu"] = menu_bar
         # bind keypress events for menu here
-        self.bind("<Control-KeyPress-a>", self._on_about)
-        self.bind("<Control-Shift-KeyPress-P>", self._on_settings)
-        self.bind("<Control-KeyPress-r>", self._on_restart)
+        self.bind("<Control-KeyPress-a>", self.on_about)
+        self.bind("<Control-Shift-KeyPress-P>", self.on_settings)
+        self.bind("<Control-KeyPress-r>", self.on_restart)
         self.bind("<Control-KeyPress-q>", lambda _x: sys.exit(0))
 
     def bind_events(self) -> None:
         """
-        Set up bindings for app events.
+        Set up bindings for custom application events.
         """
         self.bind("<<SettingsChanged>>", self.read_settings)
-        self.bind("<<LanguageChanged>>", self._on_language)
-        self.bind("<<FontChanged>>", self._on_restart)
+        self.bind("<<LanguageChanged>>", self.on_language)
+        self.bind("<<FontChanged>>", self.on_restart)
 
-    def _on_click_ip_address(self, event: tk.Event) -> None:
+    def on_click_ip_address(self, event: Event) -> None:
+        """
+        Copy the IP address to the clipboard.
+        """
         self.clipboard_clear()
         self.clipboard_append(_common.net_addr())
         TempToolTip(self, _("Copied!"), (event.x_root, event.y_root), 5000)
 
-    def _on_language(self, *_args) -> None:
+    def on_language(self, *_args) -> None:
         """
-        Update the selected language.
+        Update the selected translation after the user selects a new language.
+
+        This method is triggered on a `<<LanguageChanged>>` event.
         """
         reload_translated_modules()
-        self._on_restart()
+        self.on_restart()
 
-    def _on_about(self, *_args) -> None:
+    def on_about(self, *_args) -> None:
         """
-        Open About box.
+        Open the About modal dialog box.
         """
         metadata = AboutMetadata(
-            about.__app_name__, about.__version__, about.__author__,
+            about.__app_name__, about.__version__, about.__author_name__,
             about.__copyright_year__, about.__summary__, about.__url__,
             LicenseMetadata(
                 about.__full_license__, about.__license__, about.__license_url__
@@ -220,16 +231,22 @@ class Application(tk.Tk):
         )
         AboutDialog(self, metadata, iconpath=get_full_path("images/icon.png"))
 
-    def _on_restart(self, *_args) -> None:
+    def on_restart(self, *_args) -> None:
+        """
+        Restart the application.
+
+        This method is triggered on a `<<FontChanged>>` event, and is part of
+        the program flow for `<<LanguageChanged>>` event processing.
+        """
         if self._update_job is not None:
             self.after_cancel(self._update_job)
             self._update_job = None
         self.destroy()
         self.__init__()  # type: ignore[misc] # pylint: disable=unnecessary-dunder-call
 
-    def _on_settings(self, *_args) -> None:
+    def on_settings(self, *_args) -> None:
         """
-        Open Settings and process any changes afterward.
+        Open the Settings modal dialog and process any changes afterward.
         """
         SettingsDialog(
             self.settings, self, _("{} Preferences").format(APP_TITLE),
@@ -239,7 +256,10 @@ class Application(tk.Tk):
 
     def update_screen(self) -> None:
         """
-        Update the screen.
+        Periodically update the screen to refresh the displayed data.
+
+        This method reschedules itself after `sysmon_pytk._common.REFRESH_INTERVAL`
+        milliseconds.
         """
         self._name.set(_("Hostname: {}").format(gethostname()))
         self._ip_addr.set(_("IP Address: {}").format(_common.net_addr()))

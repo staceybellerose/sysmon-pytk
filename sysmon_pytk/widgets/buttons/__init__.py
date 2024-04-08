@@ -13,8 +13,8 @@ from enum import IntEnum
 from tkinter import ttk
 from typing import Any, Callable, TypeVar, Union
 
-from .._common import INTERNAL_PAD
-from ..app_locale import get_translator
+from ..._common import INTERNAL_PAD
+from ...app_locale import get_translator
 
 _ = get_translator()
 
@@ -27,12 +27,19 @@ class ButtonName(IntEnum):
     """
 
     NONE = 0
+    """None."""
     OK = 1
+    """OK button."""
     CANCEL = 2
+    """Cancel button."""
     CLOSE = 3
+    """Close button."""
     YES = 4
+    """Yes button."""
     NO = 5
+    """No button."""
     RETRY = 6
+    """Retry button."""
 
 
 @dataclasses.dataclass
@@ -42,7 +49,9 @@ class ButtonDefinition:
     """
 
     text: str
+    """The text to appear on the button."""
     command: Callable[[], Any]
+    """The command to call when the button is pressed."""
 
 
 class ButtonMixin:  # pylint: disable=too-few-public-methods

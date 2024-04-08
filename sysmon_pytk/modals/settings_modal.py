@@ -32,6 +32,7 @@ THEMES = {
     _("Dark"): "Dark",
     _("Same as System"): "Same as System"
 }
+"""The translated names of the application themes."""
 
 
 class SettingsDialog(ModalDialog):

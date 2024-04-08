@@ -24,3 +24,19 @@ License: CC0-1.0
 Files: sysmon_pytk/images/custom/*
 Copyright: 2024 Stacey Adams <stacey.belle.rose@gmail.com>
 License: MIT
+
+Files: apidocs/_templates/*
+Copyright: 2024 Stacey Adams <stacey.belle.rose@gmail.com>
+License: Unlicense
+
+Files: apidocs/build/*
+Copyright: 2024 Stacey Adams <stacey.belle.rose@gmail.com>
+License: MIT
+
+Files: apidocs/build/sysmon_pytk/*
+Copyright: 2024 Stacey Adams <stacey.belle.rose@gmail.com>
+License: MIT
+
+Files: apidocs/build/azure/*
+Copyright: 2021-2023 rdbende <rdbende@proton.me>, 2024 Stacey Adams <stacey.belle.rose@gmail.com>
+License: MIT

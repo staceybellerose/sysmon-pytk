@@ -37,8 +37,7 @@ COPYRIGHT_HOLDER = $(AUTHOR) <$(AUTHOR_EMAIL)>
 MSGID_BUGS_ADDRESS = $(AUTHOR_EMAIL)
 
 PYTHON = ../../venv/bin/python
-PYTHONLIB = $(shell $(PYTHON) -c "from distutils.sysconfig import get_python_lib; print(get_python_lib(0, 1))")
-
+PYTHONLIBS := $(wildcard /usr/lib/python3.*/argparse.py)
 SUBDIRS := $(wildcard */LC_MESSAGES/.)
 
 .DEFAULT_GOAL := help
@@ -59,7 +58,7 @@ $(DOMAIN).pot: $(srcs)
 > --package-name="$(PACKAGE)" --package-version="$(VERSION)" \
 > --msgid-bugs-address="$(MSGID_BUGS_ADDRESS)" $^
 
-argparse.pot: $(PYTHONLIB)/argparse.py
+argparse.pot: $(PYTHONLIBS)
 > $(XGETTEXT) --default-domain="argparse" --output="argparse.pot" --verbose \
 > --add-location=full --width=$(WIDTH) --copyright-holder="$(COPYRIGHT_HOLDER)" \
 > --package-name="i18nparse" --msgid-bugs-address="$(MSGID_BUGS_ADDRESS)" $^

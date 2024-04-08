@@ -15,7 +15,7 @@ from typing import TYPE_CHECKING, final
 from .._common import INTERNAL_PAD
 from ..app_locale import get_translator
 from ..style_manager import StyleManager
-from ..widgets.button_mixin import ButtonDefinition, ButtonMixin
+from ..widgets.buttons import ButtonDefinition, ButtonMixin
 
 if TYPE_CHECKING:
     from tkinter import Misc
@@ -91,7 +91,7 @@ class ModalDialog(ButtonMixin, tk.Toplevel, metaclass=ABCMeta):
     @final
     def load_fonts(self) -> None:
         """
-        Load the standard fonts from the StyleManager.
+        Load the standard fonts from the `sysmon_pytk.style_manager.StyleManager`.
         """
         self.base_font = StyleManager.get_base_font()
         self.large_font = StyleManager.get_large_font()
@@ -173,7 +173,7 @@ class ModalDialog(ButtonMixin, tk.Toplevel, metaclass=ABCMeta):
     @final
     def add_sizegrip(self) -> None:
         """
-        Add a Sizegrip widget to the bottom row of the modal dialog.
+        Add a ttk.Sizegrip widget to the bottom row of the modal dialog.
         """
         max_columns, max_rows = self.internal_frame.grid_size()
         ttk.Sizegrip(self.internal_frame).grid(

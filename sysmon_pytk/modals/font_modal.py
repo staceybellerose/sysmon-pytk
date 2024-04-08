@@ -9,11 +9,11 @@ from __future__ import annotations
 
 import tkinter as tk
 from tkinter import font, ttk
-from typing import TYPE_CHECKING, Literal
+from typing import TYPE_CHECKING
 
 from .. import _common
 from ..app_locale import get_translator
-from ..settings import FontDescription
+from ..font_utils import FontDescription, FontSlant, FontStyle, FontWeight
 from ..style_manager import StyleManager
 from ..widgets import ScaleSpinner
 from ._base_modal import ModalDialog
@@ -81,7 +81,7 @@ class FontChooser(ModalDialog):
         self.overstrike = tk.BooleanVar()
         if self.current_font is not None:
             self.fontname: str | None = self.current_font.family
-            self.fontstyle.set(self.current_font.get_style())
+            self.fontstyle.set(str(self.current_font.get_style()))
             self.fontsize.set(self.current_font.size)
             self.underline.set(self.current_font.underline)
             self.overstrike.set(self.current_font.overstrike)
@@ -89,7 +89,7 @@ class FontChooser(ModalDialog):
         else:
             # default selections
             self.fontname = None
-            self.fontstyle.set(FontDescription.REGULAR)
+            self.fontstyle.set(str(FontStyle.REGULAR))
             self.fontsize.set(12)
             self.underline.set(False)
             self.overstrike.set(False)
@@ -164,19 +164,19 @@ class FontChooser(ModalDialog):
             padx=_common.INTERNAL_PAD, pady=_common.INTERNAL_PAD
         )
         ttk.Radiobutton(
-            styleframe, text=_("Regular"), value=FontDescription.REGULAR,
+            styleframe, text=_("Regular"), value=FontStyle.REGULAR.value,
             variable=self.fontstyle
         ).grid(row=1, padx=_common.INTERNAL_PAD, sticky=tk.NSEW)
         ttk.Radiobutton(
-            styleframe, text=_("Bold"), value=FontDescription.BOLD,
+            styleframe, text=_("Bold"), value=FontStyle.BOLD.value,
             variable=self.fontstyle
         ).grid(row=2, padx=_common.INTERNAL_PAD, sticky=tk.NSEW)
         ttk.Radiobutton(
-            styleframe, text=_("Italic"), value=FontDescription.ITALIC,
+            styleframe, text=_("Italic"), value=FontStyle.ITALIC.value,
             variable=self.fontstyle
         ).grid(row=3, padx=_common.INTERNAL_PAD, sticky=tk.NSEW)
         ttk.Radiobutton(
-            styleframe, text=_("Bold Italic"), value=FontDescription.BOLD_ITALIC,
+            styleframe, text=_("Bold Italic"), value=FontStyle.BOLD_ITALIC.value,
             variable=self.fontstyle
         ).grid(row=4, padx=_common.INTERNAL_PAD, sticky=tk.NSEW)
 
@@ -227,12 +227,16 @@ class FontChooser(ModalDialog):
         ).grid(sticky=tk.NSEW)
 
     def _update_preview(self, *_args) -> None:
+        try:
+            fontstyle = FontStyle(self.fontstyle.get())
+        except ValueError:
+            fontstyle = FontStyle.REGULAR
         if self.fontname:
             self.preview_font.configure(
                 family=self.fontname,
                 size=self.fontsize.get(),
-                weight="bold" if self.fontstyle.get() in {"b", "bi"} else "normal",
-                slant="italic" if self.fontstyle.get() in {"i", "bi"} else "roman",
+                weight=fontstyle.get_weight(),
+                slant=fontstyle.get_slant(),
                 underline=self.underline.get(),
                 overstrike=self.overstrike.get()
             )
@@ -244,15 +248,15 @@ class FontChooser(ModalDialog):
 
     def on_save(self) -> None:
         """
-        Update `current_font` based on currently selected options.
+        Update `self.current_font` based on currently selected options.
         """
-        weight: Literal["bold", "normal"] = "normal"
-        slant: Literal["italic", "roman"] = "roman"
-        if self.fontstyle.get() == FontDescription.BOLD:
+        weight: FontWeight = "normal"
+        slant: FontSlant = "roman"
+        if self.fontstyle.get() == FontStyle.BOLD:
             weight = "bold"
-        elif self.fontstyle.get() == FontDescription.ITALIC:
+        elif self.fontstyle.get() == FontStyle.ITALIC:
             slant = "italic"
-        elif self.fontstyle.get() == FontDescription.BOLD_ITALIC:
+        elif self.fontstyle.get() == FontStyle.BOLD_ITALIC:
             weight = "bold"
             slant = "italic"
         self.current_font = FontDescription(

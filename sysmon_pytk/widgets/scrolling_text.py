@@ -33,15 +33,16 @@ class ScrollingText(tk.Text):
 
     Notes
     -----
-    This Text widget is configured with several standard tags.
-        center : Center the tagged text.
-        left : Left justify the tagged text.
-        right : Right justify the tagged text.
-        large : apply the large font to the tagged text.
-        bold : apply the bold font to the tagged text.
-        fixed : apply the fixed font to the tagged text.
-        link : treat the tagged text as a clickable link.
-        linkurl : follows a link tag, and contains the url to open - hidden text.
+    This Text widget is configured with several standard tags:
+
+    * `center` : Center the tagged text.
+    * `left` : Left justify the tagged text.
+    * `right` : Right justify the tagged text.
+    * `large` : apply the large font to the tagged text.
+    * `bold` : apply the bold font to the tagged text.
+    * `fixed` : apply the fixed font to the tagged text.
+    * `link` : treat the tagged text as a clickable link.
+    * `linkurl` : follows a link tag, and contains the url to open - hidden text.
 
     To use links, insert a `link` tag with the clickable link text, and then
     insert a `linkurl` tag containing the url to open for the previous link
@@ -57,7 +58,7 @@ class ScrollingText(tk.Text):
         self.frame.columnconfigure(0, weight=1)
         super().__init__(self.frame, **kwargs)
         self.grid(row=0, column=0, sticky=tk.NSEW)
-        self._configure_tags()
+        self.configure_tags()
         AutoScrollbar.add_to_widget(self, orient=tk.VERTICAL).grid(
             row=0, column=1, sticky=tk.NS
         )
@@ -74,7 +75,7 @@ class ScrollingText(tk.Text):
         """
         return self.frame
 
-    def _configure_tags(self) -> None:
+    def configure_tags(self) -> None:
         """
         Configure the standard tags for the Text widget.
         """

@@ -9,12 +9,12 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from .messagebox_base import MessageBox, MessageBoxButtonSet, MessageBoxIcon
+from .base import MessageBox, MessageBoxButtonSet, MessageBoxIcon
 
 if TYPE_CHECKING:
     from tkinter import Misc
 
-    from ..widgets.button_mixin import ButtonName
+    from ...widgets.buttons import ButtonName
 
 
 def show_message(parent: Misc | None, title: str, message: str) -> ButtonName:

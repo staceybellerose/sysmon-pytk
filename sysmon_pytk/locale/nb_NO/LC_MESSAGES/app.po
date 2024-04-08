@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sysmon-pytk 0.5.0\n"
 "Report-Msgid-Bugs-To: stacey.belle.rose@gmail.com\n"
-"POT-Creation-Date: 2024-03-31 04:00-0500\n"
-"PO-Revision-Date: 2024-03-31 04:00-0500\n"
+"POT-Creation-Date: 2024-04-08 03:09-0500\n"
+"PO-Revision-Date: 2024-04-08 03:09-0500\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/sysmon-"
 "pytk/sysmon-pytk/nb_NO/>\n"
@@ -34,113 +34,112 @@ msgstr ""
 "partisjonen). Verktøyet viser også systemets vertsnavn, IP-adresse, oppetid, "
 "og nåværende prosessantall."
 
-#: ../application.py:33 ../cli_monitor.py:203 ../desktop_menu.py:72
+#: ../application.py:32 ../cli_sysmon.py:205 ../desktop_menu.py:81
 msgid "System Monitor"
 msgstr "Systemmonitor"
 
-#: ../application.py:94
+#: ../application.py:100
 msgid "Click to copy IP Address to clipboard"
 msgstr "Klikk for å kopiere IP-adressen til utklippstavlen"
 
-#: ../application.py:164
+#: ../application.py:170
 msgid "File"
 msgstr "Fil"
 
-#: ../application.py:167
+#: ../application.py:173
 msgid "About"
 msgstr "Om"
 
-#: ../application.py:167 ../widgets/edit_menu.py:65
+#: ../application.py:173 ../widgets/edit_menu.py:65
 msgid "Ctrl+A"
 msgstr "Ctrl+A"
 
-#: ../application.py:171
+#: ../application.py:177
 msgid "Preferences"
 msgstr "Innstillinger"
 
-#: ../application.py:171
+#: ../application.py:177
 msgid "Ctrl+Shift+P"
 msgstr "Ctrl+Shift+P"
 
-#: ../application.py:175
+#: ../application.py:181
 msgid "Restart"
 msgstr "Omstart"
 
-#: ../application.py:175
+#: ../application.py:181
 msgid "Ctrl+R"
 msgstr "Ctrl+R"
 
-#: ../application.py:180
+#: ../application.py:186
 msgid "Quit"
 msgstr "Avslutt"
 
-#: ../application.py:180
+#: ../application.py:186
 msgid "Ctrl+Q"
 msgstr "Ctrl+Q"
 
-#: ../application.py:201
+#: ../application.py:210
 msgid "Copied!"
 msgstr "Kopiert!"
 
-#: ../application.py:235
+#: ../application.py:252
 msgid "{} Preferences"
 msgstr "{} Innstillinger"
 
-#: ../application.py:244 ../cli_monitor.py:206
+#: ../application.py:264 ../cli_sysmon.py:208
 msgid "Hostname: {}"
 msgstr "Vertsnavn: {}"
 
-#: ../application.py:245 ../cli_monitor.py:207
+#: ../application.py:265 ../cli_sysmon.py:209
 msgid "IP Address: {}"
 msgstr "IP-adresse: {}"
 
-#: ../application.py:246 ../cli_monitor.py:208
+#: ../application.py:266 ../cli_sysmon.py:210
 msgid "Processes: {}"
 msgstr "Prosesser: {}"
 
-#: ../application.py:247 ../cli_monitor.py:209
+#: ../application.py:267 ../cli_sysmon.py:211
 msgid "Uptime: {}"
 msgstr "Oppetid: {}"
 
-#: ../cli_monitor.py:50 ../widgets/meters.py:116
+#: ../cli_sysmon.py:52
 msgid "CPU Usage"
 msgstr "Prosessorbruk"
 
-#: ../cli_monitor.py:58 ../widgets/meters.py:154
+#: ../cli_sysmon.py:60
 msgid "Temperature"
 msgstr "Temperatur"
 
-#: ../cli_monitor.py:68 ../widgets/meters.py:187
+#: ../cli_sysmon.py:70
 msgid "RAM Usage"
 msgstr "Minnebruk"
 
-#: ../cli_monitor.py:78 ../modals/mem_usage_modal.py:63
+#: ../cli_sysmon.py:80 ../modals/mem_usage_modal.py:63
 msgid "Swap Memory"
 msgstr "Sidevekslingsfil"
 
-#: ../cli_monitor.py:114 ../cli_monitor.py:162 ../modals/disk_usage_modal.py:59
+#: ../cli_sysmon.py:116 ../cli_sysmon.py:164 ../modals/disk_usage_modal.py:71
 msgid "Disk Usage"
 msgstr "Diskbruk"
 
-#: ../cli_monitor.py:131 ../cli_monitor.py:179
-#: ../modals/temperature_modal.py:45
+#: ../cli_sysmon.py:133 ../cli_sysmon.py:181 ../modals/temperature_modal.py:45
 msgid "Temperature Sensors"
 msgstr "Temperatursensorer"
 
-#: ../cli_monitor.py:142 ../modals/temperature_modal.py:103
+#: ../cli_sysmon.py:144 ../modals/temperature_modal.py:103
 #, python-brace-format
 msgid "{current}°C (high = {high}°C, critical = {critical}°C)"
 msgstr "{current}°C (høy = {high}°C, kritisk = {critical}°C)"
 
-#: ../cli_monitor.py:222
+#: ../cli_sysmon.py:224
 msgid "<Ctrl-C> to quit"
 msgstr "<Ctrl-C> for å avslutte"
 
-#: ../cli_monitor.py:232
+#: ../cli_sysmon.py:234
 msgid "System monitor: display CPU usage/temperature, memory usage, disk usage"
 msgstr "Systemmonitor: Vis CPU-bruk/temperatur, minnebruk, diskbruk"
 
-#: ../cli_monitor.py:235
+#: ../cli_sysmon.py:237
 msgid ""
 "By default, this program will use the same language as that selected for the "
 "GUI application. To override it, use the '-l' option. To quit, press <Ctrl-"
@@ -150,52 +149,52 @@ msgstr ""
 "GUI-applikasjonen. For å overstyre det, bruk alternativet '-l'. For å "
 "avslutte, trykk <Ctrl-C>."
 
-#: ../cli_monitor.py:242
+#: ../cli_sysmon.py:244
 msgid "Options"
 msgstr "Valg"
 
-#: ../cli_monitor.py:245
+#: ../cli_sysmon.py:247
 msgid "show this help message and exit"
 msgstr "vis denne hjelpemeldingen og avslutt"
 
-#: ../cli_monitor.py:250
+#: ../cli_sysmon.py:252
 msgid "show program's version number and exit"
 msgstr "vis programmets versjonsnummer og avslutt"
 
-#: ../cli_monitor.py:254
+#: ../cli_sysmon.py:256
 #, python-format
 msgid "time between screen refreshes (in seconds, default=%(default)s)"
 msgstr "tid mellom skjermoppdateringer (i sekunder, standard=%(default)s)"
 
-#: ../cli_monitor.py:258
+#: ../cli_sysmon.py:260
 msgid "the language to use for display"
 msgstr "språket som skal brukes for visning"
 
-#: ../cli_monitor.py:260
+#: ../cli_sysmon.py:262
 msgid "Display Details"
 msgstr "Skjermdetaljene"
 
-#: ../cli_monitor.py:264
+#: ../cli_sysmon.py:266
 msgid "show disk details (default)"
 msgstr "vis diskdetaljer (standard)"
 
-#: ../cli_monitor.py:268
+#: ../cli_sysmon.py:270
 msgid "show temperature details"
 msgstr "vis temperaturdetaljer"
 
-#: ../cli_monitor.py:272
+#: ../cli_sysmon.py:274
 msgid "show both disk and temperature details"
 msgstr "vis både disk- og temperaturdetaljer"
 
-#: ../cli_monitor.py:276
+#: ../cli_sysmon.py:278
 msgid "show no details, only the header"
 msgstr "vis ingen detaljer, bare overskriften"
 
-#: ../desktop_menu.py:48
+#: ../desktop_menu.py:57
 msgid "Error creating desktop menu item"
 msgstr "Feil under oppretting av skrivebordsmenyelement"
 
-#: ../desktop_menu.py:49
+#: ../desktop_menu.py:58
 msgid ""
 "System Monitor (sysmon) must be installed in a virtual environment in order "
 "to create a desktop menu entry."
@@ -203,63 +202,71 @@ msgstr ""
 "Systemmonitor (sysmon) må installeres i et virtuelt miljø for å opprette en "
 "skrivebordsmenyoppføring."
 
-#: ../font_utils.py:74 ../modals/font_modal.py:171
+#: ../font_utils.py:153 ../modals/font_modal.py:171
 msgid "Bold"
 msgstr "Fet"
 
-#: ../font_utils.py:76 ../modals/font_modal.py:175
+#: ../font_utils.py:155 ../modals/font_modal.py:175
 msgid "Italic"
 msgstr "Kursiv"
 
-#: ../font_utils.py:78 ../modals/font_modal.py:179
+#: ../font_utils.py:157 ../modals/font_modal.py:179
 msgid "Bold Italic"
 msgstr "Fet kursiv"
 
-#: ../modals/about_modal.py:93
+#: ../font_utils.py:171 ../modals/font_modal.py:193
+msgid "Underline"
+msgstr "Understrek"
+
+#: ../font_utils.py:172 ../modals/font_modal.py:197
+msgid "Overstrike"
+msgstr "Gjennomstrek"
+
+#: ../modals/about_modal.py:115
 msgid "About {}"
 msgstr "Om {}"
 
-#: ../modals/about_modal.py:125
+#: ../modals/about_modal.py:147
 msgid "Translators"
 msgstr "Oversettere"
 
-#: ../modals/about_modal.py:131
+#: ../modals/about_modal.py:153
 msgid "License"
 msgstr "Lisens"
 
-#: ../modals/about_modal.py:149
+#: ../modals/about_modal.py:171
 msgid "Version {}"
 msgstr "Versjon {}"
 
-#: ../modals/about_modal.py:155
+#: ../modals/about_modal.py:177
 msgid "Source Code"
 msgstr "Kildekode"
 
-#: ../modals/about_modal.py:220
+#: ../modals/about_modal.py:242
 msgid "Full license text available here"
 msgstr "Full lisenstekst tilgjengelig her"
 
-#: ../modals/_base_modal.py:158 ../widgets/button_mixin.py:113
+#: ../modals/_base_modal.py:158
 msgid "Close"
 msgstr "Lukk"
 
-#: ../modals/_base_modal.py:168 ../widgets/button_mixin.py:110
+#: ../modals/_base_modal.py:168
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: ../modals/_base_modal.py:169 ../widgets/button_mixin.py:107
+#: ../modals/_base_modal.py:169
 msgid "OK"
 msgstr "OK"
 
-#: ../modals/cpu_modal.py:70
+#: ../modals/cpu_modal.py:82
 msgid "per-core CPU Usage"
 msgstr "prosessorbruk per kjerne"
 
-#: ../modals/cpu_modal.py:76
+#: ../modals/cpu_modal.py:88
 msgid "per-core CPU Frequency (in MHz)"
 msgstr "prosessorfrekvens per kjerne (i MHz)"
 
-#: ../modals/cpu_modal.py:91 ../modals/cpu_modal.py:111
+#: ../modals/cpu_modal.py:104 ../modals/cpu_modal.py:125
 msgid "CPU #{}"
 msgstr "Prosessor #{}"
 
@@ -282,14 +289,6 @@ msgstr "Vanlig"
 #: ../modals/font_modal.py:186
 msgid "Effects"
 msgstr "Effekter"
-
-#: ../modals/font_modal.py:193
-msgid "Underline"
-msgstr "Understrek"
-
-#: ../modals/font_modal.py:197
-msgid "Overstrike"
-msgstr "Gjennomstrek"
 
 #: ../modals/font_modal.py:203
 msgid "Size"
@@ -319,102 +318,96 @@ msgstr "Mørk"
 msgid "Same as System"
 msgstr "Samme som systemet"
 
-#: ../modals/settings_modal.py:106
+#: ../modals/settings_modal.py:107
 msgid "Language"
 msgstr "Språk"
 
-#: ../modals/settings_modal.py:121
+#: ../modals/settings_modal.py:122
 msgid "Theme"
 msgstr "Drakt"
 
-#: ../modals/settings_modal.py:139
+#: ../modals/settings_modal.py:140
 msgid "Always on top"
 msgstr "Alltid på topp"
 
-#: ../modals/settings_modal.py:146
+#: ../modals/settings_modal.py:147
 msgid "Regular Font"
 msgstr "Vanlig skrift"
 
-#: ../modals/settings_modal.py:156
+#: ../modals/settings_modal.py:157
 msgid "Monospace Font"
 msgstr "Fastbreddeskrift"
 
-#: ../modals/settings_modal.py:166
+#: ../modals/settings_modal.py:167
 msgid "Add to desktop menu system"
 msgstr "Legg til skrivebordets menysystem"
 
-#: ../modals/settings_modal.py:191 ../modals/settings_modal.py:210
+#: ../modals/settings_modal.py:192 ../modals/settings_modal.py:211
 msgid "Select a font"
 msgstr "Velg en skrift"
 
-#: ../widgets/button_mixin.py:116
-msgid "Yes"
-msgstr "Ja"
-
-#: ../widgets/button_mixin.py:119
-msgid "No"
-msgstr "Nei"
-
-#: ../widgets/button_mixin.py:122
-msgid "Retry"
-msgstr "Prøv igjen"
+#: ../widgets/edit_menu.py:51 ../widgets/edit_menu.py:80
+#: ../widgets/edit_menu.py:83
+msgid "Cut"
+msgstr "Klipp ut"
 
 #: ../widgets/edit_menu.py:51
 msgid "Ctrl+X"
 msgstr "Ctrl+X"
 
 #: ../widgets/edit_menu.py:55
+msgid "Copy"
+msgstr "Kopier"
+
+#: ../widgets/edit_menu.py:55
 msgid "Ctrl+C"
 msgstr "Ctrl+C"
+
+#: ../widgets/edit_menu.py:59 ../widgets/edit_menu.py:81
+#: ../widgets/edit_menu.py:84
+msgid "Paste"
+msgstr "Lim inn"
 
 #: ../widgets/edit_menu.py:59
 msgid "Ctrl+V"
 msgstr "Ctrl+V"
 
-#: ../widgets/meters.py:119
-msgid "Click for per-CPU usage"
-msgstr "Klikk for bruk per prosessor"
+#: ../widgets/edit_menu.py:64
+msgid "Select All"
+msgstr "Velg alt"
 
-#: ../widgets/meters.py:139
-msgid "{} :: CPU Details"
-msgstr "{} :: Prosessordetaljer"
+#~ msgid "Yes"
+#~ msgstr "Ja"
 
-#: ../widgets/meters.py:157
-msgid "Click for detailed temperature readings"
-msgstr "Klikk for detaljerte temperaturavlesninger"
+#~ msgid "No"
+#~ msgstr "Nei"
 
-#: ../widgets/meters.py:172
-msgid "{} :: Temperature Details"
-msgstr "{} :: Temperaturdetaljer"
+#~ msgid "Retry"
+#~ msgstr "Prøv igjen"
 
-#: ../widgets/meters.py:190
-msgid "Click for detailed memory statistics"
-msgstr "Klikk for detaljert minnestatistikk"
+#~ msgid "Click for per-CPU usage"
+#~ msgstr "Klikk for bruk per prosessor"
 
-#: ../widgets/meters.py:204
-msgid "{} :: Memory Usage"
-msgstr "{} :: Minnebruk"
+#~ msgid "{} :: CPU Details"
+#~ msgstr "{} :: Prosessordetaljer"
 
-#: ../widgets/meters.py:219
-msgid "Disk Usage: /"
-msgstr "Diskbruk: /"
+#~ msgid "Click for detailed temperature readings"
+#~ msgstr "Klikk for detaljerte temperaturavlesninger"
 
-#: ../widgets/meters.py:222
-msgid "Click for usage details of each mount point"
-msgstr "Klikk for detaljert for hvert monteringspunkt"
+#~ msgid "{} :: Temperature Details"
+#~ msgstr "{} :: Temperaturdetaljer"
 
-#: ../widgets/meters.py:236
-msgid "{} :: Disk Usage"
-msgstr "{} :: Diskbruk"
+#~ msgid "Click for detailed memory statistics"
+#~ msgstr "Klikk for detaljert minnestatistikk"
 
-#~ msgid "Cut"
-#~ msgstr "Klipp ut"
+#~ msgid "{} :: Memory Usage"
+#~ msgstr "{} :: Minnebruk"
 
-#~ msgid "Copy"
-#~ msgstr "Kopier"
+#~ msgid "Disk Usage: /"
+#~ msgstr "Diskbruk: /"
 
-#~ msgid "Paste"
-#~ msgstr "Lim inn"
+#~ msgid "Click for usage details of each mount point"
+#~ msgstr "Klikk for detaljert for hvert monteringspunkt"
 
-#~ msgid "Select All"
-#~ msgstr "Velg alt"
+#~ msgid "{} :: Disk Usage"
+#~ msgstr "{} :: Diskbruk"

@@ -7,12 +7,13 @@ File utility functions.
 
 import inspect
 import sys
-from distutils.sysconfig import get_python_lib
+from distutils.sysconfig import get_python_lib  # pylint: disable=W4901
 from pathlib import Path
 
 import platformdirs
 
 SETTINGS_FILE = "sysmon.ini"
+"""The settings file used by the application."""
 
 
 def get_full_path(relative_path: str) -> str:

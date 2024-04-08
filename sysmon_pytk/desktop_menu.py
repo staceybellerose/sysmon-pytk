@@ -5,8 +5,7 @@
 """
 Installs an entry in the desktop menu system.
 
-You can enable it in Settings.
-This plugin doesn't do anything on Windows or MacOS.
+You can enable it in Settings. This only works in Linux/X11.
 
 Originally from https://github.com/Akuli/porcupine/blob/main/porcupine/plugins/desktop_menu.py
 """
@@ -31,17 +30,27 @@ if TYPE_CHECKING:
 
 _ = get_translator()
 
-setup_after = ["filetypes"]  # To group the checkbutton on the bottom
-
 XDG_DESKTOP_MENU = "xdg-desktop-menu"
+"""Program to execute to create/remove the desktop menu entry."""
+
 DESKTOP_FILE_NAME = "sysmon.desktop"
+"""Filename of the desktop menu entry to create."""
+
 EXECUTABLE = "sysmon"
+"""Executable to run fro the desktop menu entry."""
 
 
 def install_desktop_file(parent: Tk | Toplevel) -> bool:
     """
-    Install a desktop menu file.
+    Install a desktop menu entry on Linux/X11.
+
+    Parameters
+    ----------
+    parent : Tk | Toplevel
+        The parent window that is calling this function. Needed for error reporting.
     """
+    if parent.tk.call("tk", "windowingsystem") != "x11":
+        return False
     location = shutil.which(EXECUTABLE)
     if location is None:
         messagebox.show_error(
@@ -86,7 +95,7 @@ def install_desktop_file(parent: Tk | Toplevel) -> bool:
 
 def uninstall_desktop_file() -> None:
     """
-    Uninstall the desktop menu file.
+    Uninstall the desktop menu entry that was previously installed.
     """
     subprocess.call(
         [XDG_DESKTOP_MENU, "uninstall", "--mode", "user", DESKTOP_FILE_NAME]

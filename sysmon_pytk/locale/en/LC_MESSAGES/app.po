@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sysmon-pytk 0.5.0\n"
 "Report-Msgid-Bugs-To: stacey.belle.rose@gmail.com\n"
-"POT-Creation-Date: 2024-03-31 04:00-0500\n"
-"PO-Revision-Date: 2024-03-31 04:00-0500\n"
+"POT-Creation-Date: 2024-04-08 03:09-0500\n"
+"PO-Revision-Date: 2024-04-08 03:09-0500\n"
 "Last-Translator: Stacey Adams <stacey.belle.rose@gmail.com>\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
@@ -30,114 +30,113 @@ msgstr ""
 "It also displays the system's hostname, IP address, uptime, and current "
 "process count."
 
-#: ../application.py:33 ../cli_monitor.py:203 ../desktop_menu.py:72
+#: ../application.py:32 ../cli_sysmon.py:205 ../desktop_menu.py:81
 msgid "System Monitor"
 msgstr "System Monitor"
 
-#: ../application.py:94
+#: ../application.py:100
 msgid "Click to copy IP Address to clipboard"
 msgstr "Click to copy IP Address to clipboard"
 
-#: ../application.py:164
+#: ../application.py:170
 msgid "File"
 msgstr "File"
 
-#: ../application.py:167
+#: ../application.py:173
 msgid "About"
 msgstr "About"
 
-#: ../application.py:167 ../widgets/edit_menu.py:65
+#: ../application.py:173 ../widgets/edit_menu.py:65
 msgid "Ctrl+A"
 msgstr "Ctrl+A"
 
-#: ../application.py:171
+#: ../application.py:177
 msgid "Preferences"
 msgstr "Preferences"
 
-#: ../application.py:171
+#: ../application.py:177
 msgid "Ctrl+Shift+P"
 msgstr "Ctrl+Shift+P"
 
-#: ../application.py:175
+#: ../application.py:181
 msgid "Restart"
 msgstr "Restart"
 
-#: ../application.py:175
+#: ../application.py:181
 msgid "Ctrl+R"
 msgstr "Ctrl+R"
 
-#: ../application.py:180
+#: ../application.py:186
 msgid "Quit"
 msgstr "Quit"
 
-#: ../application.py:180
+#: ../application.py:186
 msgid "Ctrl+Q"
 msgstr "Ctrl+Q"
 
-#: ../application.py:201
+#: ../application.py:210
 msgid "Copied!"
 msgstr "Copied!"
 
-#: ../application.py:235
+#: ../application.py:252
 msgid "{} Preferences"
 msgstr "{} Preferences"
 
-#: ../application.py:244 ../cli_monitor.py:206
+#: ../application.py:264 ../cli_sysmon.py:208
 msgid "Hostname: {}"
 msgstr "Hostname: {}"
 
-#: ../application.py:245 ../cli_monitor.py:207
+#: ../application.py:265 ../cli_sysmon.py:209
 msgid "IP Address: {}"
 msgstr "IP Address: {}"
 
-#: ../application.py:246 ../cli_monitor.py:208
+#: ../application.py:266 ../cli_sysmon.py:210
 msgid "Processes: {}"
 msgstr "Processes: {}"
 
-#: ../application.py:247 ../cli_monitor.py:209
+#: ../application.py:267 ../cli_sysmon.py:211
 msgid "Uptime: {}"
 msgstr "Uptime: {}"
 
-#: ../cli_monitor.py:50 ../widgets/meters.py:116
+#: ../cli_sysmon.py:52
 msgid "CPU Usage"
 msgstr "CPU Usage"
 
-#: ../cli_monitor.py:58 ../widgets/meters.py:154
+#: ../cli_sysmon.py:60
 msgid "Temperature"
 msgstr "Temperature"
 
-#: ../cli_monitor.py:68 ../widgets/meters.py:187
+#: ../cli_sysmon.py:70
 msgid "RAM Usage"
 msgstr "RAM Usage"
 
-#: ../cli_monitor.py:78 ../modals/mem_usage_modal.py:63
+#: ../cli_sysmon.py:80 ../modals/mem_usage_modal.py:63
 msgid "Swap Memory"
 msgstr "Swap Memory"
 
-#: ../cli_monitor.py:114 ../cli_monitor.py:162 ../modals/disk_usage_modal.py:59
+#: ../cli_sysmon.py:116 ../cli_sysmon.py:164 ../modals/disk_usage_modal.py:71
 msgid "Disk Usage"
 msgstr "Disk Usage"
 
-#: ../cli_monitor.py:131 ../cli_monitor.py:179
-#: ../modals/temperature_modal.py:45
+#: ../cli_sysmon.py:133 ../cli_sysmon.py:181 ../modals/temperature_modal.py:45
 msgid "Temperature Sensors"
 msgstr "Temperature Sensors"
 
-#: ../cli_monitor.py:142 ../modals/temperature_modal.py:103
+#: ../cli_sysmon.py:144 ../modals/temperature_modal.py:103
 #, python-brace-format
 msgid "{current}°C (high = {high}°C, critical = {critical}°C)"
 msgstr "{current}°C (high = {high}°C, critical = {critical}°C)"
 
-#: ../cli_monitor.py:222
+#: ../cli_sysmon.py:224
 msgid "<Ctrl-C> to quit"
 msgstr "<Ctrl-C> to quit"
 
-#: ../cli_monitor.py:232
+#: ../cli_sysmon.py:234
 msgid "System monitor: display CPU usage/temperature, memory usage, disk usage"
 msgstr ""
 "System monitor: display CPU usage/temperature, memory usage, disk usage"
 
-#: ../cli_monitor.py:235
+#: ../cli_sysmon.py:237
 msgid ""
 "By default, this program will use the same language as that selected for the "
 "GUI application. To override it, use the '-l' option. To quit, press <Ctrl-"
@@ -147,52 +146,52 @@ msgstr ""
 "GUI application. To override it, use the '-l' option. To quit, press <Ctrl-"
 "C>."
 
-#: ../cli_monitor.py:242
+#: ../cli_sysmon.py:244
 msgid "Options"
 msgstr "Options"
 
-#: ../cli_monitor.py:245
+#: ../cli_sysmon.py:247
 msgid "show this help message and exit"
 msgstr "show this help message and exit"
 
-#: ../cli_monitor.py:250
+#: ../cli_sysmon.py:252
 msgid "show program's version number and exit"
 msgstr "show program's version number and exit"
 
-#: ../cli_monitor.py:254
+#: ../cli_sysmon.py:256
 #, python-format
 msgid "time between screen refreshes (in seconds, default=%(default)s)"
 msgstr "time between screen refreshes (in seconds, default=%(default)s)"
 
-#: ../cli_monitor.py:258
+#: ../cli_sysmon.py:260
 msgid "the language to use for display"
 msgstr "the language to use for display"
 
-#: ../cli_monitor.py:260
+#: ../cli_sysmon.py:262
 msgid "Display Details"
 msgstr "Display Details"
 
-#: ../cli_monitor.py:264
+#: ../cli_sysmon.py:266
 msgid "show disk details (default)"
 msgstr "show disk details (default)"
 
-#: ../cli_monitor.py:268
+#: ../cli_sysmon.py:270
 msgid "show temperature details"
 msgstr "show temperature details"
 
-#: ../cli_monitor.py:272
+#: ../cli_sysmon.py:274
 msgid "show both disk and temperature details"
 msgstr "show both disk and temperature details"
 
-#: ../cli_monitor.py:276
+#: ../cli_sysmon.py:278
 msgid "show no details, only the header"
 msgstr "show no details, only the header"
 
-#: ../desktop_menu.py:48
+#: ../desktop_menu.py:57
 msgid "Error creating desktop menu item"
 msgstr "Error creating desktop menu item"
 
-#: ../desktop_menu.py:49
+#: ../desktop_menu.py:58
 msgid ""
 "System Monitor (sysmon) must be installed in a virtual environment in order "
 "to create a desktop menu entry."
@@ -200,63 +199,71 @@ msgstr ""
 "System Monitor (sysmon) must be installed in a virtual environment in order "
 "to create a desktop menu entry."
 
-#: ../font_utils.py:74 ../modals/font_modal.py:171
+#: ../font_utils.py:153 ../modals/font_modal.py:171
 msgid "Bold"
 msgstr "Bold"
 
-#: ../font_utils.py:76 ../modals/font_modal.py:175
+#: ../font_utils.py:155 ../modals/font_modal.py:175
 msgid "Italic"
 msgstr "Italic"
 
-#: ../font_utils.py:78 ../modals/font_modal.py:179
+#: ../font_utils.py:157 ../modals/font_modal.py:179
 msgid "Bold Italic"
 msgstr "Bold Italic"
 
-#: ../modals/about_modal.py:93
+#: ../font_utils.py:171 ../modals/font_modal.py:193
+msgid "Underline"
+msgstr "Underline"
+
+#: ../font_utils.py:172 ../modals/font_modal.py:197
+msgid "Overstrike"
+msgstr "Strikethrough"
+
+#: ../modals/about_modal.py:115
 msgid "About {}"
 msgstr "About {}"
 
-#: ../modals/about_modal.py:125
+#: ../modals/about_modal.py:147
 msgid "Translators"
 msgstr "Translators"
 
-#: ../modals/about_modal.py:131
+#: ../modals/about_modal.py:153
 msgid "License"
 msgstr "License"
 
-#: ../modals/about_modal.py:149
+#: ../modals/about_modal.py:171
 msgid "Version {}"
 msgstr "Version {}"
 
-#: ../modals/about_modal.py:155
+#: ../modals/about_modal.py:177
 msgid "Source Code"
 msgstr "Source Code"
 
-#: ../modals/about_modal.py:220
+#: ../modals/about_modal.py:242
 msgid "Full license text available here"
 msgstr "Full license text available here"
 
-#: ../modals/_base_modal.py:158 ../widgets/button_mixin.py:113
+#: ../modals/_base_modal.py:158
 msgid "Close"
 msgstr "Close"
 
-#: ../modals/_base_modal.py:168 ../widgets/button_mixin.py:110
+#: ../modals/_base_modal.py:168
 msgid "Cancel"
 msgstr "Cancel"
 
-#: ../modals/_base_modal.py:169 ../widgets/button_mixin.py:107
+#: ../modals/_base_modal.py:169
 msgid "OK"
 msgstr "OK"
 
-#: ../modals/cpu_modal.py:70
+#: ../modals/cpu_modal.py:82
 msgid "per-core CPU Usage"
 msgstr "per-core CPU Usage"
 
-#: ../modals/cpu_modal.py:76
+#: ../modals/cpu_modal.py:88
 msgid "per-core CPU Frequency (in MHz)"
 msgstr "per-core CPU Frequency (in MHz)"
 
-#: ../modals/cpu_modal.py:91 ../modals/cpu_modal.py:111
+#: ../modals/cpu_modal.py:104 ../modals/cpu_modal.py:125
 msgid "CPU #{}"
 msgstr "CPU #{}"
 
@@ -279,14 +286,6 @@ msgstr "Regular"
 #: ../modals/font_modal.py:186
 msgid "Effects"
 msgstr "Effects"
-
-#: ../modals/font_modal.py:193
-msgid "Underline"
-msgstr "Underline"
-
-#: ../modals/font_modal.py:197
-msgid "Overstrike"
-msgstr "Strikethrough"
 
 #: ../modals/font_modal.py:203
 msgid "Size"
@@ -316,105 +315,99 @@ msgstr "Dark"
 msgid "Same as System"
 msgstr "Same as System"
 
-#: ../modals/settings_modal.py:106
+#: ../modals/settings_modal.py:107
 msgid "Language"
 msgstr "Language"
 
-#: ../modals/settings_modal.py:121
+#: ../modals/settings_modal.py:122
 msgid "Theme"
 msgstr "Theme"
 
-#: ../modals/settings_modal.py:139
+#: ../modals/settings_modal.py:140
 msgid "Always on top"
 msgstr "Always on top"
 
-#: ../modals/settings_modal.py:146
+#: ../modals/settings_modal.py:147
 msgid "Regular Font"
 msgstr "Regular Font"
 
-#: ../modals/settings_modal.py:156
+#: ../modals/settings_modal.py:157
 msgid "Monospace Font"
 msgstr "Monospace Font"
 
-#: ../modals/settings_modal.py:166
+#: ../modals/settings_modal.py:167
 msgid "Add to desktop menu system"
 msgstr "Add to desktop menu system"
 
-#: ../modals/settings_modal.py:191 ../modals/settings_modal.py:210
+#: ../modals/settings_modal.py:192 ../modals/settings_modal.py:211
 msgid "Select a font"
 msgstr "Select a font"
 
-#: ../widgets/button_mixin.py:116
-msgid "Yes"
-msgstr "Yes"
-
-#: ../widgets/button_mixin.py:119
-msgid "No"
-msgstr "No"
-
-#: ../widgets/button_mixin.py:122
-msgid "Retry"
-msgstr "Retry"
+#: ../widgets/edit_menu.py:51 ../widgets/edit_menu.py:80
+#: ../widgets/edit_menu.py:83
+msgid "Cut"
+msgstr "Cut"
 
 #: ../widgets/edit_menu.py:51
 msgid "Ctrl+X"
 msgstr "Ctrl+X"
 
 #: ../widgets/edit_menu.py:55
+msgid "Copy"
+msgstr "Copy"
+
+#: ../widgets/edit_menu.py:55
 msgid "Ctrl+C"
 msgstr "Ctrl+C"
+
+#: ../widgets/edit_menu.py:59 ../widgets/edit_menu.py:81
+#: ../widgets/edit_menu.py:84
+msgid "Paste"
+msgstr "Paste"
 
 #: ../widgets/edit_menu.py:59
 msgid "Ctrl+V"
 msgstr "Ctrl+V"
 
-#: ../widgets/meters.py:119
-msgid "Click for per-CPU usage"
-msgstr "Click for per-CPU usage"
+#: ../widgets/edit_menu.py:64
+msgid "Select All"
+msgstr "Select All"
 
-#: ../widgets/meters.py:139
-msgid "{} :: CPU Details"
-msgstr "{} :: CPU Details"
+#~ msgid "Yes"
+#~ msgstr "Yes"
 
-#: ../widgets/meters.py:157
-msgid "Click for detailed temperature readings"
-msgstr "Click for detailed temperature readings"
+#~ msgid "No"
+#~ msgstr "No"
 
-#: ../widgets/meters.py:172
-msgid "{} :: Temperature Details"
-msgstr "{} :: Temperature Details"
+#~ msgid "Retry"
+#~ msgstr "Retry"
 
-#: ../widgets/meters.py:190
-msgid "Click for detailed memory statistics"
-msgstr "Click for detailed memory statistics"
+#~ msgid "Click for per-CPU usage"
+#~ msgstr "Click for per-CPU usage"
 
-#: ../widgets/meters.py:204
-msgid "{} :: Memory Usage"
-msgstr "{} :: Memory Usage"
+#~ msgid "{} :: CPU Details"
+#~ msgstr "{} :: CPU Details"
 
-#: ../widgets/meters.py:219
-msgid "Disk Usage: /"
-msgstr "Disk Usage: /"
+#~ msgid "Click for detailed temperature readings"
+#~ msgstr "Click for detailed temperature readings"
 
-#: ../widgets/meters.py:222
-msgid "Click for usage details of each mount point"
-msgstr "Click for usage details of each mount point"
+#~ msgid "{} :: Temperature Details"
+#~ msgstr "{} :: Temperature Details"
 
-#: ../widgets/meters.py:236
-msgid "{} :: Disk Usage"
-msgstr "{} :: Disk Usage"
+#~ msgid "Click for detailed memory statistics"
+#~ msgstr "Click for detailed memory statistics"
+
+#~ msgid "{} :: Memory Usage"
+#~ msgstr "{} :: Memory Usage"
+
+#~ msgid "Disk Usage: /"
+#~ msgstr "Disk Usage: /"
+
+#~ msgid "Click for usage details of each mount point"
+#~ msgstr "Click for usage details of each mount point"
+
+#~ msgid "{} :: Disk Usage"
+#~ msgstr "{} :: Disk Usage"
 
 #~ msgid "Creating menu entry failed"
 #~ msgstr "Creating menu entry failed"
-
-#~ msgid "Cut"
-#~ msgstr "Cut"
-
-#~ msgid "Copy"
-#~ msgstr "Copy"
-
-#~ msgid "Paste"
-#~ msgstr "Paste"
-
-#~ msgid "Select All"
-#~ msgstr "Select All"

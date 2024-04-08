@@ -25,10 +25,16 @@ LANGUAGES = {
     "Deutsch": "de",
     "Norsk Bokmål": "nb_NO"
 }
+"""The list of language translations available."""
 
 __i18n_domain__ = "app"
 
 TRANSLATED_MODULES: list = []
+"""
+List of modules which have requested translated strings.
+
+When the translation is changed, these modules will be reloaded.
+"""
 
 
 def get_translator(
@@ -36,6 +42,20 @@ def get_translator(
 ) -> GettextCallable:
     """
     Load the selected translation.
+
+    Parameters
+    ----------
+    forced_lang : str, optional
+        The language to force-load. If not set, read the language from Settings
+        and load that one.
+    domain : str, optional
+        The gettext domain to use. Default is set by `__i18n_domain__`. Useful
+        for loading translation files for other modules, such as `argparse.py`.
+
+    Returns
+    -------
+    GettextCallable
+        a Callable with the signature: func(message: str) -> str:
     """
     current_lang = forced_lang if forced_lang else _get_lang_from_config()
     frm = inspect.stack()[1]  # get caller
@@ -53,6 +73,8 @@ def get_translator(
 def reload_translated_modules() -> None:
     """
     Reload any modules that have requested translations.
+
+    This should be called when the user selects a new translation.
     """
     for mod in TRANSLATED_MODULES:
         importlib.reload(mod)
