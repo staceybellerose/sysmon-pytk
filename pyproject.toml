@@ -42,6 +42,7 @@ sysmon = "sysmon_pytk.gui_sysmon:monitor"
 
 [project.urls]
 Homepage = "https://github.com/staceybellerose/sysmon-pytk"
+Documentation = "https://staceybellerose.github.io/sysmon-pytk/"
 Repository = "https://github.com/staceybellerose/sysmon-pytk"
 Issues = "https://github.com/staceybellerose/sysmon-pytk/issues"
 

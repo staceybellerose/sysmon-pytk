@@ -187,6 +187,7 @@ upload: dist/*.tar.gz dist/*.whl  ## Upload the package to PyPI
 clean:  ## Clean up the project folders
 > rm -rf __pycache__
 > rm -rf .mypy_cache
+> rm -rf .ruff_cache
 > rm -rf dist
 > rm -rf apidocs/build
 > rm -rf sysmon_pytk.egg-info

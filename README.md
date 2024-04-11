@@ -83,6 +83,7 @@ and
 
 If you want to work on the code, read the
 [Development Guide](https://github.com/staceybellerose/sysmon-pytk/blob/main/docs/DEVELOPING.md).
+Also, check out the [API Documentation](https://staceybellerose.github.io/sysmon-pytk/).
 
 Contributers are expected to follow our
 [Code of Conduct](https://github.com/staceybellerose/sysmon-pytk/blob/main/CODE_OF_CONDUCT.md).
