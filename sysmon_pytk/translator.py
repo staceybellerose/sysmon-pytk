@@ -32,10 +32,12 @@ class Translator:
 
 TRANSLATORS: dict[str, list[Translator]] = {
     "Español": [
-        Translator("Stacey Adams (author)")
+        Translator("Stacey Adams (author)"),
+        Translator("Félix Medrano", "robertxgray")
     ],
     "Deutsch": [
-        Translator("Alisyn Arness")
+        Translator("Alisyn Arness"),
+        Translator("Rainer Schwarzbach", "blackstream-x")
     ],
     "Norsk Bokmål": [
         Translator("Allan Nordhøy", "comradekingu")

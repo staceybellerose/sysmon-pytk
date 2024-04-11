@@ -67,8 +67,8 @@ Special thanks to our translators!
 
 | Language         | Code  | Translator |
 |------------------|-------|------------|
-| German           | de    | Alisyn Arness |
-| Spanish          | es    | Stacey Adams (author) |
+| German           | de    | Alisyn Arness, [Rainer Schwarzbach](https://github.com/blackstream-x) |
+| Spanish          | es    | Stacey Adams (author), [Félix Medrano](https://github.com/robertxgray) |
 | Norwegian Bokmål | nb_NO | [Allan Nordhøy](https://github.com/comradekingu) |
 
 ## Contributing

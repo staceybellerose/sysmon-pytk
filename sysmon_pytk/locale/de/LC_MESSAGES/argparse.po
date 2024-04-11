@@ -57,7 +57,7 @@ msgstr ""
 #: /usr/lib/python3.10/argparse.py:1527 /usr/lib/python3.11/argparse.py:1547
 #: /usr/lib/python3.12/argparse.py:1569 /usr/lib/python3.9/argparse.py:1525
 msgid "'required' is an invalid argument for positionals"
-msgstr "'required' ist in Verbindung mit Positionsparametern ungültig"
+msgstr "'required' darf nicht mit Positionsparametern verwendet werden"
 
 #: /usr/lib/python3.10/argparse.py:1549 /usr/lib/python3.11/argparse.py:1569
 #: /usr/lib/python3.12/argparse.py:1591 /usr/lib/python3.9/argparse.py:1547
@@ -198,7 +198,7 @@ msgstr "ungültiger Wert für %(type)s: %(value)r"
 #: /usr/lib/python3.12/argparse.py:2577 /usr/lib/python3.9/argparse.py:2511
 #, python-format
 msgid "invalid choice: %(value)r (choose from %(choices)s)"
-msgstr "ungültige Wahl: %(value)r (Auswahl aus %(choices)s)"
+msgstr "ungültiger Wert: %(value)r (Auswahl aus %(choices)s)"
 
 #: /usr/lib/python3.10/argparse.py:2594 /usr/lib/python3.11/argparse.py:2630
 #: /usr/lib/python3.12/argparse.py:2655 /usr/lib/python3.9/argparse.py:2587
@@ -223,4 +223,4 @@ msgstr "Subparser-Alias im Konflikt: %s"
 
 #: /usr/lib/python3.9/argparse.py:1734
 msgid "optional arguments"
-msgstr "optionale Argumente"
+msgstr "Optionen"
