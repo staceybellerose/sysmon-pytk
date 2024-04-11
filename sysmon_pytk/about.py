@@ -10,7 +10,7 @@ from .app_locale import get_translator
 _ = get_translator()
 
 __app_name__ = "sysmon-pytk"
-__version__ = "0.5.1"
+__version__ = "0.5.1.post1"
 __license__ = _("MIT License")
 __author_name__ = "Stacey Adams"
 __author_email__ = "stacey.belle.rose@gmail.com"
