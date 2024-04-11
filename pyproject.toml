@@ -60,7 +60,6 @@ include = ["sysmon_pytk*", "azure*"]
 [tool.setuptools.dynamic]
 version = {attr = "sysmon_pytk.about.__version__"}
 dependencies = {file = ["requirements.txt"]}
-optional-dependencies = {dev = {file = ["requirements-dev.txt"]}}
 
 [tool.ruff]
 line-length = 99
