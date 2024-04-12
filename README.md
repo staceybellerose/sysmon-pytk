@@ -7,9 +7,10 @@ SPDX-License-Identifier: MIT
 -->
 <!-- markdownlint-disable MD033 -->
 
-[![GitHub License](https://img.shields.io/github/license/staceybellerose/sysmon-pytk?color=7C4DFF)](https://github.com/staceybellerose/sysmon-pytk)
+[![GitHub License](https://img.shields.io/github/license/staceybellerose/sysmon-pytk?color=7C4DFF)](https://opensource.org/license/MIT)
 [![GitHub Release](https://img.shields.io/github/v/release/staceybellerose/sysmon-pytk)](https://github.com/staceybellerose/sysmon-pytk/releases)
-[![AppVeyor Build](https://img.shields.io/appveyor/build/staceybellerose/sysmon-pytk/main)](https://ci.appveyor.com/project/staceybellerose/sysmon-pytk/)
+[![AppVeyor Build](https://img.shields.io/appveyor/build/staceybellerose/sysmon-pytk/main?logo=appveyor&logoColor=white)](https://ci.appveyor.com/project/staceybellerose/sysmon-pytk/)
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/staceybellerose/sysmon-pytk/docs.yml?logo=github&logoColor=white&label=docs)](https://staceybellerose.github.io/sysmon-pytk/)
 
 [![PyPI - Status](https://img.shields.io/pypi/status/sysmon-pytk)](https://pypi.org/project/sysmon-pytk/)
 [![PyPI - Version](https://img.shields.io/pypi/v/sysmon-pytk)](https://pypi.org/project/sysmon-pytk/)
@@ -19,7 +20,7 @@ SPDX-License-Identifier: MIT
 [![CodeFactor Grade](https://img.shields.io/codefactor/grade/github/staceybellerose/sysmon-pytk?logo=codefactor)](https://www.codefactor.io/repository/github/staceybellerose/sysmon-pytk)
 [![Maintainability](https://api.codeclimate.com/v1/badges/556c93bf800d0d58e7e4/maintainability)](https://codeclimate.com/github/staceybellerose/sysmon-pytk/maintainability)
 
-System monitor written in Python using Tk. It monitors CPU usage and
+System monitor written in Python using the Tk library. It monitors CPU usage and
 temperature, RAM usage, and disk usage of the primary disk (containing the
 root partition). It also displays the system's hostname, IP address, uptime,
 and current process count.
@@ -59,7 +60,8 @@ gui_sysmon
 cli_sysmon
 ```
 
-To get available options for the command line program, use `cli_sysmon -h`.
+To get available options for the command line program, use `cli_sysmon -h`, or
+[read them online](https://github.com/staceybellerose/sysmon-pytk/blob/main/docs/CLI_USAGE.md).
 
 ## Translations
 
