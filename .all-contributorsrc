@@ -9,10 +9,43 @@
   "contributorsPerLine": 7,
   "contributors": [
     {
+      "login": "staceybellerose",
+      "name": "Stacey Adams",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1043355?v=4",
+      "profile": "https://staceyadams.me/",
+      "contributions": [
+        "code", "doc", "projectManagement", "maintenance", "translation"
+      ]
+    },
+    {
+      "name": "Alisyn Arness",
+      "avatar_url": "https://github.githubassets.com/images/gravatars/gravatar-user-420.png",
+      "contributions": [
+        "translation"
+      ]
+    },
+    {
       "login": "comradekingu",
       "name": "Allan Nordhøy",
       "avatar_url": "https://avatars.githubusercontent.com/u/13802408?v=4",
       "profile": "https://liberapay.com/kingu/",
+      "contributions": [
+        "translation"
+      ]
+    },
+    {
+      "login": "robertxgray",
+      "name": "Félix Medrano",
+      "avatar_url": "https://avatars.githubusercontent.com/u/9676118?v=4",
+      "contributions": [
+        "translation"
+      ]
+    },
+    {
+      "login": "blackstream-x",
+      "name": "Rainer Schwarzbach",
+      "avatar_url": "https://avatars.githubusercontent.com/u/8937080?v=4",
+      "profile": "https://blackstream-x.codeberg.page/",
       "contributions": [
         "translation"
       ]
