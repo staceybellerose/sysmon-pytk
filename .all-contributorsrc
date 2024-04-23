@@ -57,11 +57,20 @@
     },
     {
       "login": "snyk-bot",
-      "name": "Snyk bot",
+      "name": "Snyk[bot]",
       "avatar_url": "https://avatars.githubusercontent.com/u/19733683?v=4",
       "profile": "https://snyk.io",
       "contributions": [
         "security"
+      ]
+    },
+    {
+      "login": "all-contributors",
+      "name": "all-contributors[bot]",
+      "avatar_url": "https://avatars.githubusercontent.com/u/46410174?v=4",
+      "profile": "https://allcontributors.org",
+      "contributions": [
+        "doc"
       ]
     }
   ]
