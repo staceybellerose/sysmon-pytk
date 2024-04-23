@@ -96,10 +96,12 @@ Contributers are expected to follow our
 <table>
   <tbody>
     <tr>
-      <td align="center" valign="top" width="14.28%"><img src="https://github.githubassets.com/images/gravatars/gravatar-user-420.png" width="100px;" alt="Alisyn Arness"/><br /><sub><b>Alisyn Arness</b></sub><br /><a href="#translation-alisynarness" title="Translation">🌍</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/staceybellerose/"><img src="https://avatars.githubusercontent.com/u/1043355?v=4?s=100" width="100px;" alt="Stacey Adams"/><br /><sub><b>Stacey Adams</b></sub></a><br /><a href="#code-staceybellerose" title="Code">💻</a> <a href="#doc-staceybellerose" title="Documentation">📖</a> <a href="#projectManagement-staceybellerose" title="Project Management">📆</a> <a href="#maintenance-staceybellerose" title="Maintenance">🚧</a> <a href="#translation-staceybellerose" title="Translation">🌍</a></td>
+      <td align="center" valign="top" width="14.28%"><img src="https://github.githubassets.com/images/gravatars/gravatar-user-420.png?s=100" width="100px;" alt="Alisyn Arness"/><br /><sub><b>Alisyn Arness</b></sub><br /><a href="#translation" title="Translation">🌍</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://liberapay.com/kingu/"><img src="https://avatars.githubusercontent.com/u/13802408?v=4?s=100" width="100px;" alt="Allan Nordhøy"/><br /><sub><b>Allan Nordhøy</b></sub></a><br /><a href="#translation-comradekingu" title="Translation">🌍</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/robertxgray"><img src="https://avatars.githubusercontent.com/u/9676118?v=4?s=100" width="100px;" alt="Félix Medrano"/><br /><sub><b>Félix Medrano</b></sub></a><br /><a href="#translation-robertxgray" title="Translation">🌍</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/blackstream-x"><img src="https://avatars.githubusercontent.com/u/8937080?v=4?s=100" width="100px;" alt="Rainer Schwarzbach"/><br /><sub><b>Rainer Schwarzbach</b></sub></a><br /><a href="#translation-blackstream-x" title="Translation">🌍</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://allcontributors.org"><img src="https://avatars.githubusercontent.com/u/46410174?v=4?s=100" width="100px;" alt="All Contributors"/><br /><sub><b>All Contributors</b></sub></a><br /><a href="#doc-all-contributors" title="Documentation">📖</a></td>
     </tr>
   </tbody>
 </table>
