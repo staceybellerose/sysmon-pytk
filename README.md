@@ -90,6 +90,10 @@ Also, check out the [API Documentation](https://staceybellerose.github.io/sysmon
 Contributers are expected to follow our
 [Code of Conduct](https://github.com/staceybellerose/sysmon-pytk/blob/main/CODE_OF_CONDUCT.md).
 
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
@@ -97,11 +101,12 @@ Contributers are expected to follow our
   <tbody>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/staceybellerose/"><img src="https://avatars.githubusercontent.com/u/1043355?v=4?s=100" width="100px;" alt="Stacey Adams"/><br /><sub><b>Stacey Adams</b></sub></a><br /><a href="#code-staceybellerose" title="Code">💻</a> <a href="#doc-staceybellerose" title="Documentation">📖</a> <a href="#projectManagement-staceybellerose" title="Project Management">📆</a> <a href="#maintenance-staceybellerose" title="Maintenance">🚧</a> <a href="#translation-staceybellerose" title="Translation">🌍</a></td>
-      <td align="center" valign="top" width="14.28%"><img src="https://github.githubassets.com/images/gravatars/gravatar-user-420.png?s=100" width="100px;" alt="Alisyn Arness"/><br /><sub><b>Alisyn Arness</b></sub><br /><a href="https://github.com/staceybellerose/sysmon-pytk/blob/main/sysmon_pytk/locale/de/LC_MESSAGES/app.po" title="Translation">🌍</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://liberapay.com/kingu/"><img src="https://avatars.githubusercontent.com/u/13802408?v=4?s=100" width="100px;" alt="Allan Nordhøy"/><br /><sub><b>Allan Nordhøy</b></sub></a><br /><a href="https://github.com/staceybellerose/sysmon-pytk/tree/main/sysmon_pytk/locale/nb_NO/LC_MESSAGES" title="Translation">🌍</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/robertxgray"><img src="https://avatars.githubusercontent.com/u/9676118?v=4?s=100" width="100px;" alt="Félix Medrano"/><br /><sub><b>Félix Medrano</b></sub></a><br /><a href="https://github.com/staceybellerose/sysmon-pytk/blob/main/sysmon_pytk/locale/es/LC_MESSAGES/argparse.po" title="Translation">🌍</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/blackstream-x"><img src="https://avatars.githubusercontent.com/u/8937080?v=4?s=100" width="100px;" alt="Rainer Schwarzbach"/><br /><sub><b>Rainer Schwarzbach</b></sub></a><br /><a href="https://github.com/staceybellerose/sysmon-pytk/blob/main/sysmon_pytk/locale/de/LC_MESSAGES/argparse.po" title="Translation">🌍</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://snyk.io"><img src="https://avatars.githubusercontent.com/u/19733683?v=4?s=100" width="100px;" alt="Snyk bot"/><br /><sub><b>Snyk bot</b></sub></a><br /><a href="https://github.com/staceybellerose/sysmon-pytk/pulls?q=is%3Apr+%5BSnyk%5D" title="Security">🛡️</a></td>
+      <td align="center" valign="top" width="14.28%"><img src="https://github.githubassets.com/images/gravatars/gravatar-user-420.png?s=100" width="100px;" alt="Alisyn Arness"/><br /><sub><b>Alisyn Arness</b></sub><br /><a href="#translation" title="Translation">🌍</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://liberapay.com/kingu/"><img src="https://avatars.githubusercontent.com/u/13802408?v=4?s=100" width="100px;" alt="Allan Nordhøy"/><br /><sub><b>Allan Nordhøy</b></sub></a><br /><a href="#translation-comradekingu" title="Translation">🌍</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/robertxgray"><img src="https://avatars.githubusercontent.com/u/9676118?v=4?s=100" width="100px;" alt="Félix Medrano"/><br /><sub><b>Félix Medrano</b></sub></a><br /><a href="#translation-robertxgray" title="Translation">🌍</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/blackstream-x"><img src="https://avatars.githubusercontent.com/u/8937080?v=4?s=100" width="100px;" alt="Rainer Schwarzbach"/><br /><sub><b>Rainer Schwarzbach</b></sub></a><br /><a href="#translation-blackstream-x" title="Translation">🌍</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://snyk.io"><img src="https://avatars.githubusercontent.com/u/19733683?v=4?s=100" width="100px;" alt="Snyk[bot]"/><br /><sub><b>Snyk[bot]</b></sub></a><br /><a href="#security-snyk" title="Security">🛡️</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://allcontributors.org"><img src="https://avatars.githubusercontent.com/u/46410174?v=4?s=100" width="100px;" alt="all-contributors[bot]"/><br /><sub><b>all-contributors[bot]</b></sub></a><br /><a href="#doc-all-contributors" title="Documentation">📖</a></td>
     </tr>
   </tbody>
 </table>
@@ -110,4 +115,6 @@ Contributers are expected to follow our
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
 
