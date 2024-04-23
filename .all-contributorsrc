@@ -1,4 +1,21 @@
 {
   "projectName": "sysmon-pytk",
-  "projectOwner": "staceybellerose"
+  "projectOwner": "staceybellerose",
+  "files": [
+    "README.md"
+  ],
+  "commitType": "docs",
+  "commitConvention": "angular",
+  "contributorsPerLine": 7,
+  "contributors": [
+    {
+      "login": "robertxgray",
+      "name": "Medrano83",
+      "avatar_url": "https://avatars.githubusercontent.com/u/9676118?v=4",
+      "profile": "https://github.com/robertxgray",
+      "contributions": [
+        "translation"
+      ]
+    }
+  ]
 }
