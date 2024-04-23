@@ -14,7 +14,11 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/1043355?v=4",
       "profile": "https://github.com/staceybellerose/",
       "contributions": [
-        "code", "doc", "projectManagement", "maintenance", "translation"
+        "code",
+        "doc",
+        "projectManagement",
+        "maintenance",
+        "translation"
       ]
     },
     {
@@ -49,6 +53,15 @@
       "profile": "https://github.com/blackstream-x",
       "contributions": [
         "translation"
+      ]
+    },
+    {
+      "login": "snyk-bot",
+      "name": "Snyk bot",
+      "avatar_url": "https://avatars.githubusercontent.com/u/19733683?v=4",
+      "profile": "https://snyk.io",
+      "contributions": [
+        "security"
       ]
     }
   ]

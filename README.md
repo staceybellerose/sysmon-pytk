@@ -101,7 +101,8 @@ Contributers are expected to follow our
       <td align="center" valign="top" width="14.28%"><a href="https://liberapay.com/kingu/"><img src="https://avatars.githubusercontent.com/u/13802408?v=4?s=100" width="100px;" alt="Allan Nordhøy"/><br /><sub><b>Allan Nordhøy</b></sub></a><br /><a href="#translation-comradekingu" title="Translation">🌍</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/robertxgray"><img src="https://avatars.githubusercontent.com/u/9676118?v=4?s=100" width="100px;" alt="Félix Medrano"/><br /><sub><b>Félix Medrano</b></sub></a><br /><a href="#translation-robertxgray" title="Translation">🌍</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/blackstream-x"><img src="https://avatars.githubusercontent.com/u/8937080?v=4?s=100" width="100px;" alt="Rainer Schwarzbach"/><br /><sub><b>Rainer Schwarzbach</b></sub></a><br /><a href="#translation-blackstream-x" title="Translation">🌍</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://allcontributors.org"><img src="https://avatars.githubusercontent.com/u/46410174?v=4?s=100" width="100px;" alt="All Contributors"/><br /><sub><b>All Contributors</b></sub></a><br /><a href="#doc-all-contributors" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://snyk.io"><img src="https://avatars.githubusercontent.com/u/19733683?v=4?s=100" width="100px;" alt="Snyk[bot]"/><br /><sub><b>Snyk[bot]</b></sub></a><br /><a href="#security-snyk" title="Security">🛡️</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://allcontributors.org"><img src="https://avatars.githubusercontent.com/u/46410174?v=4?s=100" width="100px;" alt="all-contributors[bot]"/><br /><sub><b>all-contributors[bot]</b></sub></a><br /><a href="#doc-all-contributors" title="Documentation">📖</a></td>
     </tr>
   </tbody>
 </table>
