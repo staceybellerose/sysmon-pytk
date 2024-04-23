@@ -1,4 +1,21 @@
 {
   "projectName": "sysmon-pytk",
-  "projectOwner": "staceybellerose"
+  "projectOwner": "staceybellerose",
+  "files": [
+    "README.md"
+  ],
+  "commitType": "docs",
+  "commitConvention": "angular",
+  "contributorsPerLine": 7,
+  "contributors": [
+    {
+      "login": "comradekingu",
+      "name": "Allan Nordhøy",
+      "avatar_url": "https://avatars.githubusercontent.com/u/13802408?v=4",
+      "profile": "https://liberapay.com/kingu/",
+      "contributions": [
+        "translation"
+      ]
+    }
+  ]
 }
