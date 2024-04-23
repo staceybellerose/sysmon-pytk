@@ -1,4 +1,6 @@
 {
+  "__comment_1": "SPDX-FileCopyrightText: © 2024 Stacey Adams <stacey.belle.rose@gmail.com>",
+  "__comment_2": "SPDX-License-Identifier: Unlicense",
   "projectName": "sysmon-pytk",
   "projectOwner": "staceybellerose",
   "files": [
@@ -12,7 +14,7 @@
       "login": "staceybellerose",
       "name": "Stacey Adams",
       "avatar_url": "https://avatars.githubusercontent.com/u/1043355?v=4",
-      "profile": "https://staceyadams.me/",
+      "profile": "https://github.com/staceybellerose/",
       "contributions": [
         "code", "doc", "projectManagement", "maintenance", "translation"
       ]
@@ -37,6 +39,7 @@
       "login": "robertxgray",
       "name": "Félix Medrano",
       "avatar_url": "https://avatars.githubusercontent.com/u/9676118?v=4",
+      "profile": "https://github.com/robertxgray",
       "contributions": [
         "translation"
       ]
@@ -45,7 +48,7 @@
       "login": "blackstream-x",
       "name": "Rainer Schwarzbach",
       "avatar_url": "https://avatars.githubusercontent.com/u/8937080?v=4",
-      "profile": "https://blackstream-x.codeberg.page/",
+      "profile": "https://github.com/blackstream-x",
       "contributions": [
         "translation"
       ]
