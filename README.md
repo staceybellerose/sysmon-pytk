@@ -93,6 +93,13 @@ Contributers are expected to follow our
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/robertxgray"><img src="https://avatars.githubusercontent.com/u/9676118?v=4?s=100" width="100px;" alt="Medrano83"/><br /><sub><b>Medrano83</b></sub></a><br /><a href="#translation-robertxgray" title="Translation">🌍</a></td>
+    </tr>
+  </tbody>
+</table>
 
 <!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
